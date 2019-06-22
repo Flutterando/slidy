@@ -28,7 +28,7 @@ class Generate {
     } else if (args[1] == 'repository' || args[1] == 'r') {
       repository(args[2]);
     } else {
-      // addModule("Edit", args[1]);
+      print("Generate: Invalid Command");
     }
   }
 

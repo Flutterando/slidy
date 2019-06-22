@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/init.dart';
 import 'package:slidy/src/package_manager.dart';
+import 'package:slidy/src/utils/help.dart';
 
 import 'package:slidy/src/utils/utils.dart';
 
-String VERSION = "0.0.10";
+String VERSION = "0.0.11";
 
 main(List<String> args) async {
 
@@ -29,13 +30,17 @@ main(List<String> args) async {
     PackageManager().update(args, checkParam(args, "--dev"));
   } else if(args[0] == "--version" || args[0] == "-v"){
     print("Slidy version: $VERSION");
+  } else if(args[0] == "--help" || args[0] == "-h"){
+    print(startHelpEn);
+  } else if(args[0] == "--ajuda" || args[0] == "-a"){
+    print(startHelpPt);
   } else if(args[0] == "upgrade"){
     print("Atualizando...");
     Process.runSync("pub", ["global", "activate", "slidy"], runInShell: true);
     var process = Process.runSync("slidy", ["-v"], runInShell: true);
     print(process.stdout);
   } else {
-    print("Comando inválido");
+    print("Invalid command");
 
   }
 
