@@ -1,0 +1,18 @@
+name: slidy
+description: CLI package manager and template for Flutter
+version: 0.0.10
+author: Flutterando Team <jacobaraujo7@gmail.com>
+homepage: https://github.com/jacobaraujo7/bloc-pattern
+
+environment:
+  sdk: '>=2.2.0 <3.0.0'
+
+dependencies:
+  ansicolor: ^1.0.2
+  pubspec: ^0.1.1
+  http: ^0.12.0+2
+  path: ^1.6.2
+
+
+executables:
+  slidy: main
