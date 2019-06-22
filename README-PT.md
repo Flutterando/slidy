@@ -1,3 +1,5 @@
+[Click here to see in english](README.md)
+
 # Slidy
 
 &nbsp;&nbsp;&nbsp;&nbsp;Esse projeto é um CLI (command-line interface) para Flutter.<br>
