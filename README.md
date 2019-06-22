@@ -1,7 +1,7 @@
 # Slidy
 
 &nbsp;&nbsp;&nbsp;&nbsp;Esse projeto é um CLI (command-line interface) para Flutter.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Esse CLI consiste em uma forma monstar o seu projeto estruturado por modulos, paginas, repositorios, widgets sempre seguindo os padrões de boas praticas quem vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Esse CLI consiste em uma forma mostar o seu projeto estruturado por modulos, paginas, repositorios, widgets sempre seguindo os padrões de boas praticas quem vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Ele também fornece o gerenciador de bibliotecas (libs ou pubs) com ele você pode instalar uma biblioteca, instalar varias bibliotecas com apenas uma linha de comando e até mesmo remover e atualizar e tudo isso de uma forma simples.
 
 ## Getting Started
