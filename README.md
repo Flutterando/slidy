@@ -6,7 +6,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;This CLI consists of a way to assemble your project structured by modules, pages, repositories, widgets always following the standards of good practices that has been applied by the community flutter in bigger and more structured projects.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;It also provides the library manager (libs or pubs) with it you can install a library, install multiple libraries with just one command line and even remove and update and all of this in a simple way.<br/>
 
-## Getting Started
+## Getting Started <br>
 
 To start you need just install the Slidy:<br/>
 
@@ -14,8 +14,8 @@ To start you need just install the Slidy:<br/>
 
 <br>Ready now you can enjoy this new world.<br/>
 
-#### Comands:    
-  **start:** 
+#### Comands:     <br>
+  **start:** <br>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Create a basic structure for your project ( make sure you have any data on "Lib" folder)*<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy start `
 
@@ -33,10 +33,10 @@ To start you need just install the Slidy:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uninstall [package name]	*Remove a dev_dependency package*<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall flutter_launcher_icons --dev  ` 
 
-**Generate:**
+**Generate:** <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generate[g] *Creates a module, page, widget or repository according to the option.*<br/>
     
-&nbsp;&nbsp;&nbsp;&nbsp;**Options:**
+&nbsp;&nbsp;&nbsp;&nbsp;**Options:** <br>
     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module[m] [module_name] *Creates a new module*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g m manager/product/product` 
@@ -51,7 +51,7 @@ To start you need just install the Slidy:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g r manager/product/repositories/product` 
     
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Optional parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;**Optional parameters:** <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b  *this parameter prevent a creation of a useless "Bloc"*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w product/widgets/product_buttom b` <br/>
