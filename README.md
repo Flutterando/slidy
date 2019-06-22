@@ -1,4 +1,4 @@
-[Para ver em Português click aqui](README-PT.md)
+[Para ver em Português clique aqui](README-PT.md)
 
 # Slidy
 
