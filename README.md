@@ -1,67 +1,63 @@
 # Slidy
 
-&nbsp;&nbsp;&nbsp;&nbsp;Esse projeto é um CLI (command-line interface) para Flutter.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Esse CLI consiste em uma forma montar o seu projeto estruturado por modulos, paginas, repositorios, widgets sempre seguindo os padrões de boas praticas quem vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Ele também fornece o gerenciador de bibliotecas (libs ou pubs) com ele você pode instalar uma biblioteca, instalar varias bibliotecas com apenas uma linha de comando e até mesmo remover e atualizar e tudo isso de uma forma simples.
+&nbsp;&nbsp;&nbsp;&nbsp;This project is a CLI (command-line interface) for Flutter.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;This CLI consists of a way to assemble your project structured by modules, pages, repositories, widgets always following the standards of good practices that has been applied by the community flutter in bigger and more structured projects.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;It also provides the library manager (libs or pubs) with it you can install a library, install multiple libraries with just one command line and even remove and update and all of this in a simple way.<br/>
 
 ## Getting Started
 
-Para começar a usar você precisa instalar o Slidy:
+To start you need just install the Slidy:<br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pub global activate slidy`
 
-Pronto a partir de agora você ja pode disfrutar desse novo mundo.
+<br>Ready now you can enjoy this new world.<br/>
 
 #### Comands:    
-  **start:**   
-     
-     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma estrutura básica para seu projeto ( confirme que você não tenha nenhum dado na pasta "Lib")*<br/>
+  **start:** 
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Create a basic structure for your project ( make sure you have any data on "Lib" folder)*<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy start `
 
 **Install:**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install[i] [package name][package name][..] 	*Instala um novo pacote(package) ou pacotes*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install[i] [package name][package name][..] 	*Install a new package or packages*<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i rxdart dio bloc_pattern `
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install[i] [package name][package name][..] --dev *Instala um novo pacote(package) ou pacotes como dev dependency*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install[i] [package name][package name][..] --dev *Install a dev dependency package or packages*<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i flutter_launcher_icons --dev ` 
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uninstall [package name]	remove um pacote<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uninstall [package name]	*Remove a package*<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall dio` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uninstall [package name]	*Remove um pacote da dev_dependency*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uninstall [package name]	*Remove a dev_dependency package*<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall flutter_launcher_icons --dev  ` 
 
 **Generate:**
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generate[g] *Cria um modulo, pagina, widget or repositorio conforme a opção.*<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generate[g] *Creates a module, page, widget or repository according to the option.*<br/>
     
-&nbsp;&nbsp;&nbsp;&nbsp;**Opções:**<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;**Options:**
     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module[m] [module_name] *Cria um novo modulo*<br/>
-             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g m manager/product/product` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module[m] [module_name] *Creates a new module*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g m manager/product/product` 
             
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page[p] [module_name(optional)]/[pages(optional)]/[page_name]	*Cria uma nova pagina e o seu respectivo Bloc*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page[p] [module_name(optional)]/[pages(optional)]/[page_name]	*Creates a new page with your respective Bloc*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;             ` slidy g p manager/product/pages/add_product	` 
             
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget[w] [module_name(optional)]/[widgets(optional)]/[widget_name] *Cria uma novo widget e o seu respectivo Bloc*<br/>
-             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w manager/product/widgets/product_detail` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget[w] [module_name(optional)]/[widgets(optional)]/[widget_name] *Creates a new widget with your respective Bloc*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w manager/product/widgets/product_detail` 
             
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repository[r] [module_name(optional)]/[repositories(optional)]/[repository_name] *Cria uma novo repositorio*<br/>
-             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g r manager/product/repositories/product` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repository[r] [module_name(optional)]/[repositories(optional)]/[repository_name] *Creates a new repository*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g r manager/product/repositories/product` 
     
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Parametro opcional:**
+&nbsp;&nbsp;&nbsp;&nbsp;**Optional parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b  *Esse parametro evita de você criar um "Bloc" sem utilidade*<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w product/widgets/product_buttom b` <br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g p home/start/pages/product_detail b` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b  *this parameter prevent a creation of a useless "Bloc"*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w product/widgets/product_buttom b` <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g p home/start/pages/product_detail b` <br/>
 
-**Help**
+**Ajuda**<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--ajuda:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy help ` ajuda Mostra a Ajuda em português <br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--help:<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy help Show a english help` 
-
-Para mais detalhes https://t.me/flutterando
+For more details https://t.me/flutterando
