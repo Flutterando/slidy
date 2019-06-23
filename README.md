@@ -92,7 +92,5 @@ Cria uma novo repositorio
 ```
 slidy g r manager/product/repositories/product
 ``` 
-    
-
 
 Para mais detalhes https://t.me/flutterando
