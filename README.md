@@ -1,7 +1,5 @@
 [Para ver em Português clique aqui](README-PT.md)
 
-[Para ver em Português clique aqui](README-PT.md)
-
 # Slidy
 
 This CLI consists of a way to assemble your project structured by modules, pages, repositories, widgets always following the standards of good practices that has been applied by the community flutter in bigger and more structured projects.
