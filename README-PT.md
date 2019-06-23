@@ -36,7 +36,7 @@ Exemplo de estrutura de pastas gerada pelo **slidy**:
 pub global activate slidy
 ```
 - Digite ` slidy --version` - se retornar a versão do slidy pode considerar a instalação completa.
-- Apara atualizar o slidy basta usar o comando:
+- Para atualizar o slidy basta usar o comando:
 ```
 slidy upgrade
 ```
