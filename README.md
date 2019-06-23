@@ -70,7 +70,7 @@ To start you need just install the Slidy:<br/>
 
 **Ajuda**<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--ajuda**<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy ajuda ` <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy --ajuda ` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mostra a Ajuda em português <br/><br/><br/>
 
 For more details https://t.me/flutterando
