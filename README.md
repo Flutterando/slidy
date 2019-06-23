@@ -88,7 +88,7 @@ Creates a new widget and its respective Bloc:
 ```
 slidy generate widget manager/product/widgets/product_detail
 ``` 
-NOTE: You can create a page or widget without BLoC using the flag **-b**
+NOTE: You can create a page or widget with your respective BLoC using the flag **-b**
             
 Create a new repository
 ```
