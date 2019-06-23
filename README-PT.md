@@ -86,7 +86,7 @@ Cria uma novo widget e o seu respectivo Bloc:
 ```
 slidy generate widget manager/product/widgets/product_detail
 ``` 
-OBS: Você pode criar uma page ou widget sem o BLoC usando a flag **-b**
+OBS: Você pode criar uma page ou widget com seu respectivo BLoC usando a flag **-b**
             
 Cria uma novo repositorio
 ```
