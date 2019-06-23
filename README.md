@@ -1,3 +1,4 @@
+[Para ver em Português clique aqui](README-PT.md)
 # Slidy
 
 Esse CLI consiste em uma forma monstar o seu projeto estruturado por modulos, paginas, repositorios, widgets sempre seguindo os padrões de boas praticas quem vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados. 
