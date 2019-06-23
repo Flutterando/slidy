@@ -12,20 +12,20 @@ Para começar a usar você precisa instalar o Slidy:
 
     `pub global activate slidy`
 
-Pronto a partir de agora você ja pode disfrutar desse novo mundo.
+Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
 
 #### Comands:    
-  **start:** 
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma estrutura básica para seu projeto ( confirme que você não tenha nenhum dado na pasta "Lib")*
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy start `
+  **start:**  <br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma estrutura básica para seu projeto ( confirme que você não tenha nenhum dado na pasta "Lib")* <br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy start ` <br>
 
-**Install:**
+**Install:** <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**install[i] [package name][package name][..]** 	 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Instala um novo pacote(package) ou pacotes*
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i rxdart dio bloc_pattern `
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Instala um novo pacote(package) ou pacotes* <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i rxdart dio bloc_pattern ` <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**install[i] [package name][package name][..] --dev**  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Instala um novo pacote(package) ou pacotes como dev dependency*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Instala um novo pacote(package) ou pacotes como dev dependency* <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i flutter_launcher_icons --dev ` 
 
 
@@ -34,25 +34,25 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo.
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall dio` 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**uninstall [package name]**  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	*Remove um pacote da dev_dependency*
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall flutter_launcher_icons --dev  ` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	*Remove um pacote da dev_dependency* <br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy uninstall flutter_launcher_icons --dev  `  <br>
 
-**Generate:**
+**Generate:** <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**generate[g]**  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria um modulo, pagina, widget or repositorio conforme a opção.*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria um modulo, pagina, widget or repositorio conforme a opção.* <br>
     
-**Opções:**
+**Opções:** <br>
     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**module[m] [module_name]**  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria um novo modulo*
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g m manager/product/product` 
             
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**page[p] [module_name(optional)]/[pages(optional)]/[page_name]**	 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Cria uma nova pagina e o seu respectivo Bloc*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Cria uma nova pagina e o seu respectivo Bloc* <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;             ` slidy g p manager/product/pages/add_product	` 
             
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**widget[w] [module_name(optional)]/[widgets(optional)]/[widget_name] **  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma novo widget e o seu respectivo Bloc*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma novo widget e o seu respectivo Bloc* <br>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w manager/product/widgets/product_detail` 
             
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**repository[r] [module_name(optional)]/[repositories(optional)]/[repository_name]** <br>
@@ -60,15 +60,15 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo.
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g r manager/product/repositories/product` 
     
 
-**Parametro opcional:**
+**Parametro opcional:** <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**b**  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Esse parametro evita de você criar um "Bloc" sem utilidade*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Esse parametro evita de você criar um "Bloc" sem utilidade* <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w product/widgets/product_buttom b` 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g p home/start/pages/product_detail b` 
 
-**Help**
+**Help** <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--help**
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy --help` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show a english help <br/><br/><br/>
