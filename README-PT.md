@@ -40,7 +40,7 @@ Para começar a usar você precisa instalar o Slidy:
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generate[g] *Cria um modulo, pagina, widget or repositorio conforme a opção.*<br/>
     
 &nbsp;&nbsp;&nbsp;&nbsp;**Opções:**<br/>
-    
+   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module[m] [module_name] *Cria um novo modulo*<br/>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g m manager/product/product` 
             
