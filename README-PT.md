@@ -19,7 +19,7 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma estrutura básica para seu projeto ( confirme que você não tenha nenhum dado na pasta "Lib")* <br>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy start ` <br>
 
-**Install:** <br>
+**Install:** <br> <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**install[i] [package name][package name][..]** 	 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Instala um novo pacote(package) ou pacotes* <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i rxdart dio bloc_pattern ` <br>
@@ -51,7 +51,7 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Cria uma nova pagina e o seu respectivo Bloc* <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;             ` slidy g p manager/product/pages/add_product	` 
             
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**widget[w] [module_name(optional)]/[widgets(optional)]/[widget_name] **  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **widget[w] [module_name(optional)]/[widgets(optional)]/[widget_name]**  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cria uma novo widget e o seu respectivo Bloc* <br>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w manager/product/widgets/product_detail` 
             
