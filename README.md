@@ -8,7 +8,7 @@ It also provides the libraries manager (libs or pubs) with it you can install mu
 ## IMPORTANT! This project is under development.
 
 We're excited to deliver slidy to the community, but it's still a package that's developing and may show some weird behavior. Use with caution.
-To speed up and help with development, cooperate by putting your problems and suggestions in the ** issues ** tab of that repository.
+To speed up and help with development, cooperate by putting your problems and suggestions in the **issues** tab of that repository.
 
 ## Motivations
 
