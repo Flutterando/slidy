@@ -86,7 +86,7 @@ class Generate {
 
     //create bloc
 
-    if (blocLess) {
+    if (!blocLess) {
       print(white("Criando bloc..."));
 
       var filebloc = File(path + "/" + "${name}_bloc.dart");
