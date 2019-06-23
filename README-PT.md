@@ -10,7 +10,7 @@ Ele também fornece o gerenciador de bibliotecas (libs ou pubs) com ele você po
 
 Para começar a usar você precisa instalar o Slidy:
 
-    `pub global activate slidy`
+`pub global activate slidy`
 
 Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
 
