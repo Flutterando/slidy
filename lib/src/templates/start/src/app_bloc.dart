@@ -1,8 +1,7 @@
-class BlocModel {
-  String model(String name) => '''
+String startAppBloc() => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 
-class ${name}Bloc extends BlocBase {
+class AppBloc extends BlocBase {
 
   //dispose will be called automatically by closing its streams
   @override
@@ -12,4 +11,3 @@ class ${name}Bloc extends BlocBase {
 
 }
   ''';
-}

@@ -1,15 +1,13 @@
-class RepositoryModel {
-  String model(String name) => '''
+String blocGenerator(String name) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 
-class ${name}Repository extends Disposable {
+class ${name}Bloc extends BlocBase {
 
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {
-    
+    super.dispose();
   }
 
 }
   ''';
-}

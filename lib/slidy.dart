@@ -1,1 +1,1 @@
-export 'src/generate.dart';
+export 'src/modules/modules.dart';

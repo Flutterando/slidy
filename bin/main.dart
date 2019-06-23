@@ -1,47 +1,24 @@
-
-import 'dart:io';
-
 import 'package:slidy/slidy.dart';
-import 'package:slidy/src/init.dart';
-import 'package:slidy/src/package_manager.dart';
-import 'package:slidy/src/utils/help.dart';
 
-import 'package:slidy/src/utils/utils.dart';
+Map<String, Function> methods = {
+  'start': (args) => start(args),
+  'generate': (args) => Generate(args), 'g': (args) => Generate(args),
+  'update': (args) => update(args),
+  'upgrade': (args) => upgrade(),
+  'install': (args) => install(args),
+  'unistall': (args) => unistall(args),
+  '--help': (args) => help(),
+  '--version': (args) => version(),
 
-String VERSION = "0.0.11";
+};
 
 main(List<String> args) async {
-
-  if(args.isEmpty){
-    print("Slidy version: $VERSION");
+  if (args.isEmpty) {
+    print("Slidy");
     return;
   }
 
-  if(args[0] == "generate" || args[0] == "g"){
-    print("Gerador iniciado....");
-    Generate(args);
-  } else if(args[0] == "start" || args[0] == "s"){
-    Init(args);
-  } else if(args[0] == "install" || args[0] == "i"){
-    PackageManager().install(args, checkParam(args, "--dev") );
-  } else if(args[0] == "uninstall"){
-    PackageManager().uninstall(args, checkParam(args, "--dev"));
-  } else if(args[0] == "update"){
-    PackageManager().update(args, checkParam(args, "--dev"));
-  } else if(args[0] == "--version" || args[0] == "-v"){
-    print("Slidy version: $VERSION");
-  } else if(args[0] == "--help" || args[0] == "-h"){
-    print(startHelpEn);
-  } else if(args[0] == "--ajuda" || args[0] == "-a"){
-    print(startHelpPt);
-  } else if(args[0] == "upgrade"){
-    print("Atualizando...");
-    Process.runSync("pub", ["global", "activate", "slidy"], runInShell: true);
-    var process = Process.runSync("slidy", ["-v"], runInShell: true);
-    print(process.stdout);
-  } else {
-    print("Invalid command");
-
-  }
-
+  methods.containsKey(args.first)
+      ? methods[args.first](args)
+      : print("Invalid command");
 }

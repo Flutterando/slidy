@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:pubspec/pubspec.dart';
 import 'package:slidy/src/utils/utils.dart';
+import 'package:slidy/src/services/pub_service.dart';
+import 'package:slidy/src/utils/output_utils.dart' as output;
 
 class PackageManager {
   install(List<String> args, bool isDev) async {
@@ -35,14 +37,13 @@ class PackageManager {
       }
 
       try {
-        version = await consumeApi(packName, version);
+        version = await PubService().getPackage(packName, version);
         node.insert(isDev ? indexDependencyDev : indexDependency,
             "  $packName: ^$version");
-        print("Add $packName:$version in pubspec");
+        output.success("$packName:$version Added in pubspec");
         isAlter = true;
       } catch (e) {
-        print(e);
-        print("Versão ou package não encontrado");
+        output.error("Version or package not found");
       }
 
       // spec = isDev
@@ -67,17 +68,17 @@ class PackageManager {
 
     for (String pack in packs) {
       if (!dependencies.containsKey(pack)) {
-        print("Package não está instalado");
+        output.warn("Package is not installed");
         continue;
       }
 
       isAlter = true;
 
-      String version = await consumeApi(pack, "");
+      String version = await PubService().getPackage(pack, '');
       int index = node.indexWhere((t) => t.contains("  $pack:"));
       node[index] = "  $pack: ^$version";
 
-      print("Update $pack in pubspec");
+      output.success("Updated $pack in pubspec");
     }
 
     if (isAlter) {
@@ -102,13 +103,13 @@ class PackageManager {
 
     for (String pack in packs) {
       if (!dependencies.containsKey(pack)) {
-        print("Package não está instalado");
+        output.warn("Package is not installed");
         continue;
       }
       isAlter = true;
       node.removeWhere((t) => t.contains("  $pack:"));
 
-      print("Remove $pack from pubspec");
+      output.success("Removed $pack from pubspec");
     }
 
     if (isAlter) {
