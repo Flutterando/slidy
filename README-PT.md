@@ -25,7 +25,7 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i rxdart dio bloc_pattern ` <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**install[i] [package name][package name][..] --dev**  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Instala um novo pacote(package) ou pacotes como dev dependency* <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Instala um novo pacote(package) ou pacotes como dev dependency* <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy i flutter_launcher_icons --dev ` 
 
 
@@ -56,7 +56,7 @@ Pronto a partir de agora você ja pode disfrutar desse novo mundo. <br>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g w manager/product/widgets/product_detail` 
             
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**repository[r] [module_name(optional)]/[repositories(optional)]/[repository_name]** <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Cria uma novo repositorio*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Cria uma novo repositorio*
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` slidy g r manager/product/repositories/product` 
     
 
