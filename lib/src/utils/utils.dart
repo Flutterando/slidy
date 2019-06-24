@@ -1,27 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:pubspec/pubspec.dart';
-import 'package:http/http.dart' as http;
-
-String URL_API = "https://pub.dartlang.org/api/packages";
-
-Future<String> consumeApi(String pack, String version) async {
-  String url = URL_API + "/$pack";
-
-  if (version.isNotEmpty) {
-    url =  url + "/versions/" + version;
-  }
-  var response = await http.get(url);
-  var json = jsonDecode(response.body);
-  var map = version.isNotEmpty ? json['pubspec'] : json['latest']['pubspec'];
-  return map['version']; 
-
-}
-
-savePub(Map spec){
-   //File("pubspec.yaml").writeAsStringSync(yaml. );
-}
 
 String formatName(String name) {
   name = name
@@ -54,3 +33,5 @@ Future<PubSpec> getPubSpec({String path = ""}) async {
 bool checkParam(List<String> args, String param){
   return args.contains(param);
 }
+
+String libPath(String path) => "lib/src/$path";

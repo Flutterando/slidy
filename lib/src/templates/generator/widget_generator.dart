@@ -1,5 +1,4 @@
-class WidgetModel {
-  String model(String name) => '''
+String widgetGenerator(String name) => '''
 import 'package:flutter/material.dart';
 class ${name}Widget extends StatelessWidget {
   @override
@@ -8,4 +7,3 @@ class ${name}Widget extends StatelessWidget {
   }
 }
   ''';
-}

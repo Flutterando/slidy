@@ -1,5 +1,4 @@
-class PageModel {
-  String model(String name) => '''
+String pageGenerator(String name) => '''
 import 'package:flutter/material.dart';
 
 class ${name}Page extends StatefulWidget {
@@ -21,4 +20,3 @@ class _${name}PageState extends State<${name}Page> {
   }
 }
   ''';
-}

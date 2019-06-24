@@ -1,8 +1,4 @@
-
-class ModuloModel {
-  static String model(String name) {
-
-    String values = '''
+String moduleGenerator(String name) => '''
     import 'package:bloc_pattern/bloc_pattern.dart';
     import 'package:flutter/material.dart';
   class ${name}Module extends ModuleWidget {
@@ -19,6 +15,3 @@ class ModuloModel {
 
 }
   ''';
-    return values;
-  }
-}
