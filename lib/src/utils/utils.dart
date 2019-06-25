@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:pubspec/pubspec.dart';
+import 'package:yaml/yaml.dart';
 
 String formatName(String name) {
   name = name
@@ -21,8 +22,10 @@ Future<String> getNamePackage() async {
 }
 
 Future<String> getVersion() async {
-  PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  return yaml.version.toString();
+  //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
+  File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock") ;
+  var doc = loadYaml(file.readAsStringSync());
+  return doc['packages']['slidy']['version'].toString();
 }
 
 Future<PubSpec> getPubSpec({String path = ""}) async {

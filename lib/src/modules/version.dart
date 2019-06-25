@@ -1,8 +1,8 @@
-//import 'package:slidy/src/utils/utils.dart';
+import 'package:slidy/src/utils/utils.dart';
 
 void version() async {
-  //String version = await getVersion();
-  String version = '0.0.13';
+  String version = await getVersion();
+  //String version = '0.0.13';
   print('''
 
 ███████╗██╗     ██╗██████╗ ██╗   ██╗     ██████╗██╗     ██╗
