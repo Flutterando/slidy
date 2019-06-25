@@ -27,8 +27,7 @@ start(args) async {
 
   createStaticFile(libPath('app_widget.dart'), templates.startAppWidget(package));
 
-  Generate(['', 'module', 'home/home']);
-  Generate(['', 'page', 'home/home']);
+  Generate(['', 'module', '-c', 'home/home']);
 
   await install(["install", "bloc_pattern", "rxdart", "dio"]);
   

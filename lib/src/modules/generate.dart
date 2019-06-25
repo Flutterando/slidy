@@ -4,10 +4,12 @@ import 'package:slidy/src/utils/file_utils.dart' as file_utils;
 import 'package:slidy/src/utils/utils.dart';
 
 class Generate {
-
   Generate(args) {
     if (args[1] == 'module' || args[1] == 'm') {
-      module(args[2]);
+      if (checkParam(args, "-c"))
+        module(args[3], true);
+      else
+        module(args[2], false);
     } else if (args[1] == 'page' || args[1] == 'p') {
       page(args[2], checkParam(args, "-b"));
     } else if (args[1] == 'widget' || args[1] == 'w') {
@@ -21,8 +23,12 @@ class Generate {
     }
   }
 
-  module(String path) {
-    file_utils.createFile(path, 'module', templates.moduleGenerator);
+  module(String path, bool createCompleteModule) async {
+    String moduleType = createCompleteModule ? 'module_complete' : 'module';
+    await file_utils.createFile(path, moduleType, templates.moduleGenerator);
+    if (createCompleteModule) {
+      await page(path, false);
+    }
   }
 
   page(String path, bool blocLess) {

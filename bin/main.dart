@@ -2,17 +2,13 @@ import 'package:slidy/slidy.dart';
 
 Map<String, Function> methods = {
   'start': (args) => start(args),
-  'generate': (args) => Generate(args),
-  'g': (args) => Generate(args),
+  'generate g': (args) => Generate(args),
   'update': (args) => update(args),
   'upgrade': (args) => upgrade(),
-  'install': (args) => install(args),
-  'i': (args) => install(args),
+  'install i': (args) => install(args),
   'uninstall': (args) => uninstall(args),
-  '--help': (args) => help(),
-  '-h': (args) => help(),
-  '--version': (args) => version(),
-  '-v': (args) => version(),
+  '--help -h': (args) => help(),
+  '--version -v': (args) => version(),
 };
 
 main(List<String> args) async {
@@ -21,7 +17,14 @@ main(List<String> args) async {
     return;
   }
 
-  methods.containsKey(args.first)
-      ? methods[args.first](args)
+  String commandName = await getCommandName(args);
+  methods.containsKey(commandName)
+      ? methods[commandName](args)
       : print("Invalid command");
+}
+
+Future<String> getCommandName(List<String> args) async {
+  return methods.keys
+      .where((x) => x.split(" ").any((y) => y == args.first))
+      .first;
 }
