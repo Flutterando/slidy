@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:slidy/src/templates/templates.dart' as templates;
+import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
-import 'package:slidy/src/package_manager.dart';
 import 'package:slidy/src/utils/utils.dart';
+
+import 'package:slidy/src/modules/install.dart';
+import 'package:slidy/src/modules/generate.dart';
 
 start(args) async {
   var dir = Directory("lib");
@@ -12,21 +15,22 @@ start(args) async {
     exit(1);
   }
 
+  output.msg("Starting a new project");
+
   String package = await getNamePackage();
 
-  File(dir.path + "/main.dart")
-    ..createSync()
-    ..writeAsStringSync(templates.startMain(package));
+  createStaticFile('${dir.path}/main.dart', templates.startMain(package));
 
-  File(dir.path + "/src/app_module.dart")
-    ..createSync(recursive: true)
-    ..writeAsStringSync(templates.startAppModule(package));
-  File(dir.path + "/src/app_bloc.dart")
-    ..createSync(recursive: true)
-    ..writeAsStringSync(templates.startAppBloc());
-  File(dir.path + "/src/app_widget.dart")
-    ..createSync(recursive: true)
-    ..writeAsStringSync(templates.startAppWidget(package));
-  await PackageManager().install(["install", "bloc_pattern", "rxdart", "dio"], false);
-  output.success("Project started! enjoy!");
+  createStaticFile(libPath('app_module.dart'), templates.startAppModule(package));
+
+  createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
+
+  createStaticFile(libPath('app_widget.dart'), templates.startAppWidget(package));
+
+  Generate(['', 'module', 'home/home']);
+  Generate(['', 'page', 'home/home']);
+
+  await install(["install", "bloc_pattern", "rxdart", "dio"]);
+  
+  output.msg("Project started! enjoy!");
 }
