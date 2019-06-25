@@ -18,6 +18,7 @@ void update(List<String> args) async {
   bool isAlter = false;
 
   for (String pack in packs) {
+    if (pack.isEmpty) continue;
     if (!dependencies.containsKey(pack)) {
       output.error("Package is not installed");
       continue;
