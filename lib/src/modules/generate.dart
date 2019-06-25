@@ -17,7 +17,7 @@ class Generate {
     } else if (args[1] == 'repository' || args[1] == 'r') {
       repository(args[2]);
     } else {
-      output.warn("Generate: Invalid Command");
+      output.error("Generate: Invalid Command");
     }
   }
 

@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:pubspec/pubspec.dart';
-import 'package:slidy/src/services/pub_service.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void update(List<String> args) async {
+void uninstall(List<String> args) async {
   bool isDev = checkParam(args, "--dev");
-
   List<String> packs = List.from(args);
   packs.removeAt(0);
   packs.removeWhere((t) => t == "--dev");
@@ -22,14 +20,10 @@ void update(List<String> args) async {
       output.error("Package is not installed");
       continue;
     }
-
     isAlter = true;
+    node.removeWhere((t) => t.contains("  $pack:"));
 
-    String version = await PubService().getPackage(pack, '');
-    int index = node.indexWhere((t) => t.contains("  $pack:"));
-    node[index] = "  $pack: ^$version";
-
-    output.success("Updated $pack in pubspec");
+    output.success("Removed $pack from pubspec");
   }
 
   if (isAlter) {
@@ -39,5 +33,6 @@ void update(List<String> args) async {
   // spec = isDev
   //     ? spec.copy(devDependencies: dependencies)
   //     : spec.copy(dependencies: dependencies);
+
   // await spec.save(Directory(""));
 }
