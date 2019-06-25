@@ -11,7 +11,8 @@ void createFile(String path, String type, Function generator) async {
   Directory dir = Directory(path).parent;
   String name = basename(path);
 
-  File file = File('${dir.path}/${name}_${type}.dart');
+  File file =
+      File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
 
   if (file.existsSync()) {
     output.error("already exists a $type $name");
@@ -62,7 +63,7 @@ addModule(String nameCap, String path, bool isBloc) async {
   var node = module.readAsStringSync().split("\n");
 
   node.insert(0,
-      "import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
+      "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
   if (isBloc) {
     index = node.indexWhere((t) => t.contains("blocs => ["));

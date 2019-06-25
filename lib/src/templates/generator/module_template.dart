@@ -1,6 +1,6 @@
 String moduleGenerator(String pkg, String name) {
   var import = pkg.isNotEmpty
-      ? 'import package:${pkg}/src/${name}/${name}_page.dart\n'
+      ? 'import package:${pkg}/src/${name.toLowerCase()}/${name.toLowerCase()}_page.dart\n'
       : '';
 
   var page = pkg.isNotEmpty ? '${name}Page()' : 'Container()';
