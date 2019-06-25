@@ -3,8 +3,8 @@ import 'package:path/path.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void createFile(String path, String type, Function generator) {
-  output.msg("Creating $type...");
+void createFile(String path, String type, Function generator) async {
+  output.warn("Creating $type...");
 
   path = libPath(path);
 
@@ -21,7 +21,16 @@ void createFile(String path, String type, Function generator) {
   try {
     file.createSync(recursive: true);
     output.msg("File ${file.path} created");
-    file.writeAsStringSync(generator(formatName(name)));
+
+    if (type == 'module_complete') {
+      String package = await getNamePackage();
+      file.writeAsStringSync(generator(package, formatName(name)));
+    } else if (type == 'module') {
+      file.writeAsStringSync(generator("", formatName(name)));
+    } else {
+      file.writeAsStringSync(generator(formatName(name)));
+    }
+
     formatFile(file);
 
     if (type == 'bloc' || type == 'repository') {
@@ -31,7 +40,6 @@ void createFile(String path, String type, Function generator) {
     output.success("$type created");
   } catch (e) {
     output.error(e);
-    exit(1);
   }
 }
 
@@ -52,14 +60,17 @@ addModule(String nameCap, String path, bool isBloc) async {
 
   var node = module.readAsStringSync().split("\n");
 
-  node.insert(0, "import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
+  node.insert(0,
+      "import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
   if (isBloc) {
     index = node.indexWhere((t) => t.contains("blocs => ["));
-    node[index] = node[index].replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}Bloc()),");
+    node[index] = node[index]
+        .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}Bloc()),");
   } else {
     index = node.indexWhere((t) => t.contains("dependencies => ["));
-    node[index] = node[index].replaceFirst("dependencies => [", "dependencies => [Dependency((i) => ${nameCap}Repository()),");
+    node[index] = node[index].replaceFirst("dependencies => [",
+        "dependencies => [Dependency((i) => ${nameCap}Repository()),");
   }
 
   module.writeAsStringSync(node.join("\n"));
@@ -89,18 +100,5 @@ File search(Directory dir) {
         .firstWhere((f) => f is File && f.path.contains("_module.dart"));
   } catch (e) {
     return null;
-  }
-}
-
-void createStaticFile(String path, String content) {
-  try {
-    File file = File(path)
-      ..createSync(recursive: true)
-      ..writeAsStringSync(content);
-    formatFile(file);
-    output.success("${file.path} created");
-  } catch (e) {
-    output.error(e);
-    exit(1);
   }
 }
