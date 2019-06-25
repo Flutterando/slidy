@@ -68,7 +68,7 @@ class PackageManager {
 
     for (String pack in packs) {
       if (!dependencies.containsKey(pack)) {
-        output.warn("Package is not installed");
+        output.error("Package is not installed");
         continue;
       }
 
@@ -103,7 +103,7 @@ class PackageManager {
 
     for (String pack in packs) {
       if (!dependencies.containsKey(pack)) {
-        output.warn("Package is not installed");
+        output.error("Package is not installed");
         continue;
       }
       isAlter = true;
