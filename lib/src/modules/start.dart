@@ -4,7 +4,9 @@ import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
+
 import 'package:slidy/src/modules/install.dart';
+import 'package:slidy/src/modules/generate.dart';
 
 start(args) async {
   var dir = Directory("lib");
@@ -24,6 +26,9 @@ start(args) async {
   createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
   createStaticFile(libPath('app_widget.dart'), templates.startAppWidget(package));
+
+  Generate(['', 'module', 'home/home']);
+  Generate(['', 'page', 'home/home']);
 
   await install(["install", "bloc_pattern", "rxdart", "dio"]);
   
