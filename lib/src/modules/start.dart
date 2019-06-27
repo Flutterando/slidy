@@ -11,8 +11,13 @@ import 'package:slidy/src/modules/generate.dart';
 start(args) async {
   var dir = Directory("lib");
   if (dir.listSync().isNotEmpty) {
-    output.error("The lib folder must be empty");
-    exit(1);
+    if (checkParam(args, "-f")) {
+      output.msg("Removing lib folder");
+      await dir.delete(recursive: true);
+    } else {
+      output.error("The lib folder must be empty");
+      exit(1);
+    }
   }
 
   output.msg("Starting a new project");
@@ -21,15 +26,17 @@ start(args) async {
 
   createStaticFile('${dir.path}/main.dart', templates.startMain(package));
 
-  createStaticFile(libPath('app_module.dart'), templates.startAppModule(package));
+  createStaticFile(
+      libPath('app_module.dart'), templates.startAppModule(package));
 
   createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
-  createStaticFile(libPath('app_widget.dart'), templates.startAppWidget(package));
+  createStaticFile(
+      libPath('app_widget.dart'), templates.startAppWidget(package));
 
   Generate(['', 'module', '-c', 'home/home']);
 
   await install(["install", "bloc_pattern", "rxdart", "dio"]);
-  
+
   output.msg("Project started! enjoy!");
 }
