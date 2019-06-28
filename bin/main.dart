@@ -1,30 +1,60 @@
+import 'package:args/args.dart';
+import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/command/generate_command.dart';
+import 'package:slidy/src/command/install_command.dart';
+import 'package:slidy/src/command/start_command.dart';
+import 'package:slidy/src/command/uninstall_command.dart';
+import 'package:slidy/src/command/update_command.dart';
+import 'package:slidy/src/command/upgrade_command.dart';
 
-Map<String, Function> methods = {
-  'start': (args) => start(args),
-  'generate g': (args) => Generate(args),
-  'update': (args) => update(args),
-  'upgrade': (args) => upgrade(),
-  'install i': (args) => install(args),
-  'uninstall': (args) => uninstall(args),
-  '--help -h': (args) => help(),
-  '--version -v': (args) => version(),
-};
+main(List<String> arguments) {
+  CommandRunner runner = configureCommand(arguments);
 
-main(List<String> args) async {
-  if (args.isEmpty) {
-    version();
-    return;
+  bool hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
+  hasCommand = true;
+
+  if (hasCommand) {
+    executeCommand(runner, arguments);
+  } else {
+    ArgParser parser = ArgParser();
+    parser = runner.argParser;
+    var results = parser.parse(arguments);
+
+    executeOptions(results, arguments, runner);
   }
-
-  String commandName = await getCommandName(args);
-  methods.containsKey(commandName)
-      ? methods[commandName](args)
-      : print("Invalid command");
 }
 
-Future<String> getCommandName(List<String> args) async {
-  return methods.keys
-      .where((x) => x.split(" ").any((y) => y == args.first))
-      .first;
+void executeOptions(
+    ArgResults results, List<String> arguments, CommandRunner runner) {
+  if (results.wasParsed("help") || arguments.isEmpty) {
+    print(runner.usage);
+  }
+
+  if (results.wasParsed("version")) {
+    version();
+  }
+}
+
+void executeCommand(CommandRunner runner, List<String> arguments) {
+  runner.run(arguments).catchError((error) {
+    if (error is! UsageException) throw error;
+    print(error);
+  });
+}
+
+CommandRunner configureCommand(List<String> arguments) {
+  var runner =
+      CommandRunner("slidy", "CLI package manager and template for Flutter.")
+        ..addCommand(StartCommand())
+        ..addCommand(GenerateCommand())
+        ..addCommand(GenerateCommandAbbr())
+        ..addCommand(UpdateCommand())
+        ..addCommand(UpgradeCommand())
+        ..addCommand(InstallCommand())
+        ..addCommand(InstallCommandAbbr())
+        ..addCommand(UninstallCommand());
+
+  runner.argParser.addFlag("version", abbr: "v", negatable: false);
+  return runner;
 }

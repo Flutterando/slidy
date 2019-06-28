@@ -4,11 +4,7 @@ import 'package:pubspec/pubspec.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void uninstall(List<String> args) async {
-  bool isDev = checkParam(args, "--dev");
-  List<String> packs = List.from(args);
-  packs.removeAt(0);
-  packs.removeWhere((t) => t == "--dev");
+void uninstall(List<String> packs, bool isDev) async {
   PubSpec spec = await getPubSpec();
   var dependencies = isDev ? spec.devDependencies : spec.dependencies;
   File yaml = File("pubspec.yaml");

@@ -6,12 +6,7 @@ import 'package:slidy/src/services/pub_service.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void install(List<String> args) async {
-  bool isDev = checkParam(args, "--dev");
-
-  List<String> packs = List.from(args);
-  packs.removeAt(0);
-  packs.removeWhere((t) => t == "--dev");
+void install(List<String> packs, bool isDev) async {
   PubSpec spec = await getPubSpec();
   File yaml = File("pubspec.yaml");
   var node = yaml.readAsLinesSync();
@@ -33,7 +28,7 @@ void install(List<String> args) async {
     }
 
     if (dependencies.containsKey(packName)) {
-      await update(["update", packName, isDev ? '--dev' : '']);
+      await update([packName], isDev);
       continue;
     }
 
