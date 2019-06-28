@@ -17,8 +17,8 @@ class PubService {
       var json = jsonDecode(response.body);
       var map = version.isEmpty ? json['latest']['pubspec'] : json['pubspec'];
       return map['version'];
+    } else {
+      throw Exception("error");
     }
-
-    return null;
   }
 }

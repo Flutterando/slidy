@@ -35,11 +35,12 @@ start(hasForce) async {
   createStaticFile(
       libPath('app_widget.dart'), templates.startAppWidget(package));
 
-  CommandRunner("slidy", "CLI package manager and template for Flutter.")
-    ..addCommand(GenerateCommand())
-    ..run(['generate', 'module', 'home/home', '-c']);
+  var command =
+      CommandRunner("slidy", "CLI package manager and template for Flutter.");
+  command.addCommand(GenerateCommand());
+  await command.run(['generate', 'module', 'home/home', '-c']);
 
-  await install(["install", "bloc_pattern", "rxdart", "dio"], false);
+  await install(["bloc_pattern", "rxdart", "dio"], false);
 
   output.msg("Project started! enjoy!");
 }
