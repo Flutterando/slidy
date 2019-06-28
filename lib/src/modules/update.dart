@@ -5,12 +5,7 @@ import 'package:slidy/src/services/pub_service.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void update(List<String> args) async {
-  bool isDev = checkParam(args, "--dev");
-
-  List<String> packs = List.from(args);
-  packs.removeAt(0);
-  packs.removeWhere((t) => t == "--dev");
+void update(List<String> packs, isDev) async {
   PubSpec spec = await getPubSpec();
   var dependencies = isDev ? spec.devDependencies : spec.dependencies;
   File yaml = File("pubspec.yaml");

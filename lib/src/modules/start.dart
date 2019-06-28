@@ -1,17 +1,18 @@
 import 'dart:io';
 
+import 'package:args/command_runner.dart';
+import 'package:slidy/src/command/generate_command.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 
 import 'package:slidy/src/modules/install.dart';
-import 'package:slidy/src/modules/generate.dart';
 
-start(args) async {
+start(hasForce) async {
   var dir = Directory("lib");
   if (dir.listSync().isNotEmpty) {
-    if (checkParam(args, "-f")) {
+    if (hasForce) {
       output.msg("Removing lib folder");
       await dir.delete(recursive: true);
     } else {
@@ -34,9 +35,11 @@ start(args) async {
   createStaticFile(
       libPath('app_widget.dart'), templates.startAppWidget(package));
 
-  Generate(['', 'module', '-c', 'home/home']);
+  CommandRunner("slidy", "CLI package manager and template for Flutter.")
+    ..addCommand(GenerateCommand())
+    ..run(['generate', 'module', 'home/home', '-c']);
 
-  await install(["install", "bloc_pattern", "rxdart", "dio"]);
+  await install(["install", "bloc_pattern", "rxdart", "dio"], false);
 
   output.msg("Project started! enjoy!");
 }
