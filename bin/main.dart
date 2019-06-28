@@ -1,26 +1,19 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
-import 'package:slidy/src/command/generate_command.dart';
-import 'package:slidy/src/command/install_command.dart';
-import 'package:slidy/src/command/start_command.dart';
-import 'package:slidy/src/command/uninstall_command.dart';
-import 'package:slidy/src/command/update_command.dart';
-import 'package:slidy/src/command/upgrade_command.dart';
+
 
 main(List<String> arguments) {
   CommandRunner runner = configureCommand(arguments);
 
   bool hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
-  hasCommand = true;
-
+  //hasCommand = true;
   if (hasCommand) {
     executeCommand(runner, arguments);
   } else {
     ArgParser parser = ArgParser();
     parser = runner.argParser;
     var results = parser.parse(arguments);
-
     executeOptions(results, arguments, runner);
   }
 }
