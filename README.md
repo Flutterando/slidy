@@ -18,7 +18,7 @@ We realized that the lack of a project pattern is affecting the productivity of 
 
 We adopted the BLoC standard for business rule in a structure similar to MVC, where a page or widget has one or more BLoC to manage its business rule.
 
-We are using the module structure and dependency injection of the package [bloc_pattern]('https://pub.dev/packages/bloc_pattern'). Read the bloc_pattern README to familiarize yourself with the concept of dependency injection, BLoC Provider and modules.
+We are using the module structure and dependency injection of the package [bloc_pattern](https://pub.dev/packages/bloc_pattern). Read the bloc_pattern README to familiarize yourself with the concept of dependency injection, BLoC Provider and modules.
 
 
 For services and provider we use the **Repository Pattern**.
