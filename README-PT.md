@@ -17,7 +17,7 @@ Percebemos que a falta de um padrão de projetos está afetando a produtividade 
 
 Adotamos o padrão BLoC para regra de negócio em uma estrutura similar ao  MVC, onde uma página ou widget tem um ou mais BLoC para gerenciar sua regra de negócio.
 
-Estamos usando a estrutura de módulos e injeção de dependências do package [bloc_pattern]('https://pub.dev/packages/bloc_pattern'). Leia o README do bloc_pattern para se familiarizar com o conceito de injeção de dependência, BLoC Provider e módulos.
+Estamos usando a estrutura de módulos e injeção de dependências do package [bloc_pattern](https://pub.dev/packages/bloc_pattern). Leia o README do bloc_pattern para se familiarizar com o conceito de injeção de dependência, BLoC Provider e módulos.
 
 Para serviços e provider aplicamos o **Repository Pattern**.
 
