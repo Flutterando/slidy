@@ -7,7 +7,7 @@ main(List<String> arguments) {
   CommandRunner runner = configureCommand(arguments);
 
   bool hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
-  //hasCommand = true;
+  
   if (hasCommand) {
     executeCommand(runner, arguments);
   } else {
@@ -46,7 +46,8 @@ CommandRunner configureCommand(List<String> arguments) {
         ..addCommand(UpgradeCommand())
         ..addCommand(InstallCommand())
         ..addCommand(InstallCommandAbbr())
-        ..addCommand(UninstallCommand());
+        ..addCommand(UninstallCommand())
+        ..addCommand(CreateCommand());
 
   runner.argParser.addFlag("version", abbr: "v", negatable: false);
   return runner;
