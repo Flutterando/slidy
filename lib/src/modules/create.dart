@@ -23,10 +23,23 @@ void startFlutterCreate(String projectName, String projectDescription,
 }
 
 void startSlidyCreate(String projectName) {
-  Process.start("cd $projectName && slidy", ["start", "-f"], runInShell: true)
+  Process.start("slidy", ["start", "-f"],
+          runInShell: true,
+          workingDirectory: "${Directory.current.path}/$projectName")
       .then((processSlidy) {
     stdout.addStream(processSlidy.stdout);
     stderr.addStream(processSlidy.stderr);
+    processSlidy.exitCode.then((exit) {
+      if (exit == 0) {
+        Process.start("flutter", ["packages", "get"],
+                runInShell: true,
+                workingDirectory: "${Directory.current.path}/$projectName")
+            .then((process) {
+          stdout.addStream(process.stdout);
+          stderr.addStream(process.stderr);
+        });
+      }
+    });
   });
 }
 

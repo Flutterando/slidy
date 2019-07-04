@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
-class GeneratePageSubCommand extends Command {
+class GeneratePageSubCommand extends CommandBase {
   final name = "page";
   final description = "Creates a page";
 
@@ -12,7 +12,7 @@ class GeneratePageSubCommand extends Command {
 
   void run() {
     if (argResults.rest.isEmpty) {
-      throw new UsageException("value not passed for a module command", usage);
+      throw UsageException("value not passed for a module command", usage);
     } else {
       Generate.page(argResults.rest.first, argResults["bloc"]);
     }

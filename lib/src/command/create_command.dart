@@ -1,10 +1,10 @@
 import 'package:args/command_runner.dart';
+import 'package:slidy/slidy.dart';
 
-import '../../slidy.dart';
-
-class CreateCommand extends Command {
+class CreateCommand extends CommandBase {
   final name = "create";
   final description = "Create a Flutter project with basic structure";
+  final invocationSufix = "<project name>";
 
   CreateCommand() {
     argParser.addOption('name',
@@ -30,11 +30,12 @@ class CreateCommand extends Command {
   }
 
   void run() {
-    if (argResults["name"] != null) {
-      create(argResults["name"], argResults["description"], argResults["org"],
-          argResults["kotlin"], argResults["swift"]);
+    if (argResults.rest.isEmpty) {
+      throw UsageException(
+          "project name not passed for a create command", usage);
     } else {
-      print(usage);
+      create(argResults.rest.first, argResults["description"],
+          argResults["org"], argResults["kotlin"], argResults["swift"]);
     }
   }
 }

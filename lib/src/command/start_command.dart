@@ -1,8 +1,6 @@
-import 'package:args/command_runner.dart';
+import 'package:slidy/slidy.dart';
 
-import '../../slidy.dart';
-
-class StartCommand extends Command {
+class StartCommand extends CommandBase {
   final name = "start";
   final description =
       "Create a basic structure for your project (confirm that you have no data in the \"lib\" folder).";
