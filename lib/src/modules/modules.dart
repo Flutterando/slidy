@@ -6,3 +6,4 @@ export 'upgrade.dart';
 export 'install.dart';
 export 'uninstall.dart';
 export 'version.dart';
+export 'create.dart';
