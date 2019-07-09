@@ -6,6 +6,10 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 void createFile(String path, String type, Function generator) async {
   output.msg("Creating $type...");
 
+  path = path.replaceAll("\\", "/").replaceAll("\"", "");
+  if (path.startsWith("/")) path = path.substring(1);
+  if (path.endsWith("/")) path = path.substring(0, path.length - 1);
+
   path = libPath(path);
 
   Directory dir = Directory(path).parent;
@@ -25,7 +29,7 @@ void createFile(String path, String type, Function generator) async {
 
     if (type == 'module_complete') {
       String package = await getNamePackage();
-      file.writeAsStringSync(generator(package, formatName(name)));
+      file.writeAsStringSync(generator(package, formatName(name), path));
     } else if (type == 'module') {
       file.writeAsStringSync(generator("", formatName(name)));
     } else {
