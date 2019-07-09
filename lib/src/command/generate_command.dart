@@ -1,4 +1,5 @@
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/command/sub_command/generate_bloc.dart';
 
 class GenerateCommand extends CommandBase {
   final name = "generate";
@@ -13,6 +14,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GeneratePageAbbrSubCommand());
     addSubcommand(GenerateWidgetSubCommand());
     addSubcommand(GenerateWidgetAbbrSubCommand());
+    addSubcommand(GenerateBlocSubCommand());
+    addSubcommand(GenerateBlocAbbrSubCommand());
     addSubcommand(GenerateRepositorySubCommand());
     addSubcommand(GenerateRepositoryAbbrSubCommand());
   }
