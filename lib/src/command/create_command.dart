@@ -7,11 +7,6 @@ class CreateCommand extends CommandBase {
   final invocationSufix = "<project name>";
 
   CreateCommand() {
-    argParser.addOption('name',
-        abbr: 'n',
-        help:
-            "The project name for this new Flutter project. This must be a valid dart package name.");
-
     argParser.addOption('description',
         abbr: 'd',
         help:
