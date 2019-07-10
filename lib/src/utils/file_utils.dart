@@ -31,7 +31,7 @@ void createFile(String path, String type, Function generator) async {
       String package = await getNamePackage();
       file.writeAsStringSync(generator(package, formatName(name), path));
     } else if (type == 'module') {
-      file.writeAsStringSync(generator("", formatName(name)));
+      file.writeAsStringSync(generator("", formatName(name), path));
     } else {
       file.writeAsStringSync(generator(formatName(name)));
     }
