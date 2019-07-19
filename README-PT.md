@@ -17,13 +17,13 @@ Percebemos que a falta de um padrão de projetos está afetando a produtividade 
 
 Adotamos o padrão BLoC para regra de negócio em uma estrutura similar ao  MVC, onde uma página ou widget tem um ou mais BLoC para gerenciar sua regra de negócio.
 
-Estamos usando a estrutura de módulos e injeção de dependências do package [bloc_pattern](https://pub.dev/packages/bloc_pattern). Leia o README do bloc_pattern para se familiarizar com o conceito de injeção de dependência, BLoC Provider e módulos.
+Estamos usando a estrutura de módulos e injeção de dependências do package [bloc_pattern](https://pub.dev/packages/bloc_pattern). Leia o [README](https://github.com/jacobaraujo7/bloc-pattern/blob/master/README.md) do bloc_pattern para se familiarizar com o conceito de injeção de dependência, BLoC Provider e módulos.
 
 Para serviços e provider aplicamos o **Repository Pattern**.
 
 Com isso nossa estrutura de pastas fica organizada em módulos locais e um módulo global, bem como modelos, repositories e BLoC`s que podem ser acessados em toda a aplicação dispostos na pasta shared.
 
-Exemplo de estrutura de pastas gerada pelo **slidy**:
+Exemplo de estrutura de pastas gerada pelo **Slidy**:
 
 ![Folder example](/folder.png)
 
@@ -41,7 +41,7 @@ pub global activate slidy
 slidy upgrade
 ```
 
-Pronto a partir de agora você ja pode disfrutar desse novo mundo.
+Pronto a partir de agora você ja pode desfrutar desse novo mundo.
 
 ## Comandos:    
   **start:** 
@@ -51,7 +51,7 @@ slidy start
 ```     
 
 **Install:**
-Instala (ou atualiza) um novo pacote(package) ou pacotes:
+Instala (ou atualiza) um novo pacote (package) ou pacotes:
 ```
 slidy install rxdart dio bloc_pattern
 ```
@@ -59,16 +59,15 @@ Você também pode instalar um pacote como dev_dependency usando a flag --dev
 ```
 slidy i flutter_launcher_icons --dev
 ``` 
-remove um pacote
+Remove um pacote:
  ```
  slidy uninstall dio 
  ```
 Você também pode remover um dev_dependency usando a flag --dev
 
-
 ## Generate:
 
-Cria um modulo, pagina, widget or repositorio conforme a opção.
+Cria um modulo, pagina, widget or repositório conforme a opção.
     
 **Opções:**
     
@@ -77,7 +76,7 @@ Cria um novo modulo com o **slidy generate module**:
 slidy generate module manager/product/product
 ``` 
 
-Cria uma nova pagina e o seu respectivo Bloc
+Cria uma nova pagina e o seu respectivo Bloc:
 ```
 slidy generate page manager/product/pages/add_product
 ``` 
@@ -88,10 +87,9 @@ slidy generate widget manager/product/widgets/product_detail
 ``` 
 OBS: Você pode criar uma page ou widget com seu respectivo BLoC usando a flag **-b**
             
-Cria uma novo repositorio
+Cria uma novo repositório:
 ```
 slidy g r manager/product/repositories/product
 ``` 
     
-
-Para mais detalhes https://t.me/flutterando
+Para mais detalhes: https://t.me/flutterando
