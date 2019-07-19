@@ -1,8 +1,11 @@
+## 0.2.0
+- Added start -c, to start the project with routers, locations, and page structures
+
 ## 0.1.2
-- Add bloc command create;
+- Added bloc command create;
 
 ## 0.1.1
-- Add param 'create';
+- Added param 'create';
 
 ## 0.0.1
 - Initial version, created by Stagehand
