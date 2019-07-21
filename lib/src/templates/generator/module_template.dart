@@ -1,7 +1,8 @@
-String moduleGenerator(String pkg, String name) {
-  var import = pkg.isNotEmpty
-      ? 'import \'package:${pkg}/src/${name.toLowerCase()}/${name.toLowerCase()}_page.dart\';\n'
-      : '';
+String moduleGenerator(String pkg, String name, String path) {
+  path = path.replaceFirst("lib/", "");
+
+  var import =
+      pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
 
   var page = pkg.isNotEmpty ? '${name}Page()' : 'Container()';
 

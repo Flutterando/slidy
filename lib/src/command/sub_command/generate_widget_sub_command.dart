@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
-class GenerateWidgetSubCommand extends Command {
+class GenerateWidgetSubCommand extends CommandBase {
   final name = "widget";
   final description = "Creates a widget";
 
@@ -18,7 +18,7 @@ class GenerateWidgetSubCommand extends Command {
 
   void run() {
     if (argResults.rest.isEmpty) {
-      throw new UsageException("value not passed for a module command", usage);
+      throw UsageException("value not passed for a module command", usage);
     } else {
       Generate.widget(
           argResults.rest.first, argResults["bloc"], argResults["sufix"]);

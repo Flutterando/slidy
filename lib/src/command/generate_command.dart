@@ -1,11 +1,7 @@
-import 'package:args/command_runner.dart';
-import 'package:slidy/src/command/sub_command/generate_page_sub_command.dart';
-import 'package:slidy/src/command/sub_command/generate_repository_sub_command.dart';
-import 'package:slidy/src/command/sub_command/generate_widget_sub_command.dart';
+import 'package:slidy/slidy.dart';
+import 'package:slidy/src/command/sub_command/generate_bloc.dart';
 
-import 'sub_command/generate_module_sub_command.dart';
-
-class GenerateCommand extends Command {
+class GenerateCommand extends CommandBase {
   final name = "generate";
   final description =
       "Creates a module, page, widget or repository according to the option.";
@@ -18,6 +14,8 @@ class GenerateCommand extends Command {
     addSubcommand(GeneratePageAbbrSubCommand());
     addSubcommand(GenerateWidgetSubCommand());
     addSubcommand(GenerateWidgetAbbrSubCommand());
+    addSubcommand(GenerateBlocSubCommand());
+    addSubcommand(GenerateBlocAbbrSubCommand());
     addSubcommand(GenerateRepositorySubCommand());
     addSubcommand(GenerateRepositoryAbbrSubCommand());
   }
