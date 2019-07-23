@@ -1,7 +1,7 @@
 [Click here to see in english](README.md)
 # Slidy
 
-Esse CLI consiste em uma forma monstar o seu projeto estruturado por modulos, paginas, repositorios, widgets sempre seguindo os padrões de boas praticas quem vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados. 
+Esse CLI consiste em uma forma de mostrar o seu projeto estruturado por módulos, páginas, repositórios e widgets, sempre seguindo os padrões de boas práticas que vem sendo aplicado pela comunidade flutter em projetos maiores e mais estruturados. 
 Ele também fornece o gerenciador de bibliotecas (libs ou pubs) com ele você pode instalar varias bibliotecas com apenas uma linha de comando e até mesmo remover e atualizar.
 
 ## IMPORTANTE! Package ainda em desenvolvimento.
@@ -11,7 +11,7 @@ Para agilizar e ajudar no desenvolvimento, coopere colocando seus problemas e su
 
 ## Motivação
 
-Percebemos que a falta de um padrão de projetos está afetando a produtividade de varios desenvolvedores nesse momento inicial, então estamos proponto um padrão de desenvolvimento junto com uma ferramente que imita funcionalidades do NPM (NodeJS) e também recursos para geração de templates (Semelhante ao Scaffold).
+Percebemos que a falta de um padrão de projetos está afetando a produtividade de vários desenvolvedores nesse momento inicial, então estamos proponto um padrão de desenvolvimento junto com uma ferramenta que imita funcionalidades do NPM (NodeJS) e também recursos para geração de templates (Semelhante ao Scaffold).
 
 ## Sobre o Padrão Proposto.
 
@@ -21,7 +21,7 @@ Estamos usando a estrutura de módulos e injeção de dependências do package [
 
 Para serviços e provider aplicamos o **Repository Pattern**.
 
-Com isso nossa estrutura de pastas fica organizada em módulos locais e um módulo global, bem como modelos, repositories e BLoC`s que podem ser acessados em toda a aplicação dispostos na pasta shared.
+Com isso nossa estrutura de pastas fica organizada em módulos locais e um módulo global, bem como modelos, repositories e BLoC`s que podem ser acessados em toda a aplicação disposta na pasta shared.
 
 Exemplo de estrutura de pastas gerada pelo **Slidy**:
 
