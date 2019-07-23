@@ -29,30 +29,30 @@ start(hasForce, completeStart) async {
   String package = await getNamePackage();
 
   createStaticFile(
-      libPath('app/app_module.dart'), templates.startAppModule(package));
+      libPath('app_module.dart'), templates.startAppModule(package));
 
-  createStaticFile(libPath('app/app_bloc.dart'), templates.startAppBloc());
+  createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
   if(completeStart) {
     createStaticFile('${dir.path}/main.dart', templates.startMainComplete(package));
 
     createStaticFile(
-      libPath('app/app_widget.dart'), templates.startAppWidgetComplete(package));
+      libPath('app_widget.dart'), templates.startAppWidgetComplete(package));
 
     createStaticFile(
-      libPath('app/routes.dart'), templates.startRoutes(package));
+      libPath('routes.dart'), templates.startRoutes(package));
 
     createStaticFile(
-      libPath('app/styles/theme_style.dart'), templates.startThemeStyle());
+      libPath('shared/styles/theme_style.dart'), templates.startThemeStyle());
 
     createStaticFile(
-      libPath('app/locale/locales.dart'), templates.startLocales(package));
+      libPath('shared/locale/locales.dart'), templates.startLocales(package));
     
     createStaticFile(
-      libPath('app/locale/pt-BR_locale.dart'), templates.startPtBrLocale());
+      libPath('shared/locale/pt-BR_locale.dart'), templates.startPtBrLocale());
 
     createStaticFile(
-      libPath('app/locale/en-US_locale.dart'), templates.startEnUSLocale());
+      libPath('shared/locale/en-US_locale.dart'), templates.startEnUSLocale());
 
     await command.run(['generate', 'module', 'pages/login/login', '-c']);
     await command.run(['generate', 'module', 'pages/home/home', '-c']);
@@ -63,7 +63,7 @@ start(hasForce, completeStart) async {
     createStaticFile('${dir.path}/main.dart', templates.startMain(package));
 
     createStaticFile(
-      libPath('app/app_widget.dart'), templates.startAppWidget(package));
+      libPath('app_widget.dart'), templates.startAppWidget(package));
 
     await command.run(['generate', 'module', 'home/home', '-c']);
   }
