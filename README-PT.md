@@ -32,7 +32,9 @@ Exemplo de estrutura de pastas gerada pelo **Slidy**:
 - Você precisar ter instalado o SDK do Dart. Se não tem [baixe agora](https://dart.dev/get-dart).
 - Será necessario reiniciar a maquina para o SDK do Dart funcionar.
 - Agora basta ativar o slidy usando o pub:
- 0bs. Em algumas maquinas será necessario colocar o "caminho" do slidy no path. 
+ 0bs. Em algumas maquinas será necessario colocar o "caminho" do slidy no path.
+ - Observação para usar em MACOSX [clique aqui](osMacOSX-PT.md)
+
 
 ```
 pub global activate slidy
