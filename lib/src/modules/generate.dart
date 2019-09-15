@@ -17,11 +17,12 @@ class Generate {
   }
 
   static widget(String path, bool blocLess, bool ignoreSufix) {
-    if (ignoreSufix)
+    if (ignoreSufix) {
       file_utils.createFile(
           path, 'widget', templates.widgetGeneratorWithoutSufix);
-    else
+    } else {
       file_utils.createFile(path, 'widget', templates.widgetGenerator);
+    }
 
     if (!blocLess) file_utils.createFile(path, 'bloc', templates.blocGenerator);
   }
