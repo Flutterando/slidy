@@ -94,4 +94,23 @@ Cria uma novo repositório:
 slidy g r manager/product/repositories/product
 ``` 
     
+## Erros Comuns:
+
+**Windows:** 
+
+  ![Folder example](/error_windows_install.jpg)
+
+  Caso vocês se depare com o erro acima ao tentar rodar o comando ```pub global activate slidy```, entao vai ter que colocar nas variáveis de ambiente manualmente:
+
+  Va na pesquisa do windows e procure por :  ```Editar as variáveis de ambiente```
+
+  Depois click em ```Variáveis de Ambiente```
+
+  Procure por ```Path``` e de dois clicks
+
+  Então click em Novo e adicione o caminho que apareceu no seu console no caso aqui é : ```C:\Users\1513 MX5-7\AppData\Roaming\Pub\Cache\Bin``` depois disso só reiniciar seu CMD.
+
+
+
+
 Para mais detalhes: https://t.me/flutterando

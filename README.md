@@ -95,5 +95,25 @@ Create a new repository
 slidy g r manager/product/repositories/product
 ``` 
 
+
+## Common errors:
+
+**Windows:** 
+
+  ![Folder example](/error_windows_install.jpg)
+
+  If you find out with the above error, when trying to run or the ```pub global activate slidy```, then you will have to put in the environment variables manually:
+
+  Go to windows search and search for:  ```Edit System variable```
+
+  After click in ```Environment Variables```
+
+  Search for```Path```
+
+  Then click in New and add the path that appeared on your console in case here is : ```C:\Users\1513 MX5-7\AppData\Roaming\Pub\Cache\Bin``` after that just restart your CMD.
+
+
+
+
 For more details https://t.me/flutterando
 
