@@ -1,3 +1,9 @@
+## 1.0.0
+- added command run, for exec your scripts in pubspec.yaml
+- Some commands have been improved for ease of usability
+for example the module, page and widget generation command have been shortened.
+- Fix errors
+
 ## 0.2.1
 - Removed folder App for main module.
 - File placement changes after "start -c" command.

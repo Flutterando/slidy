@@ -7,8 +7,8 @@ It also provides the libraries manager (libs or pubs) with it you can install mu
 
 # Migration from v0.2.1 to v1.0.0:
 
-some commands have been improved for ease of usability
-for example the module, page and widget generation command have been shortened
+Some commands have been improved for ease of usability
+for example the module, page and widget generation command have been shortened.
 
 ```
 //vesion 0.2.1
@@ -132,5 +132,5 @@ slidy g r manager/product/repositories/product
 
 
 
-For more details https://t.me/flutterando
+For more details [Telegram Group Flutterando](https://t.me/flutterando)
 
