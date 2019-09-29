@@ -33,37 +33,37 @@ start(hasForce, completeStart) async {
 
   createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
-  if(completeStart) {
-    createStaticFile('${dir.path}/main.dart', templates.startMainComplete(package));
+  if (completeStart) {
+    createStaticFile(
+        '${dir.path}/main.dart', templates.startMainComplete(package));
 
     createStaticFile(
-      libPath('app_widget.dart'), templates.startAppWidgetComplete(package));
+        libPath('app_widget.dart'), templates.startAppWidgetComplete(package));
+
+    createStaticFile(libPath('routes.dart'), templates.startRoutes(package));
 
     createStaticFile(
-      libPath('routes.dart'), templates.startRoutes(package));
+        libPath('shared/styles/theme_style.dart'), templates.startThemeStyle());
 
     createStaticFile(
-      libPath('shared/styles/theme_style.dart'), templates.startThemeStyle());
+        libPath('shared/locale/locales.dart'), templates.startLocales(package));
 
-    createStaticFile(
-      libPath('shared/locale/locales.dart'), templates.startLocales(package));
-    
-    createStaticFile(
-      libPath('shared/locale/pt-BR_locale.dart'), templates.startPtBrLocale());
+    createStaticFile(libPath('shared/locale/pt-BR_locale.dart'),
+        templates.startPtBrLocale());
 
-    createStaticFile(
-      libPath('shared/locale/en-US_locale.dart'), templates.startEnUSLocale());
+    createStaticFile(libPath('shared/locale/en-US_locale.dart'),
+        templates.startEnUSLocale());
 
     await command.run(['generate', 'module', 'pages/login', '-c']);
     await command.run(['generate', 'module', 'pages/home', '-c']);
 
-    await install(["flutter_localizations: sdk: flutter"], false, haveTwoLines: true);
-    
+    await install(["flutter_localizations: sdk: flutter"], false,
+        haveTwoLines: true);
   } else {
     createStaticFile('${dir.path}/main.dart', templates.startMain(package));
 
     createStaticFile(
-      libPath('app_widget.dart'), templates.startAppWidget(package));
+        libPath('app_widget.dart'), templates.startAppWidget(package));
 
     await command.run(['generate', 'module', 'pages/home', '-c']);
   }

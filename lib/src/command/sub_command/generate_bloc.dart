@@ -9,8 +9,7 @@ class GenerateBlocSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException("value not passed for a module command", usage);
     } else {
-      Generate.bloc(
-          argResults.rest.first);
+      Generate.bloc(argResults.rest.first);
     }
   }
 }

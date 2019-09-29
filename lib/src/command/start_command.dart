@@ -12,11 +12,12 @@ class StartCommand extends CommandBase {
         help:
             "Remove the \"lib\" folder and all files before create the structure");
     argParser.addFlag('complete',
-      abbr: 'c',
-      negatable: false,
-      help: 'Create a complete flutter project with Themes separated of main.dart, named Routes and locales Strings configured'
-      //Add in future configured the release android sign
-    );
+        abbr: 'c',
+        negatable: false,
+        help:
+            'Create a complete flutter project with Themes separated of main.dart, named Routes and locales Strings configured'
+        //Add in future configured the release android sign
+        );
   }
 
   void run() {

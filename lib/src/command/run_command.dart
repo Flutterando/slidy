@@ -9,8 +9,7 @@ class RunCommand extends CommandBase {
 
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException(
-          "script name not passed for a run command", usage);
+      throw UsageException("script name not passed for a run command", usage);
     } else {
       runCommand(argResults.rest);
     }

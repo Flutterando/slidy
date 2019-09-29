@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-
 runCommand(List<String> commands) async {
   try {
     File yaml = File("pubspec.yaml");
@@ -12,14 +11,13 @@ runCommand(List<String> commands) async {
     for (var command in commands) {
       var regex = RegExp("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
 
-      if(!(doc as Map).containsKey("scripts")){
+      if (!(doc as Map).containsKey("scripts")) {
         throw "Please, add param \"scripts\" in your pubspec.yaml";
       }
 
-      if(!(doc['scripts'] as Map).containsKey(command)){
+      if (!(doc['scripts'] as Map).containsKey(command)) {
         throw "command '$command' not found";
       }
-
 
       List<String> matchList = regex
           .allMatches(doc['scripts'][command])

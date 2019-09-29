@@ -23,9 +23,9 @@ void install(List<String> packs, bool isDev, {bool haveTwoLines}) async {
 
     if (pack.contains(":")) {
       packName = pack.split(":")[0];
-      version = pack.split(":").length > 1 
-        ? pack.split(":")[1] + ':' +  pack.split(":")[2] 
-        : pack.split(":")[1];
+      version = pack.split(":").length > 1
+          ? pack.split(":")[1] + ':' + pack.split(":")[2]
+          : pack.split(":")[1];
     } else {
       packName = pack;
     }
@@ -36,11 +36,11 @@ void install(List<String> packs, bool isDev, {bool haveTwoLines}) async {
     }
 
     try {
-      if(!haveTwoLines){
+      if (!haveTwoLines) {
         version = await PubService().getPackage(packName, version);
         node.insert(isDev ? indexDependencyDev : indexDependency,
             "  $packName: ^$version");
-      } else if(!dependencies.containsKey(packName)){
+      } else if (!dependencies.containsKey(packName)) {
         node.insert(isDev ? indexDependencyDev : indexDependency,
             "  $packName: \n    $version");
       }

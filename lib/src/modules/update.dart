@@ -20,7 +20,7 @@ void update(List<String> packs, isDev) async {
     }
 
     isAlter = true;
-  
+
     String version = await PubService().getPackage(pack, '');
     int index = node.indexWhere((t) => t.contains("  $pack:"));
     node[index] = "  $pack: ^$version";

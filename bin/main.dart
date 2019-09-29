@@ -3,12 +3,11 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/command/run_command.dart';
 
-
 main(List<String> arguments) {
   CommandRunner runner = configureCommand(arguments);
 
   bool hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
-  
+
   if (hasCommand) {
     executeCommand(runner, arguments);
   } else {
