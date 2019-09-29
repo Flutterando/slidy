@@ -1,8 +1,8 @@
 String startLocales(String package) => '''
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:${package}/src/shared/locale/en-US_locale.dart';
-import 'package:${package}/src/shared/locale/pt-BR_locale.dart';
+import 'package:${package}/app/shared/locale/en-US_locale.dart';
+import 'package:${package}/app/shared/locale/pt-BR_locale.dart';
 
 class AppLocale {
   final Locale locale;

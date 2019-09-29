@@ -12,7 +12,13 @@ void createFile(String path, String type, Function generator) async {
 
   path = libPath(path);
 
-  Directory dir = Directory(path).parent;
+  Directory dir;
+  if (type == 'bloc' || type == 'repository') {
+    dir = Directory(path).parent;
+  } else {
+    dir = Directory(path);
+  }
+
   String name = basename(path);
 
   File file =
@@ -29,7 +35,8 @@ void createFile(String path, String type, Function generator) async {
 
     if (type == 'module_complete') {
       String package = await getNamePackage();
-      file.writeAsStringSync(generator(package, formatName(name), path));
+      file.writeAsStringSync(
+          generator(package, formatName(name), "$path/$name"));
     } else if (type == 'module') {
       file.writeAsStringSync(generator("", formatName(name), path));
     } else {

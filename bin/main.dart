@@ -1,6 +1,7 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/command/run_command.dart';
 
 
 main(List<String> arguments) {
@@ -40,6 +41,7 @@ CommandRunner configureCommand(List<String> arguments) {
   var runner =
       CommandRunner("slidy", "CLI package manager and template for Flutter.")
         ..addCommand(StartCommand())
+        ..addCommand(RunCommand())
         ..addCommand(GenerateCommand())
         ..addCommand(GenerateCommandAbbr())
         ..addCommand(UpdateCommand())

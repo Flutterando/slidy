@@ -23,7 +23,8 @@ Future<String> getNamePackage() async {
 
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock") ;
+  File file =
+      File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
   var doc = loadYaml(file.readAsStringSync());
   return doc['packages']['slidy']['version'].toString();
 }
@@ -33,8 +34,16 @@ Future<PubSpec> getPubSpec({String path = ""}) async {
   return pubSpec;
 }
 
-bool checkParam(List<String> args, String param){
+bool checkParam(List<String> args, String param) {
   return args.contains(param);
 }
 
-String libPath(String path) => "lib/src/$path";
+String libPath(String path) {
+  if(Directory("lib/app").existsSync()){
+    return "lib/app/$path";
+  } else if(Directory("lib/src").existsSync()) {
+    return "lib/src/$path";
+  } else {
+    return "lib/app/$path";
+  }
+}
