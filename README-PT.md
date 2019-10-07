@@ -11,7 +11,7 @@ Para agilizar e ajudar no desenvolvimento, coopere colocando seus problemas e su
 
 ## Motivação
 
-Percebemos que a falta de um padrão de projetos está afetando a produtividade de vários desenvolvedores nesse momento inicial, então estamos proponto um padrão de desenvolvimento junto com uma ferramenta que imita funcionalidades do NPM (NodeJS) e também recursos para geração de templates (Semelhante ao Scaffold).
+Percebemos que a falta de um padrão de projetos está afetando a produtividade de vários desenvolvedores nesse momento inicial, então estamos propondo um padrão de desenvolvimento junto com uma ferramenta que imita funcionalidades do NPM (NodeJS) e também recursos para geração de templates (Semelhante ao Scaffold).
 
 ## Sobre o Padrão Proposto.
 
@@ -25,7 +25,7 @@ Com isso nossa estrutura de pastas fica organizada em módulos locais e um módu
 
 Exemplo de estrutura de pastas gerada pelo **Slidy**:
 
-![Folder example](/folder.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/folderw.png?raw=true)
 
 ## Instalação
 
