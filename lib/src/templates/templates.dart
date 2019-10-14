@@ -11,7 +11,9 @@ export 'start/src/locale/locales.dart';
 
 // generator //
 export 'generator/bloc_generator.dart';
+export 'generator/bloc_test_generator.dart';
 export 'generator/module_template.dart';
 export 'generator/widget_generator.dart';
 export 'generator/repository_generator.dart';
+export 'generator/repository_test_generator.dart';
 export 'generator/page_generator.dart';

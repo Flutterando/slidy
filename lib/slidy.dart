@@ -13,5 +13,3 @@ export 'package:slidy/src/command/sub_command/generate_module_sub_command.dart';
 export 'package:slidy/src/command/sub_command/generate_page_sub_command.dart';
 export 'package:slidy/src/command/sub_command/generate_repository_sub_command.dart';
 export 'package:slidy/src/command/sub_command/generate_widget_sub_command.dart';
-
-bool isDebugMode = false;

@@ -3,7 +3,8 @@ import 'package:path/path.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void createFile(String path, String type, Function generator) async {
+void createFile(String path, String type, Function generator,
+    [Function generatorTest]) async {
   output.msg("Creating $type...");
 
   path = path.replaceAll("\\", "/").replaceAll("\"", "");
@@ -24,8 +25,16 @@ void createFile(String path, String type, Function generator) async {
   File file =
       File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
 
+  File fileTest = File(
+      '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+
   if (file.existsSync()) {
     output.error("already exists a $type $name");
+    exit(1);
+  }
+
+  if (fileTest.existsSync()) {
+    output.error("already exists a $type $name test file");
     exit(1);
   }
 
@@ -47,6 +56,13 @@ void createFile(String path, String type, Function generator) async {
 
     if (type == 'bloc' || type == 'repository') {
       addModule(formatName(name), file.path, type == 'bloc');
+      if (generatorTest != null) {
+        fileTest.createSync(recursive: true);
+        output.msg("File test ${fileTest.path} created");
+        fileTest.writeAsStringSync(
+            generatorTest(formatName(name), await getNamePackage(), file.path));
+        formatFile(fileTest);
+      }
     }
 
     output.success("$type created");

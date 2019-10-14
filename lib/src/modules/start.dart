@@ -21,6 +21,17 @@ start(hasForce, completeStart) async {
     }
   }
 
+  var dirTest = Directory("test");
+  if (dirTest.listSync().isNotEmpty) {
+    if (hasForce) {
+      output.msg("Removing test folder");
+      await dirTest.delete(recursive: true);
+    } else {
+      output.error("The test folder must be empty");
+      exit(1);
+    }
+  }
+
   output.msg("Starting a new project");
 
   var command =
@@ -31,7 +42,7 @@ start(hasForce, completeStart) async {
   createStaticFile(
       libPath('app_module.dart'), templates.startAppModule(package));
 
-  createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
+  //createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
   if (completeStart) {
     createStaticFile(
@@ -68,7 +79,10 @@ start(hasForce, completeStart) async {
     await command.run(['generate', 'module', 'pages/home', '-c']);
   }
 
+  await command.run(['generate', 'bloc', 'app']);
+
   await install(["bloc_pattern", "rxdart", "dio"], false);
+  await install(["mockito"], true);
 
   output.msg("Project started! enjoy!");
 }
