@@ -33,7 +33,7 @@ Estrutura de pasta de exemplo gerada por ** slidy **:
 
 ## Comandos:
 
-#### upgrade:
+### upgrade:
 
 Atualiza a versão do slidy:
 
@@ -41,7 +41,7 @@ Atualiza a versão do slidy:
 slidy upgrade
 ```
 
-#### start:
+### start:
 
 Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
 
@@ -52,7 +52,7 @@ slidy start
 ![Exemplo de pasta](/start_cmd.png)
 
 
-#### run:
+### run:
 
 Executa os scripts em pubspect.yaml:
 
@@ -62,14 +62,14 @@ slidy run open_folder
 
 ! [Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/scripts.png?raw=true)
 
-#### instalar:
+### install:
 
 **Instala ou atualiza os pacotes em dependências:**
 
 ! [Exemplo de pasta](/dependencies.png)
 
 ```
-instalação slidy rxdart dio bloc_pattern
+install slidy rxdart dio bloc_pattern
 ```
 
 ou você pode simplesmente usar o comando **i** (ambos são iguais)
@@ -86,7 +86,7 @@ slidy i flutter_launcher_icons --dev
 
 ![Exemplo de pasta](/dev_d.png)
 
-#### Desinstalar:
+### uninstall:
 
 Remove um pacote
  ```
@@ -95,16 +95,16 @@ Remove um pacote
 Você também pode remover uma **dev_dependency** usando o sinalizador --dev
 
 
-#### gerar:
+### generate:
 
 Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.
 
 **NOTA:** Você pode substituir "g" pelo comando "generate".
 
-Cria um novo **módulo**:
+Cria um novo **module**:
 
 ```
-slidy módulo g folder_name
+slidy module g folder_name
 ```
 
 ![Exemplo de pasta](/module_cmd.png)
@@ -146,7 +146,7 @@ slidy test folder_name
 
 **Windows:** 
 
-  ![Folder example](/error_windows_install.png)
+  ![Folder example](/error_windows_install.jpg)
 
   Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis ​​de ambiente manualmente:
 
