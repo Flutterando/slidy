@@ -2,12 +2,17 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
+import 'dart:io' show Platform;
 
 void createFile(String path, String type, Function generator,
     [Function generatorTest]) async {
   output.msg("Creating $type...");
-
-  path = path.replaceAll("\\", "/").replaceAll("\"", "");
+  
+  var uri = Platform.script;
+  var pathLinux = uri.toFilePath();
+  if (pathLinux.contains("/")) {
+    path = path.replaceAll("\\", "/").replaceAll("\"", "");
+  }
   if (path.startsWith("/")) path = path.substring(1);
   if (path.endsWith("/")) path = path.substring(0, path.length - 1);
 
@@ -21,9 +26,11 @@ void createFile(String path, String type, Function generator,
   }
 
   String name = basename(path);
-
-  File file =
-      File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
+  var pathToFile = '${dir.path}\\${name}_${type.replaceAll("_complete", "")}.dart';
+  if (pathLinux.contains("/")) {
+    pathToFile = '${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart';
+  }
+  File file = File(pathToFile);
 
   File fileTest = File(
       '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
