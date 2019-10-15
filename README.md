@@ -145,25 +145,25 @@ slidy test folder_name/
 
 **Windows:** 
 
-  ![Folder example](/error_windows_install.jpg)
+  ![Folder example](/error_windows_install.png)
 
   If you got this error when trying to run the ```pub global activate slidy```, then you will have to set the environment variables manually:
 
   In windows search, write:  ```Edit System Variables```
 
-  ![Folder example](/step1.jpg)
+  ![Folder example](/step1.png)
 
   Then click at ```Environment Variables```
 
-  ![Folder example](/step2.jpg)
+  ![Folder example](/step2.png)
 
   Go to ```Path```
 
-  ![Folder example](/step3.jpg)
+  ![Folder example](/step3.png)
 
   Then click in New and add the path that appeared on your console.
 
-  ![Folder example](/step4.jpg)
+  ![Folder example](/step4.png)
 
   To more information, watch [this](https://t.me/flutterando) video.
 
