@@ -1,3 +1,4 @@
+
 [Para ver em Português clique aqui](README-PT.md)
 
 # Slidy - Why to use?
@@ -51,7 +52,7 @@ Create the basic structure of your project (make sure that your "lib" folder it'
 slidy start
 ```       
 
-![Folder example](/start_cmd.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/start_cmd.png?raw=true)
 
 
 ### run:
@@ -68,7 +69,7 @@ slidy run open_folder
 
 **Installs or update the packages in dependencies:** 
 
-![Folder example](/dependencies.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/dependencies.png?raw=true)
 
 ```
 slidy install rxdart dio bloc_pattern
@@ -86,7 +87,7 @@ slidy i rxdart dio bloc_pattern
 slidy i flutter_launcher_icons --dev
 ``` 
 
-![Folder example](/dev_d.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/dev_d.png?raw=true)
 
 ### uninstall:
 
@@ -109,7 +110,7 @@ Creates a new **module**:
 slidy g module folder_name
 ``` 
 
-![Folder example](/module_cmd.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/module_cmd.png?raw=true)
 
 Creates a new **page** + BloC:
 
@@ -132,7 +133,7 @@ slidy g r folder_name/repositories
 
 You can also use "repository" in "r"'s place, but it will have the same function.
 
-![Folder example](/structure.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/structure.png?raw=true)
 
 
 ## Unit Tests:
@@ -147,30 +148,28 @@ slidy test folder_name/
 
 **Windows:** 
 
-  ![Folder example](/error_windows_install.jpg)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/error_windows_install.jpg?raw=true)
 
   If you got this error when trying to run the ```pub global activate slidy```, then you will have to set the environment variables manually:
 
   * In windows search, write:  ```Edit System Variables```
 
-  ![Folder example](/step1.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step1.png?raw=true)
 
   * Then click at ```Environment Variables```
 
-  ![Folder example](/step2.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step2.png?raw=true)
 
   * Go to ```Path```
 
-  ![Folder example](/step3.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step3.png?raw=true)
 
   * Then click in New and add the path that appeared on your console.
 
-  ![Folder example](/step4.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step4.png?raw=true)
 
 If you have any doubt about setting up the system variables, watch [this](https://www.youtube.com/watch?v=bEroNNzqlF4) video.
 
+
 For more details join our[Telegram Group Flutterando](https://t.me/flutterando)
-
-
-
 
