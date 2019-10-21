@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.1.2
 - Added "service" command to generate auto disposed and injetable service.
   ```
    slidy generate service path-of-your-file
