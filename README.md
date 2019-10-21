@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Slidy - Why to use?
 
 Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
@@ -50,7 +49,7 @@ Create the basic structure of your project (make sure that your "lib" folder it'
 slidy start
 ```       
 
-![Folder example](/start_cmd.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/start_cmd.png?raw=true)
 
 
 ### run:
@@ -67,7 +66,7 @@ slidy run open_folder
 
 **Installs or update the packages in dependencies:** 
 
-![Folder example](/dependencies.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/dependencies.png?raw=true)
 
 ```
 slidy install rxdart dio bloc_pattern
@@ -85,7 +84,7 @@ slidy i rxdart dio bloc_pattern
 slidy i flutter_launcher_icons --dev
 ``` 
 
-![Folder example](/dev_d.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/dev_d.png?raw=true)
 
 ### uninstall:
 
@@ -108,7 +107,7 @@ Creates a new **module**:
 slidy g module folder_name
 ``` 
 
-![Folder example](/module_cmd.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/module_cmd.png?raw=true)
 
 Creates a new **page** + BloC:
 
@@ -131,7 +130,7 @@ slidy g r folder_name/repositories
 
 You can also use "repository" in "r"'s place, but it will have the same function.
 
-![Folder example](/structure.png)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/structure.png?raw=true)
 
 
 ## Unit Tests:
@@ -220,7 +219,7 @@ slidy install rxdart dio bloc_pattern
 ```
 You can also install a package as dev_dependency using the flag --dev
 ```
-slidy i flutter_launcher_icons --dev
+slidy i mockito --dev
 ``` 
 remove a package
  ```
@@ -256,32 +255,30 @@ Create a new repository
 slidy g r manager/product/repositories/product
 ``` 
 
->>>>>>> 2f431f953aed90d425f32232a3317fd7f82f3bb4
 
 ## Common errors:
 
 **Windows:** 
 
-  ![Folder example](/error_windows_install.jpg)
+  ![Folder example](/error_windows_install.jpg?raw=true)
 
-<<<<<<< HEAD
   If you got this error when trying to run the ```pub global activate slidy```, then you will have to set the environment variables manually:
 
   In windows search, write:  ```Edit System Variables```
 
-  ![Folder example](/step1.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step1.png?raw=true)
 
   Then click at ```Environment Variables```
 
-  ![Folder example](/step2.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step2.png?raw=true)
 
   Go to ```Path```
 
-  ![Folder example](/step3.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step3.png?raw=true)
 
   Then click in New and add the path that appeared on your console.
 
-  ![Folder example](/step4.png)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/step4.png?raw=true)
 
   For more information, watch [this](https://t.me/flutterando) video.
 
@@ -299,9 +296,4 @@ Join our [Flutterando Telegram Group!](https://t.me/flutterando)
 
   Then click in New and add the path that appeared on your console in case here is : ```C:\Users\1513 MX5-7\AppData\Roaming\Pub\Cache\Bin``` after that just restart your CMD.
 
-
-
-
 For more details [Telegram Group Flutterando](https://t.me/flutterando)
->>>>>>> 2f431f953aed90d425f32232a3317fd7f82f3bb4
-
