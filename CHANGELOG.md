@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+## 1.1.0
+- Now creating BLoCs or Repositories also creates Unitary Test files.
+- Added "test" command to "generate command".
+  ```
+   slidy generate test path-of-your-file
+  ```
+
+>>>>>>> 2f431f953aed90d425f32232a3317fd7f82f3bb4
 ## 1.0.0
 - added command run, for exec your scripts in pubspec.yaml
 - Some commands have been improved for ease of usability

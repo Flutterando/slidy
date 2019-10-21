@@ -17,9 +17,15 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+<<<<<<< HEAD
   dio: ^3.0.2
   rxdart: ^0.22.2
   bloc_pattern: ^2.3.3
+=======
+  dio: ^3.0.3
+  rxdart: ^0.22.3
+  bloc_pattern: ^2.4.0+2
+>>>>>>> 2f431f953aed90d425f32232a3317fd7f82f3bb4
   flutter_localizations: 
      sdk: flutter
   flutter:
@@ -32,6 +38,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+<<<<<<< HEAD
+=======
+  mockito: ^4.1.1
+>>>>>>> 2f431f953aed90d425f32232a3317fd7f82f3bb4
 
 
 # For information on the generic Dart part of this file, see the
