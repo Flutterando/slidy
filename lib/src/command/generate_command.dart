@@ -1,5 +1,6 @@
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/command/sub_command/generate_bloc.dart';
+import 'package:slidy/src/command/sub_command/generate_service_sub_command.dart';
 import 'package:slidy/src/command/sub_command/generate_test_sub_command.dart';
 
 class GenerateCommand extends CommandBase {
@@ -19,6 +20,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateBlocAbbrSubCommand());
     addSubcommand(GenerateRepositorySubCommand());
     addSubcommand(GenerateRepositoryAbbrSubCommand());
+    addSubcommand(GenerateServiceSubCommand());
+    addSubcommand(GenerateServiceAbbrSubCommand());
     addSubcommand(GenerateTestSubCommand());
     addSubcommand(GenerateTestAbbrSubCommand());
   }

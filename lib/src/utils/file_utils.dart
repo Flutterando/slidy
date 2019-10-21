@@ -14,7 +14,7 @@ void createFile(String path, String type, Function generator,
   path = libPath(path);
 
   Directory dir;
-  if (type == 'bloc' || type == 'repository') {
+  if (type == 'bloc' || type == 'repository' || type == 'service') {
     dir = Directory(path).parent;
   } else {
     dir = Directory(path);
@@ -54,8 +54,8 @@ void createFile(String path, String type, Function generator,
 
     formatFile(file);
 
-    if (type == 'bloc' || type == 'repository') {
-      addModule(formatName(name), file.path, type == 'bloc');
+    if (type == 'bloc' || type == 'repository' || type == 'service') {
+      addModule(formatName("${name}_$type"), file.path, type == 'bloc');
       if (generatorTest != null) {
         fileTest.createSync(recursive: true);
         output.msg("File test ${fileTest.path} created");
@@ -95,11 +95,11 @@ addModule(String nameCap, String path, bool isBloc) async {
   if (isBloc) {
     index = node.indexWhere((t) => t.contains("blocs => ["));
     node[index] = node[index]
-        .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}Bloc()),");
+        .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}()),");
   } else {
     index = node.indexWhere((t) => t.contains("dependencies => ["));
     node[index] = node[index].replaceFirst("dependencies => [",
-        "dependencies => [Dependency((i) => ${nameCap}Repository()),");
+        "dependencies => [Dependency((i) => ${nameCap}()),");
   }
 
   module.writeAsStringSync(node.join("\n"));

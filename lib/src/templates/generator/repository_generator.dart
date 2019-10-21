@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 
 class ${name}Repository extends Disposable {
 
-
   Future fetchPost(Dio client) async {
     final response =
         await client.get('https://jsonplaceholder.typicode.com/posts/1');

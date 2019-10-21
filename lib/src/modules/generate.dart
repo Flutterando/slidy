@@ -100,6 +100,11 @@ class Generate {
         isTest ? templates.repositoryTestGenerator : null);
   }
 
+  static service(String path, [bool isTest = true]) {
+    file_utils.createFile(path, 'service', templates.serviceGenerator,
+        isTest ? templates.serviceTestGenerator : null);
+  }
+
   static bloc(String path, [bool isTest = true]) {
     file_utils.createFile(path, 'bloc', templates.blocGenerator,
         isTest ? templates.blocTestGenerator : null);

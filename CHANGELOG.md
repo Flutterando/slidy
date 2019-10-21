@@ -1,3 +1,9 @@
+## 1.2.0
+- Added "service" command to generate auto disposed and injetable service.
+  ```
+   slidy generate service path-of-your-file
+  ```
+
 ## 1.1.0
 - Now creating BLoCs or Repositories also creates Unitary Test files.
 - Added "test" command to "generate command".

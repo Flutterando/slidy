@@ -16,4 +16,6 @@ export 'generator/module_template.dart';
 export 'generator/widget_generator.dart';
 export 'generator/repository_generator.dart';
 export 'generator/repository_test_generator.dart';
+export 'generator/service_generator.dart';
+export 'generator/service_test_generator.dart';
 export 'generator/page_generator.dart';
