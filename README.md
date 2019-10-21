@@ -260,7 +260,7 @@ slidy g r manager/product/repositories/product
 
 **Windows:** 
 
-  ![Folder example](/error_windows_install.jpg?raw=true)
+  ![Folder example](https://github.com/Flutterando/slidy/blob/master/error_windows_install.jpg?raw=true)
 
   If you got this error when trying to run the ```pub global activate slidy```, then you will have to set the environment variables manually:
 
