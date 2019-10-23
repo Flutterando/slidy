@@ -1,7 +1,7 @@
 
 [Para ver em Português clique aqui](README-PT.md)
 
-# Slidy - Why to use?
+# Slidy - Why should i use?
 
 Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
 
