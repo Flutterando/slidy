@@ -22,6 +22,9 @@ class CreateCommand extends CommandBase {
 
     argParser.addFlag('swift',
         abbr: 's', negatable: false, help: "use swift in ios project");
+
+    argParser.addFlag('androidx',
+        abbr: 'x', negatable: false, help: "use androidx on android project");
   }
 
   void run() {
@@ -29,8 +32,13 @@ class CreateCommand extends CommandBase {
       throw UsageException(
           "project name not passed for a create command", usage);
     } else {
-      create(argResults.rest.first, argResults["description"],
-          argResults["org"], argResults["kotlin"], argResults["swift"]);
+      create(
+          argResults.rest.first,
+          argResults["description"],
+          argResults["org"],
+          argResults["kotlin"],
+          argResults["swift"],
+          argResults["androidx"]);
     }
   }
 }
