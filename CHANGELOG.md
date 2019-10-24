@@ -1,4 +1,4 @@
-## 1.1.2
+## 1.1.3
 - Create unity test widget when generate pages or widgets.
 - Flutter Dart 100% compatible
   ```
