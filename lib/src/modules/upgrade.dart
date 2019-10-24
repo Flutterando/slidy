@@ -6,8 +6,9 @@ void upgrade() {
 
   if (Platform.isWindows) {
     var process = Process.runSync("where", ["slidy"], runInShell: true);
-    
-    isFlutterDart = process.stdout.toString().contains("flutter\\.pub-cache\\bin\\slidy");
+
+    isFlutterDart =
+        process.stdout.toString().contains("flutter\\.pub-cache\\bin\\slidy");
   } else {
     var process = Process.runSync("which", ["slidy"], runInShell: true);
     isFlutterDart =
