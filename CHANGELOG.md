@@ -1,4 +1,11 @@
 ## 1.1.2
+- Create unity test widget when generate pages or widgets.
+- Flutter Dart 100% compatible
+  ```
+   flutter pub global activate slidy
+  ```
+
+## 1.1.2
 - Added "service" command to generate auto disposed and injetable service.
   ```
    slidy generate service path-of-your-file
