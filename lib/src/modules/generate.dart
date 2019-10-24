@@ -17,7 +17,7 @@ class Generate {
   }
 
   static page(String path, bool blocLess) {
-    file_utils.createFile(path, 'page', templates.pageGenerator);
+    file_utils.createFile(path, 'page', templates.pageGenerator, templates.pageTestGenerator);
     String name = basename(path);
     if (!blocLess) {
       bloc("$path/$name");
@@ -27,9 +27,9 @@ class Generate {
   static widget(String path, bool blocLess, bool ignoreSufix) {
     if (ignoreSufix) {
       file_utils.createFile(
-          path, 'widget', templates.widgetGeneratorWithoutSufix);
+          path, 'widget', templates.widgetGeneratorWithoutSufix, templates.widgetTestGeneratorWithoutSufix);
     } else {
-      file_utils.createFile(path, 'widget', templates.widgetGenerator);
+      file_utils.createFile(path, 'widget', templates.widgetGenerator, templates.widgetTestGenerator);
     }
 
     String name = basename(path);

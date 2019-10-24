@@ -56,13 +56,14 @@ void createFile(String path, String type, Function generator,
 
     if (type == 'bloc' || type == 'repository' || type == 'service') {
       addModule(formatName("${name}_$type"), file.path, type == 'bloc');
-      if (generatorTest != null) {
-        fileTest.createSync(recursive: true);
-        output.msg("File test ${fileTest.path} created");
-        fileTest.writeAsStringSync(
-            generatorTest(formatName(name), await getNamePackage(), file.path));
-        formatFile(fileTest);
-      }
+    }
+
+    if (generatorTest != null) {
+      fileTest.createSync(recursive: true);
+      output.msg("File test ${fileTest.path} created");
+      fileTest.writeAsStringSync(
+          generatorTest(formatName(name), await getNamePackage(), file.path));
+      formatFile(fileTest);
     }
 
     output.success("$type created");

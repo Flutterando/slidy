@@ -1,3 +1,8 @@
+import 'package:example/app/pages/login/components/card/card_bloc.dart';
+import 'package:example/app/pages/login/components/card/card_bloc.dart';
+import 'package:example/app/pages/login/components/card/card_bloc.dart';
+import 'package:example/app/pages/login/components/card/card_bloc.dart';
+import 'package:example/app/pages/login/login_bloc.dart';
 import 'package:example/app/shared/blocs/auth_bloc.dart';
 import 'package:example/app/shared/services/service_service.dart';
 import 'package:example/app/app_bloc.dart';
@@ -8,6 +13,10 @@ import 'package:example/app/app_widget.dart';
 class AppModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
+        Bloc((i) => CardBloc()),
+        Bloc((i) => CardBloc()),
+        Bloc((i) => CardBloc()),
+        Bloc((i) => LoginBloc()),
         Bloc((i) => AuthBloc()),
         Bloc((i) => AppBloc()),
       ];

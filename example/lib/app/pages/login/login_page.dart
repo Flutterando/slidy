@@ -1,16 +1,14 @@
-String pageGenerator(String name) => '''
 import 'package:flutter/material.dart';
 
-class ${name}Page extends StatefulWidget {
-  
+class LoginPage extends StatefulWidget {
   final String title;
-  const ${name}Page({Key key, this.title = "${name}"}) : super(key: key);
+  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
 
   @override
-  _${name}PageState createState() => _${name}PageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _${name}PageState extends State<${name}Page> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,4 +21,3 @@ class _${name}PageState extends State<${name}Page> {
     );
   }
 }
-  ''';
