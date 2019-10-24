@@ -25,12 +25,11 @@ Estrutura de pasta de exemplo gerada por ** slidy **:
 ## Instalação
 
 
-1. Você precisa ter o [Dart SDK](https://dart.dev/get-dart) instalado.
-2. Ative o slidy usando o pub:
+1. Ative o slidy usando o pub:
     ```
-    pub global activate slidy
+    flutter pub global activate slidy
     ```
-3. Digite `slidy --version` se retornar a versão em que está trabalhando.
+2. Digite `slidy --version` se retornar a versão em que está trabalhando.
 
 
 ## Comandos:
