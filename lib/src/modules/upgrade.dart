@@ -3,20 +3,21 @@ import 'dart:io';
 
 void upgrade() {
 
-  //C:\Users\bwolf\AppData\Roaming\Pub\Cache\bin\slidy.bat
-  //C:\Users\azeve\AppData\Roaming\Pub\Cache\bin\slidy.bat
-  bool isFlutterDart = false;
+  bool isFlutterDart = true;
 
   if(Platform.isWindows){
-    print("Upgrade in Windows");
-    var process = Process.runSync("where", ["slidy"], runInShell: true);
+    // var process = Process.runSync("where", ["slidy"], runInShell: true);
+    // isFlutterDart = process.stdout.toString().contains("flutter/.pub-cache/bin/slidy");
   } else {
     var process = Process.runSync("which", ["slidy"], runInShell: true);
     isFlutterDart = process.stdout.toString().contains("flutter/.pub-cache/bin/slidy");
   }
+
   if(isFlutterDart){
+    print("Upgrade in Flutter Dart VM");
     Process.runSync("flutter", ["pub", "global", "activate", "slidy"], runInShell: true);
   } else {
+    print("Upgrade in Dart VM");
     Process.runSync("pub", ["global", "activate", "slidy"], runInShell: true);
   }
 
