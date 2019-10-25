@@ -1,15 +1,15 @@
 import 'dart:io';
 
 void create(String projectName, String projectDescription, String projectOrg,
-    bool isKotlin, bool isSwift) {
-  startFlutterCreate(
-      projectName, projectDescription, projectOrg, isKotlin, isSwift);
+    bool isKotlin, bool isSwift, bool isAndroidX) {
+  startFlutterCreate(projectName, projectDescription, projectOrg, isKotlin,
+      isSwift, isAndroidX);
 }
 
 void startFlutterCreate(String projectName, String projectDescription,
-    String projectOrg, bool isKotlin, bool isSwift) {
-  List<String> flutterArgs = createFlutterArgs(
-      projectName, projectDescription, projectOrg, isKotlin, isSwift);
+    String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
+  List<String> flutterArgs = createFlutterArgs(projectName, projectDescription,
+      projectOrg, isKotlin, isSwift, isAndroidX);
 
   Process.start("flutter", flutterArgs, runInShell: true).then((process) {
     stdout.addStream(process.stdout);
@@ -42,7 +42,7 @@ void startSlidyCreate(String projectName) {
 }
 
 List<String> createFlutterArgs(String projectName, String projectDescription,
-    String projectOrg, bool isKotlin, bool isSwift) {
+    String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
   projectDescription = projectDescription == null
       ? "A new Flutter project. Created by Slidy"
       : projectDescription;
@@ -50,13 +50,19 @@ List<String> createFlutterArgs(String projectName, String projectDescription,
 
   var flutterArgs = ["create"];
   flutterArgs.add("--no-pub");
+
   if (isKotlin) {
     flutterArgs.add("-a");
     flutterArgs.add("kotlin");
   }
+
   if (isSwift) {
     flutterArgs.add("-i");
     flutterArgs.add("swift");
+  }
+
+  if (isAndroidX) {
+    flutterArgs.add("--androidx");
   }
 
   flutterArgs.add("--project-name");
