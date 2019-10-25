@@ -8,7 +8,7 @@ String formatName(String name) {
       .replaceAll("_", " ")
       .split(" ")
       .map((t) => t[0].toUpperCase() + t.substring(1))
-      .join();
+      .join().replaceFirst(".dart", "");
   return name;
 }
 

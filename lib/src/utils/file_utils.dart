@@ -54,15 +54,24 @@ void createFile(String path, String type, Function generator,
 
     formatFile(file);
 
+    File module;
+    String nameModule;
+
     if (type == 'bloc' || type == 'repository' || type == 'service') {
-      addModule(formatName("${name}_$type"), file.path, type == 'bloc');
+      module = await addModule(
+          formatName("${name}_$type"), file.path, type == 'bloc');
+      nameModule = module == null ? null : basename(module.path);
     }
 
     if (generatorTest != null) {
       fileTest.createSync(recursive: true);
       output.msg("File test ${fileTest.path} created");
-      fileTest.writeAsStringSync(
-          generatorTest(formatName(name), await getNamePackage(), file.path));
+      fileTest.writeAsStringSync(generatorTest(
+          formatName(name),
+          await getNamePackage(),
+          file.path,
+          formatName(nameModule),
+          module?.path));
       formatFile(fileTest);
     }
 
@@ -77,7 +86,7 @@ void formatFile(File file) {
   Process.runSync("flutter", ["format", file.absolute.path], runInShell: true);
 }
 
-addModule(String nameCap, String path, bool isBloc) async {
+Future<File> addModule(String nameCap, String path, bool isBloc) async {
   int index;
   File module = findModule(path);
 
@@ -86,10 +95,10 @@ addModule(String nameCap, String path, bool isBloc) async {
     exit(1);
   }
 
-  module = File(module.path.replaceAll("\\", "/"));
-
   var node = module.readAsStringSync().split("\n");
-
+  print("Teste 1 ----");
+  print("Teste ${await getNamePackage()}");
+  print("Teste 2 ----");
   node.insert(0,
       "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
@@ -106,6 +115,8 @@ addModule(String nameCap, String path, bool isBloc) async {
   module.writeAsStringSync(node.join("\n"));
   formatFile(module);
   output.success("${module.path} modified");
+
+  return module;
 }
 
 File findModule(String path) {
@@ -119,7 +130,7 @@ File findModule(String path) {
     loop = module == null && basename(dir.path) != 'lib' && count < 10;
     count++;
   } while (loop);
-
+  module = File(module.path.replaceAll("\\", "/"));
   return module;
 }
 

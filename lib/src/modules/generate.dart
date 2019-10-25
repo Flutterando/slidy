@@ -81,14 +81,21 @@ class Generate {
     }
 
     String name = basename(entity.path);
+    File module = file_utils.findModule(entity.path);
+    String nameModule = module == null ? null : basename(module.path);
 
     if (name.contains("_bloc.dart")) {
       entityTest.createSync(recursive: true);
       output.msg("File test ${entityTest.path} created");
-      entityTest.writeAsStringSync(templates.blocTestGenerator(
+      entityTest.writeAsStringSync(
+        templates.blocTestGenerator(
           formatName(name.replaceFirst("_bloc.dart", "")),
           await getNamePackage(),
-          entity.path));
+          entity.path,
+          nameModule,
+          module?.path,
+        ),
+      );
     } else if (name.contains("_repository.dart")) {
       entityTest.createSync(recursive: true);
       output.msg("File test ${entityTest.path} created");
