@@ -92,17 +92,21 @@ class Generate {
           formatName(name.replaceFirst("_bloc.dart", "")),
           await getNamePackage(),
           entity.path,
-          nameModule,
+          nameModule == null ? null : formatName(nameModule),
           module?.path,
         ),
       );
     } else if (name.contains("_repository.dart")) {
       entityTest.createSync(recursive: true);
       output.msg("File test ${entityTest.path} created");
-      entityTest.writeAsStringSync(templates.repositoryTestGenerator(
-          formatName(name.replaceFirst("_repository.dart", "")),
-          await getNamePackage(),
-          entity.path));
+      entityTest.writeAsStringSync(
+        templates.repositoryTestGenerator(
+            formatName(name.replaceFirst("_repository.dart", "")),
+            await getNamePackage(),
+            entity.path,
+            nameModule == null ? null : formatName(nameModule),
+            module?.path),
+      );
     }
     formatFile(entityTest);
   }

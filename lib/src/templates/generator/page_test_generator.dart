@@ -1,4 +1,6 @@
-String pageTestGenerator(String name, String packageName, String import) => '''
+String pageTestGenerator(String name, String packageName, String import,
+        String module, String pathModule) =>
+    '''
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_pattern/bloc_pattern_test.dart';

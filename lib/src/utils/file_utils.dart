@@ -70,7 +70,7 @@ void createFile(String path, String type, Function generator,
           formatName(name),
           await getNamePackage(),
           file.path,
-          formatName(nameModule),
+          nameModule != null ? formatName(nameModule) : null,
           module?.path));
       formatFile(fileTest);
     }
@@ -96,9 +96,6 @@ Future<File> addModule(String nameCap, String path, bool isBloc) async {
   }
 
   var node = module.readAsStringSync().split("\n");
-  print("Teste 1 ----");
-  print("Teste ${await getNamePackage()}");
-  print("Teste 2 ----");
   node.insert(0,
       "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
