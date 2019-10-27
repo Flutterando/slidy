@@ -1,6 +1,6 @@
 ![Pub](https://img.shields.io/pub/v/slidy?color=orange)
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
-![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)
+[![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
 [Acesse a documentação em Português-Brasil](README-PT.md)
 
