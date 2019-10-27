@@ -1,6 +1,13 @@
-[Click here to see in english](README.md)
+![Pub](https://img.shields.io/pub/v/slidy?color=orange)
+[![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
+[![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
-# Slidy - Por que usar?
+[View the docs in English](README.md)
+
+# Slidy
+Um gerenciador de pacotes CLI e gerador de templates para Flutter. Gere Módulos, Páginas, Widgets, BLoCs e testes.
+
+# Por que usar?
 
 O objetivo do Slidy é ajudá-lo a estruturar seu projeto de maneira padronizada. Organize seu aplicativo em **Módulos** formados por páginas, repositórios, widgets, BloCs e também crie testes de unidade automaticamente. O módulo oferece uma maneira mais fácil de injetar dependências e blocos, incluindo descarte automático. Também ajuda a instalar as dependências e pacotes, atualizando e removendo-os. O melhor é que você pode fazer tudo isso executando um único comando.
 
@@ -20,7 +27,7 @@ Também usamos o **Repository Pattern**, para que a estrutura da pasta seja orga
 
 Estrutura de pasta de exemplo gerada por ** slidy **:
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/folderw.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/folderw.png?raw=true)
 
 ## Instalação
 
@@ -29,7 +36,7 @@ Estrutura de pasta de exemplo gerada por ** slidy **:
     ```
     flutter pub global activate slidy
     ```
-2. Digite `slidy --version` se retornar a versão em que está trabalhando.
+2. Digite `slidy --version` para certificar que tudo funcionou corretamente. Este comando deve retornar a versão instalada.
 
 
 ## Comandos:
@@ -50,24 +57,24 @@ Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia)
 slidy start
 ```
 
-![Exemplo de pasta](/start_cmd.png)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
 
 
 ### run:
 
-Executa os scripts em pubspect.yaml:
+Executa os scripts em pubspec.yaml:
 
 ```
 slidy run open_folder
 ```
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/scripts.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
 ### install:
 
 **Instala ou atualiza os pacotes em dependências:**
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/dependencies.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
 
 ```
 install slidy rxdart dio bloc_pattern
@@ -108,7 +115,7 @@ Cria um novo **module**:
 slidy module g nome_da_pasta
 ```
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/module_cmd.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
 
 Cria uma nova **página** + BloC:
 
@@ -132,7 +139,7 @@ slidy g r nome_da_pasta/repositórios
 
 Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/structure.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
 #### Testes de unidade:
 
@@ -146,25 +153,25 @@ slidy test nome_da_pasta/
 
 **Windows:** 
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/error_windows_install.jpg?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
 
 Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis de ambiente manualmente:
 
 Na pesquisa do Windows, escreva: ```Editar variáveis do sistema```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/step1.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
 
 Em seguida, clique em ```'Variáveis de ambiente```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/step2.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
 
 Vá para ```Path```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/step3.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
 
 Em seguida, clique em Novo e adicione o caminho que apareceu no seu console.
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/step4.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step4.png?raw=true)
 
 Para mais informações, assista a [esse](https://www.youtube.com/watch?v=bEroNNzqlF4) vídeo.
 
