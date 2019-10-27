@@ -27,7 +27,7 @@ Também usamos o **Repository Pattern**, para que a estrutura da pasta seja orga
 
 Estrutura de pasta de exemplo gerada por ** slidy **:
 
-![Exemplo de pasta](/screenshots/folderw.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/folderw.png?raw=true)
 
 ## Instalação
 
@@ -57,7 +57,7 @@ Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia)
 slidy start
 ```
 
-![Exemplo de pasta](/screenshots/start_cmd.png)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
 
 
 ### run:
@@ -68,13 +68,13 @@ Executa os scripts em pubspec.yaml:
 slidy run open_folder
 ```
 
-![Exemplo de pasta](/screenshots/scripts.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
 ### install:
 
 **Instala ou atualiza os pacotes em dependências:**
 
-![Exemplo de pasta](/screenshots/dependencies.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
 
 ```
 install slidy rxdart dio bloc_pattern
@@ -115,7 +115,7 @@ Cria um novo **module**:
 slidy module g nome_da_pasta
 ```
 
-![Exemplo de pasta](/screenshots/module_cmd.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
 
 Cria uma nova **página** + BloC:
 
@@ -139,7 +139,7 @@ slidy g r nome_da_pasta/repositórios
 
 Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
 
-![Exemplo de pasta](/screenshots/structure.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
 #### Testes de unidade:
 
@@ -153,25 +153,25 @@ slidy test nome_da_pasta/
 
 **Windows:** 
 
-![Folder example](/screenshots/error_windows_install.jpg?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
 
 Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis de ambiente manualmente:
 
 Na pesquisa do Windows, escreva: ```Editar variáveis do sistema```
 
-![Folder example](/screenshots/step1.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
 
 Em seguida, clique em ```'Variáveis de ambiente```
 
-![Folder example](/screenshots/step2.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
 
 Vá para ```Path```
 
-![Folder example](/screenshots/step3.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
 
 Em seguida, clique em Novo e adicione o caminho que apareceu no seu console.
 
-![Folder example](/screenshots/step4.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step4.png?raw=true)
 
 Para mais informações, assista a [esse](https://www.youtube.com/watch?v=bEroNNzqlF4) vídeo.
 
