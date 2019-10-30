@@ -25,12 +25,11 @@ Para entender o **pacote bloc_pattern**, consulte o [README](https://github.com/
 
 Também usamos o **Repository Pattern**, para que a estrutura da pasta seja organizada em **módulos locais** e um **módulo global**. As dependências (repositórios, BloCs, modelos, etc.) podem ser acessadas em todo o aplicativo.
 
-Estrutura de pasta de exemplo gerada por ** slidy **:
+Estrutura de pasta de exemplo gerada por **slidy**:
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/folderw.png?raw=true)
 
 ## Instalação
-
 
 1. Ative o slidy usando o pub:
     ```
@@ -92,7 +91,7 @@ slidy i rxdart dio bloc_pattern
 slidy i flutter_launcher_icons --dev
 ```
 
-![Exemplo de pasta](/dev_d.png)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
 
 ### uninstall:
 
