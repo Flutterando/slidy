@@ -65,8 +65,8 @@ start(hasForce, completeStart) async {
     createStaticFile(libPath('shared/locale/en-US_locale.dart'),
         templates.startEnUSLocale());
 
-    await command.run(['generate', 'module', 'pages/login', '-c']);
-    await command.run(['generate', 'module', 'pages/home', '-c']);
+    await command.run(['generate', 'module', 'modules/login', '-c']);
+    await command.run(['generate', 'module', 'modules/home', '-c']);
 
     await install(["flutter_localizations: sdk: flutter"], false,
         haveTwoLines: true);
@@ -76,7 +76,7 @@ start(hasForce, completeStart) async {
     createStaticFile(
         libPath('app_widget.dart'), templates.startAppWidget(package));
 
-    await command.run(['generate', 'module', 'pages/home', '-c']);
+    await command.run(['generate', 'module', 'modules/home', '-c']);
   }
 
   await command.run(['generate', 'bloc', 'app']);
