@@ -1,11 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io' show Platform;
 
-const URL_API = "https://pub.dartlang.org/api/packages";
+import 'package:slidy/src/utils/utils.dart';
 
 class PubService {
   Future<String> getPackage(String pack, String version) async {
-    String url = URL_API + "/$pack";
+    String url = _getUrlPackages() + "/$pack";
 
     if (version.isNotEmpty) {
       url += "/versions/$version";
@@ -20,5 +21,18 @@ class PubService {
     } else {
       throw Exception("error");
     }
+  }
+
+  String _getUrlPackages() {
+    String URLBase = 'https://pub.dev';
+
+    Map<String, String> envVars = Platform.environment;
+    final String URLBaseEnv = envVars['PUB_HOSTED_URL'];
+
+    if (URLBaseEnv != null && validateUrl(URLBaseEnv)) {
+      URLBase = URLBaseEnv;
+    }
+
+    return "$URLBase/api/packages";
   }
 }
