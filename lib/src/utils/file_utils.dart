@@ -3,8 +3,13 @@ import 'package:path/path.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void createFile(String path, String type, Function generator,
-    [Function generatorTest]) async {
+void createFile(
+  String path,
+  String type,
+  Function generator, [
+  Function generatorTest,
+  bool ignoreSufix = false,
+]) async {
   output.msg("Creating $type...");
 
   path = path.replaceAll("\\", "/").replaceAll("\"", "");
@@ -21,12 +26,17 @@ void createFile(String path, String type, Function generator,
   }
 
   String name = basename(path);
-
-  File file =
-      File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
-
-  File fileTest = File(
-      '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+  File file;
+  File fileTest;
+  if (ignoreSufix) {
+    file = File('${dir.path}/${name}.dart');
+    fileTest =
+        File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');
+  } else {
+    file = File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
+    fileTest = File(
+        '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+  }
 
   if (file.existsSync()) {
     output.error("already exists a $type $name");
