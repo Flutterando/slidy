@@ -31,10 +31,15 @@ class Generate {
           path,
           'widget',
           templates.widgetGeneratorWithoutSufix,
-          templates.widgetTestGeneratorWithoutSufix);
+          templates.widgetTestGeneratorWithoutSufix,
+          ignoreSufix);
     } else {
-      file_utils.createFile(path, 'widget', templates.widgetGenerator,
-          templates.widgetTestGenerator);
+      file_utils.createFile(
+        path,
+        'widget',
+        templates.widgetGenerator,
+        templates.widgetTestGenerator,
+      );
     }
 
     String name = basename(path);
