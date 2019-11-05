@@ -11,24 +11,28 @@ import 'package:slidy/src/modules/install.dart';
 
 start(hasForce, completeStart) async {
   var dir = Directory("lib");
-  if (dir.listSync().isNotEmpty) {
-    if (hasForce) {
-      output.msg("Removing lib folder");
-      await dir.delete(recursive: true);
-    } else {
-      output.error("The lib folder must be empty");
-      exit(1);
+  if (await dir.exists()) {
+    if (dir.listSync().isNotEmpty) {
+      if (hasForce) {
+        output.msg("Removing lib folder");
+        await dir.delete(recursive: true);
+      } else {
+        output.error("The lib folder must be empty");
+        exit(1);
+      }
     }
   }
 
   var dirTest = Directory("test");
-  if (dirTest.listSync().isNotEmpty) {
-    if (hasForce) {
-      output.msg("Removing test folder");
-      await dirTest.delete(recursive: true);
-    } else {
-      output.error("The test folder must be empty");
-      exit(1);
+  if (await dirTest.exists()) {
+    if (dirTest.listSync().isNotEmpty) {
+      if (hasForce) {
+        output.msg("Removing test folder");
+        await dirTest.delete(recursive: true);
+      } else {
+        output.error("The test folder must be empty");
+        exit(1);
+      }
     }
   }
 
