@@ -8,7 +8,8 @@ String formatName(String name) {
       .replaceAll("_", " ")
       .split(" ")
       .map((t) => t[0].toUpperCase() + t.substring(1))
-      .join().replaceFirst(".dart", "");
+      .join()
+      .replaceFirst(".dart", "");
   return name;
 }
 
@@ -39,11 +40,18 @@ bool checkParam(List<String> args, String param) {
 }
 
 String libPath(String path) {
-  if(Directory("lib/app").existsSync()){
+  if (Directory("lib/app").existsSync()) {
     return "lib/app/$path";
-  } else if(Directory("lib/src").existsSync()) {
+  } else if (Directory("lib/src").existsSync()) {
     return "lib/src/$path";
   } else {
     return "lib/app/$path";
   }
+}
+
+bool validateUrl(String url) {
+  var urlPattern =
+      r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+  var match = RegExp(urlPattern, caseSensitive: false).firstMatch(url);
+  return match != null ? true : false;
 }
