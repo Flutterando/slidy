@@ -13,8 +13,10 @@ String formatName(String name) {
   return name;
 }
 
-String resolveName(String name) {
-  return name.replaceAll(RegExp(r"[^a-zA-Z0-9]"), "_");
+
+Future<PubSpec> getPubSpec({Directory directory}) async {
+var pubSpec = await PubSpec.load(directory ?? Directory(""));
+  return pubSpec;
 }
 
 Future<String> getNamePackage() async {
@@ -24,22 +26,12 @@ Future<String> getNamePackage() async {
 
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  File file =
-      File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
+  File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
   var doc = loadYaml(file.readAsStringSync());
   return doc['packages']['slidy']['version'].toString();
 }
 
-Future<PubSpec> getPubSpec({String path = ""}) async {
-  var pubSpec = await PubSpec.load(Directory(path));
-  return pubSpec;
-}
-
-bool checkParam(List<String> args, String param) {
-  return args.contains(param);
-}
-
-String libPath(String path) {
+String libPath(String path) {  
   if (Directory("lib/app").existsSync()) {
     return "lib/app/$path";
   } else if (Directory("lib/src").existsSync()) {

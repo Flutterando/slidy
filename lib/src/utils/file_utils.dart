@@ -142,7 +142,12 @@ File findModule(String path) {
 }
 
 File search(Directory dir) {
-  try {
+  try {  
+    var a = dir
+        .listSync()
+        .firstWhere((f) => f is File && f.path.contains("_module.dart"));
+
+    print(" Teste" +a?.toString());
     return dir
         .listSync()
         .firstWhere((f) => f is File && f.path.contains("_module.dart"));
