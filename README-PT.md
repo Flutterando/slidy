@@ -5,7 +5,8 @@
 [View the docs in English](README.md)
 
 # Slidy
-Um gerenciador de pacotes CLI e gerador de templates para Flutter. Gere Módulos, Páginas, Widgets, BLoCs e testes.
+Um gerenciador de pacotes CLI e gerador de templates para Flutter. Gere Módulos, Páginas, Widgets, BLoCs, Controles e testes.
+O Slidy suporta os principais gerenciadores de estado, rxBLoC, flutter_bloc e mobx.
 
 # Por que usar?
 
@@ -54,8 +55,11 @@ slidy upgrade
 Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
 
 ```  
-slidy start
-```
+slidy start //default
+slidy start --flutter_bloc
+slidy start --mobx
+```       
+Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de páginas, widgets e bloco será padronizada para o padrão do gerenciador instalado.
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
 
@@ -89,7 +93,7 @@ slidy i rxdart dio bloc_pattern
 **Instale pacotes como dev_dependency:**
 
 ```
-slidy i flutter_launcher_icons --dev
+slidy i mockito --dev
 ```
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)

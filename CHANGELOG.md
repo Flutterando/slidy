@@ -1,3 +1,16 @@
+## 1.2.0
+- Added flutter_bloc and mobx support.
+ ```
+  slidy start --flutter_bloc [-f]
+  or
+  slidy start --mobx [-m]
+ ```
+If you have the flutter_bloc or flutter_mobx package in pubspec, the generation of pages, widgets, and bloc defaults to the installed manager default.
+
+- Added flags "--flutter_bloc | -f" and "--mobx | -m" to generate bloc. 
+- Added command "generate controller" (to mobx).
+
+
 ## 1.1.4
 - Added initModule in tests (check the documentation)
 

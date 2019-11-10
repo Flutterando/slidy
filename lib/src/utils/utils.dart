@@ -22,6 +22,16 @@ Future<String> getNamePackage() async {
   return yaml.name;
 }
 
+Future<bool> checkDependency(String dep) async {
+  try {
+    PubSpec yaml = await getPubSpec();
+    return yaml.dependencies.containsKey(dep);
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
   File file =
@@ -31,8 +41,17 @@ Future<String> getVersion() async {
 }
 
 Future<PubSpec> getPubSpec({String path = ""}) async {
-  var pubSpec = await PubSpec.load(Directory(path));
-  return pubSpec;
+  return PubSpec.load(Directory(path));
+}
+
+Future removeAllPackages() async {
+  var pubSpec = await getPubSpec();
+  pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
+  pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
+  var newPubSpec = pubSpec.copy(
+      dependencies: pubSpec.dependencies,
+      devDependencies: pubSpec.devDependencies);
+  await newPubSpec.save(Directory(""));
 }
 
 bool checkParam(List<String> args, String param) {

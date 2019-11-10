@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:yaml/yaml.dart';
@@ -31,6 +32,7 @@ runCommand(List<String> commands) async {
 }
 
 callProcess(List<String> commands) async {
+
   try {
     var process = await Process.start(
         commands.first,
@@ -38,7 +40,7 @@ callProcess(List<String> commands) async {
             ? []
             : commands.getRange(1, commands.length).toList(),
         runInShell: true);
-    await for (var line in process.stdout) {
+    await for (var line in process.stdout.transform(utf8.decoder)) {
       print(line);
     }
   } catch (error) {

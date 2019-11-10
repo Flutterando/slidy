@@ -16,16 +16,18 @@ class Generate {
     }
   }
 
-  static page(String path, bool blocLess) {
+  static page(String path, bool blocLess,
+      [bool flutter_bloc = false, bool mobx = false]) {
     file_utils.createFile(
         path, 'page', templates.pageGenerator, templates.pageTestGenerator);
     String name = basename(path);
     if (!blocLess) {
-      bloc("$path/$name");
+      bloc("$path/$name", true, flutter_bloc, mobx);
     }
   }
 
-  static widget(String path, bool blocLess, bool ignoreSufix) {
+  static widget(String path, bool blocLess, bool ignoreSufix,
+      [bool flutter_bloc = false, bool mobx = false]) {
     if (ignoreSufix) {
       file_utils.createFile(
           path,
@@ -44,7 +46,7 @@ class Generate {
 
     String name = basename(path);
     if (!blocLess) {
-      bloc("$path/$name");
+      bloc("$path/$name", true, flutter_bloc, mobx);
     }
   }
 
@@ -126,8 +128,25 @@ class Generate {
         isTest ? templates.serviceTestGenerator : null);
   }
 
-  static bloc(String path, [bool isTest = true]) {
-    file_utils.createFile(path, 'bloc', templates.blocGenerator,
-        isTest ? templates.blocTestGenerator : null);
+  static bloc(String path,
+      [bool isTest = true, bool flutter_bloc = false, bool mobx = false]) async {
+    var template;
+
+    flutter_bloc = flutter_bloc ? true : await checkDependency('flutter_bloc');
+    mobx = mobx ? true : await checkDependency('flutter_mobx');
+
+    if (flutter_bloc) {
+      template = templates.flutter_blocGenerator;
+    } else if (mobx) {
+      template = templates.mobx_blocGenerator;
+    } else {
+      template = templates.blocGenerator;
+    }
+
+    var testTemplate =
+        mobx ? templates.mobxBlocTestGenerator : templates.blocTestGenerator;
+
+    file_utils.createFile(path, mobx ? 'controller' : 'bloc', template,
+        isTest ? testTemplate : null);
   }
 }
