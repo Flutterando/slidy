@@ -116,7 +116,7 @@ Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.
 Cria um novo **module**:
 
 ```
-slidy module g nome_da_pasta
+slidy g module nome_da_pasta
 ```
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
