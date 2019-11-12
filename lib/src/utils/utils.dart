@@ -24,6 +24,16 @@ Future<String> getNamePackage() async {
   return yaml.name;
 }
 
+Future<bool> checkDependency(String dep) async {
+  try {
+    PubSpec yaml = await getPubSpec();
+    return yaml.dependencies.containsKey(dep);
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
   File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
@@ -31,7 +41,25 @@ Future<String> getVersion() async {
   return doc['packages']['slidy']['version'].toString();
 }
 
-String libPath(String path) {  
+Future<PubSpec> getPubSpec({String path = ""}) async {
+  return PubSpec.load(Directory(path));
+}
+
+Future removeAllPackages() async {
+  var pubSpec = await getPubSpec();
+  pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
+  pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
+  var newPubSpec = pubSpec.copy(
+      dependencies: pubSpec.dependencies,
+      devDependencies: pubSpec.devDependencies);
+  await newPubSpec.save(Directory(""));
+}
+
+bool checkParam(List<String> args, String param) {
+  return args.contains(param);
+}
+
+String libPath(String path) {
   if (Directory("lib/app").existsSync()) {
     return "lib/app/$path";
   } else if (Directory("lib/src").existsSync()) {

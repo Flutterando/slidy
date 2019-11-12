@@ -8,7 +8,7 @@
             "name": "Launch",
             "program": "/Volumes/mac-suport/Projects/FlutterProject/slidy/bin/main.dart",
             "cwd": "example",
-            "args": ["g", "p", "page1"],
+            "args": ["g", "b", "bloc2"],
             "request": "launch",
             "type": "dart"
         }

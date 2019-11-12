@@ -176,6 +176,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
+<<<<<<< HEAD
   mockito:
     dependency: "direct dev"
     description:
@@ -183,6 +184,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.1"
+=======
+>>>>>>> upstream/master
   multi_server_socket:
     dependency: transitive
     description:
@@ -259,14 +262,18 @@ packages:
       name: pubspec
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   quiver:
     dependency: transitive
     description:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.0.5"
+=======
+    version: "2.0.3"
+>>>>>>> upstream/master
   shelf:
     dependency: transitive
     description:
@@ -395,6 +402,30 @@ packages:
     version: "0.9.0+5"
   vm_service:
     dependency: transitive
+<<<<<<< HEAD
+    description:
+      name: vm_service
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  watcher:
+    dependency: transitive
+    description:
+      name: watcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.7+12"
+  web_socket_channel:
+    dependency: transitive
+    description:
+      name: web_socket_channel
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  yaml:
+    dependency: "direct main"
+=======
+>>>>>>> upstream/master
     description:
       name: vm_service
       url: "https://pub.dartlang.org"
@@ -421,12 +452,5 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.16"
-  yamlicious:
-    dependency: transitive
-    description:
-      name: yamlicious
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
 sdks:
   dart: ">=2.3.0 <3.0.0"

@@ -24,3 +24,36 @@ void main() {
 
 }
   ''';
+
+String mobxBlocTestGenerator(String name, String packageName, String import,
+        String module, String pathModule) =>
+    '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:bloc_pattern/bloc_pattern_test.dart';
+
+import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+
+void main() {
+
+  initModule(${module}());
+  ${name}Controller ${name.toLowerCase()};
+  
+  setUp(() {
+      ${name.toLowerCase()} = ${module}.to.bloc<${name}Controller>();
+  });
+
+  group('${name}Controller Test', () {
+    test("First Test", () {
+      expect(${name.toLowerCase()}, isInstanceOf<${name}Controller>());
+    });
+
+    test("Set Value", () {
+      expect(${name.toLowerCase()}.value, equals(0));
+      ${name.toLowerCase()}.increment();
+      expect(${name.toLowerCase()}.value, equals(1));
+    });
+  });
+
+}
+  ''';

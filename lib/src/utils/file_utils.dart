@@ -19,7 +19,10 @@ void createFile(
   path = libPath(path);
 
   Directory dir;
-  if (type == 'bloc' || type == 'repository' || type == 'service') {
+  if (type == 'bloc' ||
+      type == 'controller' ||
+      type == 'repository' ||
+      type == 'service') {
     dir = Directory(path).parent;
   } else {
     dir = Directory(path);
@@ -67,9 +70,12 @@ void createFile(
     File module;
     String nameModule;
 
-    if (type == 'bloc' || type == 'repository' || type == 'service') {
+    if (type == 'bloc' ||
+        type == 'controller' ||
+        type == 'repository' ||
+        type == 'service') {
       module = await addModule(
-          formatName("${name}_$type"), file.path, type == 'bloc');
+          formatName("${name}_$type"), file.path, type == 'bloc' || type == 'controller');
       nameModule = module == null ? null : basename(module.path);
     }
 
