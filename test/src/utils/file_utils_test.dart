@@ -14,7 +14,7 @@ void main() {
 
  group('findModule Test', () {
      test("findModule", () {
-        expect(findModule("home.dart"),  isA<File>());      
+        expect(findModule("slidy.dart"),  isA<File>());      
      });
    });  
 

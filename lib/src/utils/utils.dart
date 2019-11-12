@@ -13,12 +13,6 @@ String formatName(String name) {
   return name;
 }
 
-
-Future<PubSpec> getPubSpec({Directory directory}) async {
-var pubSpec = await PubSpec.load(directory ?? Directory(""));
-  return pubSpec;
-}
-
 Future<String> getNamePackage() async {
   PubSpec yaml = await getPubSpec();
   return yaml.name;
@@ -41,10 +35,10 @@ Future<String> getVersion() async {
   return doc['packages']['slidy']['version'].toString();
 }
 
-Future<PubSpec> getPubSpec({String path = ""}) async {
-  return PubSpec.load(Directory(path));
+Future<PubSpec> getPubSpec({Directory directory}) async {
+var pubSpec = await PubSpec.load(directory ?? Directory(""));
+  return pubSpec;
 }
-
 Future removeAllPackages() async {
   var pubSpec = await getPubSpec();
   pubSpec.dependencies.removeWhere((key, value) => key != "flutter");

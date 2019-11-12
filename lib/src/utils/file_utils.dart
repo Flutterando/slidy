@@ -137,7 +137,7 @@ File findModule(String path) {
   bool loop = true;
   int count = 0;
   File module;
-  do {
+  do {   
     module = search(dir);
     dir = dir.parent;
     loop = module == null && basename(dir.path) != 'lib' && count < 10;

@@ -35,7 +35,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -56,7 +56,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.14.11"
+    version: "1.14.12"
   convert:
     dependency: transitive
     description:
@@ -168,7 +168,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7"
+    version: "1.1.8"
   mime:
     dependency: transitive
     description:
@@ -176,16 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
-<<<<<<< HEAD
-  mockito:
-    dependency: "direct dev"
-    description:
-      name: mockito
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.1.1"
-=======
->>>>>>> upstream/master
   multi_server_socket:
     dependency: transitive
     description:
@@ -269,11 +259,7 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "2.0.5"
-=======
-    version: "2.0.3"
->>>>>>> upstream/master
+    version: "2.1.2+1"
   shelf:
     dependency: transitive
     description:
@@ -402,30 +388,6 @@ packages:
     version: "0.9.0+5"
   vm_service:
     dependency: transitive
-<<<<<<< HEAD
-    description:
-      name: vm_service
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  watcher:
-    dependency: transitive
-    description:
-      name: watcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.7+12"
-  web_socket_channel:
-    dependency: transitive
-    description:
-      name: web_socket_channel
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
-  yaml:
-    dependency: "direct main"
-=======
->>>>>>> upstream/master
     description:
       name: vm_service
       url: "https://pub.dartlang.org"
@@ -451,6 +413,6 @@ packages:
       name: yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.16"
+    version: "2.2.0"
 sdks:
   dart: ">=2.3.0 <3.0.0"
