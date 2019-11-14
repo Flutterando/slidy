@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.2.0+1
 - Added flutter_bloc and mobx support.
  ```
   slidy start --flutter_bloc [-f]
