@@ -51,17 +51,14 @@ Future removeAllPackages() async {
       .map((f) => f.toString())
       .where((t) => t != "flutter")
       .toList();
-  print(dep);
 
   var devDep = pubSpec.devDependencies.keys
       .map((f) => f.toString())
       .where((t) => t != "flutter_test")
       .toList();
 
-  print(devDep);
-
-  uninstall(dep, false);
-  uninstall(devDep, true);
+  await uninstall(dep, false, false);
+  await uninstall(devDep, true, false);
 
   // pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
   // pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");

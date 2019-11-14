@@ -4,7 +4,7 @@ import 'package:slidy/src/utils/pubspec.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void uninstall(List<String> packs, bool isDev) async {
+void uninstall(List<String> packs, bool isDev, [bool showErrors = true]) async {
   PubSpec spec = await getPubSpec();
   var dependencies = isDev ? spec.devDependencies : spec.dependencies;
   File yaml = File("pubspec.yaml");
@@ -13,7 +13,9 @@ void uninstall(List<String> packs, bool isDev) async {
 
   for (String pack in packs) {
     if (!dependencies.containsKey(pack)) {
-      output.error("Package is not installed");
+      if (showErrors) {
+        output.error("Package is not installed");
+      }
       continue;
     }
     isAlter = true;
