@@ -13,4 +13,4 @@ jobs:
           channel: "stable"
       - run: cd example
       - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
+      - run: cd example && flutter build ios --release --no-codesign

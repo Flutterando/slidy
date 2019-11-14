@@ -13,4 +13,4 @@ jobs:
           channel: "stable"
       - run: cd example
       - run: flutter pub get
-      - run: flutter test
+      - run: cd example && flutter test
