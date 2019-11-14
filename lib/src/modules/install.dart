@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:pubspec/pubspec.dart';
 import 'package:slidy/src/modules/update.dart';
 import 'package:slidy/src/services/pub_service.dart';
+import 'package:slidy/src/utils/pubspec.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
