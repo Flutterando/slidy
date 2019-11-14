@@ -13,4 +13,4 @@ jobs:
           channel: "stable"
       - run: cd example
       - run: flutter pub get
-      - run: flutter build apk
+      - run: cd example && flutter build apk
