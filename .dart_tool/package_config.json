@@ -212,18 +212,6 @@
       "languageVersion": "1.0"
     },
     {
-      "name": "pubspec",
-      "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/pubspec-0.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.2"
-    },
-    {
-      "name": "quiver",
-      "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "shelf",
       "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/shelf-0.7.5",
       "packageUri": "lib/",
@@ -284,12 +272,6 @@
       "languageVersion": "1.8"
     },
     {
-      "name": "stuff",
-      "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/stuff-0.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "term_glyph",
       "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.1.0",
       "packageUri": "lib/",
@@ -316,18 +298,6 @@
     {
       "name": "typed_data",
       "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "uri",
-      "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/uri-0.11.3+1",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "utf",
-      "rootUri": "file:///Users/jacobmoura/.pub-cache/hosted/pub.dartlang.org/utf-0.9.0+5",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -362,7 +332,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2019-11-10T04:06:40.960331Z",
+  "generated": "2019-11-14T19:55:44.467421Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

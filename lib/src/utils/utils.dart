@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:pubspec/pubspec.dart';
+import 'package:slidy/src/modules/uninstall.dart';
+import 'package:slidy/src/utils/pubspec.dart';
 import 'package:yaml/yaml.dart';
 
 String formatName(String name) {
@@ -46,12 +47,25 @@ Future<PubSpec> getPubSpec({String path = ""}) async {
 
 Future removeAllPackages() async {
   var pubSpec = await getPubSpec();
-  pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
-  pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
-  var newPubSpec = pubSpec.copy(
-      dependencies: pubSpec.dependencies,
-      devDependencies: pubSpec.devDependencies);
-  await newPubSpec.save(Directory(""));
+  var dep = pubSpec.dependencies.keys
+      .map((f) => f.toString())
+      .where((t) => t != "flutter")
+      .toList();
+
+  var devDep = pubSpec.devDependencies.keys
+      .map((f) => f.toString())
+      .where((t) => t != "flutter_test")
+      .toList();
+
+  await uninstall(dep, false, false);
+  await uninstall(devDep, true, false);
+
+  // pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
+  // pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
+  // var newPubSpec = pubSpec.copy(
+  //     dependencies: pubSpec.dependencies,
+  //     devDependencies: pubSpec.devDependencies);
+  // await newPubSpec.save(Directory(""));
 }
 
 bool checkParam(List<String> args, String param) {
