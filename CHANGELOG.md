@@ -1,3 +1,6 @@
+## 1.2.2
+- Added command generate model
+
 ## 1.2.1
 - Fix error install in flutter dart.
 - removed dart:mirrors.
