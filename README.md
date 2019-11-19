@@ -148,6 +148,11 @@ Create a new **repository**
 slidy g r folder_name/repositories
 ``` 
 
+Create a new **model**
+```
+slidy g mm folder_name/model
+``` 
+
 You can also use "repository" in "r"'s place, but it will have the same function.
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
