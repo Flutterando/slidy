@@ -128,6 +128,11 @@ class Generate {
         isTest ? templates.serviceTestGenerator : null);
   }
 
+    static model(List<String> path, [bool isTest = false]) {
+    file_utils.createFile(path.first, 'model', templates.modelGenerator,
+         null, false);
+  }
+
   static bloc(String path,
       [bool isTest = true,
       bool flutter_bloc = false,

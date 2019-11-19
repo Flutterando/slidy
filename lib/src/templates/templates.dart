@@ -21,3 +21,4 @@ export 'generator/service_generator.dart';
 export 'generator/service_test_generator.dart';
 export 'generator/page_generator.dart';
 export 'generator/page_test_generator.dart';
+export 'generator/model_generator.dart';

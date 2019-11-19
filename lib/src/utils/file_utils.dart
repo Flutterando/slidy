@@ -22,7 +22,8 @@ void createFile(
   if (type == 'bloc' ||
       type == 'controller' ||
       type == 'repository' ||
-      type == 'service') {
+      type == 'service' ||
+      type == 'model' ){
     dir = Directory(path).parent;
   } else {
     dir = Directory(path);
