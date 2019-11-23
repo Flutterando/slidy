@@ -10,7 +10,7 @@ class ${name}Widget extends StatelessWidget {
 }
   ''';
 
-String widgetGeneratorWithoutSufix(String name) => '''
+String widgetGeneratorWithoutSuffix(String name) => '''
 import 'package:flutter/material.dart';
 class ${name} extends StatelessWidget {
   @override
