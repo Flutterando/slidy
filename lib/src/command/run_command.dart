@@ -5,7 +5,7 @@ import 'package:slidy/src/modules/run.dart';
 class RunCommand extends CommandBase {
   final name = "run";
   final description = "run scripts in pubspec.yaml";
-  final invocationSufix = "<project name>";
+  final invocationSuffix = "<project name>";
 
   void run() {
     if (argResults.rest.isEmpty) {

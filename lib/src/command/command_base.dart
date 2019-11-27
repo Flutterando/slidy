@@ -1,10 +1,10 @@
 import 'package:args/command_runner.dart';
 
 class CommandBase extends Command {
-  String invocationSufix;
+  String invocationSuffix;
   String get invocation {
-    return invocationSufix != null && invocationSufix.isNotEmpty
-        ? "${super.invocation} $invocationSufix"
+    return invocationSuffix != null && invocationSuffix.isNotEmpty
+        ? "${super.invocation} $invocationSuffix"
         : "${super.invocation}";
   }
 

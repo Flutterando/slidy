@@ -8,7 +8,7 @@ void createFile(
   String type,
   Function generator, [
   Function generatorTest,
-  bool ignoreSufix = false,
+  bool ignoreSuffix = false,
 ]) async {
   output.msg("Creating $type...");
 
@@ -32,7 +32,7 @@ void createFile(
   String name = basename(path);
   File file;
   File fileTest;
-  if (ignoreSufix) {
+  if (ignoreSuffix) {
     file = File('${dir.path}/${name}.dart');
     fileTest =
         File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');

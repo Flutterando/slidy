@@ -4,7 +4,7 @@ import 'package:slidy/slidy.dart';
 class CreateCommand extends CommandBase {
   final name = "create";
   final description = "Create a Flutter project with basic structure";
-  final invocationSufix = "<project name>";
+  final invocationSuffix = "<project name>";
 
   CreateCommand() {
     argParser.addOption('description',

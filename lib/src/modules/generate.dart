@@ -26,15 +26,15 @@ class Generate {
     }
   }
 
-  static widget(String path, bool blocLess, bool ignoreSufix,
+  static widget(String path, bool blocLess, bool ignoreSuffix,
       [bool flutter_bloc = false, bool mobx = false]) {
-    if (ignoreSufix) {
+    if (ignoreSuffix) {
       file_utils.createFile(
           path,
           'widget',
-          templates.widgetGeneratorWithoutSufix,
-          templates.widgetTestGeneratorWithoutSufix,
-          ignoreSufix);
+          templates.widgetGeneratorWithoutSuffix,
+          templates.widgetTestGeneratorWithoutSuffix,
+          ignoreSuffix);
     } else {
       file_utils.createFile(
         path,
