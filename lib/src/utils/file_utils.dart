@@ -138,7 +138,7 @@ File findModule(String path) {
   bool loop = true;
   int count = 0;
   File module;
-  do {
+  do {   
     module = search(dir);
     dir = dir.parent;
     loop = module == null && basename(dir.path) != 'lib' && count < 10;
@@ -149,7 +149,12 @@ File findModule(String path) {
 }
 
 File search(Directory dir) {
-  try {
+  try {  
+    var a = dir
+        .listSync()
+        .firstWhere((f) => f is File && f.path.contains("_module.dart"));
+
+    print(" Teste" +a?.toString());
     return dir
         .listSync()
         .firstWhere((f) => f is File && f.path.contains("_module.dart"));

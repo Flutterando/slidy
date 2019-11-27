@@ -14,10 +14,6 @@ String formatName(String name) {
   return name;
 }
 
-String resolveName(String name) {
-  return name.replaceAll(RegExp(r"[^a-zA-Z0-9]"), "_");
-}
-
 Future<String> getNamePackage() async {
   PubSpec yaml = await getPubSpec();
   return yaml.name;
@@ -35,16 +31,15 @@ Future<bool> checkDependency(String dep) async {
 
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  File file =
-      File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
+  File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
   var doc = loadYaml(file.readAsStringSync());
   return doc['packages']['slidy']['version'].toString();
 }
 
-Future<PubSpec> getPubSpec({String path = ""}) async {
-  return PubSpec.load(Directory(path));
+Future<PubSpec> getPubSpec({Directory directory}) async {
+var pubSpec = await PubSpec.load(directory ?? Directory(""));
+  return pubSpec;
 }
-
 Future removeAllPackages() async {
   var pubSpec = await getPubSpec();
   var dep = pubSpec.dependencies.keys
