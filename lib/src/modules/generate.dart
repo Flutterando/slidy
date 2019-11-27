@@ -114,7 +114,19 @@ class Generate {
             nameModule == null ? null : formatName(nameModule),
             module?.path),
       );
+    } else if (name.contains("_page.dart")) {
+      entityTest.createSync(recursive: true);
+      output.msg("File test ${entityTest.path} created");
+      entityTest.writeAsStringSync(
+        templates.pageTestGenerator(
+            formatName(name.replaceFirst("_page.dart", "")),
+            await getNamePackage(),
+            entity.path,
+            nameModule == null ? null : formatName(nameModule),
+            module?.path),
+      );
     }
+    
     formatFile(entityTest);
   }
 
