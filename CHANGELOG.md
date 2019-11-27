@@ -1,4 +1,11 @@
-## 1.2.0
+## 1.2.2
+- Added command generate model
+
+## 1.2.1
+- Fix error install in flutter dart.
+- removed dart:mirrors.
+
+## 1.2.0+1
 - Added flutter_bloc and mobx support.
  ```
   slidy start --flutter_bloc [-f]

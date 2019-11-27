@@ -2,6 +2,13 @@
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
 [![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
+[![Actions Status](https://github.com/AlvaroVasconcelos/slidy/workflows/Dart%20CI/badge.svg)](https://github.com/AlvaroVasconcelos/slidy/workflows/actions)
+[![Actions Status](https://github.com/AlvaroVasconcelos/slidy/workflows/Example%20Android/badge.svg)](https://github.com/AlvaroVasconcelos/slidy/workflows/actions)
+[![Actions Status](https://github.com/AlvaroVasconcelos/slidy/workflows/Example%20iOS/badge.svg)](https://github.com/AlvaroVasconcelos/slidy/workflows/actions)
+[![Actions Status](https://github.com/AlvaroVasconcelos/slidy/workflows/Packages/badge.svg)](https://github.com/AlvaroVasconcelos/slidy/workflows/actions)
+[![Actions Status](https://github.com/AlvaroVasconcelos/slidy/workflows/Tests/badge.svg)](https://github.com/AlvaroVasconcelos/slidy/workflows/actions)
+
+
 [Acesse a documentação em Português-Brasil](README-PT.md)
 
 # Slidy
@@ -139,6 +146,11 @@ slidy g widget folder_name/widgets
 Create a new **repository**
 ```
 slidy g r folder_name/repositories
+``` 
+
+Create a new **model**
+```
+slidy g mm folder_name/model
 ``` 
 
 You can also use "repository" in "r"'s place, but it will have the same function.

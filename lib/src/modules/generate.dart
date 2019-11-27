@@ -128,12 +128,22 @@ class Generate {
         isTest ? templates.serviceTestGenerator : null);
   }
 
+    static model(List<String> path, [bool isTest = false]) {
+    file_utils.createFile(path.first, 'model', templates.modelGenerator,
+         null, false);
+  }
+
   static bloc(String path,
-      [bool isTest = true, bool flutter_bloc = false, bool mobx = false]) async {
+      [bool isTest = true,
+      bool flutter_bloc = false,
+      bool mobx = false]) async {
     var template;
 
-    flutter_bloc = flutter_bloc ? true : await checkDependency('flutter_bloc');
-    mobx = mobx ? true : await checkDependency('flutter_mobx');
+    if (!flutter_bloc && !mobx) {
+      flutter_bloc =
+          flutter_bloc ? true : await checkDependency('flutter_bloc');
+      mobx = mobx ? true : await checkDependency('flutter_mobx');
+    }
 
     if (flutter_bloc) {
       template = templates.flutter_blocGenerator;

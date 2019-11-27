@@ -1,0 +1,16 @@
+name: Example Android
+
+on: [push]
+
+jobs:
+  build:
+    name: install dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1.1.1
+        with:
+          channel: "stable"
+      - run: cd example
+      - run: flutter pub get
+      - run: cd example && flutter build apk
