@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:pubspec/pubspec.dart';
+import 'package:slidy/src/utils/pubspec.dart';
 import 'package:test/test.dart';
 import 'package:slidy/src/utils/utils.dart';
 
@@ -16,16 +16,6 @@ void main() {
       expect(formatName("home_module.dart"), "HomeModule");
     });
   });
-
-  //  group('ResolveName Test', () {
-  //   test("resolveName 1", () {
-  //     expect(resolveName("Módulo_Home"), "M_dulo_Home");
-  //   });
-
-  //   test("formatName 2", () {
-  //     expect(resolveName("home_module.dart"), "HomeModule");
-  //   });
-  // });
 
   group('GetPubSpec Test', () {
     test("getPubSpec with directory", () async {
@@ -65,6 +55,4 @@ void main() {
       expect(await validateUrl("github.com/flutterando"), false);
     });
   });
-
-  
 }
