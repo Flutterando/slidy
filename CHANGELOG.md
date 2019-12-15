@@ -1,4 +1,4 @@
-## 1.3.0-dev.1
+## 1.3.0-dev.2
 - flutter_modular support
 
 ## 1.2.2
