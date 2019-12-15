@@ -144,7 +144,7 @@ class Generate {
 
   static model(List<String> path, [bool isTest = false]) {
     file_utils.createFile(path.first, 'model', templates.modelGenerator,
-        ignoreSufix: false);
+        ignoreSuffix: false);
   }
 
   static bloc(String path,
