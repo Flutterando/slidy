@@ -16,6 +16,5 @@ dependencies:
 dev_dependencies:
   test: ^1.9.4
 
-
 executables:
   slidy: main

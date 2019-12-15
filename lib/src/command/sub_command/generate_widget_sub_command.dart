@@ -10,10 +10,10 @@ class GenerateWidgetSubCommand extends CommandBase {
         abbr: 'b',
         negatable: false,
         help: "Creates a widget without Bloc file");
-    argParser.addFlag('sufix',
+    argParser.addFlag('suffix',
         abbr: 's',
         negatable: false,
-        help: "Creates a widget without a \"Widget\" sufix.");
+        help: "Creates a widget without a \"Widget\" suffix.");
     argParser.addFlag('flutter_bloc',
         abbr: 'f', negatable: true, help: 'using flutter_bloc package'
         //Add in future configured the release android sign
@@ -29,7 +29,7 @@ class GenerateWidgetSubCommand extends CommandBase {
       throw UsageException("value not passed for a module command", usage);
     } else {
       Generate.widget(
-          argResults.rest.first, argResults["bloc"], argResults["sufix"], argResults["flutter_bloc"], argResults["mobx"]);
+          argResults.rest.first, argResults["bloc"], argResults["suffix"], argResults["flutter_bloc"], argResults["mobx"]);
     }
   }
 }

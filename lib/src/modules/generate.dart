@@ -28,13 +28,13 @@ class Generate {
     }
   }
 
-  static widget(String path, bool blocLess, bool ignoreSufix,
+  static widget(String path, bool blocLess, bool ignoreSuffix,
       [bool flutter_bloc = false, bool mobx = false]) {
-    if (ignoreSufix) {
+    if (ignoreSuffix) {
       file_utils.createFile(
-          path, 'widget', templates.widgetGeneratorWithoutSufix,
-          generatorTest: templates.widgetTestGeneratorWithoutSufix,
-          ignoreSufix: ignoreSufix);
+          path, 'widget', templates.widgetGeneratorWithoutSuffix,
+          generatorTest: templates.widgetTestGeneratorWithoutSuffix,
+          ignoreSuffix: ignoreSuffix);
     } else {
       file_utils.createFile(
         path,
@@ -114,7 +114,19 @@ class Generate {
             nameModule == null ? null : formatName(nameModule),
             module?.path),
       );
+    } else if (name.contains("_page.dart")) {
+      entityTest.createSync(recursive: true);
+      output.msg("File test ${entityTest.path} created");
+      entityTest.writeAsStringSync(
+        templates.pageTestGenerator(
+            formatName(name.replaceFirst("_page.dart", "")),
+            await getNamePackage(),
+            entity.path,
+            nameModule == null ? null : formatName(nameModule),
+            module?.path),
+      );
     }
+    
     formatFile(entityTest);
   }
 
