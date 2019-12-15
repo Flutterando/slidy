@@ -23,6 +23,11 @@ Future<String> getNamePackage() async {
   return yaml.name;
 }
 
+Future<bool> get isModular async {
+  PubSpec yaml = await getPubSpec();
+  return yaml.dependencies.containsKey("flutter_modular");
+}
+
 Future<bool> checkDependency(String dep) async {
   try {
     PubSpec yaml = await getPubSpec();

@@ -9,7 +9,8 @@ export 'start/src/locale/en-US_locale.dart';
 export 'start/src/locale/pt-BR_locale.dart';
 export 'start/src/locale/locales.dart';
 
-// generator //
+
+//generator bloc pattern
 export 'generator/bloc_generator.dart';
 export 'generator/bloc_test_generator.dart';
 export 'generator/module_template.dart';

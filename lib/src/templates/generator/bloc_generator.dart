@@ -12,6 +12,20 @@ class ${name}Bloc extends BlocBase {
 }
   ''';
 
+String blocGeneratorModular(String name) => '''
+import 'package:flutter_modular/flutter_modular.dart';
+
+class ${name}Bloc extends Disposable {
+
+  //dispose will be called automatically by closing its streams
+  @override
+  void dispose() {
+
+  }
+
+}
+  ''';
+
 String flutter_blocGenerator(String name) => '''
 import 'package:bloc/bloc.dart';
 
@@ -35,6 +49,7 @@ class ${name}Bloc extends Bloc<${name}Event, int> {
   }
 }
   ''';
+  
 
 String mobx_blocGenerator(String name) => '''
 import 'package:mobx/mobx.dart';

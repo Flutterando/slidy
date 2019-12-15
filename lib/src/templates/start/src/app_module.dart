@@ -17,3 +17,23 @@ class AppModule extends ModuleWidget {
 
 }
   ''';
+
+  String startAppModuleModular(String pkg) => '''
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/material.dart';
+import 'package:${pkg}/app/app_widget.dart';
+
+class AppModule extends MainModule {
+  @override
+  List<Bind> get binds => [];
+
+  @override
+  List<Router> get routers => [];
+
+  @override
+  Widget get bootstrap => AppWidget();
+
+  static Inject get to => Inject<AppModule>.of();
+
+}
+  ''';

@@ -6,10 +6,11 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 void createFile(
   String path,
   String type,
-  Function generator, [
+  Function generator, {
   Function generatorTest,
   bool ignoreSufix = false,
-]) async {
+  bool isModular = false,
+}) async {
   output.msg("Creating $type...");
 
   path = path.replaceAll("\\", "/").replaceAll("\"", "");
@@ -23,7 +24,7 @@ void createFile(
       type == 'controller' ||
       type == 'repository' ||
       type == 'service' ||
-      type == 'model' ){
+      type == 'model') {
     dir = Directory(path).parent;
   } else {
     dir = Directory(path);
@@ -75,8 +76,8 @@ void createFile(
         type == 'controller' ||
         type == 'repository' ||
         type == 'service') {
-      module = await addModule(
-          formatName("${name}_$type"), file.path, type == 'bloc' || type == 'controller');
+      module = await addModule(formatName("${name}_$type"), file.path,
+          type == 'bloc' || type == 'controller', isModular);
       nameModule = module == null ? null : basename(module.path);
     }
 
@@ -103,7 +104,8 @@ void formatFile(File file) {
   Process.runSync("flutter", ["format", file.absolute.path], runInShell: true);
 }
 
-Future<File> addModule(String nameCap, String path, bool isBloc) async {
+Future<File> addModule(String nameCap, String path, bool isBloc,
+    [bool isModular = false]) async {
   int index;
   File module = findModule(path);
 
@@ -116,14 +118,20 @@ Future<File> addModule(String nameCap, String path, bool isBloc) async {
   node.insert(0,
       "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
-  if (isBloc) {
-    index = node.indexWhere((t) => t.contains("blocs => ["));
-    node[index] = node[index]
-        .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}()),");
+  if (isModular) {
+    index = node.indexWhere((t) => t.contains("binds => ["));
+      node[index] = node[index]
+          .replaceFirst("binds => [", "binds => [Bind((i) => ${nameCap}()),");
   } else {
-    index = node.indexWhere((t) => t.contains("dependencies => ["));
-    node[index] = node[index].replaceFirst("dependencies => [",
-        "dependencies => [Dependency((i) => ${nameCap}()),");
+    if (isBloc) {
+      index = node.indexWhere((t) => t.contains("blocs => ["));
+      node[index] = node[index]
+          .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}()),");
+    } else {
+      index = node.indexWhere((t) => t.contains("dependencies => ["));
+      node[index] = node[index].replaceFirst("dependencies => [",
+          "dependencies => [Dependency((i) => ${nameCap}()),");
+    }
   }
 
   module.writeAsStringSync(node.join("\n"));

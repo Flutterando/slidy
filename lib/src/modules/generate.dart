@@ -10,7 +10,9 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 class Generate {
   static module(String path, bool createCompleteModule) async {
     String moduleType = createCompleteModule ? 'module_complete' : 'module';
-    await file_utils.createFile(path, moduleType, templates.moduleGenerator);
+    bool m = await isModular;
+    await file_utils.createFile(path, moduleType,
+        m ? templates.moduleGeneratorModular : templates.moduleGenerator);
     if (createCompleteModule) {
       await page(path, false);
     }
@@ -18,8 +20,8 @@ class Generate {
 
   static page(String path, bool blocLess,
       [bool flutter_bloc = false, bool mobx = false]) {
-    file_utils.createFile(
-        path, 'page', templates.pageGenerator, templates.pageTestGenerator);
+    file_utils.createFile(path, 'page', templates.pageGenerator,
+        generatorTest: templates.pageTestGenerator);
     String name = basename(path);
     if (!blocLess) {
       bloc("$path/$name", true, flutter_bloc, mobx);
@@ -30,17 +32,15 @@ class Generate {
       [bool flutter_bloc = false, bool mobx = false]) {
     if (ignoreSufix) {
       file_utils.createFile(
-          path,
-          'widget',
-          templates.widgetGeneratorWithoutSufix,
-          templates.widgetTestGeneratorWithoutSufix,
-          ignoreSufix);
+          path, 'widget', templates.widgetGeneratorWithoutSufix,
+          generatorTest: templates.widgetTestGeneratorWithoutSufix,
+          ignoreSufix: ignoreSufix);
     } else {
       file_utils.createFile(
         path,
         'widget',
         templates.widgetGenerator,
-        templates.widgetTestGenerator,
+        generatorTest: templates.widgetTestGenerator,
       );
     }
 
@@ -118,19 +118,21 @@ class Generate {
     formatFile(entityTest);
   }
 
-  static repository(String path, [bool isTest = true]) {
-    file_utils.createFile(path, 'repository', templates.repositoryGenerator,
-        isTest ? templates.repositoryTestGenerator : null);
+  static repository(String path, [bool isTest = true]) async {
+    bool m = await isModular;
+    file_utils.createFile(path, 'repository', m ? templates.repositoryGeneratorModular : templates.repositoryGenerator,
+        generatorTest: isTest ? templates.repositoryTestGenerator : null, isModular: m);
   }
 
-  static service(String path, [bool isTest = true]) {
-    file_utils.createFile(path, 'service', templates.serviceGenerator,
-        isTest ? templates.serviceTestGenerator : null);
+  static service(String path, [bool isTest = true]) async {
+    bool m = await isModular;
+    file_utils.createFile(path, 'service', m ? templates.serviceGeneratorModular : templates.serviceGenerator,
+        generatorTest: isTest ? templates.serviceTestGenerator : null, isModular: m);
   }
 
-    static model(List<String> path, [bool isTest = false]) {
+  static model(List<String> path, [bool isTest = false]) {
     file_utils.createFile(path.first, 'model', templates.modelGenerator,
-         null, false);
+        ignoreSufix: false);
   }
 
   static bloc(String path,
@@ -138,6 +140,8 @@ class Generate {
       bool flutter_bloc = false,
       bool mobx = false]) async {
     var template;
+
+    bool m = await isModular;
 
     if (!flutter_bloc && !mobx) {
       flutter_bloc =
@@ -150,13 +154,18 @@ class Generate {
     } else if (mobx) {
       template = templates.mobx_blocGenerator;
     } else {
-      template = templates.blocGenerator;
+      template = m ? templates.blocGeneratorModular : templates.blocGenerator;
     }
 
-    var testTemplate =
-        mobx ? templates.mobxBlocTestGenerator : templates.blocTestGenerator;
+    var testTemplate = mobx
+        ? (m
+            ? templates.mobxBlocTestGeneratorModular
+            : templates.mobxBlocTestGenerator)
+        : (m
+            ? templates.blocTestGeneratorModular
+            : templates.blocTestGenerator);
 
     file_utils.createFile(path, mobx ? 'controller' : 'bloc', template,
-        isTest ? testTemplate : null);
+        generatorTest: isTest ? testTemplate : null, isModular: m);
   }
 }
