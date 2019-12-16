@@ -11,11 +11,11 @@ void createFile(
   bool ignoreSuffix = false,
   bool isModular = false,
 }) async {
-  output.msg("Creating $type...");
+  output.msg('Creating $type...');
 
-  path = path.replaceAll("\\", "/").replaceAll("\"", "");
-  if (path.startsWith("/")) path = path.substring(1);
-  if (path.endsWith("/")) path = path.substring(0, path.length - 1);
+  path = path.replaceAll('\\', '/').replaceAll('\"', '');
+  if (path.startsWith('/')) path = path.substring(1);
+  if (path.endsWith('/')) path = path.substring(0, path.length - 1);
 
   path = libPath(path);
 
@@ -30,7 +30,7 @@ void createFile(
     dir = Directory(path);
   }
 
-  String name = basename(path);
+  var name = basename(path);
   File file;
   File fileTest;
   if (ignoreSuffix) {
@@ -44,25 +44,25 @@ void createFile(
   }
 
   if (file.existsSync()) {
-    output.error("already exists a $type $name");
+    output.error('already exists a $type $name');
     exit(1);
   }
 
   if (fileTest.existsSync()) {
-    output.error("already exists a $type $name test file");
+    output.error('already exists a $type $name test file');
     exit(1);
   }
 
   try {
     file.createSync(recursive: true);
-    output.msg("File ${file.path} created");
+    output.msg('File ${file.path} created');
 
     if (type == 'module_complete') {
-      String package = await getNamePackage();
+      var package = await getNamePackage();
       file.writeAsStringSync(
-          generator(package, formatName(name), "$path/$name"));
+          generator(package, formatName(name), '$path/$name'));
     } else if (type == 'module') {
-      file.writeAsStringSync(generator("", formatName(name), path));
+      file.writeAsStringSync(generator('', formatName(name), path));
     } else {
       file.writeAsStringSync(generator(formatName(name)));
     }
@@ -76,24 +76,35 @@ void createFile(
         type == 'controller' ||
         type == 'repository' ||
         type == 'service') {
-      module = await addModule(formatName("${name}_$type"), file.path,
+      module = await addModule(formatName('${name}_$type'), file.path,
           type == 'bloc' || type == 'controller', isModular);
       nameModule = module == null ? null : basename(module.path);
     }
 
     if (generatorTest != null) {
       fileTest.createSync(recursive: true);
-      output.msg("File test ${fileTest.path} created");
-      fileTest.writeAsStringSync(generatorTest(
-          formatName(name),
-          await getNamePackage(),
-          file.path,
-          nameModule != null ? formatName(nameModule) : null,
-          module?.path));
+      output.msg('File test ${fileTest.path} created');
+      if (type == 'widget' || type == 'page') {
+        fileTest.writeAsStringSync(generatorTest(
+            formatName(name),
+            await getNamePackage(),
+            file.path,
+            nameModule != null ? formatName(nameModule) : null,
+            module?.path,
+            isModular));
+      } else {
+        fileTest.writeAsStringSync(generatorTest(
+            formatName(name),
+            await getNamePackage(),
+            file.path,
+            nameModule != null ? formatName(nameModule) : null,
+            module?.path));
+      }
+
       formatFile(fileTest);
     }
 
-    output.success("$type created");
+    output.success('$type created');
   } catch (e) {
     output.error(e);
     exit(1);
@@ -101,71 +112,71 @@ void createFile(
 }
 
 void formatFile(File file) {
-  Process.runSync("flutter", ["format", file.absolute.path], runInShell: true);
+  Process.runSync('flutter', ['format', file.absolute.path], runInShell: true);
 }
 
 Future<File> addModule(String nameCap, String path, bool isBloc,
     [bool isModular = false]) async {
   int index;
-  File module = findModule(path);
+  var module = findModule(path);
 
   if (module == null) {
-    output.error("Module not found");
+    output.error('Module not found');
     exit(1);
   }
 
-  var node = module.readAsStringSync().split("\n");
+  var node = module.readAsStringSync().split('\n');
   node.insert(0,
       "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
 
   if (isModular) {
-    index = node.indexWhere((t) => t.contains("binds => ["));
-      node[index] = node[index]
-          .replaceFirst("binds => [", "binds => [Bind((i) => ${nameCap}()),");
+    index = node.indexWhere((t) => t.contains('binds => ['));
+    node[index] = node[index]
+        .replaceFirst('binds => [', 'binds => [Bind((i) => ${nameCap}()),');
   } else {
     if (isBloc) {
-      index = node.indexWhere((t) => t.contains("blocs => ["));
+      index = node.indexWhere((t) => t.contains('blocs => ['));
       node[index] = node[index]
-          .replaceFirst("blocs => [", "blocs => [Bloc((i) => ${nameCap}()),");
+          .replaceFirst('blocs => [', 'blocs => [Bloc((i) => ${nameCap}()),');
     } else {
-      index = node.indexWhere((t) => t.contains("dependencies => ["));
-      node[index] = node[index].replaceFirst("dependencies => [",
-          "dependencies => [Dependency((i) => ${nameCap}()),");
+      index = node.indexWhere((t) => t.contains('dependencies => ['));
+      node[index] = node[index].replaceFirst('dependencies => [',
+          'dependencies => [Dependency((i) => ${nameCap}()),');
     }
   }
 
-  module.writeAsStringSync(node.join("\n"));
+  module.writeAsStringSync(node.join('\n'));
   formatFile(module);
-  output.success("${module.path} modified");
+  output.success('${module.path} modified');
 
   return module;
 }
 
 File findModule(String path) {
   var dir = Directory(path);
-  bool loop = true;
-  int count = 0;
+  var loop = true;
+  var count = 0;
   File module;
-  do {   
+  do {
     module = search(dir);
     dir = dir.parent;
     loop = module == null && basename(dir.path) != 'lib' && count < 10;
     count++;
   } while (loop);
-  module = File(module.path.replaceAll("\\", "/"));
+  module = File(module.path.replaceAll('\\', '/'));
   return module;
 }
 
 File search(Directory dir) {
-  try {  
+  try {
     var a = dir
         .listSync()
-        .firstWhere((f) => f is File && f.path.contains("_module.dart"));
+        .firstWhere((f) => f is File && f.path.contains('_module.dart'));
 
-    print(" Teste" +a?.toString());
+    print(' Teste' + a?.toString());
     return dir
         .listSync()
-        .firstWhere((f) => f is File && f.path.contains("_module.dart"));
+        .firstWhere((f) => f is File && f.path.contains('_module.dart'));
   } catch (e) {
     return null;
   }
@@ -173,11 +184,11 @@ File search(Directory dir) {
 
 void createStaticFile(String path, String content) {
   try {
-    File file = File(path)
+    var file = File(path)
       ..createSync(recursive: true)
       ..writeAsStringSync(content);
     formatFile(file);
-    output.success("${file.path} created");
+    output.success('${file.path} created');
   } catch (e) {
     output.error(e);
     exit(1);

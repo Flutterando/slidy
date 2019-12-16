@@ -1,9 +1,16 @@
 String pageTestGenerator(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+    String module, String pathModule, bool isModular) {
+  String import;
+  if (isModular) {
+    import = r"import 'package:flutter_modular/flutter_modular_test.dart'";
+  } else {
+    import = r"import 'package:bloc_pattern/bloc_pattern_test.dart'";
+  }
+
+  return '''
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_pattern/bloc_pattern_test.dart';
+$import
 
 import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
@@ -15,3 +22,4 @@ main() {
   });
 }
   ''';
+}
