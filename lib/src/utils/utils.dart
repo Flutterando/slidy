@@ -42,7 +42,7 @@ Future<String> getVersion() async {
 }
 
 Future<PubSpec> getPubSpec({Directory directory}) async {
-var pubSpec = await PubSpec.load(directory ?? Directory(""));
+  var pubSpec = await PubSpec.load(directory ?? Directory(""));
   return pubSpec;
 }
 Future removeAllPackages() async {

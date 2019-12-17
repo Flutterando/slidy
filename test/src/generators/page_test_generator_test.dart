@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   group('GetPackage Test', () {
     test("package inexistente exception with text 'Exception: error'", () {
-      expect(pageTestGenerator("teste_page" , "package_teste" , "import 'package:bloc_pattern/bloc_pattern_test.dart';" , "test_module","modules/teste"), "");
+      expect(pageTestGenerator("teste_page" , "package_teste" , "import 'package:bloc_pattern/bloc_pattern_test.dart';" , "test_module","modules/teste", true), "");
     });
   });
 }
