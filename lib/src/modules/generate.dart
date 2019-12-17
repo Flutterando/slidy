@@ -11,7 +11,7 @@ class Generate {
   static Future module(String path, bool createCompleteModule) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular;
-    output.error('isModular? ${m}');
+   
     await file_utils.createFile(path, moduleType,
         m ? templates.moduleGeneratorModular : templates.moduleGenerator);
     if (createCompleteModule) {
