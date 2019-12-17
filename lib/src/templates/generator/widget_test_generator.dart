@@ -1,16 +1,16 @@
 String widgetTestGenerator(String name, String packageName, String import,
     String module, String pathModule, bool isModular) {
-  String import;
+  String package;
   if (isModular) {
-    import = r"import 'package:flutter_modular/flutter_modular_test.dart'";
+    package = r"import 'package:flutter_modular/flutter_modular_test.dart'";
   } else {
-    import = r"import 'package:bloc_pattern/bloc_pattern_test.dart'";
+    package = r"import 'package:bloc_pattern/bloc_pattern_test.dart'";
   }
 
   return '''
 import 'package:flutter/material.dart';
-$import
 import 'package:flutter_test/flutter_test.dart';
+$package;
 
 import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
@@ -26,17 +26,17 @@ main() {
 
 String widgetTestGeneratorWithoutSuffix(String name, String packageName,
     String import, String module, String modulePath, bool isModular) {
-  String import;
+  String package;
   if (isModular) {
-    import = r"import 'package:flutter_modular/flutter_modular_test.dart'";
+    package = r"import 'package:flutter_modular/flutter_modular_test.dart'";
   } else {
-    import = r"import 'package:bloc_pattern/bloc_pattern_test.dart'";
+    package = r"import 'package:bloc_pattern/bloc_pattern_test.dart'";
   }
   return '''
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+$package;
 import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 main() {
