@@ -11,17 +11,18 @@ class Generate {
   static Future module(String path, bool createCompleteModule) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular;
+   
     await file_utils.createFile(path, moduleType,
         m ? templates.moduleGeneratorModular : templates.moduleGenerator);
     if (createCompleteModule) {
-      await page(path, false);
+      await page(path, false, m);
     }
   }
 
-  static void page(String path, bool blocLess,
+  static void page(String path, bool blocLess, bool isModular,
       [bool flutter_bloc = false, bool mobx = false]) {
     file_utils.createFile(path, 'page', templates.pageGenerator,
-        generatorTest: templates.pageTestGenerator);
+        generatorTest: templates.pageTestGenerator, isModular: isModular);
     var name = basename(path);
     if (!blocLess) {
       bloc('$path/$name', true, flutter_bloc, mobx);
@@ -30,7 +31,8 @@ class Generate {
 
   static Future widget(String path, bool blocLess, bool ignoreSuffix,
       [bool flutter_bloc = false, bool mobx = false]) async {
-      var m = await isModular;
+    var m = await isModular;
+
     if (ignoreSuffix) {
       file_utils.createFile(
           path, 'widget', templates.widgetGeneratorWithoutSuffix,
@@ -38,13 +40,8 @@ class Generate {
           ignoreSuffix: ignoreSuffix,
           isModular: m);
     } else {
-      file_utils.createFile(
-        path,
-        'widget',
-        templates.widgetGenerator,
-        generatorTest: templates.widgetTestGenerator,
-        isModular: m
-      );
+      file_utils.createFile(path, 'widget', templates.widgetGenerator,
+          generatorTest: templates.widgetTestGenerator, isModular: m);
     }
 
     var name = basename(path);
@@ -127,23 +124,32 @@ class Generate {
             await getNamePackage(),
             entity.path,
             nameModule == null ? null : formatName(nameModule),
-            module?.path, m),
+            module?.path,
+            m),
       );
     }
-    
+
     formatFile(entityTest);
   }
 
   static Future repository(String path, [bool isTest = true]) async {
     var m = await isModular;
-    file_utils.createFile(path, 'repository', m ? templates.repositoryGeneratorModular : templates.repositoryGenerator,
-        generatorTest: isTest ? templates.repositoryTestGenerator : null, isModular: m);
+    file_utils.createFile(
+        path,
+        'repository',
+        m
+            ? templates.repositoryGeneratorModular
+            : templates.repositoryGenerator,
+        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        isModular: m);
   }
 
   static Future service(String path, [bool isTest = true]) async {
     var m = await isModular;
-    file_utils.createFile(path, 'service', m ? templates.serviceGeneratorModular : templates.serviceGenerator,
-        generatorTest: isTest ? templates.serviceTestGenerator : null, isModular: m);
+    file_utils.createFile(path, 'service',
+        m ? templates.serviceGeneratorModular : templates.serviceGenerator,
+        generatorTest: isTest ? templates.serviceTestGenerator : null,
+        isModular: m);
   }
 
   static void model(List<String> path, [bool isTest = false]) {
