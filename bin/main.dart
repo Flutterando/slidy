@@ -11,7 +11,7 @@ main(List<String> arguments) {
   if (hasCommand) {
     executeCommand(runner, arguments);
   } else {
-    ArgParser parser = ArgParser();
+    var parser = ArgParser();
     parser = runner.argParser;
     var results = parser.parse(arguments);
     executeOptions(results, arguments, runner);
@@ -20,12 +20,12 @@ main(List<String> arguments) {
 
 void executeOptions(
     ArgResults results, List<String> arguments, CommandRunner runner) {
-  if (results.wasParsed("help") || arguments.isEmpty) {
+  if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   }
 
-  if (results.wasParsed("version")) {
-    version("1.3.1");
+  if (results.wasParsed('version')) {
+    version('1.3.4');
   }
 }
 
@@ -38,7 +38,7 @@ void executeCommand(CommandRunner runner, List<String> arguments) {
 
 CommandRunner configureCommand(List<String> arguments) {
   var runner =
-      CommandRunner("slidy", "CLI package manager and template for Flutter.")
+      CommandRunner('slidy', 'CLI package manager and template for Flutter.')
         ..addCommand(StartCommand())
         ..addCommand(RunCommand())
         ..addCommand(GenerateCommand())
@@ -50,6 +50,6 @@ CommandRunner configureCommand(List<String> arguments) {
         ..addCommand(UninstallCommand())
         ..addCommand(CreateCommand());
 
-  runner.argParser.addFlag("version", abbr: "v", negatable: false);
+  runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;
 }

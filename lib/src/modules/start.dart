@@ -10,8 +10,8 @@ import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/modules/install.dart';
 
 bool _isContinue() {
-  String result = stdin.readLineSync();
-  if (result == "Y") {
+  var result = stdin.readLineSync();
+  if (result == 'Y') {
     return true;
   } else {
     return false;
@@ -79,8 +79,8 @@ start(completeStart, flutter_bloc, mobx) async {
   var command =
       CommandRunner("slidy", "CLI package manager and template for Flutter.");
   command.addCommand(GenerateCommand());
-  String package = await getNamePackage();
-  bool m = await isModular;
+  var package = await getNamePackage();
+  var m = await isModular;
   createStaticFile('${dir.path}/main.dart',
       m ? templates.startMainModular(package) : templates.startMain(package));
 
