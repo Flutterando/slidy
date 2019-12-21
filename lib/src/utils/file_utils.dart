@@ -19,6 +19,10 @@ void createFile(
 
   path = libPath(path);
 
+  if(mainDirectory.isNotEmpty){
+   path = path.replaceAll('app/$mainDirectory', 'app/');
+  }
+
   Directory dir;
   if (type == 'bloc' ||
       type == 'controller' ||
@@ -53,7 +57,7 @@ void createFile(
     exit(1);
   }
 
-  try {
+ // try {
     file.createSync(recursive: true);
     output.msg('File ${file.path} created');
 
@@ -105,10 +109,10 @@ void createFile(
     }
 
     output.success('$type created');
-  } catch (e) {
-    output.error(e);
-    exit(1);
-  }
+  // } catch (e) {
+  //   output.error(e);
+  //   exit(1);
+  // }
 }
 
 void formatFile(File file) {
@@ -126,8 +130,10 @@ Future<File> addModule(String nameCap, String path, bool isBloc,
   }
 
   var node = module.readAsStringSync().split('\n');
+  var packageName = await getNamePackage();
+  var import = 'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'.replaceAll('$packageName/$packageName', packageName);
   node.insert(0,
-      "  import 'package:${await getNamePackage()}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}';");
+      "  import '$import';");
 
   if (isModular) {
     index = node.indexWhere((t) => t.contains('binds => ['));

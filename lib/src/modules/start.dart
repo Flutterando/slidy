@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:dart_console/dart_console.dart';
 import 'package:slidy/src/command/generate_command.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
@@ -8,6 +9,7 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 
 import 'package:slidy/src/modules/install.dart';
+import 'package:tuple/tuple.dart';
 
 bool _isContinue() {
   var result = stdin.readLineSync();
@@ -18,47 +20,102 @@ bool _isContinue() {
   }
 }
 
-_initWith(bool flutter_bloc, bool mobx) {
-  if (flutter_bloc) {
-    output.title("Starting a new project with flutter_bloc");
-  } else if (mobx) {
-    output.title("Starting a new project with Mobx");
-  } else {
-    output.title("Starting a new project with RX BLoC");
+int stateCLIOptions(String title, List<String> options) {
+  stdin.lineMode = false;
+  stdin.echoMode = false;
+  var console = Console();
+  var isRunning = true;
+  var selected = 0;
+
+  while (isRunning) {
+    print('\x1B[2J\x1B[0;0H');
+    output.title('Slidy CLI Interative\n');
+    output.warn(title);
+    for (var i = 0; i < options.length; i++) {
+      if (selected == i) {
+        print(output.green(options[i]));
+      } else {
+        print(output.white(options[i]));
+      }
+    }
+
+    print('\nPressed \'q\' to quit.');
+
+    var key = console.readKey();
+    if (key.controlChar == ControlCharacter.arrowDown) {
+      if (selected < options.length - 1) {
+        selected++;
+      }
+    } else if (key.controlChar == ControlCharacter.arrowUp) {
+      if (selected > 0) {
+        selected--;
+      }
+    } else if (key.controlChar == ControlCharacter.enter) {
+      isRunning = false;
+      return selected;
+    } else if (key.char == 'q') {
+      return -1;
+    } else {}
   }
-  print("");
+  return -1;
 }
 
-blocOrModular() async {
-  print("\x1B[2J\x1B[0;0H");
+Function blocOrModular([int selected, String directory]) {
+  selected ??= stateCLIOptions('What Provider System do you want to use?', [
+    '1 - bloc_pattern (default)',
+    '2 - flutter_modular',
+  ]);
 
-  output.warn("What Provider System do you want to use?");
-  output.title("1 - bloc_pattern (default)");
-  output.title("2 - flutter_modular");
-  var result = stdin.readLineSync();
-  await removeAllPackages();
-
-  if (result == '2') {
-    output.msg("Instaling flutter_modular...");
-    await install(["flutter_modular"], false);
-  } else {
-    output.msg("Instaling bloc_pattern...");
-    await install(["bloc_pattern"], false);
-  }
+  return () async {
+    await removeAllPackages(directory);
+    if (selected == 1) {
+      output.msg("Instaling flutter_modular...");
+      await install(["flutter_modular"], false, directory: directory);
+    } else if (selected == 0) {
+      output.msg("Instaling bloc_pattern...");
+      await install(["bloc_pattern"], false, directory: directory);
+    } else {
+      exit(1);
+    }
+  };
 }
 
-start(completeStart, flutter_bloc, mobx) async {
-  await blocOrModular();
+Function selecStateManagement([int selected, String directory]) {
+  selected ??= stateCLIOptions('Choose a state manager', [
+    '1 - default BLoC with rxdart',
+    '2 - flutter_bloc',
+    '3 - mobx',
+  ]);
+  return () async {
+    if (selected == 0) {
+      output.title("Starting a new project with RX BLoC");
+      await install(["rxdart"], false, directory: directory);
+    } else if (selected == 1) {
+      output.title("Starting a new project with flutter_bloc");
+      await install(["bloc", 'flutter_bloc'], false, directory: directory);
+    } else if (selected == 2) {
+      output.title("Starting a new project with Mobx");
+      await install(["mobx", 'flutter_mobx'], false, directory: directory);
+      await install(["build_runner", "mobx_codegen"], true, directory: directory);
+    } else {
+      exit(1);
+    }
 
-  _initWith(flutter_bloc, mobx);
+    await install(["dio"], false, directory: directory);
+    await install(["mockito"], true, directory: directory);
+  };
+}
 
-  var dir = Directory("lib");
+Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
-      output.warn(
-          "WARNING! This command will delete everything inside the \"lib /\" and \"test\" folders.");
-      output.msg("Do you wish to continue? [Y]es or [n]o");
-      if (_isContinue()) {
+      selected ??= stateCLIOptions(
+          'This command will delete everything inside the \"lib /\" and \"test\" folders.',
+          [
+            'No',
+            'Yes',
+          ]);
+      if (selected == 1) {
         output.msg("Removing lib folder");
         await dir.delete(recursive: true);
       } else {
@@ -67,8 +124,16 @@ start(completeStart, flutter_bloc, mobx) async {
       }
     }
   }
+}
 
-  var dirTest = Directory("test");
+Future start(completeStart, [bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple]) async {
+  dir ??= Directory("lib");
+  tuple ??= Tuple2(blocOrModular(), selecStateManagement());
+  await isContinue(dir, isCreate ? 1 : null);
+  await tuple.item1();
+  await tuple.item2();
+
+  var dirTest = Directory(dir.parent.path + '/test');
   if (await dirTest.exists()) {
     if (dirTest.listSync().isNotEmpty) {
       output.msg("Removing test folder");
@@ -79,17 +144,16 @@ start(completeStart, flutter_bloc, mobx) async {
   var command =
       CommandRunner("slidy", "CLI package manager and template for Flutter.");
   command.addCommand(GenerateCommand());
-  var package = await getNamePackage();
-  var m = await isModular;
+  var package = await getNamePackage(dir.parent);
+  var m = await isModular();
   createStaticFile('${dir.path}/main.dart',
       m ? templates.startMainModular(package) : templates.startMain(package));
 
   createStaticFile(
-      libPath('app_module.dart'),  m ? templates.startAppModuleModular(package) : templates.startAppModule(package));
-  
-  await _installPackages(flutter_bloc, mobx);
-
-  //createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
+      libPath('app_module.dart'),
+      m
+          ? templates.startAppModuleModular(package)
+          : templates.startAppModule(package));
 
   if (completeStart) {
     createStaticFile(
@@ -112,27 +176,18 @@ start(completeStart, flutter_bloc, mobx) async {
     await command.run(['generate', 'module', 'modules/login', '-c']);
     await command.run(['generate', 'module', 'modules/home', '-c']);
 
-    await install(["flutter_localizations: sdk: flutter"], false,
-        haveTwoLines: true);
+    // await install(["flutter_localizations: sdk: flutter"], false,
+    //     haveTwoLines: true);
   } else {
     createStaticFile(
-        libPath('app_widget.dart'), m ? templates.startAppWidgetModular(package) : templates.startAppWidget(package));
+        libPath('app_widget.dart'),
+        m
+            ? templates.startAppWidgetModular(package)
+            : templates.startAppWidget(package));
 
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
   await command.run(['generate', 'bloc', 'app']);
 
   output.msg("Project started! enjoy!");
-}
-
-_installPackages(bool flutter_bloc, bool mobx) async {
-  await install(["rxdart", "dio"], false);
-  await install(["mockito"], true);
-
-  if (flutter_bloc) {
-    await install(["flutter_bloc", "bloc"], false);
-  } else if (mobx) {
-    await install(["mobx", "flutter_mobx"], false);
-    await install(["build_runner", "mobx_codegen"], true);
-  }
 }
