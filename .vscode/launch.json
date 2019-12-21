@@ -7,7 +7,7 @@
         {
             "name": "Launch",
             "program": "/Volumes/mac-suport/Projects/FlutterProject/slidy/bin/main.dart",
-            "cwd": "example",
+            "cwd": "C:\\Users\\jacob\\FlutterProject\\slidyapptest",
             "args": ["g", "b", "bloc2"],
             "request": "launch",
             "type": "dart"

@@ -1,4 +1,4 @@
-## 1.4.0
+## 1.4.1
 - Slidy CLI Interative
 - Fix slidy create erro
 

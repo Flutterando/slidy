@@ -21,8 +21,8 @@ bool _isContinue() {
 }
 
 int stateCLIOptions(String title, List<String> options) {
-  stdin.lineMode = false;
   stdin.echoMode = false;
+  stdin.lineMode = false;
   var console = Console();
   var isRunning = true;
   var selected = 0;
