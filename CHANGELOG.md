@@ -1,5 +1,6 @@
-## 1.3.5
-- flutter_modular support
+## 1.4.0
+- Slidy CLI Interative
+- Fix slidy create erro
 
 ## 1.2.2
 - Added command generate model
