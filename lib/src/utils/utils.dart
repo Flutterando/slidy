@@ -4,6 +4,8 @@ import 'package:slidy/src/modules/uninstall.dart';
 import 'package:slidy/src/utils/pubspec.dart';
 import 'package:yaml/yaml.dart';
 
+String mainDirectory = '';
+
 String formatName(String name) {
   name = name
       .replaceAll("_", " ")
@@ -14,13 +16,14 @@ String formatName(String name) {
   return name;
 }
 
-Future<String> getNamePackage() async {
-  PubSpec yaml = await getPubSpec();
+Future<String> getNamePackage([Directory dir]) async {
+  var yaml = await getPubSpec(directory: Directory(mainDirectory));
   return yaml.name;
 }
 
-Future<bool> get isModular async {
-  PubSpec yaml = await getPubSpec();
+Future<bool> isModular() async {
+  Directory dir = Directory(mainDirectory);
+  PubSpec yaml = await getPubSpec(directory: dir);
   return yaml.dependencies.containsKey("flutter_modular");
 }
 
@@ -45,8 +48,8 @@ Future<PubSpec> getPubSpec({Directory directory}) async {
   var pubSpec = await PubSpec.load(directory ?? Directory(""));
   return pubSpec;
 }
-Future removeAllPackages() async {
-  var pubSpec = await getPubSpec();
+Future removeAllPackages([String directory]) async {
+  var pubSpec = await getPubSpec(directory: directory == null ? null : Directory(directory));
   var dep = pubSpec.dependencies.keys
       .map((f) => f.toString())
       .where((t) => t != "flutter")
@@ -57,8 +60,8 @@ Future removeAllPackages() async {
       .where((t) => t != "flutter_test")
       .toList();
 
-  await uninstall(dep, false, false);
-  await uninstall(devDep, true, false);
+  await uninstall(dep, false, false, directory);
+  await uninstall(devDep, true, false, directory);
 
   // pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
   // pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
@@ -73,12 +76,12 @@ bool checkParam(List<String> args, String param) {
 }
 
 String libPath(String path) {
-  if (Directory("lib/app").existsSync()) {
-    return "lib/app/$path";
+  if (Directory("${mainDirectory}lib/app").existsSync()) {
+    return "${mainDirectory}lib/app/$path";
   } else if (Directory("lib/src").existsSync()) {
-    return "lib/src/$path";
+    return "${mainDirectory}lib/src/$path";
   } else {
-    return "lib/app/$path";
+    return "${mainDirectory}lib/app/$path";
   }
 }
 

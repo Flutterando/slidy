@@ -6,9 +6,9 @@ import 'package:slidy/src/utils/pubspec.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void install(List<String> packs, bool isDev, {bool haveTwoLines}) async {
-  PubSpec spec = await getPubSpec();
-  File yaml = File("pubspec.yaml");
+void install(List<String> packs, bool isDev, {bool haveTwoLines, String directory}) async {
+  PubSpec spec = await getPubSpec(directory: directory == null ? null : Directory(directory));
+  File yaml = File(directory == null ? "pubspec.yaml" : '$directory/pubspec.yaml');
   var node = yaml.readAsLinesSync();
   int indexDependency = node.indexWhere((t) => t.contains("dependencies:")) + 1;
   int indexDependencyDev =

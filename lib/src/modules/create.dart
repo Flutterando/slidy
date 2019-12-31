@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:slidy/slidy.dart';
+import 'package:slidy/src/utils/utils.dart' show mainDirectory;
+import 'package:tuple/tuple.dart';
+
 void create(String projectName, String projectDescription, String projectOrg,
     bool isKotlin, bool isSwift, bool isAndroidX) {
   startFlutterCreate(projectName, projectDescription, projectOrg, isKotlin,
@@ -8,6 +12,10 @@ void create(String projectName, String projectDescription, String projectOrg,
 
 void startFlutterCreate(String projectName, String projectDescription,
     String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
+  mainDirectory = projectName+'/';
+  var selectedProvider = blocOrModular(null, projectName);
+  var selectedBloc = selecStateManagement(null, projectName);
+
   List<String> flutterArgs = createFlutterArgs(projectName, projectDescription,
       projectOrg, isKotlin, isSwift, isAndroidX);
 
@@ -16,29 +24,14 @@ void startFlutterCreate(String projectName, String projectDescription,
     stderr.addStream(process.stderr);
     process.exitCode.then((exit) {
       if (exit == 0) {
-        startSlidyCreate(projectName);
+        startSlidyCreate(projectName, selectedProvider, selectedBloc);
       }
     });
   });
 }
 
-void startSlidyCreate(String projectName) {
-  Process.start("slidy", ["start", "-f"],
-          runInShell: true, workingDirectory: "./$projectName")
-      .then((processSlidy) {
-    stdout.addStream(processSlidy.stdout);
-    stderr.addStream(processSlidy.stderr);
-    processSlidy.exitCode.then((exit) {
-      if (exit == 0) {
-        Process.start("flutter", ["packages", "get"],
-                runInShell: true, workingDirectory: "./$projectName")
-            .then((process) {
-          stdout.addStream(process.stdout);
-          stderr.addStream(process.stderr);
-        });
-      }
-    });
-  });
+void startSlidyCreate(String projectName, Function selectedProvider, Function selectedState) {
+  start(false, true, Directory('$projectName/lib'), Tuple2(selectedProvider, selectedState));
 }
 
 List<String> createFlutterArgs(String projectName, String projectDescription,
