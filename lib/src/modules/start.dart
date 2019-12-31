@@ -92,7 +92,7 @@ Function selecStateManagement([int selected, String directory]) {
       await install(["rxdart"], false, directory: directory);
     } else if (selected == 1) {
       output.title("Starting a new project with flutter_bloc");
-      await install(["bloc", 'flutter_bloc'], false, directory: directory);
+      await install(["bloc", 'flutter_bloc', 'equatable'], false, directory: directory);
     } else if (selected == 2) {
       output.title("Starting a new project with Mobx");
       await install(["mobx", 'flutter_mobx'], false, directory: directory);
