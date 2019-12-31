@@ -10,8 +10,8 @@ import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/modules/install.dart';
 
 bool _isContinue() {
-  String result = stdin.readLineSync();
-  if (result == "Y") {
+  var result = stdin.readLineSync();
+  if (result == 'Y') {
     return true;
   } else {
     return false;
@@ -29,7 +29,27 @@ _initWith(bool flutter_bloc, bool mobx) {
   print("");
 }
 
+blocOrModular() async {
+  print("\x1B[2J\x1B[0;0H");
+
+  output.warn("What Provider System do you want to use?");
+  output.title("1 - bloc_pattern (default)");
+  output.title("2 - flutter_modular");
+  var result = stdin.readLineSync();
+  await removeAllPackages();
+
+  if (result == '2') {
+    output.msg("Instaling flutter_modular...");
+    await install(["flutter_modular"], false);
+  } else {
+    output.msg("Instaling bloc_pattern...");
+    await install(["bloc_pattern"], false);
+  }
+}
+
 start(completeStart, flutter_bloc, mobx) async {
+  await blocOrModular();
+
   _initWith(flutter_bloc, mobx);
 
   var dir = Directory("lib");
@@ -59,18 +79,19 @@ start(completeStart, flutter_bloc, mobx) async {
   var command =
       CommandRunner("slidy", "CLI package manager and template for Flutter.");
   command.addCommand(GenerateCommand());
-  String package = await getNamePackage();
+  var package = await getNamePackage();
+  var m = await isModular;
+  createStaticFile('${dir.path}/main.dart',
+      m ? templates.startMainModular(package) : templates.startMain(package));
 
   createStaticFile(
-      libPath('app_module.dart'), templates.startAppModule(package));
+      libPath('app_module.dart'),  m ? templates.startAppModuleModular(package) : templates.startAppModule(package));
+  
   await _installPackages(flutter_bloc, mobx);
 
   //createStaticFile(libPath('app_bloc.dart'), templates.startAppBloc());
 
   if (completeStart) {
-    createStaticFile(
-        '${dir.path}/main.dart', templates.startMainComplete(package));
-
     createStaticFile(
         libPath('app_widget.dart'), templates.startAppWidgetComplete(package));
 
@@ -94,10 +115,8 @@ start(completeStart, flutter_bloc, mobx) async {
     await install(["flutter_localizations: sdk: flutter"], false,
         haveTwoLines: true);
   } else {
-    createStaticFile('${dir.path}/main.dart', templates.startMain(package));
-
     createStaticFile(
-        libPath('app_widget.dart'), templates.startAppWidget(package));
+        libPath('app_widget.dart'), m ? templates.startAppWidgetModular(package) : templates.startAppWidget(package));
 
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
@@ -107,8 +126,7 @@ start(completeStart, flutter_bloc, mobx) async {
 }
 
 _installPackages(bool flutter_bloc, bool mobx) async {
-  await removeAllPackages();
-  await install(["bloc_pattern", "rxdart", "dio"], false);
+  await install(["rxdart", "dio"], false);
   await install(["mockito"], true);
 
   if (flutter_bloc) {

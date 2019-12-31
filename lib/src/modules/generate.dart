@@ -8,148 +8,162 @@ import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
 class Generate {
-  static module(String path, bool createCompleteModule) async {
-    String moduleType = createCompleteModule ? 'module_complete' : 'module';
-    await file_utils.createFile(path, moduleType, templates.moduleGenerator);
+  static Future module(String path, bool createCompleteModule) async {
+    var moduleType = createCompleteModule ? 'module_complete' : 'module';
+    var m = await isModular;
+   
+    await file_utils.createFile(path, moduleType,
+        m ? templates.moduleGeneratorModular : templates.moduleGenerator);
     if (createCompleteModule) {
-      await page(path, false);
+      await page(path, false, m);
     }
   }
 
-  static page(String path, bool blocLess,
+  static void page(String path, bool blocLess, bool isModular,
       [bool flutter_bloc = false, bool mobx = false]) {
-    file_utils.createFile(
-        path, 'page', templates.pageGenerator, templates.pageTestGenerator);
-    String name = basename(path);
+    file_utils.createFile(path, 'page', templates.pageGenerator,
+        generatorTest: templates.pageTestGenerator, isModular: isModular);
+    var name = basename(path);
     if (!blocLess) {
-      bloc("$path/$name", true, flutter_bloc, mobx);
+      bloc('$path/$name', true, flutter_bloc, mobx);
     }
   }
 
-  static widget(String path, bool blocLess, bool ignoreSuffix,
-      [bool flutter_bloc = false, bool mobx = false]) {
+  static Future widget(String path, bool blocLess, bool ignoreSuffix,
+      [bool flutter_bloc = false, bool mobx = false]) async {
+    var m = await isModular;
+
     if (ignoreSuffix) {
       file_utils.createFile(
-          path,
-          'widget',
-          templates.widgetGeneratorWithoutSuffix,
-          templates.widgetTestGeneratorWithoutSuffix,
-          ignoreSuffix);
+          path, 'widget', templates.widgetGeneratorWithoutSuffix,
+          generatorTest: templates.widgetTestGeneratorWithoutSuffix,
+          ignoreSuffix: ignoreSuffix,
+          isModular: m);
     } else {
-      file_utils.createFile(
-        path,
-        'widget',
-        templates.widgetGenerator,
-        templates.widgetTestGenerator,
-      );
+      file_utils.createFile(path, 'widget', templates.widgetGenerator,
+          generatorTest: templates.widgetTestGenerator, isModular: m);
     }
 
-    String name = basename(path);
+    var name = basename(path);
     if (!blocLess) {
-      bloc("$path/$name", true, flutter_bloc, mobx);
+      bloc('$path/$name', true, flutter_bloc, mobx);
     }
   }
 
-  static test(String path) {
-    if (path.contains(".dart")) {
-      File entity = File(libPath(path));
+  static void test(String path) {
+    if (path.contains('.dart')) {
+      var entity = File(libPath(path));
       if (!entity.existsSync()) {
-        output.error("File $path not exist");
+        output.error('File $path not exist');
         exit(1);
       }
       _generateTest(
           entity,
           File(libPath(path)
-              .replaceFirst("lib/", "test/")
-              .replaceFirst(".dart", "_test.dart")));
+              .replaceFirst('lib/', 'test/')
+              .replaceFirst('.dart', '_test.dart')));
     } else {
-      Directory entity = Directory(libPath(path));
+      var entity = Directory(libPath(path));
       if (!entity.existsSync()) {
-        output.error("Directory $path not exist");
+        output.error('Directory $path not exist');
         exit(1);
       }
 
-      for (FileSystemEntity file in entity.listSync()) {
+      for (var file in entity.listSync()) {
         if (file is File) {
           _generateTest(
               file,
               File(file.path
-                  .replaceFirst("lib/", "test/")
-                  .replaceFirst(".dart", "_test.dart")));
+                  .replaceFirst('lib/', 'test/')
+                  .replaceFirst('.dart', '_test.dart')));
         }
       }
     }
   }
 
-  static _generateTest(File entity, File entityTest) async {
+  static Future _generateTest(File entity, File entityTest) async {
     if (entityTest.existsSync()) {
-      output.error("Test already exists");
+      output.error('Test already exists');
       exit(1);
     }
 
-    String name = basename(entity.path);
-    File module = file_utils.findModule(entity.path);
-    String nameModule = module == null ? null : basename(module.path);
+    var m = await isModular;
+    var name = basename(entity.path);
+    var module = file_utils.findModule(entity.path);
+    var nameModule = module == null ? null : basename(module.path);
 
-    if (name.contains("_bloc.dart")) {
+    if (name.contains('_bloc.dart')) {
       entityTest.createSync(recursive: true);
-      output.msg("File test ${entityTest.path} created");
+      output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
         templates.blocTestGenerator(
-          formatName(name.replaceFirst("_bloc.dart", "")),
+          formatName(name.replaceFirst('_bloc.dart', '')),
           await getNamePackage(),
           entity.path,
           nameModule == null ? null : formatName(nameModule),
           module?.path,
         ),
       );
-    } else if (name.contains("_repository.dart")) {
+    } else if (name.contains('_repository.dart')) {
       entityTest.createSync(recursive: true);
-      output.msg("File test ${entityTest.path} created");
+      output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
         templates.repositoryTestGenerator(
-            formatName(name.replaceFirst("_repository.dart", "")),
+            formatName(name.replaceFirst('_repository.dart', '')),
             await getNamePackage(),
             entity.path,
             nameModule == null ? null : formatName(nameModule),
             module?.path),
       );
-    } else if (name.contains("_page.dart")) {
+    } else if (name.contains('_page.dart')) {
       entityTest.createSync(recursive: true);
-      output.msg("File test ${entityTest.path} created");
+      output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
         templates.pageTestGenerator(
-            formatName(name.replaceFirst("_page.dart", "")),
+            formatName(name.replaceFirst('_page.dart', '')),
             await getNamePackage(),
             entity.path,
             nameModule == null ? null : formatName(nameModule),
-            module?.path),
+            module?.path,
+            m),
       );
     }
-    
+
     formatFile(entityTest);
   }
 
-  static repository(String path, [bool isTest = true]) {
-    file_utils.createFile(path, 'repository', templates.repositoryGenerator,
-        isTest ? templates.repositoryTestGenerator : null);
+  static Future repository(String path, [bool isTest = true]) async {
+    var m = await isModular;
+    file_utils.createFile(
+        path,
+        'repository',
+        m
+            ? templates.repositoryGeneratorModular
+            : templates.repositoryGenerator,
+        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        isModular: m);
   }
 
-  static service(String path, [bool isTest = true]) {
-    file_utils.createFile(path, 'service', templates.serviceGenerator,
-        isTest ? templates.serviceTestGenerator : null);
+  static Future service(String path, [bool isTest = true]) async {
+    var m = await isModular;
+    file_utils.createFile(path, 'service',
+        m ? templates.serviceGeneratorModular : templates.serviceGenerator,
+        generatorTest: isTest ? templates.serviceTestGenerator : null,
+        isModular: m);
   }
 
-    static model(List<String> path, [bool isTest = false]) {
+  static void model(List<String> path, [bool isTest = false]) {
     file_utils.createFile(path.first, 'model', templates.modelGenerator,
-         null, false);
+        ignoreSuffix: false);
   }
 
-  static bloc(String path,
+  static void bloc(String path,
       [bool isTest = true,
       bool flutter_bloc = false,
       bool mobx = false]) async {
     var template;
+
+    var m = await isModular;
 
     if (!flutter_bloc && !mobx) {
       flutter_bloc =
@@ -162,13 +176,18 @@ class Generate {
     } else if (mobx) {
       template = templates.mobx_blocGenerator;
     } else {
-      template = templates.blocGenerator;
+      template = m ? templates.blocGeneratorModular : templates.blocGenerator;
     }
 
-    var testTemplate =
-        mobx ? templates.mobxBlocTestGenerator : templates.blocTestGenerator;
+    var testTemplate = mobx
+        ? (m
+            ? templates.mobxBlocTestGeneratorModular
+            : templates.mobxBlocTestGenerator)
+        : (m
+            ? templates.blocTestGeneratorModular
+            : templates.blocTestGenerator);
 
     file_utils.createFile(path, mobx ? 'controller' : 'bloc', template,
-        isTest ? testTemplate : null);
+        generatorTest: isTest ? testTemplate : null, isModular: m);
   }
 }

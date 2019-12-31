@@ -1,3 +1,6 @@
+## 1.3.4
+- flutter_modular support
+
 ## 1.2.2
 - Added command generate model
 

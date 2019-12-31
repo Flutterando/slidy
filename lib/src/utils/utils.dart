@@ -19,6 +19,11 @@ Future<String> getNamePackage() async {
   return yaml.name;
 }
 
+Future<bool> get isModular async {
+  PubSpec yaml = await getPubSpec();
+  return yaml.dependencies.containsKey("flutter_modular");
+}
+
 Future<bool> checkDependency(String dep) async {
   try {
     PubSpec yaml = await getPubSpec();
@@ -37,7 +42,7 @@ Future<String> getVersion() async {
 }
 
 Future<PubSpec> getPubSpec({Directory directory}) async {
-var pubSpec = await PubSpec.load(directory ?? Directory(""));
+  var pubSpec = await PubSpec.load(directory ?? Directory(""));
   return pubSpec;
 }
 Future removeAllPackages() async {

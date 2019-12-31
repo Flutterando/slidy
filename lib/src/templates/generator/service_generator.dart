@@ -11,3 +11,17 @@ class ${name}Service extends Disposable {
 
 }
   ''';
+
+String serviceGeneratorModular(String name) => '''
+import 'package:flutter_modular/flutter_modular.dart';
+
+class ${name}Service extends Disposable {
+
+  //dispose will be called automatically
+  @override
+  void dispose() {
+    
+  }
+
+}
+  ''';
