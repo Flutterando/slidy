@@ -92,11 +92,14 @@ Function selecStateManagement([int selected, String directory]) {
       await install(["rxdart"], false, directory: directory);
     } else if (selected == 1) {
       output.title("Starting a new project with flutter_bloc");
-      await install(["bloc", 'flutter_bloc', 'equatable'], false, directory: directory);
+      await createBlocBuilder();
+      await install(["bloc", 'bloc_test', 'equatable'], false,
+          directory: directory);
     } else if (selected == 2) {
       output.title("Starting a new project with Mobx");
       await install(["mobx", 'flutter_mobx'], false, directory: directory);
-      await install(["build_runner", "mobx_codegen"], true, directory: directory);
+      await install(["build_runner", "mobx_codegen"], true,
+          directory: directory);
     } else {
       exit(1);
     }
@@ -126,7 +129,10 @@ Future isContinue(Directory dir, [int selected]) async {
   }
 }
 
-Future start(completeStart, [bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple]) async {
+Future start(completeStart,
+    [bool isCreate = false,
+    Directory dir,
+    Tuple2<Function, Function> tuple]) async {
   dir ??= Directory("lib");
   tuple ??= Tuple2(blocOrModular(), selecStateManagement());
   await isContinue(dir, isCreate ? 1 : null);

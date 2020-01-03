@@ -120,13 +120,13 @@ void createFile(String path, String type, Function generator,
 
     fileBloc = File(
         '${dir.path}/bloc/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}.dart');
-    fileState = File(
-        '${dir.path}/bloc/${ReCase(name).snakeCase}_state.dart');
-    fileEvent = File(
-        '${dir.path}/bloc/${ReCase(name).snakeCase}_event.dart');
+    fileState = File('${dir.path}/bloc/${ReCase(name).snakeCase}_state.dart');
+    fileEvent = File('${dir.path}/bloc/${ReCase(name).snakeCase}_event.dart');
 
     fileBlocTest = File(
         '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}_test.dart');
+
+      
 
     if (fileBloc.existsSync() ||
         fileState.existsSync() ||
@@ -158,8 +158,8 @@ void createFile(String path, String type, Function generator,
     File module;
     String nameModule;
 
-    module = await addModule(formatName('${ReCase(name).snakeCase}_$type'), fileBloc.path,
-        type == 'bloc' || type == 'controller', isModular);
+    module = await addModule(formatName('${ReCase(name).snakeCase}_$type'),
+        fileBloc.path, type == 'bloc' || type == 'controller', isModular);
     nameModule = module == null ? null : basename(module.path);
 
     if (generatorTest != null) {
@@ -274,4 +274,29 @@ void createStaticFile(String path, String content) {
     output.error(e);
     exit(1);
   }
+}
+
+Future<void> createBlocBuilder() async {
+  output.success('Creating the bloc?');
+  var path = 'lib/app/shared/';
+
+  var dir = Directory(path);
+
+  var name = basename(path);
+  File fileBlocProvider;
+
+  fileBlocProvider = File('${dir.path}/bloc_builder.dart');
+
+  if (fileBlocProvider.existsSync()) {
+    return;
+  }
+
+  fileBlocProvider.createSync(recursive: true);
+  output.msg('File /${fileBlocProvider.path} created');
+
+  fileBlocProvider.writeAsStringSync(bloc_builderGenerator(formatName(name)));
+
+  formatFile(fileBlocProvider);
+
+  output.success('bloc_provider created');
 }

@@ -170,7 +170,7 @@ class Generate {
 
     if (!flutter_bloc && !mobx) {
       flutter_bloc =
-          flutter_bloc ? true : await checkDependency('flutter_bloc');
+          flutter_bloc ? true : await checkDependency('bloc');
       mobx = mobx ? true : await checkDependency('flutter_mobx');
     }
 
