@@ -9,7 +9,7 @@ String moduleGenerator(String pkg, String name, String path) {
   return '''
   import 'package:bloc_pattern/bloc_pattern.dart';
   import 'package:flutter/material.dart';
-  ${import}
+  ${import.replaceFirst('$pkg/$pkg', pkg)}
   class ${name}Module extends ModuleWidget {
   @override
   List<Bloc> get blocs => [];
@@ -35,7 +35,7 @@ String moduleGeneratorModular(String pkg, String name, String path) {
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
-  ${import}
+  ${import.replaceFirst('$pkg/$pkg', pkg)}
   class ${name}Module extends ChildModule {
   @override
   List<Bind> get binds => [];

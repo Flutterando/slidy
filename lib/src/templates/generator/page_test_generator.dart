@@ -7,12 +7,14 @@ String pageTestGenerator(String name, String packageName, String import,
     package = "import 'package:bloc_pattern/bloc_pattern_test.dart'";
   }
 
+  var importPage = 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}'.replaceFirst('$packageName/$packageName', packageName);
+
   return '''
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 $package;
 
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import '$importPage';
 
 main() {
   testWidgets('${name}Page has title', (WidgetTester tester) async {
