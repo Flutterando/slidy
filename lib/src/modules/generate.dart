@@ -11,7 +11,7 @@ class Generate {
   static Future module(String path, bool createCompleteModule) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
-   
+
     await file_utils.createFile('${mainDirectory}$path', moduleType,
         m ? templates.moduleGeneratorModular : templates.moduleGenerator);
     if (createCompleteModule) {
@@ -21,7 +21,8 @@ class Generate {
 
   static void page(String path, bool blocLess, bool isModular,
       [bool flutter_bloc = false, bool mobx = false]) {
-    file_utils.createFile('${mainDirectory}$path', 'page', templates.pageGenerator,
+    file_utils.createFile(
+        '${mainDirectory}$path', 'page', templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: isModular);
     var name = basename(path);
     if (!blocLess) {
@@ -40,7 +41,8 @@ class Generate {
           ignoreSuffix: ignoreSuffix,
           isModular: m);
     } else {
-      file_utils.createFile('${mainDirectory}$path', 'widget', templates.widgetGenerator,
+      file_utils.createFile(
+          '${mainDirectory}$path', 'widget', templates.widgetGenerator,
           generatorTest: templates.widgetTestGenerator, isModular: m);
     }
 
@@ -153,7 +155,8 @@ class Generate {
   }
 
   static void model(List<String> path, [bool isTest = false]) {
-    file_utils.createFile('${mainDirectory}${path.first}', 'model', templates.modelGenerator,
+    file_utils.createFile(
+        '${mainDirectory}${path.first}', 'model', templates.modelGenerator,
         ignoreSuffix: false);
   }
 
@@ -167,7 +170,7 @@ class Generate {
 
     if (!flutter_bloc && !mobx) {
       flutter_bloc =
-          flutter_bloc ? true : await checkDependency('flutter_bloc');
+          flutter_bloc ? true : await checkDependency('bloc');
       mobx = mobx ? true : await checkDependency('flutter_mobx');
     }
 
@@ -187,7 +190,16 @@ class Generate {
             ? templates.blocTestGeneratorModular
             : templates.blocTestGenerator);
 
-    file_utils.createFile('${mainDirectory}$path'   , mobx ? 'controller' : 'bloc', template,
-        generatorTest: isTest ? testTemplate : null, isModular: m);
+    var stateManagement = mobx
+        ? StateManagementEnum.mobx
+        : flutter_bloc
+            ? StateManagementEnum.flutter_bloc
+            : StateManagementEnum.rxDart;
+
+    file_utils.createFile(
+        '${mainDirectory}$path', mobx ? 'controller' : 'bloc', template,
+        generatorTest: isTest ? testTemplate : null,
+        isModular: m,
+        stateManagement: stateManagement);
   }
 }
