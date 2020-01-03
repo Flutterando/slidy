@@ -39,7 +39,8 @@ Future<bool> checkDependency(String dep) async {
 
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  File file = File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
+  File file =
+      File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
   var doc = loadYaml(file.readAsStringSync());
   return doc['packages']['slidy']['version'].toString();
 }
@@ -48,8 +49,10 @@ Future<PubSpec> getPubSpec({Directory directory}) async {
   var pubSpec = await PubSpec.load(directory ?? Directory(""));
   return pubSpec;
 }
+
 Future removeAllPackages([String directory]) async {
-  var pubSpec = await getPubSpec(directory: directory == null ? null : Directory(directory));
+  var pubSpec = await getPubSpec(
+      directory: directory == null ? null : Directory(directory));
   var dep = pubSpec.dependencies.keys
       .map((f) => f.toString())
       .where((t) => t != "flutter")
@@ -91,3 +94,5 @@ bool validateUrl(String url) {
   var match = RegExp(urlPattern, caseSensitive: false).firstMatch(url);
   return match != null ? true : false;
 }
+
+enum StateManagementEnum { rxDart, mobx, flutter_bloc }
