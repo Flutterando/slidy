@@ -88,7 +88,7 @@ Flutter Bloc:
 
 And you will get this Structure:
 
-![Folder example](/screenshots/start_cmd_flutter_bloc.png?raw=true)
+![Folder example](/screenshots/start_cmd_flutter_bloc.PNG?raw=true)
 
 
 Bloc With RxDart
@@ -97,7 +97,7 @@ Bloc With RxDart
 
 And you will get this Structure:
 
-![Folder example](/screenshots/start_cmd_rxdart.png?raw=true)
+![Folder example](/screenshots/start_cmd_rxdart.PNG?raw=true)
 
 
 
