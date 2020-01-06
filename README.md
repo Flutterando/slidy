@@ -63,13 +63,47 @@ slidy upgrade
 Create the basic structure of your project (make sure that your "lib" folder it's empty).
 
 ```  
-slidy start //default
-slidy start --flutter_bloc
-slidy start --mobx
+slidy start
 ```       
+
+Then choose your provider:
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/choose_provider.PNG?raw=true)
+
+Then choose your State Manager:
+
+Mobx
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/choose_state_management_mobx.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/start_cmd.png?raw=true)
+
+
+
+Flutter Bloc:
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/start_cmd_flutter_bloc.png?raw=true)
+
+
+Bloc With RxDart
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/choose_state_management_rxdart.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/start_cmd_rxdart.png?raw=true)
+
+
+
 If you have the flutter_bloc or flutter_mobx package in pubspec, the generation of pages, widgets, and bloc defaults to the installed manager default.
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png?raw=true)
+
 
 
 ### run:
@@ -129,6 +163,9 @@ slidy g module folder_name
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
 
+**NOTE:** You can create a "Complete Module" with Module, Page, Bloc/Controller, tests for Page and for Bloc/Controller using the flag **-c**
+
+
 Creates a new **page** + BloC:
 
 ```
@@ -142,6 +179,7 @@ slidy g widget folder_name/widgets
 ``` 
 
 **NOTE:** You can create a page or widget using its respective BLoC using the flag **-b**
+
 
 Create a new **repository**
 ```
