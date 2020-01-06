@@ -177,7 +177,7 @@ slidy g page folder_name/pages
 ``` 
 or
 ```
-slidy g o folder_name/pages
+slidy g p folder_name/pages
 ``` 
 
 Creates a new **widget** + BloC:
@@ -196,6 +196,11 @@ slidy g w folder_name/widgets
 Create a new **repository**
 ```
 slidy g r folder_name/repositories
+``` 
+
+Create a new **service**
+```
+slidy g s folder_name/services
 ``` 
 
 Create a new **model**

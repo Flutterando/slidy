@@ -195,6 +195,11 @@ Crie um novo **repositório**
 slidy g r nome_da_pasta/repositórios
 ```
 
+Crie um novo **serviço**
+```
+slidy g s folder_name/servicos
+```
+
 Crie um novo **modelo**
 ```
 slidy g mm nome_da_pasta/modelo
