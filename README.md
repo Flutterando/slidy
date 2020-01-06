@@ -68,7 +68,7 @@ slidy start
 
 Then choose your provider:
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master//screenshots/choose_provider.PNG?raw=true)
+![Folder example](/screenshots/choose_provider.PNG?raw=true)
 
 Then choose your State Manager:
 
