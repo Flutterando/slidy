@@ -34,7 +34,7 @@ Também usamos o **Repository Pattern**, para que a estrutura da pasta seja orga
 
 Estrutura de pasta de exemplo gerada por **slidy**:
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/folderw.png?raw=true)
+![Exemplo de pasta](/screenshots/folderw.png?raw=true)
 
 ## Instalação
 
@@ -60,14 +60,48 @@ slidy upgrade
 
 Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
 
-```  
-slidy start //default
-slidy start --flutter_bloc
-slidy start --mobx
-```       
-Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de páginas, widgets e bloco será padronizada para o padrão do gerenciador instalado.
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
+```  
+slidy start
+```       
+
+Escolha seu provedor:
+
+![Folder example](/screenshots/choose_provider.PNG?raw=true)
+
+Agora escolha seu Gerenciador de Estados:
+
+Mobx
+
+![Folder example](/screenshots/choose_state_management_mobx.PNG?raw=true)
+
+E você vai ter essa estrutura:
+
+![Folder example](/screenshots/start_cmd.png?raw=true)
+
+
+
+Flutter Bloc:
+
+![Folder example](/screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
+
+E você vai ter essa estrutura:
+
+![Folder example](/screenshots/start_cmd_flutter_bloc.PNG?raw=true)
+
+
+Bloc With RxDart
+
+![Folder example](/screenshots/choose_state_management_rxdart.PNG?raw=true)
+
+E você vai ter essa estrutura:
+
+![Folder example](/screenshots/start_cmd_rxdart.PNG?raw=true)
+
+    
+Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de páginas, widgets e blocs será padronizada para o padrão do gerenciador instalado.
+
+![Exemplo de pasta](/screenshots/start_cmd.png)
 
 
 ### run:
@@ -78,13 +112,13 @@ Executa os scripts em pubspec.yaml:
 slidy run open_folder
 ```
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
+![Exemplo de pasta](/screenshots/scripts.png?raw=true)
 
 ### install:
 
 **Instala ou atualiza os pacotes em dependências:**
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
+![Exemplo de pasta](/screenshots/dependencies.png?raw=true)
 
 ```
 install slidy rxdart dio bloc_pattern
@@ -102,7 +136,7 @@ slidy i rxdart dio bloc_pattern
 slidy i mockito --dev
 ```
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
+![Exemplo de pasta](/screenshots/dev_d.png?raw=true)
 
 ### uninstall:
 
@@ -124,19 +158,33 @@ Cria um novo **module**:
 ```
 slidy g module nome_da_pasta
 ```
+ou 
+```
+slidy g m nome_da_pasta
+```
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
+![Exemplo de pasta](/screenshots/module_cmd.png?raw=true)
+
+**NOTE:** Você pode criar um "Modulo Completo" com Module, Page, Bloc/Controller, testes para Page e para Bloc/Controller usando a flag **-c**
 
 Cria uma nova **página** + BloC:
 
 ```
-slidy g page nome_da_pasta / páginas
+slidy g page nome_da_pasta/páginas
+```
+ou 
+```
+slidy g p nome_da_pasta/páginas
 ```
 
 Cria um novo **widget** + BloC:
 
 ```
-slidy g widget nome_da_pasta / widgets
+slidy g widget nome_da_pasta/widgets
+```
+ou 
+```
+slidy g w nome_da_pasta/widgets
 ```
 
 **NOTA:** Você pode criar uma página ou widget usando seu respectivo BLoC usando a bandeira **- b**
@@ -147,9 +195,14 @@ Crie um novo **repositório**
 slidy g r nome_da_pasta/repositórios
 ```
 
+Crie um novo **modelo**
+```
+slidy g mm nome_da_pasta/modelo
+``` 
+
 Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
+![Exemplo de pasta](/screenshots/structure.png?raw=true)
 
 #### Testes de unidade:
 
@@ -163,25 +216,25 @@ slidy test nome_da_pasta/
 
 **Windows:** 
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
+![Folder example](/screenshots/error_windows_install.jpg?raw=true)
 
 Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis de ambiente manualmente:
 
 Na pesquisa do Windows, escreva: ```Editar variáveis do sistema```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
+![Folder example](/screenshots/step1.png?raw=true)
 
 Em seguida, clique em ```'Variáveis de ambiente```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
+![Folder example](/screenshots/step2.png?raw=true)
 
 Vá para ```Path```
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
+![Folder example](/screenshots/step3.png?raw=true)
 
 Em seguida, clique em Novo e adicione o caminho que apareceu no seu console.
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step4.png?raw=true)
+![Folder example](/screenshots/step4.png?raw=true)
 
 Para mais informações, assista a [esse](https://www.youtube.com/watch?v=bEroNNzqlF4) vídeo.
 

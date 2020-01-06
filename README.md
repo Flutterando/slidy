@@ -160,6 +160,10 @@ Creates a new **module**:
 ``` 
 slidy g module folder_name
 ``` 
+or
+``` 
+slidy g m folder_name
+``` 
 
 ![Folder example](/screenshots/module_cmd.png?raw=true)
 
@@ -171,11 +175,19 @@ Creates a new **page** + BloC:
 ```
 slidy g page folder_name/pages
 ``` 
-            
+or
+```
+slidy g o folder_name/pages
+``` 
+
 Creates a new **widget** + BloC:
 
 ```
 slidy g widget folder_name/widgets
+``` 
+or
+```
+slidy g w folder_name/widgets
 ``` 
 
 **NOTE:** You can create a page or widget using its respective BLoC using the flag **-b**
