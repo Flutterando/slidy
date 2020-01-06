@@ -1,3 +1,6 @@
+## 1.4.2
+- Fix test file generate error.
+
 ## 1.4.1
 - Slidy CLI Interative
 - Fix slidy create erro
