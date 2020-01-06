@@ -89,7 +89,7 @@ Function selecStateManagement([int selected, String directory]) {
   selected ??= stateCLIOptions('Choose a state manager', [
     'mobx (default)',
     'flutter_bloc',
-    'default BLoC with rxdart',
+    'BLoC with rxdart',
   ]);
 
   if (selected == -1) {
