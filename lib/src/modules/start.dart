@@ -13,7 +13,7 @@ import 'package:tuple/tuple.dart';
 
 bool _isContinue() {
   var result = stdin.readLineSync();
-  if (result == 'Y') {
+  if (result.toUpperCase() == 'Y') {
     return true;
   } else {
     return false;
