@@ -42,6 +42,9 @@ int stateCLIOptions(String title, List<String> options) {
     print('\nPressed \'q\' to quit.');
 
     var key = console.readKey();
+
+    print('key: ${key}');
+
     if (key.controlChar == ControlCharacter.arrowDown) {
       if (selected < options.length - 1) {
         selected++;
@@ -112,12 +115,15 @@ Function selecStateManagement([int selected, String directory]) {
 Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
-      selected ??= stateCLIOptions(
+      selected = stateCLIOptions(
           'This command will delete everything inside the \"lib /\" and \"test\" folders.',
           [
-            'No',
-            'Yes',
+            '1 - No',
+            '2 - Yes',
           ]);
+          
+          print(selected);
+
       if (selected == 1) {
         output.msg("Removing lib folder");
         await dir.delete(recursive: true);
