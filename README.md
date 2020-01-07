@@ -63,13 +63,47 @@ slidy upgrade
 Create the basic structure of your project (make sure that your "lib" folder it's empty).
 
 ```  
-slidy start //default
-slidy start --flutter_bloc
-slidy start --mobx
+slidy start
 ```       
+
+Then choose your provider:
+
+![Folder example](/screenshots/choose_provider.PNG?raw=true)
+
+Then choose your State Manager:
+
+Mobx
+
+![Folder example](/screenshots/choose_state_management_mobx.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](/screenshots/start_cmd.png?raw=true)
+
+
+
+Flutter Bloc:
+
+![Folder example](/screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](/screenshots/start_cmd_flutter_bloc.PNG?raw=true)
+
+
+Bloc With RxDart
+
+![Folder example](/screenshots/choose_state_management_rxdart.PNG?raw=true)
+
+And you will get this Structure:
+
+![Folder example](/screenshots/start_cmd_rxdart.PNG?raw=true)
+
+
+
 If you have the flutter_bloc or flutter_mobx package in pubspec, the generation of pages, widgets, and bloc defaults to the installed manager default.
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png?raw=true)
+
 
 
 ### run:
@@ -80,13 +114,13 @@ Runs the scripts in pubspec.yaml:
 slidy run open_folder
 ```    
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
+![Folder example](/screenshots/scripts.png?raw=true)
 
 ### install:
 
 **Installs or update the packages in dependencies:** 
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
+![Folder example](/screenshots/dependencies.png?raw=true)
 
 ```
 slidy install rxdart dio bloc_pattern
@@ -104,7 +138,7 @@ slidy i rxdart dio bloc_pattern
 slidy i mockito --dev
 ``` 
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
+![Folder example](/screenshots/dev_d.png?raw=true)
 
 ### uninstall:
 
@@ -126,26 +160,47 @@ Creates a new **module**:
 ``` 
 slidy g module folder_name
 ``` 
+or
+``` 
+slidy g m folder_name
+``` 
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
+![Folder example](/screenshots/module_cmd.png?raw=true)
+
+**NOTE:** You can create a "Complete Module" with Module, Page, Bloc/Controller, tests for Page and for Bloc/Controller using the flag **-c**
+
 
 Creates a new **page** + BloC:
 
 ```
 slidy g page folder_name/pages
 ``` 
-            
+or
+```
+slidy g p folder_name/pages
+``` 
+
 Creates a new **widget** + BloC:
 
 ```
 slidy g widget folder_name/widgets
 ``` 
+or
+```
+slidy g w folder_name/widgets
+``` 
 
 **NOTE:** You can create a page or widget using its respective BLoC using the flag **-b**
+
 
 Create a new **repository**
 ```
 slidy g r folder_name/repositories
+``` 
+
+Create a new **service**
+```
+slidy g s folder_name/services
 ``` 
 
 Create a new **model**
@@ -155,7 +210,7 @@ slidy g mm folder_name/model
 
 You can also use "repository" in "r"'s place, but it will have the same function.
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
+![Folder example](/screenshots/structure.png?raw=true)
 
 
 ## Unit Tests:
@@ -170,25 +225,25 @@ slidy test folder_name/
 
 **Windows:** 
 
-  ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
+  ![Folder example](/screenshots/error_windows_install.jpg?raw=true)
 
   If you got this error when trying to run the ```pub global activate slidy```, then you will have to set the environment variables manually:
 
   * In windows search, write:  ```Edit System Variables```
 
-  ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
+  ![Folder example](/screenshots/step1.png?raw=true)
 
   * Then click at ```Environment Variables```
 
-  ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
+  ![Folder example](/screenshots/step2.png?raw=true)
 
   * Go to ```Path```
 
-  ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
+  ![Folder example](/screenshots/step3.png?raw=true)
 
   * Then click in New and add the path that appeared on your console.
 
-  ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step4.png?raw=true)
+  ![Folder example](/screenshots/step4.png?raw=true)
 
 If you have any doubt about setting up the system variables, watch [this](https://www.youtube.com/watch?v=bEroNNzqlF4) video.
 
