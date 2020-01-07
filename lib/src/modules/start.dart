@@ -40,7 +40,7 @@ int stateCLIOptions(String title, List<String> options) {
     }
 
     print('\nUse ↑↓ (keyboard arrows)');
-    print('Pressed \'q\' to quit.');
+    print('Press \'q\' to quit.');
 
     var key = console.readKey();
     if (key.controlChar == ControlCharacter.arrowDown) {
