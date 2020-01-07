@@ -207,7 +207,7 @@ Future start(completeStart,
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
 
-  //await command.run(['generate', 'bloc', 'app']);
+  await command.run(['generate', 'bloc', 'app']);
 
   output.msg("Project started! enjoy!");
 }
