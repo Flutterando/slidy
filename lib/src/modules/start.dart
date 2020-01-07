@@ -129,8 +129,6 @@ Future isContinue(Directory dir, [int selected]) async {
             'No',
             'Yes',
           ]);
-          
-          print(selected);
 
       if (selected == 1) {
         output.msg("Removing lib folder");
