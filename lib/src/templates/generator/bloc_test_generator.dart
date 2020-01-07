@@ -31,6 +31,7 @@ void main() {
 String blocTestGeneratorModular(String name, String packageName, String import,
         String module, String pathModule) =>
     '''
+import 'package:flutter_modular/flutter_modular_test.dart';    
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:${packageName}/app/app_module.dart';
@@ -65,13 +66,13 @@ import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\"
 import 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 void main() {
+  
+  initModule(${module}());
 
-  Modular.init(AppModule());
-  bindModule(${module}());
   ${name}Controller ${name.toLowerCase()};
   
   setUp(() {
-      ${name.toLowerCase()} = ${module}.to.bloc<${name}Controller>();
+      ${name.toLowerCase()} = ${module}.to.get<${name}Controller>();
   });
 
   group('${name}Controller Test', () {
@@ -92,6 +93,7 @@ void main() {
 String mobxBlocTestGeneratorModular(String name, String packageName, String import,
         String module, String pathModule) =>
     '''
+import 'package:flutter_modular/flutter_modular_test.dart';    
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -104,7 +106,7 @@ void main() {
   ${name}Controller ${name.toLowerCase()};
   
   setUp(() {
-      ${name.toLowerCase()} = ${module}.to.bloc<${name}Controller>();
+      ${name.toLowerCase()} = ${module}.to.get<${name}Controller>();
   });
 
   group('${name}Controller Test', () {

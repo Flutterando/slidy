@@ -7,6 +7,10 @@ import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
+import '../utils/utils.dart';
+import '../utils/utils.dart';
+import '../utils/utils.dart';
+
 class Generate {
   static Future module(String path, bool createCompleteModule) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
@@ -94,7 +98,7 @@ class Generate {
     var module = file_utils.findModule(entity.path);
     var nameModule = module == null ? null : basename(module.path);
 
-    if (name.contains('_bloc.dart')) {
+    if (name.contains('_bloc.dart')) {      
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
@@ -128,6 +132,26 @@ class Generate {
             nameModule == null ? null : formatName(nameModule),
             module?.path,
             m),
+      );
+    } else if (name.contains('_controller.dart')) {     
+      entityTest.createSync(recursive: true);
+      output.msg('File test ${entityTest.path} created');
+      entityTest.writeAsStringSync(
+        m
+            ? templates.mobxBlocTestGeneratorModular(
+                formatName(name.replaceFirst('_controller.dart', '')),
+                await getNamePackage(),
+                entity.path,
+                nameModule == null ? null : formatName(nameModule),
+                module?.path,
+              )
+            : templates.mobxBlocTestGenerator(
+                formatName(name.replaceFirst('_controller.dart', '')),
+                await getNamePackage(),
+                entity.path,
+                nameModule == null ? null : formatName(nameModule),
+                module?.path,
+              ),
       );
     }
 
@@ -169,8 +193,8 @@ class Generate {
     var m = await isModular();
 
     if (!flutter_bloc && !mobx) {
-      flutter_bloc =
-          flutter_bloc ? true : await checkDependency('bloc');
+      flutter_bloc = 
+      flutter_bloc ? true : await checkDependency('bloc');
       mobx = mobx ? true : await checkDependency('flutter_mobx');
     }
 

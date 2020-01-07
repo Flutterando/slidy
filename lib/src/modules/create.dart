@@ -4,6 +4,8 @@ import 'package:slidy/slidy.dart';
 import 'package:slidy/src/utils/utils.dart' show mainDirectory;
 import 'package:tuple/tuple.dart';
 
+import '../utils/utils.dart';
+
 void create(String projectName, String projectDescription, String projectOrg,
     bool isKotlin, bool isSwift, bool isAndroidX) {
   startFlutterCreate(projectName, projectDescription, projectOrg, isKotlin,
@@ -12,7 +14,10 @@ void create(String projectName, String projectDescription, String projectOrg,
 
 void startFlutterCreate(String projectName, String projectDescription,
     String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
+  
   mainDirectory = projectName+'/';
+    
+
   var selectedProvider = blocOrModular(null, projectName);
   var selectedBloc = selecStateManagement(null, projectName);
 

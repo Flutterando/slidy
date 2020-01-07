@@ -3,10 +3,10 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/command/run_command.dart';
 
-main(List<String> arguments) {
-  CommandRunner runner = configureCommand(arguments);
+void main(List<String> arguments) {
+  final runner = configureCommand(arguments);
 
-  bool hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
+  var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
 
   if (hasCommand) {
     executeCommand(runner, arguments);
@@ -25,7 +25,7 @@ void executeOptions(
   }
 
   if (results.wasParsed('version')) {
-    version('1.4.1');
+    version('1.4.2');
   }
 }
 
