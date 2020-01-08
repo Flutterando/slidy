@@ -43,6 +43,7 @@ int stateCLIOptions(String title, List<String> options) {
     print('Press \'q\' to quit.');
 
     var key = console.readKey();
+
     if (key.controlChar == ControlCharacter.arrowDown) {
       if (selected < options.length - 1) {
         selected++;
@@ -122,12 +123,13 @@ Function selecStateManagement([int selected, String directory]) {
 Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
-      selected ??= stateCLIOptions(
+      selected = stateCLIOptions(
           'This command will delete everything inside the \"lib /\" and \"test\" folders.',
           [
             'No',
             'Yes',
           ]);
+
       if (selected == 1) {
         output.msg("Removing lib folder");
         await dir.delete(recursive: true);
@@ -160,6 +162,7 @@ Future start(completeStart,
   var command =
       CommandRunner("slidy", "CLI package manager and template for Flutter.");
   command.addCommand(GenerateCommand());
+
   var package = await getNamePackage(dir.parent);
   var m = await isModular();
   createStaticFile('${dir.path}/main.dart',
@@ -203,6 +206,7 @@ Future start(completeStart,
 
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
+
   await command.run(['generate', 'bloc', 'app']);
 
   output.msg("Project started! enjoy!");

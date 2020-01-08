@@ -7,6 +7,10 @@ import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
+import '../utils/utils.dart';
+import '../utils/utils.dart';
+import '../utils/utils.dart';
+
 class Generate {
   static Future module(String path, bool createCompleteModule) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
