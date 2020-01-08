@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
 import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
-casa
+
 class MockClient extends Mock implements Dio {}
 
 void main() {
