@@ -1,4 +1,4 @@
-## 1.4.6
+## 1.4.7
 - Create reactive model template with **--rx**:
   ```
   slidy generate model /path/model_name --rx

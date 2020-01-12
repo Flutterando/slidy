@@ -29,7 +29,7 @@ class Generate {
         generatorTest: templates.pageTestGenerator, isModular: m);
     var name = basename(path);
     if (!blocLess) {
-      bloc('$path/$name', true, flutter_bloc, mobx);
+      bloc('$path/$name');
     }
   }
 
@@ -195,12 +195,12 @@ class Generate {
 
     var m = await isModular();
 
-    if (!flutter_bloc) {
-      flutter_bloc = await checkDependency('bloc');
-    }
-
     if (!mobx) {
       mobx = await checkDependency('flutter_mobx');
+    }
+
+    if (!flutter_bloc) {
+      flutter_bloc = await checkDependency('bloc');
     }
 
     if (flutter_bloc) {
