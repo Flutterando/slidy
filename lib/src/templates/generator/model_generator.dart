@@ -9,11 +9,31 @@ class ${name}Model {
     );
   }
 
-  Map<String,dynamic> toJson(${name}Model  model){
-    Map<String,dynamic> json = Map<String,dynamic>();
+  Map<String,dynamic> toJson() => {};
 
-    return json;
+}
+  ''';
+
+String modelRxGenerator(String name) => '''
+import 'package:mobx/mobx.dart';
+part '${name.toLowerCase()}_model.g.dart';
+
+class ${name}Model extends _${name}ModelBase with _\$${name}Model {
+  ${name}Model({String name}) : super(name: name);
+
+  factory ${name}Model.fromJson(Map<String, dynamic> json) {
+    return ${name}Model(name: json['name']);
   }
 
+  Map<String, dynamic> toJson() => {
+        'name': this.name,
+      };
+}
+
+abstract class _${name}ModelBase with Store {
+  @observable
+  String name;
+
+  _${name}ModelBase({this.name});
 }
   ''';

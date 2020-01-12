@@ -23,11 +23,12 @@ class Generate {
     }
   }
 
-  static void page(String path, bool blocLess, bool isModular,
-      [bool flutter_bloc = false, bool mobx = false]) {
+  static void page(String path, bool blocLess,
+      [bool flutter_bloc = false, bool mobx = false]) async {
+    var m = await isModular();
     file_utils.createFile(
         '${mainDirectory}$path', 'page', templates.pageGenerator,
-        generatorTest: templates.pageTestGenerator, isModular: isModular);
+        generatorTest: templates.pageTestGenerator, isModular: m);
     var name = basename(path);
     if (!blocLess) {
       bloc('$path/$name', true, flutter_bloc, mobx);
@@ -98,7 +99,7 @@ class Generate {
     var module = file_utils.findModule(entity.path);
     var nameModule = module == null ? null : basename(module.path);
 
-    if (name.contains('_bloc.dart')) {      
+    if (name.contains('_bloc.dart')) {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
@@ -133,7 +134,7 @@ class Generate {
             module?.path,
             m),
       );
-    } else if (name.contains('_controller.dart')) {     
+    } else if (name.contains('_controller.dart')) {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
@@ -178,10 +179,14 @@ class Generate {
         isModular: m);
   }
 
-  static void model(List<String> path, [bool isTest = false]) {
+  static void model(List<String> path,
+      [bool isTest = false, bool isReactive = false]) {
     file_utils.createFile(
-        '${mainDirectory}${path.first}', 'model', templates.modelGenerator,
-        ignoreSuffix: false);
+      '${mainDirectory}${path.first}',
+      'model',
+      isReactive ? templates.modelRxGenerator : templates.modelGenerator,
+      ignoreSuffix: false,
+    );
   }
 
   static void bloc(String path,
@@ -193,8 +198,7 @@ class Generate {
     var m = await isModular();
 
     if (!flutter_bloc && !mobx) {
-      flutter_bloc = 
-      flutter_bloc ? true : await checkDependency('bloc');
+      flutter_bloc = flutter_bloc ? true : await checkDependency('bloc');
       mobx = mobx ? true : await checkDependency('flutter_mobx');
     }
 

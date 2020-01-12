@@ -1,3 +1,11 @@
+## 1.4.5
+- Create reactive model template with **--rx**:
+  ```
+  slidy generate model /path/model_name --rx
+  ```
+- flutter_modular as default provider;
+- Fix model template;
+
 ## 1.4.2+1
 - Fix test file generate error.
 

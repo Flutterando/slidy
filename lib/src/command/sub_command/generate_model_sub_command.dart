@@ -7,18 +7,17 @@ class GenerateModelSubCommand extends CommandBase {
 
   GenerateModelSubCommand() {
     argParser.addFlag('notest',
-        abbr: 'n',
-        negatable: false,
-        help:
-            'no create file test'
-        );
+        abbr: 'n', negatable: false, help: 'no create file test');
+
+    argParser.addFlag('rx',
+        abbr: 'r', negatable: false, help: 'create reactive model');
   }
 
   void run() {
     if (argResults.rest.isEmpty) {
       throw UsageException("value not passed for a module command", usage);
     } else {
-      Generate.model(argResults.rest, !argResults["notest"]);
+      Generate.model(argResults.rest, !argResults["notest"], argResults["rx"]);
     }
   }
 }

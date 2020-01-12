@@ -347,10 +347,10 @@
       "name": "slidy",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.6"
+      "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-01-08T04:42:31.800884Z",
+  "generated": "2020-01-12T14:33:20.677084Z",
   "generator": "pub",
   "generatorVersion": "2.8.0-dev.0.0.flutter-2f57602411"
 }
