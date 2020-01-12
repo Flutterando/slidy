@@ -64,8 +64,8 @@ int stateCLIOptions(String title, List<String> options) {
 
 Function blocOrModular([int selected, String directory]) {
   selected ??= stateCLIOptions('What Provider System do you want to use?', [
-    'bloc_pattern (default)',
-    'flutter_modular',
+    'flutter_modular (default)',
+    'bloc_pattern',
   ]);
 
   if (selected == -1) {
@@ -74,10 +74,10 @@ Function blocOrModular([int selected, String directory]) {
 
   return () async {
     await removeAllPackages(directory);
-    if (selected == 1) {
+    if (selected == 0) {
       output.msg("Instaling flutter_modular...");
       await install(["flutter_modular"], false, directory: directory);
-    } else if (selected == 0) {
+    } else if (selected == 1) {
       output.msg("Instaling bloc_pattern...");
       await install(["bloc_pattern"], false, directory: directory);
     } else {
