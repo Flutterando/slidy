@@ -1,6 +1,6 @@
 name: slidy
 description: CLI package manager and template for Flutter. Generate Modules, Pages, Widgets and BLoCs
-version: 1.4.5+2
+version: 1.4.6
 homepage: https://github.com/Flutterando/slidy
 
 environment:

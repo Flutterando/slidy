@@ -8,8 +8,6 @@ import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
 import '../utils/utils.dart';
-import '../utils/utils.dart';
-import '../utils/utils.dart';
 
 class Generate {
   static Future module(String path, bool createCompleteModule) async {
@@ -197,9 +195,12 @@ class Generate {
 
     var m = await isModular();
 
-    if (!flutter_bloc && !mobx) {
-      flutter_bloc = flutter_bloc ? true : await checkDependency('bloc');
-      mobx = mobx ? true : await checkDependency('flutter_mobx');
+    if (!flutter_bloc) {
+      flutter_bloc = await checkDependency('bloc');
+    }
+
+    if (!mobx) {
+      mobx = await checkDependency('flutter_mobx');
     }
 
     if (flutter_bloc) {
