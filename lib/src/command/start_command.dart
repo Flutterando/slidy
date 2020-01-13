@@ -19,19 +19,24 @@ class StartCommand extends CommandBase {
       abbr: 'p',
       help:
           'Create a flutter project using an specified provider system. Options: flutter_modular / bloc_pattern'
-      //Add in future configured the release android sign
       );
 
   argParser.addOption('stateManagement',
       abbr: 's',
       help:
           'Create a flutter project using an specified state management. Options: mobx / flutter_bloc / rxdart'
-      //Add in future configured the release android sign
+      );
+
+  argParser.addFlag('isCreate',
+      abbr: 'e',
+      negatable: false,
+      help:
+          'Erase lib dir'
       );
   }
 
   @override
   void run() {
-    start(completeStart: argResults['complete'], providerSystem: argResults['providerSystem'], stateManagement: argResults['stateManagement']);
+    start(completeStart: argResults['complete'], providerSystem: argResults['providerSystem'], stateManagement: argResults['stateManagement'], isCreate: argResults['isCreate']);
   }
 }
