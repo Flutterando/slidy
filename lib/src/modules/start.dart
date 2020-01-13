@@ -20,6 +20,17 @@ bool _isContinue() {
   }
 }
 
+Map<String, int> providerSystemOptions = {
+  'flutter_modular': 1,
+  'bloc_pattern': 2
+};
+
+Map<String, int> stateManagementOptions = {
+  'mobx': 1,
+  'flutter_bloc': 2,
+  'rxdart': 3
+};
+
 int stateCLIOptions(String title, List<String> options) {
   stdin.echoMode = false;
   stdin.lineMode = false;
@@ -147,11 +158,8 @@ Future start({completeStart,
   dir ??= Directory('lib');
   providerSystem ??= '';
   stateManagement ??= '';
-  tuple ??= Tuple2(blocOrModular(
-    providerSystem == 'flutter_modular' ? 0 : providerSystem == 'bloc_pattern' ? 1 : null
-  ), selecStateManagement(
-    stateManagement == "mobx" ? 0 : stateManagement == "flutter_bloc" ? 1 : stateManagement == "rxdart" ? 2 : null 
-  ));
+  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), 
+                  selecStateManagement(stateManagementOptions[stateManagement]));
   await isContinue(dir, isCreate ? 1 : null);
   await tuple.item1();
   await tuple.item2();
