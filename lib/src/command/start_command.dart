@@ -2,6 +2,7 @@ import 'package:slidy/slidy.dart';
 
 class StartCommand extends CommandBase {
   final name = "start";
+  bool argsLength(int n) => argResults.arguments.length > n; 
   final description =
       "Create a basic structure for your project (confirm that you have no data in the \"lib\" folder).";
 
@@ -17,6 +18,6 @@ class StartCommand extends CommandBase {
 
   @override
   void run() {
-    start(completeStart: argResults['complete'], providerSystem: argResults.arguments[0], stateManagement: argResults.arguments[1]);
+    start(completeStart: argResults['complete'], providerSystem: argsLength(0) ? argResults.arguments[0] : null, stateManagement: argsLength(1) ? argResults.arguments[1] : null);
   }
 }
