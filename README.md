@@ -103,8 +103,31 @@ And you will get this Structure:
 
 If you have the flutter_bloc or flutter_mobx package in pubspec, the generation of pages, widgets, and bloc defaults to the installed manager default.
 
+#### Options
+The command allows to specify provider and state manager using the following options:
+* Provider:
+```
+-p <provider_name>
 
+Options:
+flutter_modular / bloc_pattern
 
+Example:
+slidy start -p flutter_modular
+```
+* State manager: 
+```
+-s <state_manager_name>
+
+Options: 
+mobx / flutter_bloc / rxdart
+Example:
+slidy start -s mobx
+```
+* Provider and state manager:
+```
+slidy start -p flutter_modular -s mobx
+```
 
 ### run:
 
