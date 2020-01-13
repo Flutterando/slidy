@@ -21,14 +21,14 @@ bool _isContinue() {
 }
 
 Map<String, int> providerSystemOptions = {
-  'flutter_modular': 1,
-  'bloc_pattern': 2
+  'flutter_modular': 0,
+  'bloc_pattern': 1
 };
 
 Map<String, int> stateManagementOptions = {
-  'mobx': 1,
-  'flutter_bloc': 2,
-  'rxdart': 3
+  'mobx': 0,
+  'flutter_bloc': 1,
+  'rxdart': 2
 };
 
 int stateCLIOptions(String title, List<String> options) {
@@ -134,20 +134,19 @@ Function selecStateManagement([int selected, String directory]) {
 Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
-      selected = stateCLIOptions(
-          'This command will delete everything inside the \"lib /\" and \"test\" folders.',
-          [
-            'No',
-            'Yes',
-          ]);
-
-      if (selected == 1) {
-        output.msg("Removing lib folder");
-        await dir.delete(recursive: true);
-      } else {
-        output.error('The lib folder must be empty');
-        exit(1);
+      selected ??= stateCLIOptions(
+        'This command will delete everything inside the \"lib /\" and \"test\" folders.',
+        [
+          'No',
+          'Yes',
+        ]);
       }
+    if (selected == 1) {
+      output.msg('Removing lib folder');
+      await dir.delete(recursive: true);
+    } else {
+      output.error('The lib folder must be empty');
+      exit(1);
     }
   }
 }
