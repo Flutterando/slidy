@@ -116,7 +116,7 @@ slidy start -p flutter_modular
 ```
 * Gerenciador de estado: 
 ```
--s <gerenciador_de_estado> --> cria um projeto com o gerenciador de estados especificado.
+-s <gerenciador_de_estado>
 
 Opções: 
 mobx / flutter_bloc / rxdart
