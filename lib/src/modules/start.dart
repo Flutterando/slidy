@@ -141,12 +141,17 @@ Future isContinue(Directory dir, [int selected]) async {
   }
 }
 
-Future start(completeStart,
-    [bool isCreate = false,
-    Directory dir,
-    Tuple2<Function, Function> tuple]) async {
+Future start({completeStart,
+ bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple,
+ String providerSystem, String stateManagement}) async {
   dir ??= Directory('lib');
-  tuple ??= Tuple2(blocOrModular(), selecStateManagement());
+  providerSystem ??= '';
+  stateManagement ??= '';
+  tuple ??= Tuple2(blocOrModular(
+    providerSystem == 'flutter_modular' ? 0 : providerSystem == 'bloc_pattern' ? 1 : null
+  ), selecStateManagement(
+    stateManagement == "mobx" ? 0 : stateManagement == "flutter_bloc" ? 1 : stateManagement == "rxdart" ? 2 : null 
+  ));
   await isContinue(dir, isCreate ? 1 : null);
   await tuple.item1();
   await tuple.item2();
