@@ -80,7 +80,6 @@ E você vai ter essa estrutura:
 ![Folder example](/screenshots/start_cmd.png?raw=true)
 
 
-
 Flutter Bloc:
 
 ![Folder example](/screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
@@ -103,6 +102,31 @@ Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de 
 
 ![Exemplo de pasta](/screenshots/start_cmd.png)
 
+#### Opções
+O comando permite especificar o provedor e o gerenciador de estados utilizando as seguintes opções:
+* Provedor:
+```
+-p <nome_do_provedor>
+
+Opções:
+flutter_modular / bloc_pattern
+
+Exemplo:
+slidy start -p flutter_modular
+```
+* Gerenciador de estado: 
+```
+-s <gerenciador_de_estado> --> cria um projeto com o gerenciador de estados especificado.
+
+Opções: 
+mobx / flutter_bloc / rxdart
+Exemplo:
+slidy start -s mobx
+```
+* Provedor e gerenciador de estado:
+```
+slidy start -p flutter_modular -s mobx
+```
 
 ### run:
 
