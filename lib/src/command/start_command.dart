@@ -17,6 +17,6 @@ class StartCommand extends CommandBase {
 
   @override
   void run() {
-    start(argResults['complete']);
+    start(completeStart: argResults['complete'], providerSystem: argResults.arguments[0], stateManagement: argResults.arguments[1]);
   }
 }
