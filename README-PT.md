@@ -127,6 +127,10 @@ slidy start -s mobx
 ```
 slidy start -p flutter_modular -s mobx
 ```
+O comando avisa que irá apagar a pasta lib/ e pede a confimação. Caso não queira ver esse aviso, adicione a flag -e (do inglês "erase", apagar):
+```
+slidy start -p flutter_modular -s mobx -e
+```
 
 ### run:
 

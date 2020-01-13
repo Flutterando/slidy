@@ -128,6 +128,10 @@ slidy start -s mobx
 ```
 slidy start -p flutter_modular -s mobx
 ```
+This command asks for permission to erase lib folder. If you don't want to see the warning, type the -e (erase) flag:
+```
+slidy start -p flutter_modular -s mobx -e
+```
 
 ### run:
 
