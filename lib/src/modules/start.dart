@@ -156,8 +156,6 @@ Future start({completeStart,
  bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple,
  String providerSystem, String stateManagement}) async {
   dir ??= Directory('lib');
-  providerSystem ??= '';
-  stateManagement ??= '';
   tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), 
                   selecStateManagement(stateManagementOptions[stateManagement]));
   await isContinue(dir, isCreate ? 1 : null);
