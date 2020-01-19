@@ -31,7 +31,8 @@ String moduleGeneratorModular(String pkg, String name, String path) {
 
   var import =
       pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
-  var router = pkg.isNotEmpty ? "Router('/', child: (_, args) => ${name}Page())," : '';
+  var router =
+      pkg.isNotEmpty ? "Router('/', child: (_, args) => ${name}Page())," : '';
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
@@ -42,6 +43,25 @@ String moduleGeneratorModular(String pkg, String name, String path) {
 
   @override
   List<Router> get routers => [$router];
+
+  static Inject get to => Inject<${name}Module>.of();
+
+}
+  ''';
+}
+
+String moduleGeneratorModularNoRoute(String pkg, String name, String path) {
+  path = path.replaceFirst('lib/', '');
+
+  var import =
+      pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
+
+  return '''
+  import 'package:flutter_modular/flutter_modular.dart';
+  ${import.replaceFirst('$pkg/$pkg', pkg)}
+  class ${name}Module extends ModuleWidget {
+  @override
+  List<Bind> get binds => [];
 
   static Inject get to => Inject<${name}Module>.of();
 

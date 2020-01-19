@@ -10,12 +10,16 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 import '../utils/utils.dart';
 
 class Generate {
-  static Future module(String path, bool createCompleteModule) async {
+  static Future module(
+      String path, bool createCompleteModule, bool noroute) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
+    var templateModular = noroute
+        ? templates.moduleGeneratorModularNoRoute
+        : templates.moduleGeneratorModular;
 
     await file_utils.createFile('${mainDirectory}$path', moduleType,
-        m ? templates.moduleGeneratorModular : templates.moduleGenerator);
+        m ? templateModular : templates.moduleGenerator);
     if (createCompleteModule) {
       await page(path, false, m);
     }
