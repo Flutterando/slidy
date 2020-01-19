@@ -2,12 +2,12 @@ import 'package:slidy/slidy.dart';
 
 class StartCommand extends CommandBase {
   final name = "start";
-  bool argsLength(int n) => argResults.arguments.length > n; 
+  bool argsLength(int n) => argResults.arguments.length > n;
   final description =
       "Create a basic structure for your project (confirm that you have no data in the \"lib\" folder).";
 
   StartCommand() {
-   argParser.addFlag('complete',
+    argParser.addFlag('complete',
         abbr: 'c',
         negatable: false,
         help:
@@ -15,28 +15,26 @@ class StartCommand extends CommandBase {
         //Add in future configured the release android sign
         );
 
-  argParser.addOption('providerSystem',
-      abbr: 'p',
-      help:
-          'Create a flutter project using an specified provider system. Options: flutter_modular / bloc_pattern'
-      );
+    argParser.addOption('provider-system',
+        abbr: 'p',
+        allowed: ['flutter_modular', 'bloc_pattern'],
+        help: 'Create a flutter project using an specified provider system.');
 
-  argParser.addOption('stateManagement',
-      abbr: 's',
-      help:
-          'Create a flutter project using an specified state management. Options: mobx / flutter_bloc / rxdart'
-      );
+    argParser.addOption('state-management',
+        abbr: 's',
+        allowed: ['mobx', 'flutter_bloc', 'rxdart'],
+        help: 'Create a flutter project using an specified state management.');
 
-  argParser.addFlag('isCreate',
-      abbr: 'e',
-      negatable: false,
-      help:
-          'Erase lib dir'
-      );
+    argParser.addFlag('force',
+        abbr: 'f', negatable: false, help: 'Erase lib dir');
   }
 
   @override
   void run() {
-    start(completeStart: argResults['complete'], providerSystem: argResults['providerSystem'], stateManagement: argResults['stateManagement'], isCreate: argResults['isCreate']);
+    start(
+        completeStart: argResults['complete'],
+        providerSystem: argResults['providerSystem'],
+        stateManagement: argResults['stateManagement'],
+        isCreate: argResults['isCreate']);
   }
 }

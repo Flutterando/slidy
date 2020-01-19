@@ -1,3 +1,13 @@
+## 1.4.8
+- Create module withless named route system **--noroute**:
+  ```
+  slidy generate module /path/module --noroute [-n]
+  ```
+- Added flag -p (provider system), -s (state management), -f (force) to start command (by [lukelima](https://github.com/lukelima));
+ ```
+  slidy start -p flutter_modular -s mobx -f 
+```
+
 ## 1.4.7
 - Create reactive model template with **--rx**:
   ```
