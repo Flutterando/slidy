@@ -36,7 +36,7 @@ void startFlutterCreate(String projectName, String projectDescription,
 }
 
 void startSlidyCreate(String projectName, Function selectedProvider, Function selectedState) {
-  start(false, true, Directory('$projectName/lib'), Tuple2(selectedProvider, selectedState));
+  start(completeStart: false, isCreate: true, dir: Directory('$projectName/lib'), tuple: Tuple2(selectedProvider, selectedState));
 }
 
 List<String> createFlutterArgs(String projectName, String projectDescription,

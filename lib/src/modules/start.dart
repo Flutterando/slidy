@@ -20,6 +20,17 @@ bool _isContinue() {
   }
 }
 
+Map<String, int> providerSystemOptions = {
+  'flutter_modular': 0,
+  'bloc_pattern': 1
+};
+
+Map<String, int> stateManagementOptions = {
+  'mobx': 0,
+  'flutter_bloc': 1,
+  'rxdart': 2
+};
+
 int stateCLIOptions(String title, List<String> options) {
   stdin.echoMode = false;
   stdin.lineMode = false;
@@ -123,30 +134,29 @@ Function selecStateManagement([int selected, String directory]) {
 Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
-      selected = stateCLIOptions(
-          'This command will delete everything inside the \"lib /\" and \"test\" folders.',
-          [
-            'No',
-            'Yes',
-          ]);
-
-      if (selected == 1) {
-        output.msg("Removing lib folder");
-        await dir.delete(recursive: true);
-      } else {
-        output.error('The lib folder must be empty');
-        exit(1);
+      selected ??= stateCLIOptions(
+        'This command will delete everything inside the \"lib /\" and \"test\" folders.',
+        [
+          'No',
+          'Yes',
+        ]);
       }
+    if (selected == 1) {
+      output.msg('Removing lib folder');
+      await dir.delete(recursive: true);
+    } else {
+      output.error('The lib folder must be empty');
+      exit(1);
     }
   }
 }
 
-Future start(completeStart,
-    [bool isCreate = false,
-    Directory dir,
-    Tuple2<Function, Function> tuple]) async {
+Future start({completeStart,
+ bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple,
+ String providerSystem, String stateManagement}) async {
   dir ??= Directory('lib');
-  tuple ??= Tuple2(blocOrModular(), selecStateManagement());
+  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), 
+                  selecStateManagement(stateManagementOptions[stateManagement]));
   await isContinue(dir, isCreate ? 1 : null);
   await tuple.item1();
   await tuple.item2();
