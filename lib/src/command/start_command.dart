@@ -33,8 +33,8 @@ class StartCommand extends CommandBase {
   void run() {
     start(
         completeStart: argResults['complete'],
-        providerSystem: argResults['providerSystem'],
-        stateManagement: argResults['stateManagement'],
-        isCreate: argResults['isCreate']);
+        providerSystem: argResults['provider-system'],
+        stateManagement: argResults['state-management'],
+        force: argResults['force']);
   }
 }

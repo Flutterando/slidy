@@ -14,9 +14,7 @@ void create(String projectName, String projectDescription, String projectOrg,
 
 void startFlutterCreate(String projectName, String projectDescription,
     String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
-  
-  mainDirectory = projectName+'/';
-    
+  mainDirectory = projectName + '/';
 
   var selectedProvider = blocOrModular(null, projectName);
   var selectedBloc = selecStateManagement(null, projectName);
@@ -35,8 +33,13 @@ void startFlutterCreate(String projectName, String projectDescription,
   });
 }
 
-void startSlidyCreate(String projectName, Function selectedProvider, Function selectedState) {
-  start(completeStart: false, isCreate: true, dir: Directory('$projectName/lib'), tuple: Tuple2(selectedProvider, selectedState));
+void startSlidyCreate(
+    String projectName, Function selectedProvider, Function selectedState) {
+  start(
+      completeStart: false,
+      force: true,
+      dir: Directory('$projectName/lib'),
+      tuple: Tuple2(selectedProvider, selectedState));
 }
 
 List<String> createFlutterArgs(String projectName, String projectDescription,

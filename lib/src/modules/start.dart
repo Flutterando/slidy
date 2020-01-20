@@ -135,12 +135,12 @@ Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
       selected ??= stateCLIOptions(
-        'This command will delete everything inside the \"lib /\" and \"test\" folders.',
-        [
-          'No',
-          'Yes',
-        ]);
-      }
+          'This command will delete everything inside the \"lib /\" and \"test\" folders.',
+          [
+            'No',
+            'Yes',
+          ]);
+    }
     if (selected == 1) {
       output.msg('Removing lib folder');
       await dir.delete(recursive: true);
@@ -151,13 +151,17 @@ Future isContinue(Directory dir, [int selected]) async {
   }
 }
 
-Future start({completeStart,
- bool isCreate = false, Directory dir, Tuple2<Function, Function> tuple,
- String providerSystem, String stateManagement}) async {
+Future start(
+    {completeStart,
+    bool force = false,
+    Directory dir,
+    Tuple2<Function, Function> tuple,
+    String providerSystem,
+    String stateManagement}) async {
   dir ??= Directory('lib');
-  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), 
-                  selecStateManagement(stateManagementOptions[stateManagement]));
-  await isContinue(dir, isCreate ? 1 : null);
+  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]),
+      selecStateManagement(stateManagementOptions[stateManagement]));
+  await isContinue(dir, force ? 1 : null);
   await tuple.item1();
   await tuple.item2();
 

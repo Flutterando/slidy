@@ -25,7 +25,7 @@ void executeOptions(
   }
 
   if (results.wasParsed('version')) {
-    version('1.4.9');
+    version('1.4.10');
   }
 }
 
