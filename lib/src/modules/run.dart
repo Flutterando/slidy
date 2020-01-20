@@ -20,11 +20,13 @@ runCommand(List<String> commands) async {
         throw "command '$command' not found";
       }
 
-      List<String> matchList = regex
-          .allMatches(doc['scripts'][command])
-          .map((v) => v.group(0))
-          .toList();
-      await callProcess(matchList);
+      String commandExec = doc['scripts'][command];
+
+      for (String item in commandExec.split('&')) {
+        List<String> matchList =
+            regex.allMatches(item).map((v) => v.group(0)).toList();
+        await callProcess(matchList);
+      }
     }
   } catch (e) {
     output.error(e);
@@ -32,7 +34,6 @@ runCommand(List<String> commands) async {
 }
 
 callProcess(List<String> commands) async {
-
   try {
     var process = await Process.start(
         commands.first,

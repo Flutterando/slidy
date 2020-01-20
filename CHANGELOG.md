@@ -1,4 +1,4 @@
-## 1.4.10
+## 1.4.11
 - Create module withless named route system **--noroute**:
   ```
   slidy generate module /path/module --noroute [-n]
