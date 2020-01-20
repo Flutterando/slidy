@@ -23,8 +23,7 @@ runCommand(List<String> commands) async {
       String commandExec = doc['scripts'][command];
 
       for (String item in commandExec.split('&')) {
-        List<String> matchList =
-            regex.allMatches(item).map((v) => v.group(0)).toList();
+        List<String> matchList = regex.allMatches(item).map((v) => v.group(0)).toList();
         await callProcess(matchList);
       }
     }
@@ -35,11 +34,7 @@ runCommand(List<String> commands) async {
 
 callProcess(List<String> commands) async {
   try {
-    var process = await Process.start(
-        commands.first,
-        commands.length <= 1
-            ? []
-            : commands.getRange(1, commands.length).toList(),
+    var process = await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(),
         runInShell: true);
     await for (var line in process.stdout.transform(utf8.decoder)) {
       print(line);
