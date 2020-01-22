@@ -1,6 +1,5 @@
 
 ![Pub](https://img.shields.io/pub/v/slidy?color=orange)
-
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
 [![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
@@ -18,7 +17,7 @@ CLI package manager and template generator for Flutter. Generate Modules, Pages,
 
 Slidy supports rxBLoC, flutter_bloc and mobx.
 
-# Why should I use'?'
+# Why should I use?
 
 Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
 
@@ -28,7 +27,7 @@ We realized that the project pattern absence is affecting the productivity of mo
 
 # About the Proposed Pattern
 
-The structure that slidy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**. 
+The structure that slidy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**.
 
 We recommend you to use [bloc_pattern](https://pub.dev/packages/bloc_pattern) when structuring with slidy. It offers you the **module structure**(extending the ModuleWidget) and dependency/bloc injection, or you will probably get an error.
 
@@ -50,9 +49,9 @@ flutter pub global activate slidy
 
 2. Type `slidy --version` to make sure everything is working properly. This command should return the installed version.
 
-## Commands':'
+## Commands:
 
-### upgrade':'
+### upgrade:
 
 Updates slidy's version:
 
@@ -60,7 +59,7 @@ Updates slidy's version:
 slidy upgrade
 ```
 
-### start':'
+### start:
 
 Create the basic structure of your project (make sure that your "lib" folder it's empty).
 
@@ -139,7 +138,7 @@ This command asks for permission to erase lib folder. If you don't want to see t
 slidy start -p flutter_modular -s mobx -e
 ```
 
-### run':'
+### run:
 
 Runs the scripts in pubspec.yaml:
 
@@ -149,7 +148,7 @@ slidy run open_folder
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
-### install':'
+### install:
 
 **Installs or update the packages in dependencies:**
 
@@ -173,7 +172,7 @@ slidy i mockito --dev
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
 
-### uninstall':'
+### uninstall:
 
 Removes a package
 
@@ -183,7 +182,7 @@ slidy uninstall dio
 
 You can also remove a **dev_dependency** using the flag --dev
 
-### generate':'
+### generate:
 
 Creates a module, page, widget or repository including its BloC class.
 
@@ -253,7 +252,7 @@ You can also use "repository" in "r"'s place, but it will have the same function
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
-## Unit Tests':'
+## Unit Tests:
 
 Generate **unit tests** on the test folder for you.
 
@@ -261,7 +260,7 @@ Generate **unit tests** on the test folder for you.
 slidy test folder_name/
 ```
 
-## Common errors':'
+## Common errors:
 
 **Windows:**
 

@@ -1,6 +1,5 @@
 
 ![Pub](https://img.shields.io/pub/v/slidy?color=orange)
-
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
 [![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
@@ -17,7 +16,7 @@
 Um gerenciador de pacotes CLI e gerador de templates para Flutter. Gere Módulos, Páginas, Widgets, BLoCs, Controles e testes.
 O Slidy suporta os principais gerenciadores de estado, rxBLoC, flutter_bloc e mobx.
 
-# Por que usar'?'
+# Por que usar?
 
 O objetivo do Slidy é ajudá-lo a estruturar seu projeto de maneira padronizada. Organize seu aplicativo em **Módulos** formados por páginas, repositórios, widgets, BloCs e também crie testes de unidade automaticamente. O módulo oferece uma maneira mais fácil de injetar dependências e blocos, incluindo descarte automático. Também ajuda a instalar as dependências e pacotes, atualizando e removendo-os. O melhor é que você pode fazer tudo isso executando um único comando.
 
@@ -49,9 +48,9 @@ flutter pub global activate slidy
 
 2. Digite `slidy --version` para certificar que tudo funcionou corretamente. Este comando deve retornar a versão instalada.
 
-## Comandos':'
+## Comandos:
 
-### upgrade':'
+### upgrade:
 
 Atualiza a versão do slidy:
 
@@ -59,7 +58,7 @@ Atualiza a versão do slidy:
 slidy upgrade
 ```
 
-### start':'
+### start:
 
 Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
 
@@ -140,7 +139,7 @@ O comando avisa que irá apagar a pasta lib/ e pede a confimação. Caso não qu
 slidy start -p flutter_modular -s mobx -e
 ```
 
-### run':'
+### run:
 
 Executa os scripts em pubspec.yaml:
 
@@ -150,7 +149,7 @@ slidy run open_folder
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
-### install':'
+### install:
 
 **Instala ou atualiza os pacotes em dependências:**
 
@@ -174,7 +173,7 @@ slidy i mockito --dev
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
 
-### uninstall':'
+### uninstall:
 
 Remove um pacote
 
@@ -184,7 +183,7 @@ Remove um pacote
 
 Você também pode remover uma **dev_dependency** usando o sinalizador --dev
 
-### generate':'
+### generate:
 
 Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.
 
@@ -254,7 +253,7 @@ Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma 
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
-#### Testes de unidade':'
+#### Testes de unidade:
 
 Gere **testes de unidade** na pasta de teste para você.
 
@@ -262,7 +261,7 @@ Gere **testes de unidade** na pasta de teste para você.
 slidy test nome_da_pasta/
 ```
 
-## Erros comuns':'
+## Erros comuns:
 
 **Windows:**
 
