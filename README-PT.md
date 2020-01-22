@@ -1,4 +1,6 @@
+
 ![Pub](https://img.shields.io/pub/v/slidy?color=orange)
+
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
 [![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
 
@@ -11,10 +13,11 @@
 [View the docs in English](README.md)
 
 # Slidy
+
 Um gerenciador de pacotes CLI e gerador de templates para Flutter. Gere Módulos, Páginas, Widgets, BLoCs, Controles e testes.
 O Slidy suporta os principais gerenciadores de estado, rxBLoC, flutter_bloc e mobx.
 
-# Por que usar?
+# Por que usar'?'
 
 O objetivo do Slidy é ajudá-lo a estruturar seu projeto de maneira padronizada. Organize seu aplicativo em **Módulos** formados por páginas, repositórios, widgets, BloCs e também crie testes de unidade automaticamente. O módulo oferece uma maneira mais fácil de injetar dependências e blocos, incluindo descarte automático. Também ajuda a instalar as dependências e pacotes, atualizando e removendo-os. O melhor é que você pode fazer tudo isso executando um único comando.
 
@@ -34,78 +37,77 @@ Também usamos o **Repository Pattern**, para que a estrutura da pasta seja orga
 
 Estrutura de pasta de exemplo gerada por **slidy**:
 
-![Exemplo de pasta](/screenshots/folderw.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/folderw.png?raw=true)
 
 ## Instalação
 
-
 1. Ative o slidy usando o pub:
-    ```
-    flutter pub global activate slidy
-    ```
+
+```bash
+flutter pub global activate slidy
+```
+
 2. Digite `slidy --version` para certificar que tudo funcionou corretamente. Este comando deve retornar a versão instalada.
 
+## Comandos':'
 
-## Comandos:
-
-### upgrade:
+### upgrade':'
 
 Atualiza a versão do slidy:
 
-```
+```bash
 slidy upgrade
 ```
 
-### start:
+### start':'
 
 Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
 
-
-```  
+```bash
 slidy start
-```       
+```
 
 Escolha seu provedor:
 
-![Folder example](/screenshots/choose_provider.PNG?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/choose_provider.PNG?raw=true)
 
 Agora escolha seu Gerenciador de Estados:
 
 Mobx
 
-![Folder example](/screenshots/choose_state_management_mobx.PNG?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/choose_state_management_mobx.PNG?raw=true)
 
 E você vai ter essa estrutura:
 
-![Folder example](/screenshots/start_cmd.png?raw=true)
-
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png?raw=true)
 
 Flutter Bloc:
 
-![Folder example](/screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/choose_state_management_flutter_bloc.PNG?raw=true)
 
 E você vai ter essa estrutura:
 
-![Folder example](/screenshots/start_cmd_flutter_bloc.PNG?raw=true)
-
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd_flutter_bloc.PNG?raw=true)
 
 Bloc With RxDart
 
-![Folder example](/screenshots/choose_state_management_rxdart.PNG?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/choose_state_management_rxdart.PNG?raw=true)
 
 E você vai ter essa estrutura:
 
-![Folder example](/screenshots/start_cmd_rxdart.PNG?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd_rxdart.PNG?raw=true)
 
-    
 Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de páginas, widgets e blocs será padronizada para o padrão do gerenciador instalado.
 
-![Exemplo de pasta](/screenshots/start_cmd.png)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
 
 #### Opções
+
 O comando permite especificar o provedor e o gerenciador de estados utilizando as seguintes opções:
+
 * Provedor:
-```
+
+```bash
 -p <nome_do_provedor>
 
 Opções:
@@ -114,68 +116,75 @@ flutter_modular / bloc_pattern
 Exemplo:
 slidy start -p flutter_modular
 ```
-* Gerenciador de estado: 
-```
+
+* Gerenciador de estado:
+
+```bash
 -s <gerenciador_de_estado>
 
-Opções: 
+Opções:
 mobx / flutter_bloc / rxdart
 Exemplo:
 slidy start -s mobx
 ```
+
 * Provedor e gerenciador de estado:
-```
+
+```bash
 slidy start -p flutter_modular -s mobx
 ```
+
 O comando avisa que irá apagar a pasta lib/ e pede a confimação. Caso não queira ver esse aviso, adicione a flag -e (do inglês "erase", apagar):
-```
+
+```bash
 slidy start -p flutter_modular -s mobx -e
 ```
 
-### run:
+### run':'
 
 Executa os scripts em pubspec.yaml:
 
-```
+```bash
 slidy run open_folder
 ```
 
-![Exemplo de pasta](/screenshots/scripts.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
-### install:
+### install':'
 
 **Instala ou atualiza os pacotes em dependências:**
 
-![Exemplo de pasta](/screenshots/dependencies.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
 
-```
+```bash
 install slidy rxdart dio bloc_pattern
 ```
 
 ou você pode simplesmente usar o comando **i** (ambos são iguais)
 
-```
+```bash
 slidy i rxdart dio bloc_pattern
 ```
 
 **Instale pacotes como dev_dependency:**
 
-```
+```bash
 slidy i mockito --dev
 ```
 
-![Exemplo de pasta](/screenshots/dev_d.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dev_d.png?raw=true)
 
-### uninstall:
+### uninstall':'
 
 Remove um pacote
-```
+
+```bash
  slidy uninstall dio
 ```
+
 Você também pode remover uma **dev_dependency** usando o sinalizador --dev
 
-
-### generate:
+### generate':'
 
 Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.
 
@@ -183,35 +192,41 @@ Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.
 
 Cria um novo **module**:
 
-```
+```bash
 slidy g module nome_da_pasta
 ```
-ou 
-```
+
+ou
+
+```bash
 slidy g m nome_da_pasta
 ```
 
-![Exemplo de pasta](/screenshots/module_cmd.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/module_cmd.png?raw=true)
 
 **NOTE:** Você pode criar um "Modulo Completo" com Module, Page, Bloc/Controller, testes para Page e para Bloc/Controller usando a flag **-c**
 
 Cria uma nova **página** + BloC:
 
-```
+```bash
 slidy g page nome_da_pasta/páginas
 ```
-ou 
-```
+
+ou
+
+```bash
 slidy g p nome_da_pasta/páginas
 ```
 
 Cria um novo **widget** + BloC:
 
-```
+```bash
 slidy g widget nome_da_pasta/widgets
 ```
-ou 
-```
+
+ou
+
+```bash
 slidy g w nome_da_pasta/widgets
 ```
 
@@ -219,55 +234,57 @@ slidy g w nome_da_pasta/widgets
 
 Crie um novo **repositório**
 
-```
+```bash
 slidy g r nome_da_pasta/repositórios
 ```
 
 Crie um novo **serviço**
-```
+
+```bash
 slidy g s folder_name/servicos
 ```
 
 Crie um novo **modelo**
-```
+
+```bash
 slidy g mm nome_da_pasta/modelo
-``` 
+```
 
 Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
 
-![Exemplo de pasta](/screenshots/structure.png?raw=true)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
-#### Testes de unidade:
+#### Testes de unidade':'
 
 Gere **testes de unidade** na pasta de teste para você.
 
-```
+```bash
 slidy test nome_da_pasta/
 ```
 
-## Erros comuns:
+## Erros comuns':'
 
-**Windows:** 
+**Windows:**
 
-![Folder example](/screenshots/error_windows_install.jpg?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
 
 Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis de ambiente manualmente:
 
 Na pesquisa do Windows, escreva: ```Editar variáveis do sistema```
 
-![Folder example](/screenshots/step1.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
 
 Em seguida, clique em ```'Variáveis de ambiente```
 
-![Folder example](/screenshots/step2.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
 
 Vá para ```Path```
 
-![Folder example](/screenshots/step3.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
 
 Em seguida, clique em Novo e adicione o caminho que apareceu no seu console.
 
-![Folder example](/screenshots/step4.png?raw=true)
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step4.png?raw=true)
 
 Para mais informações, assista a [esse](https://www.youtube.com/watch?v=bEroNNzqlF4) vídeo.
 
