@@ -267,6 +267,7 @@ slidy test folder_name/
 ## Common errors:
 
 **I cant update:**
+
 1 - First of all you need uninstall the Slidy on Flutter
 ```
 flutter pub global deactivate slidy
