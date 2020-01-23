@@ -40,16 +40,17 @@ Estrutura de pasta de exemplo gerada por **slidy**:
 
 ## Instalação
 
-0. Primeiramente você precisa instalar o Dart(nesse link tem um passo a passo de como instalar):
+1. Primeiramente você precisa instalar o Dart(nesse link tem um passo a passo de como instalar):
+
 [https://dart.dev/get-dart](https://dart.dev/get-dart)
 
-1. Ative o slidy usando o pub:
+2. Ative o slidy usando o pub:
 
 ```bash
 flutter pub global activate slidy
 ```
 
-2. Digite `slidy --version` para certificar que tudo funcionou corretamente. Este comando deve retornar a versão instalada.
+3. Digite `slidy --version` para certificar que tudo funcionou corretamente. Este comando deve retornar a versão instalada.
 
 ## Comandos:
 
