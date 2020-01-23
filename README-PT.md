@@ -28,9 +28,11 @@ Percebemos que a ausência de padrão de projeto está afetando a produtividade 
 
 A estrutura que o slidy oferece a você é semelhante ao MVC, onde uma página mantém suas próprias **business logic classes(BloC)**.
 
-Recomendamos que você use [bloc_pattern](https://pub.dev/packages/bloc_pattern) ao estruturar com slidy. Ele oferece a **estrutura do módulo** (estendendo o ModuleWidget) e a injeção de dependência / bloco, ou você provavelmente receberá um erro.
 
-Para entender o **pacote bloc_pattern**, consulte o [README](https://github.com/jacobaraujo7/bloc-pattern/blob/master/README.md).
+
+Recomendamos que você use [flutter_modular](https://pub.dev/packages/flutter_modular) ao estruturar com slidy. Ele oferece a **estrutura do módulo** (estendendo o ModuleWidget) e a injeção de dependência / bloc, ou você provavelmente receberá um erro.
+
+Para entender o **flutter_modular**, consulte o [README](https://github.com/Flutterando/modular/blob/master/README.md).
 
 Também usamos o **Repository Pattern**, para que a estrutura da pasta seja organizada em **módulos locais** e um **módulo global**. As dependências (repositórios, BloCs, modelos, etc.) podem ser acessadas em todo o aplicativo.
 
@@ -42,7 +44,7 @@ Estrutura de pasta de exemplo gerada por **slidy**:
 
 1. Primeiramente você precisa instalar o Dart(nesse link tem um passo a passo de como instalar):
 
-[https://dart.dev/get-dart](https://dart.dev/get-dart)
+    [https://dart.dev/get-dart](https://dart.dev/get-dart)
 
 2. Ative o slidy usando o pub:
 
@@ -284,7 +286,8 @@ pub global activate slidy
 ```
 
 3 - Caso você não tenha o Pub você vai precisar instalar o Dart:
-https://dart.dev/get-dart
+
+[https://dart.dev/get-dart](https://dart.dev/get-dart)
 
 
 **Windows:**
