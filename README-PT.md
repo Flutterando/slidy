@@ -63,10 +63,18 @@ Atualiza a versão do slidy:
 ```bash
 slidy upgrade
 ```
+### create:
+
+Crie um nome projeto na mesma estrutura descrita no comando start
+
+```bash
+slidy create **meuprojeto**
+```
+
 
 ### start:
 
-Crie a estrutura básica do seu projeto (verifique se a pasta "lib" está vazia).
+Crie a estrutura básica do em um projeto existente (verifique se a pasta "lib" está vazia).
 
 ```bash
 slidy start
