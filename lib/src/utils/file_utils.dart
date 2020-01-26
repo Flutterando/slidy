@@ -88,8 +88,15 @@ Future createFile(String path, String type, Function(ObjectGenerate) generator,
         type == 'repository' ||
         type == 'store' ||
         type == 'service') {
-      module = await addModule(formatName('${name}_$type'), file.path,
-          type == 'bloc' || type == 'controller' || type == 'store', isModular);
+      try {
+        module = await addModule(
+            formatName('${name}_$type'),
+            file.path,
+            type == 'bloc' || type == 'controller' || type == 'store',
+            isModular);
+      } catch (e) {
+        print('not Module');
+      }
       nameModule = module == null ? null : basename(module.path);
     }
 

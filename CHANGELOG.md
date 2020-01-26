@@ -1,4 +1,4 @@
-## 1.5.0
+## 1.5.1
 - Generate Store Command
   ```
   slidy generate store /path/store 
@@ -7,7 +7,7 @@
 - Internal Core Modification
 
 
-## 1.4.11
+## 1.4.12
 - Create module withless named route system **--noroute**:
   ```
   slidy generate module /path/module --noroute [-n]
