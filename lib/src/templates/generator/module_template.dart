@@ -58,6 +58,7 @@ String moduleGeneratorModularNoRoute(String pkg, String name, String path) {
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
+  import 'package:flutter/material.dart';
   ${import.replaceFirst('$pkg/$pkg', pkg)}
   class ${name}Module extends ModuleWidget {
   @override
@@ -65,6 +66,8 @@ String moduleGeneratorModularNoRoute(String pkg, String name, String path) {
 
   static Inject get to => Inject<${name}Module>.of();
 
+  @override  
+  Widget get view => ${name}Page();
 }
   ''';
 }
