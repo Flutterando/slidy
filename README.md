@@ -63,9 +63,18 @@ Updates slidy's version:
 slidy upgrade
 ```
 
+### create:
+
+Create a new project with same structure describe in start command.
+
+```bash
+slidy create **myproject**
+```
+
+
 ### start:
 
-Create the basic structure of your project (make sure that your "lib" folder it's empty).
+Create the basic structure of your project existing (make sure that your "lib" folder it's empty).
 
 ```bash
 slidy start
