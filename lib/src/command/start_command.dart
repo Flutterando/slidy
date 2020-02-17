@@ -1,10 +1,12 @@
 import 'package:slidy/slidy.dart';
 
 class StartCommand extends CommandBase {
-  final name = "start";
+  @override
+  final name = 'start';
   bool argsLength(int n) => argResults.arguments.length > n;
+  @override
   final description =
-      "Create a basic structure for your project (confirm that you have no data in the \"lib\" folder).";
+      '"Create a basic structure for your project (confirm that you have no data in the \"lib\" folder)."';
 
   StartCommand() {
     argParser.addFlag('complete',
