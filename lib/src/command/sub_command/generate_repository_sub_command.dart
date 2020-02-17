@@ -2,8 +2,10 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GenerateRepositorySubCommand extends CommandBase {
-  final name = "repository";
-  final description = "Creates a repository";
+  @override
+  final name = 'repository';
+  @override
+  final description = 'Creates a repository';
 
   GenerateRepositorySubCommand() {
     argParser.addFlag('notest',
@@ -15,15 +17,17 @@ class GenerateRepositorySubCommand extends CommandBase {
         );
   }
 
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.repository(argResults.rest.first, !argResults["notest"]);
+      Generate.repository(argResults.rest.first, !argResults['notest']);
     }
   }
 }
 
 class GenerateRepositoryAbbrSubCommand extends GenerateRepositorySubCommand {
-  final name = "r";
+  @override
+  final name = 'r';
 }

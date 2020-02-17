@@ -2,12 +2,14 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GeneratePageSubCommand extends CommandBase {
-  final name = "page";
-  final description = "Creates a page";
+  @override
+  final name = 'page';
+  @override
+  final description = 'Creates a page';
 
   GeneratePageSubCommand() {
     argParser.addFlag('bloc',
-        abbr: 'b', negatable: false, help: "Creates a page without Bloc file");
+        abbr: 'b', negatable: false, help: 'Creates a page without Bloc file');
     argParser.addFlag('flutter_bloc',
         abbr: 'f', negatable: true, help: 'using flutter_bloc package'
         //Add in future configured the release android sign
@@ -18,15 +20,17 @@ class GeneratePageSubCommand extends CommandBase {
         );
   }
 
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.page(argResults.rest.first, argResults["bloc"], argResults["flutter_bloc"], argResults["mobx"]);
+      Generate.page(argResults.rest.first, argResults['bloc'], argResults['flutter_bloc'], argResults['mobx']);
     }
   }
 }
 
 class GeneratePageAbbrSubCommand extends GeneratePageSubCommand {
-  final name = "p";
+  @override
+  final name = 'p';
 }

@@ -6,10 +6,12 @@ import 'package:slidy/src/command/sub_command/generate_service_sub_command.dart'
 import 'package:slidy/src/command/sub_command/generate_test_sub_command.dart';
 
 class GenerateCommand extends CommandBase {
-  final name = "generate";
+  @override
+  final name = 'generate';
+  @override
   final description =
-      "Creates a module, page, widget or repository according to the option.";
-  final abbr = "g";
+      'Creates a module, page, widget or repository according to the option.';
+  final abbr = 'g';
 
   GenerateCommand() {
     addSubcommand(GenerateModuleSubCommand());
@@ -34,5 +36,6 @@ class GenerateCommand extends CommandBase {
 }
 
 class GenerateCommandAbbr extends GenerateCommand {
-  final name = "g";
+  @override
+  final name = 'g';
 }

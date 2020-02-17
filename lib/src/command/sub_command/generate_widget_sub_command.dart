@@ -2,18 +2,20 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GenerateWidgetSubCommand extends CommandBase {
-  final name = "widget";
-  final description = "Creates a widget";
+  @override
+  final name = 'widget';
+  @override
+  final description = 'Creates a widget';
 
   GenerateWidgetSubCommand() {
     argParser.addFlag('bloc',
         abbr: 'b',
         negatable: false,
-        help: "Creates a widget without Bloc file");
+        help: 'Creates a widget without Bloc file');
     argParser.addFlag('suffix',
         abbr: 's',
         negatable: false,
-        help: "Creates a widget without a \"Widget\" suffix.");
+        help: 'Creates a widget without a \"Widget\" suffix.');
     argParser.addFlag('flutter_bloc',
         abbr: 'f', negatable: true, help: 'using flutter_bloc package'
         //Add in future configured the release android sign
@@ -24,16 +26,18 @@ class GenerateWidgetSubCommand extends CommandBase {
         );
   }
 
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.widget(
-          argResults.rest.first, argResults["bloc"], argResults["suffix"], argResults["flutter_bloc"], argResults["mobx"]);
+          argResults.rest.first, argResults['bloc'], argResults['suffix'], argResults['flutter_bloc'], argResults['mobx']);
     }
   }
 }
 
 class GenerateWidgetAbbrSubCommand extends GenerateWidgetSubCommand {
-  final name = "w";
+  @override
+  final name = 'w';
 }
