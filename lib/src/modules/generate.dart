@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart' as file_utils;
 import 'package:slidy/src/utils/file_utils.dart';
+import 'package:slidy/src/utils/object_generate.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
@@ -28,12 +29,14 @@ class Generate {
   static void page(String path, bool blocLess,
       [bool flutter_bloc = false, bool mobx = false]) async {
     var m = await isModular();
-    file_utils.createFile(
+    await file_utils.createFile(
         '${mainDirectory}$path', 'page', templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: m);
     var name = basename(path);
     if (!blocLess) {
-      bloc('$path/$name');
+      var isMobx = await checkDependency('flutter_mobx');
+      var type = isMobx ? 'controller' : 'bloc';
+      bloc('$path/$name', type);
     }
   }
 
@@ -42,20 +45,23 @@ class Generate {
     var m = await isModular();
 
     if (ignoreSuffix) {
-      file_utils.createFile(
+      await file_utils.createFile(
           path, 'widget', templates.widgetGeneratorWithoutSuffix,
           generatorTest: templates.widgetTestGeneratorWithoutSuffix,
           ignoreSuffix: ignoreSuffix,
           isModular: m);
     } else {
-      file_utils.createFile(
+      await file_utils.createFile(
           '${mainDirectory}$path', 'widget', templates.widgetGenerator,
           generatorTest: templates.widgetTestGenerator, isModular: m);
     }
 
     var name = basename(path);
     if (!blocLess) {
-      bloc('$path/$name', true, flutter_bloc, mobx);
+      var type =
+          (await checkDependency('flutter_mobx')) ? 'controller' : 'bloc';
+
+      bloc('$path/$name', type, true, flutter_bloc, mobx);
     }
   }
 
@@ -105,56 +111,80 @@ class Generate {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
-        templates.blocTestGenerator(
-          formatName(name.replaceFirst('_bloc.dart', '')),
-          await getNamePackage(),
-          entity.path,
-          nameModule == null ? null : formatName(nameModule),
-          module?.path,
-        ),
+        templates.blocTestGenerator(ObjectGenerate(
+          name: formatName(name.replaceFirst('_bloc.dart', '')),
+          packageName: await getNamePackage(),
+          import: entity.path,
+          module: nameModule == null ? null : formatName(nameModule),
+          pathModule: module?.path,
+        )),
       );
     } else if (name.contains('_repository.dart')) {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
-        templates.repositoryTestGenerator(
-            formatName(name.replaceFirst('_repository.dart', '')),
-            await getNamePackage(),
-            entity.path,
-            nameModule == null ? null : formatName(nameModule),
-            module?.path),
+        templates.repositoryTestGenerator(ObjectGenerate(
+            name: formatName(name.replaceFirst('_repository.dart', '')),
+            packageName: await getNamePackage(),
+            import: entity.path,
+            module: nameModule == null ? null : formatName(nameModule),
+            pathModule: module?.path)),
       );
     } else if (name.contains('_page.dart')) {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
-        templates.pageTestGenerator(
-            formatName(name.replaceFirst('_page.dart', '')),
-            await getNamePackage(),
-            entity.path,
-            nameModule == null ? null : formatName(nameModule),
-            module?.path,
-            m),
+        templates.pageTestGenerator(ObjectGenerate(
+            name: formatName(name.replaceFirst('_page.dart', '')),
+            packageName: await getNamePackage(),
+            import: entity.path,
+            module: nameModule == null ? null : formatName(nameModule),
+            pathModule: module?.path,
+            isModular: m)),
       );
     } else if (name.contains('_controller.dart')) {
       entityTest.createSync(recursive: true);
       output.msg('File test ${entityTest.path} created');
       entityTest.writeAsStringSync(
         m
-            ? templates.mobxBlocTestGeneratorModular(
-                formatName(name.replaceFirst('_controller.dart', '')),
-                await getNamePackage(),
-                entity.path,
-                nameModule == null ? null : formatName(nameModule),
-                module?.path,
-              )
-            : templates.mobxBlocTestGenerator(
-                formatName(name.replaceFirst('_controller.dart', '')),
-                await getNamePackage(),
-                entity.path,
-                nameModule == null ? null : formatName(nameModule),
-                module?.path,
-              ),
+            ? templates.mobxBlocTestGeneratorModular(ObjectGenerate(
+                name: formatName(name.replaceFirst('_controller.dart', '')),
+                type: 'controller',
+                packageName: await getNamePackage(),
+                import: entity.path,
+                module: nameModule == null ? null : formatName(nameModule),
+                pathModule: module?.path,
+              ))
+            : templates.mobxBlocTestGenerator(ObjectGenerate(
+                name: formatName(name.replaceFirst('_controller.dart', '')),
+                type: 'controller',
+                packageName: await getNamePackage(),
+                import: entity.path,
+                module: nameModule == null ? null : formatName(nameModule),
+                pathModule: module?.path,
+              )),
+      );
+    } else if (name.contains('_store.dart')) {
+      entityTest.createSync(recursive: true);
+      output.msg('File test ${entityTest.path} created');
+      entityTest.writeAsStringSync(
+        m
+            ? templates.mobxBlocTestGeneratorModular(ObjectGenerate(
+                name: formatName(name.replaceFirst('_store.dart', '')),
+                type: 'store',
+                packageName: await getNamePackage(),
+                import: entity.path,
+                module: nameModule == null ? null : formatName(nameModule),
+                pathModule: module?.path,
+              ))
+            : templates.mobxBlocTestGenerator(ObjectGenerate(
+                name: formatName(name.replaceFirst('_store.dart', '')),
+                type: 'store',
+                packageName: await getNamePackage(),
+                import: entity.path,
+                module: nameModule == null ? null : formatName(nameModule),
+                pathModule: module?.path,
+              )),
       );
     }
 
@@ -163,7 +193,7 @@ class Generate {
 
   static Future repository(String path, [bool isTest = true]) async {
     var m = await isModular();
-    file_utils.createFile(
+    await file_utils.createFile(
         path,
         'repository',
         m
@@ -175,7 +205,7 @@ class Generate {
 
   static Future service(String path, [bool isTest = true]) async {
     var m = await isModular();
-    file_utils.createFile('${mainDirectory}$path', 'service',
+    await file_utils.createFile('${mainDirectory}$path', 'service',
         m ? templates.serviceGeneratorModular : templates.serviceGenerator,
         generatorTest: isTest ? templates.serviceTestGenerator : null,
         isModular: m);
@@ -191,12 +221,11 @@ class Generate {
     );
   }
 
-  static void bloc(String path,
+  static void bloc(String path, String type,
       [bool isTest = true,
       bool flutter_bloc = false,
       bool mobx = false]) async {
     var template;
-
     var m = await isModular();
 
     if (!mobx) {
@@ -229,8 +258,7 @@ class Generate {
             ? StateManagementEnum.flutter_bloc
             : StateManagementEnum.rxDart;
 
-    file_utils.createFile(
-        '${mainDirectory}$path', mobx ? 'controller' : 'bloc', template,
+    await file_utils.createFile('${mainDirectory}$path', type, template,
         generatorTest: isTest ? testTemplate : null,
         isModular: m,
         stateManagement: stateManagement);

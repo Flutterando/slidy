@@ -1,26 +1,26 @@
-String repositoryTestGenerator(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String repositoryTestGenerator(ObjectGenerate obj) => '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 class MockClient extends Mock implements Dio {}
 
 void main() {
-  ${name}Repository repository;
+  ${obj.name}Repository repository;
   MockClient client;
 
   setUp(() {
-    repository = ${name}Repository();
+    repository = ${obj.name}Repository();
     client = MockClient();
   });
 
-  group('${name}Repository Test', () {
+  group('${obj.name}Repository Test', () {
     test("First Test", () {
-      expect(repository, isInstanceOf<${name}Repository>());
+      expect(repository, isInstanceOf<${obj.name}Repository>());
     });
 
     test('returns a Post if the http call completes successfully', () async {

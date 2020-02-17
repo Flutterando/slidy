@@ -7,17 +7,38 @@ import 'package:tuple/tuple.dart';
 import '../utils/utils.dart';
 
 void create(String projectName, String projectDescription, String projectOrg,
-    bool isKotlin, bool isSwift, bool isAndroidX) {
+    bool isKotlin, bool isSwift, bool isAndroidX, String sm, String provider) {
   startFlutterCreate(projectName, projectDescription, projectOrg, isKotlin,
-      isSwift, isAndroidX);
+      isSwift, isAndroidX, sm, provider);
 }
 
-void startFlutterCreate(String projectName, String projectDescription,
-    String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
+void startFlutterCreate(
+    String projectName,
+    String projectDescription,
+    String projectOrg,
+    bool isKotlin,
+    bool isSwift,
+    bool isAndroidX,
+    String sm,
+    String provider) {
   mainDirectory = projectName + '/';
 
-  var selectedProvider = blocOrModular(null, projectName);
-  var selectedBloc = selecStateManagement(null, projectName);
+  var selectedProvider;
+  var selectedBloc;
+
+  if (provider == null) {
+    selectedProvider = blocOrModular(null, projectName);
+  } else {
+    selectedProvider = blocOrModular(
+        ['flutter_modular', 'bloc_pattern'].indexOf(provider), projectName);
+  }
+
+  if (sm == null) {
+    selectedBloc = selecStateManagement(null, projectName);
+  } else {
+    selectedBloc = selecStateManagement(
+        ['mobx', 'flutter_bloc', 'rxbloc'].indexOf(sm), projectName);
+  }
 
   List<String> flutterArgs = createFlutterArgs(projectName, projectDescription,
       projectOrg, isKotlin, isSwift, isAndroidX);

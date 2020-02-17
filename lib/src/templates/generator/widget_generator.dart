@@ -1,6 +1,8 @@
-String widgetGenerator(String name) => '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String widgetGenerator(ObjectGenerate obj) => '''
 import 'package:flutter/material.dart';
-class ${name}Widget extends StatelessWidget {
+class ${obj.name}Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,9 +12,9 @@ class ${name}Widget extends StatelessWidget {
 }
   ''';
 
-String widgetGeneratorWithoutSuffix(String name) => '''
+String widgetGeneratorWithoutSuffix(ObjectGenerate obj) => '''
 import 'package:flutter/material.dart';
-class ${name} extends StatelessWidget {
+class ${obj.name} extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(

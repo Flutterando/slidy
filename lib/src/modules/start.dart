@@ -221,7 +221,9 @@ Future start(
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
 
-  await command.run(['generate', 'bloc', 'app']);
+  var isMobx = await checkDependency('flutter_mobx');
+
+  await command.run(['generate', isMobx ? 'controller' : 'bloc', 'app']);
 
   output.msg("Project started! enjoy!");
 }

@@ -1,16 +1,18 @@
-String moduleGenerator(String pkg, String name, String path) {
-  path = path.replaceFirst("lib/", "");
+import 'package:slidy/src/utils/object_generate.dart';
 
+String moduleGenerator(ObjectGenerate obj) {
+  var path = obj.pathModule.replaceFirst("lib/", "");
+  var pkg = obj.packageName;
   var import =
       pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
 
-  var page = pkg.isNotEmpty ? '${name}Page()' : 'Container()';
+  var page = pkg.isNotEmpty ? '${obj.name}Page()' : 'Container()';
 
   return '''
   import 'package:bloc_pattern/bloc_pattern.dart';
   import 'package:flutter/material.dart';
   ${import.replaceFirst('$pkg/$pkg', pkg)}
-  class ${name}Module extends ModuleWidget {
+  class ${obj.name}Module extends ModuleWidget {
   @override
   List<Bloc> get blocs => [];
 
@@ -20,39 +22,41 @@ String moduleGenerator(String pkg, String name, String path) {
   @override
   Widget get view => ${page};
 
-  static Inject get to => Inject<${name}Module>.of();
+  static Inject get to => Inject<${obj.name}Module>.of();
 
 }
   ''';
 }
 
-String moduleGeneratorModular(String pkg, String name, String path) {
-  path = path.replaceFirst('lib/', '');
+String moduleGeneratorModular(ObjectGenerate obj) {
+  var path = obj.pathModule.replaceFirst("lib/", "");
+  var pkg = obj.packageName;
 
   var import =
       pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
-  var router =
-      pkg.isNotEmpty ? "Router('/', child: (_, args) => ${name}Page())," : '';
+  var router = pkg.isNotEmpty
+      ? "Router('/', child: (_, args) => ${obj.name}Page()),"
+      : '';
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
   ${import.replaceFirst('$pkg/$pkg', pkg)}
-  class ${name}Module extends ChildModule {
+  class ${obj.name}Module extends ChildModule {
   @override
   List<Bind> get binds => [];
 
   @override
   List<Router> get routers => [$router];
 
-  static Inject get to => Inject<${name}Module>.of();
+  static Inject get to => Inject<${obj.name}Module>.of();
 
 }
   ''';
 }
 
-String moduleGeneratorModularNoRoute(String pkg, String name, String path) {
-  path = path.replaceFirst('lib/', '');
-
+String moduleGeneratorModularNoRoute(ObjectGenerate obj) {
+  var path = obj.pathModule.replaceFirst("lib/", "");
+  var pkg = obj.packageName;
   var import =
       pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
 
@@ -60,14 +64,14 @@ String moduleGeneratorModularNoRoute(String pkg, String name, String path) {
   import 'package:flutter_modular/flutter_modular.dart';
   import 'package:flutter/material.dart';
   ${import.replaceFirst('$pkg/$pkg', pkg)}
-  class ${name}Module extends ModuleWidget {
+  class ${obj.name}Module extends ModuleWidget {
   @override
   List<Bind> get binds => [];
 
-  static Inject get to => Inject<${name}Module>.of();
+  static Inject get to => Inject<${obj.name}Module>.of();
 
   @override  
-  Widget get view => ${name}Page();
+  Widget get view => ${obj.name}Page();
 }
   ''';
 }

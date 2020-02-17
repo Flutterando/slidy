@@ -5,8 +5,10 @@ import 'package:slidy/src/templates/templates.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void createFile(String path, String type, Function generator,
-    {Function generatorTest,
+import 'object_generate.dart';
+
+Future createFile(String path, String type, Function(ObjectGenerate) generator,
+    {Function(ObjectGenerate) generatorTest,
     bool ignoreSuffix = false,
     bool isModular = false,
     StateManagementEnum stateManagement = StateManagementEnum.rxDart}) async {
@@ -24,6 +26,7 @@ void createFile(String path, String type, Function generator,
 
   Directory dir;
   if (type == 'bloc' ||
+      type == 'store' ||
       type == 'controller' ||
       type == 'repository' ||
       type == 'service' ||
@@ -63,12 +66,16 @@ void createFile(String path, String type, Function generator,
 
     if (type == 'module_complete') {
       var package = await getNamePackage();
-      file.writeAsStringSync(
-          generator(package, formatName(name), '$path/$name'));
+      file.writeAsStringSync(generator(ObjectGenerate(
+          packageName: package,
+          name: formatName(name),
+          pathModule: '$path/$name')));
     } else if (type == 'module') {
-      file.writeAsStringSync(generator('', formatName(name), path));
+      file.writeAsStringSync(generator(ObjectGenerate(
+          name: formatName(name), packageName: '', pathModule: path)));
     } else {
-      file.writeAsStringSync(generator(formatName(name)));
+      file.writeAsStringSync(
+          generator(ObjectGenerate(name: formatName(name), type: type)));
     }
 
     formatFile(file);
@@ -79,9 +86,10 @@ void createFile(String path, String type, Function generator,
     if (type == 'bloc' ||
         type == 'controller' ||
         type == 'repository' ||
+        type == 'store' ||
         type == 'service') {
       module = await addModule(formatName('${name}_$type'), file.path,
-          type == 'bloc' || type == 'controller', isModular);
+          type == 'bloc' || type == 'controller' || type == 'store', isModular);
       nameModule = module == null ? null : basename(module.path);
     }
 
@@ -89,20 +97,21 @@ void createFile(String path, String type, Function generator,
       fileTest.createSync(recursive: true);
       output.msg('File test ${fileTest.path} created');
       if (type == 'widget' || type == 'page') {
-        fileTest.writeAsStringSync(generatorTest(
-            formatName(name),
-            await getNamePackage(),
-            file.path,
-            nameModule != null ? formatName(nameModule) : null,
-            module?.path,
-            isModular));
+        fileTest.writeAsStringSync(generatorTest(ObjectGenerate(
+            name: formatName(name),
+            packageName: await getNamePackage(),
+            import: file.path,
+            module: nameModule != null ? formatName(nameModule) : null,
+            pathModule: module?.path,
+            isModular: isModular)));
       } else {
-        fileTest.writeAsStringSync(generatorTest(
-            formatName(name),
-            await getNamePackage(),
-            file.path,
-            nameModule != null ? formatName(nameModule) : null,
-            module?.path));
+        fileTest.writeAsStringSync(generatorTest(ObjectGenerate(
+            name: formatName(name),
+            type: type,
+            packageName: await getNamePackage(),
+            import: file.path,
+            module: nameModule != null ? formatName(nameModule) : null,
+            pathModule: module?.path)));
       }
 
       formatFile(fileTest);
@@ -126,8 +135,6 @@ void createFile(String path, String type, Function generator,
     fileBlocTest = File(
         '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}_test.dart');
 
-      
-
     if (fileBloc.existsSync() ||
         fileState.existsSync() ||
         fileEvent.existsSync()) {
@@ -147,9 +154,12 @@ void createFile(String path, String type, Function generator,
     fileEvent.createSync(recursive: true);
     output.msg('File ${fileEvent.path} created');
 
-    fileBloc.writeAsStringSync(flutter_blocGenerator(formatName(name)));
-    fileState.writeAsStringSync(flutter_blocStateGenerator(formatName(name)));
-    fileEvent.writeAsStringSync(flutter_blocEventGenerator(formatName(name)));
+    fileBloc.writeAsStringSync(
+        flutter_blocGenerator(ObjectGenerate(name: formatName(name))));
+    fileState.writeAsStringSync(
+        flutter_blocStateGenerator(ObjectGenerate(name: formatName(name))));
+    fileEvent.writeAsStringSync(
+        flutter_blocEventGenerator(ObjectGenerate(name: formatName(name))));
 
     formatFile(fileBloc);
     formatFile(fileState);
@@ -158,28 +168,33 @@ void createFile(String path, String type, Function generator,
     File module;
     String nameModule;
 
-    module = await addModule(formatName('${ReCase(name).snakeCase}_$type'),
-        fileBloc.path, type == 'bloc' || type == 'controller', isModular);
+    module = await addModule(
+        formatName('${ReCase(name).snakeCase}_$type'),
+        fileBloc.path,
+        type == 'bloc' || type == 'controller' || type == 'store',
+        isModular);
     nameModule = module == null ? null : basename(module.path);
 
     if (generatorTest != null) {
       fileBlocTest.createSync(recursive: true);
       output.msg('File test ${fileBlocTest.path} created');
       if (type == 'widget' || type == 'page') {
-        fileBlocTest.writeAsStringSync(generatorTest(
-            formatName(name),
-            await getNamePackage(),
-            fileBloc.path,
-            nameModule != null ? formatName(nameModule) : null,
-            module?.path,
-            isModular));
+        fileBlocTest.writeAsStringSync(generatorTest(ObjectGenerate(
+            name: formatName(name),
+            type: type,
+            packageName: await getNamePackage(),
+            import: fileBloc.path,
+            module: nameModule != null ? formatName(nameModule) : null,
+            pathModule: module?.path,
+            isModular: isModular)));
       } else {
-        fileBlocTest.writeAsStringSync(generatorTest(
-            formatName(name),
-            await getNamePackage(),
-            fileBloc.path,
-            nameModule != null ? formatName(nameModule) : null,
-            module?.path));
+        fileBlocTest.writeAsStringSync(generatorTest(ObjectGenerate(
+            name: formatName(name),
+            type: type,
+            packageName: await getNamePackage(),
+            import: fileBloc.path,
+            module: nameModule != null ? formatName(nameModule) : null,
+            pathModule: module?.path)));
       }
 
       formatFile(fileBlocTest);
@@ -294,7 +309,8 @@ Future<void> createBlocBuilder() async {
   fileBlocProvider.createSync(recursive: true);
   output.msg('File /${fileBlocProvider.path} created');
 
-  fileBlocProvider.writeAsStringSync(bloc_builderGenerator(formatName(name)));
+  fileBlocProvider.writeAsStringSync(
+      bloc_builderGenerator(ObjectGenerate(name: formatName(name))));
 
   formatFile(fileBlocProvider);
 

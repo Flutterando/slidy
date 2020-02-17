@@ -1,3 +1,12 @@
+## 1.5.0
+- Generate Store Command
+  ```
+  slidy generate store /path/store 
+  ```
+- Slidy create -m (state_managent) -p
+- Internal Core Modification
+
+
 ## 1.4.11
 - Create module withless named route system **--noroute**:
   ```

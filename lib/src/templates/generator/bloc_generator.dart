@@ -1,9 +1,10 @@
 import 'package:recase/recase.dart';
+import 'package:slidy/src/utils/object_generate.dart';
 
-String blocGenerator(String name) => '''
+String blocGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 
-class ${ReCase(name).pascalCase}Bloc extends BlocBase {
+class ${ReCase(obj.name).pascalCase}Bloc extends BlocBase {
 
   //dispose will be called automatically by closing its streams
   @override
@@ -14,10 +15,10 @@ class ${ReCase(name).pascalCase}Bloc extends BlocBase {
 }
   ''';
 
-String blocGeneratorModular(String name) => '''
+String blocGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ${ReCase(name).pascalCase}Bloc extends Disposable {
+class ${ReCase(obj.name).pascalCase}Bloc extends Disposable {
 
   //dispose will be called automatically by closing its streams
   @override
@@ -28,50 +29,50 @@ class ${ReCase(name).pascalCase}Bloc extends Disposable {
 }
   ''';
 
-String flutter_blocGenerator(String name) => '''
+String flutter_blocGenerator(ObjectGenerate obj) => '''
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 
-import '${ReCase(name).snakeCase}_event.dart';
-import '${ReCase(name).snakeCase}_state.dart';
+import '${ReCase(obj.name).snakeCase}_event.dart';
+import '${ReCase(obj.name).snakeCase}_state.dart';
 
-class ${ReCase(name).pascalCase}Bloc extends Bloc<${ReCase(name).pascalCase}Event, ${ReCase(name).pascalCase}State> {
+class ${ReCase(obj.name).pascalCase}Bloc extends Bloc<${ReCase(obj.name).pascalCase}Event, ${ReCase(obj.name).pascalCase}State> {
   @override
-  ${ReCase(name).pascalCase}State get initialState => Initial${ReCase(name).pascalCase}State();
+  ${ReCase(obj.name).pascalCase}State get initialState => Initial${ReCase(obj.name).pascalCase}State();
 
   @override
-  Stream<${ReCase(name).pascalCase}State> mapEventToState(${ReCase(name).pascalCase}Event event) async* {
+  Stream<${ReCase(obj.name).pascalCase}State> mapEventToState(${ReCase(obj.name).pascalCase}Event event) async* {
     // TODO: Add Logic
   }
 }
   ''';
 
-String flutter_blocEventGenerator(String name) => '''
+String flutter_blocEventGenerator(ObjectGenerate obj) => '''
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class ${ReCase(name).pascalCase}Event extends Equatable {}
+abstract class ${ReCase(obj.name).pascalCase}Event extends Equatable {}
 
   ''';
 
-String flutter_blocStateGenerator(String name) => '''
+String flutter_blocStateGenerator(ObjectGenerate obj) => '''
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class ${ReCase(name).pascalCase}State {}
+abstract class ${ReCase(obj.name).pascalCase}State {}
   
-class Initial${ReCase(name).pascalCase}State extends ${ReCase(name).pascalCase}State {}
+class Initial${ReCase(obj.name).pascalCase}State extends ${ReCase(obj.name).pascalCase}State {}
   ''';
 
-String mobx_blocGenerator(String name) => '''
+String mobx_blocGenerator(ObjectGenerate obj) => '''
 import 'package:mobx/mobx.dart';
 
-part '${ReCase(name).snakeCase}_controller.g.dart';
+part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
 
-class ${ReCase(name).pascalCase}Controller = _${ReCase(name).pascalCase}Base with _\$${ReCase(name).pascalCase}Controller;
+class ${ReCase(obj.name + '_' + obj.type).pascalCase} = _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with _\$${ReCase(obj.name + '_' + obj.type).pascalCase};
 
-abstract class _${ReCase(name).pascalCase}Base with Store {
+abstract class _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with Store {
   @observable
   int value = 0;
 
@@ -82,9 +83,7 @@ abstract class _${ReCase(name).pascalCase}Base with Store {
 }
   ''';
 
-
-
-String bloc_builderGenerator(String name) => '''
+String bloc_builderGenerator(ObjectGenerate obj) => '''
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';

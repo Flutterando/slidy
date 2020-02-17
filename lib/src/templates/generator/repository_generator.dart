@@ -1,8 +1,10 @@
-String repositoryGenerator(String name) => '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String repositoryGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 
-class ${name}Repository extends Disposable {
+class ${obj.name}Repository extends Disposable {
 
   Future fetchPost(Dio client) async {
     final response =
@@ -20,11 +22,11 @@ class ${name}Repository extends Disposable {
 }
   ''';
 
-String repositoryGeneratorModular(String name) => '''
+String repositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dio/dio.dart';
 
-class ${name}Repository extends Disposable {
+class ${obj.name}Repository extends Disposable {
 
   Future fetchPost(Dio client) async {
     final response =

@@ -1,10 +1,12 @@
-String modelGenerator(String name) => '''
-class ${name}Model {
+import 'package:slidy/src/utils/object_generate.dart';
 
-  ${name}Model();
+String modelGenerator(ObjectGenerate obj) => '''
+class ${obj.name}Model {
 
-  factory ${name}Model.fromJson(Map<String, dynamic> json){
-    return ${name}Model(
+  ${obj.name}Model();
+
+  factory ${obj.name}Model.fromJson(Map<String, dynamic> json){
+    return ${obj.name}Model(
       //field: json[''],
     );
   }
@@ -14,15 +16,15 @@ class ${name}Model {
 }
   ''';
 
-String modelRxGenerator(String name) => '''
+String modelRxGenerator(ObjectGenerate obj) => '''
 import 'package:mobx/mobx.dart';
-part '${name.toLowerCase()}_model.g.dart';
+part '${obj.name.toLowerCase()}_model.g.dart';
 
-class ${name}Model extends _${name}ModelBase with _\$${name}Model {
-  ${name}Model({String name}) : super(name: name);
+class ${obj.name}Model extends _${obj.name}ModelBase with _\$${obj.name}Model {
+  ${obj.name}Model({String name}) : super(name: name);
 
-  factory ${name}Model.fromJson(Map<String, dynamic> json) {
-    return ${name}Model(name: json['name']);
+  factory ${obj.name}Model.fromJson(Map<String, dynamic> json) {
+    return ${obj.name}Model(name: json['name']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -30,10 +32,10 @@ class ${name}Model extends _${name}ModelBase with _\$${name}Model {
       };
 }
 
-abstract class _${name}ModelBase with Store {
+abstract class _${obj.name}ModelBase with Store {
   @observable
   String name;
 
-  _${name}ModelBase({this.name});
+  _${obj.name}ModelBase({this.name});
 }
   ''';

@@ -1,8 +1,15 @@
-String blocTestGenerator(String name, String packageName, String import,
-        String module, String pathModule) {
-       var importBloc = 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}'.replaceFirst('$packageName/$packageName', packageName);
-       var importModule = 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}'.replaceFirst('$packageName/$packageName', packageName);
-   return '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String blocTestGenerator(ObjectGenerate obj) {
+  var importBloc =
+      'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceFirst(
+              '${obj.packageName}/${obj.packageName}', obj.packageName);
+  var importModule =
+      'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceFirst(
+              '${obj.packageName}/${obj.packageName}', obj.packageName);
+  return '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_pattern/bloc_pattern_test.dart';
 
@@ -11,113 +18,106 @@ import '$importModule';
 
 void main() {
 
-  initModule(${module}());
-  ${name}Bloc bloc;
+  initModule(${obj.module}());
+  ${obj.name}Bloc bloc;
   
   setUp(() {
-      bloc = ${module}.to.bloc<${name}Bloc>();
+      bloc = ${obj.module}.to.bloc<${obj.name}Bloc>();
   });
 
-  group('${name}Bloc Test', () {
+  group('${obj.name}Bloc Test', () {
     test("First Test", () {
-      expect(bloc, isInstanceOf<${name}Bloc>());
+      expect(bloc, isInstanceOf<${obj.name}Bloc>());
     });
   });
 
 }
   ''';
-        }
+}
 
-String blocTestGeneratorModular(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+String blocTestGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular_test.dart';    
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:${packageName}/app/app_module.dart';
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
-import 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/app/app_module.dart';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 void main() {
   Modular.init(AppModule());
-  Modular.bindModule(${module}());
-  ${name}Bloc bloc;
+  Modular.bindModule(${obj.module}());
+  ${obj.name}Bloc bloc;
   
   setUp(() {
-      bloc = ${module}.to.get<${name}Bloc>();
+      bloc = ${obj.module}.to.get<${obj.name}Bloc>();
   });
 
-  group('${name}Bloc Test', () {
+  group('${obj.name}Bloc Test', () {
     test("First Test", () {
-      expect(bloc, isInstanceOf<${name}Bloc>());
+      expect(bloc, isInstanceOf<${obj.name}Bloc>());
     });
   });
 
 }
   ''';
 
-String mobxBlocTestGenerator(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+String mobxBlocTestGenerator(ObjectGenerate obj) => '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_pattern/bloc_pattern_test.dart';
 
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
-import 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 void main() {
   
-  initModule(${module}());
+  initModule(${obj.module}());
 
-  ${name}Controller ${name.toLowerCase()};
+  ${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} ${obj.name.toLowerCase()};
   
   setUp(() {
-      ${name.toLowerCase()} = ${module}.to.get<${name}Controller>();
+      ${obj.name.toLowerCase()} = ${obj.module}.to.get<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>();
   });
 
-  group('${name}Controller Test', () {
+  group('${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} Test', () {
     test("First Test", () {
-      expect(${name.toLowerCase()}, isInstanceOf<${name}Controller>());
+      expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
     });
 
     test("Set Value", () {
-      expect(${name.toLowerCase()}.value, equals(0));
-      ${name.toLowerCase()}.increment();
-      expect(${name.toLowerCase()}.value, equals(1));
+      expect(${obj.name.toLowerCase()}.value, equals(0));
+      ${obj.name.toLowerCase()}.increment();
+      expect(${obj.name.toLowerCase()}.value, equals(1));
     });
   });
 
 }
   ''';
 
-String mobxBlocTestGeneratorModular(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+String mobxBlocTestGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular_test.dart';    
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
-import 'package:${packageName}/${pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 void main() {
 
-  initModule(${module}());
-  ${name}Controller ${name.toLowerCase()};
+  initModule(${obj.module}());
+  ${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} ${obj.name.toLowerCase()};
   
   setUp(() {
-      ${name.toLowerCase()} = ${module}.to.get<${name}Controller>();
+      ${obj.name.toLowerCase()} = ${obj.module}.to.get<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>();
   });
 
-  group('${name}Controller Test', () {
+  group('${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} Test', () {
     test("First Test", () {
-      expect(${name.toLowerCase()}, isInstanceOf<${name}Controller>());
+      expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
     });
 
     test("Set Value", () {
-      expect(${name.toLowerCase()}.value, equals(0));
-      ${name.toLowerCase()}.increment();
-      expect(${name.toLowerCase()}.value, equals(1));
+      expect(${obj.name.toLowerCase()}.value, equals(0));
+      ${obj.name.toLowerCase()}.increment();
+      expect(${obj.name.toLowerCase()}.value, equals(1));
     });
   });
 

@@ -1,21 +1,21 @@
-String serviceTestGenerator(String name, String packageName, String import,
-        String module, String pathModule) =>
-    '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String serviceTestGenerator(ObjectGenerate obj) => '''
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 
 void main() {
-  ${name}Service service;
+  ${obj.name}Service service;
 
   setUp(() {
-    service = ${name}Service();
+    service = ${obj.name}Service();
   });
 
-  group('${name}Service Test', () {
+  group('${obj.name}Service Test', () {
     test("First Test", () {
-      expect(service, isInstanceOf<${name}Service>());
+      expect(service, isInstanceOf<${obj.name}Service>());
     });
 
   });

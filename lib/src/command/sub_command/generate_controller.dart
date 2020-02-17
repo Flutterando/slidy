@@ -24,7 +24,7 @@ class GenerateControllerSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException("value not passed for a module command", usage);
     } else {
-      Generate.bloc(argResults.rest.first, !argResults["notest"],
+      Generate.bloc(argResults.rest.first, 'controller', !argResults["notest"],
           argResults["flutter_bloc"], argResults["mobx"]);
     }
   }

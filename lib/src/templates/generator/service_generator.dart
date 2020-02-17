@@ -1,7 +1,9 @@
-String serviceGenerator(String name) => '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String serviceGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 
-class ${name}Service extends Disposable {
+class ${obj.name}Service extends Disposable {
 
   //dispose will be called automatically
   @override
@@ -12,10 +14,10 @@ class ${name}Service extends Disposable {
 }
   ''';
 
-String serviceGeneratorModular(String name) => '''
+String serviceGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ${name}Service extends Disposable {
+class ${obj.name}Service extends Disposable {
 
   //dispose will be called automatically
   @override

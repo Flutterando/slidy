@@ -24,7 +24,8 @@ class GenerateBlocSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException("value not passed for a module command", usage);
     } else {
-      Generate.bloc(argResults.rest.first, !argResults["notest"], argResults["flutter_bloc"], argResults["mobx"]);
+      Generate.bloc(argResults.rest.first, 'bloc', !argResults["notest"],
+          argResults["flutter_bloc"], argResults["mobx"]);
     }
   }
 }

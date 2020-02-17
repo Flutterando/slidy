@@ -1,15 +1,17 @@
-String pageTestGenerator(String name, String packageName, String import,
-    String module, String pathModule, bool isModular) {
+import 'package:slidy/src/utils/object_generate.dart';
+
+String pageTestGenerator(ObjectGenerate obj) {
   String package;
-  if (isModular) {
+  if (obj.isModular) {
     package = "import 'package:flutter_modular/flutter_modular_test.dart'";
   } else {
     package = "import 'package:bloc_pattern/bloc_pattern_test.dart'";
   }
 
   var importPage =
-      'package:${packageName}/${import.replaceFirst("lib/", "").replaceAll("\\", "/")}'
-          .replaceFirst('$packageName/$packageName', packageName);
+      'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceFirst(
+              '${obj.packageName}/${obj.packageName}', obj.packageName);
 
   return '''
 import 'package:flutter/material.dart';
@@ -19,9 +21,9 @@ $package;
 import '$importPage';
 
 main() {
-  testWidgets('${name}Page has title', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(${name}Page(title: '${name}')));
-    final titleFinder = find.text('${name}');
+  testWidgets('${obj.name}Page has title', (WidgetTester tester) async {
+    await tester.pumpWidget(buildTestableWidget(${obj.name}Page(title: '${obj.name}')));
+    final titleFinder = find.text('${obj.name}');
     expect(titleFinder, findsOneWidget);
   });
 }

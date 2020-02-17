@@ -1,16 +1,18 @@
-String pageGenerator(String name) => '''
+import 'package:slidy/src/utils/object_generate.dart';
+
+String pageGenerator(ObjectGenerate obj) => '''
 import 'package:flutter/material.dart';
 
-class ${name}Page extends StatefulWidget {
+class ${obj.name}Page extends StatefulWidget {
   
   final String title;
-  const ${name}Page({Key key, this.title = "${name}"}) : super(key: key);
+  const ${obj.name}Page({Key key, this.title = "${obj.name}"}) : super(key: key);
 
   @override
-  _${name}PageState createState() => _${name}PageState();
+  _${obj.name}PageState createState() => _${obj.name}PageState();
 }
 
-class _${name}PageState extends State<${name}Page> {
+class _${obj.name}PageState extends State<${obj.name}Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
