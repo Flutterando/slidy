@@ -1,10 +1,11 @@
-## 1.5.1
+## 1.5.2
 - Generate Store Command
   ```
   slidy generate store /path/store 
   ```
 - Slidy create -m (state_managent) -p
 - Internal Core Modification
+- Now using ModularState in Generate Pages;
 
 
 ## 1.4.12
