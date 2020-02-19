@@ -16,11 +16,11 @@ $package;
 import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
 main() {
-  testWidgets('${obj.name}Widget has message', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(${obj.name}Widget()));
-    final textFinder = find.text('${obj.name}');
-    expect(textFinder, findsOneWidget);
-  });
+//  testWidgets('${obj.name}Widget has message', (WidgetTester tester) async {
+//    await tester.pumpWidget(buildTestableWidget(${obj.name}Widget()));
+//    final textFinder = find.text('${obj.name}');
+//    expect(textFinder, findsOneWidget);
+//  });
 }
   ''';
 }
@@ -41,9 +41,9 @@ import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replace
 
 main() {
   testWidgets('${obj.name} has message', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(${obj.name}()));
-    final textFinder = find.text('${obj.name}');
-    expect(textFinder, findsOneWidget);
+ //   await tester.pumpWidget(buildTestableWidget(${obj.name}()));
+ //   final textFinder = find.text('${obj.name}');
+ //   expect(textFinder, findsOneWidget);
   });
 }
   ''';

@@ -10,14 +10,14 @@ void main() {
   ${obj.name}Service service;
 
   setUp(() {
-    service = ${obj.name}Service();
+//    service = ${obj.name}Service();
   });
-
+//
   group('${obj.name}Service Test', () {
-    test("First Test", () {
-      expect(service, isInstanceOf<${obj.name}Service>());
-    });
-
+//    test("First Test", () {
+//      expect(service, isInstanceOf<${obj.name}Service>());
+//    });
+//
   });
 }
   ''';

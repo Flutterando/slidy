@@ -21,15 +21,15 @@ void main() {
   initModule(${obj.module}());
   ${obj.name}Bloc bloc;
   
-  setUp(() {
-      bloc = ${obj.module}.to.bloc<${obj.name}Bloc>();
-  });
+ // setUp(() {
+ //     bloc = ${obj.module}.to.bloc<${obj.name}Bloc>();
+ // });
 
-  group('${obj.name}Bloc Test', () {
-    test("First Test", () {
-      expect(bloc, isInstanceOf<${obj.name}Bloc>());
-    });
-  });
+ // group('${obj.name}Bloc Test', () {
+ //   test("First Test", () {
+ //     expect(bloc, isInstanceOf<${obj.name}Bloc>());
+ //   });
+ // });
 
 }
   ''';
@@ -48,15 +48,15 @@ void main() {
   Modular.bindModule(${obj.module}());
   ${obj.name}Bloc bloc;
   
-  setUp(() {
-      bloc = ${obj.module}.to.get<${obj.name}Bloc>();
-  });
+ // setUp(() {
+ //     bloc = ${obj.module}.to.get<${obj.name}Bloc>();
+ // });
 
-  group('${obj.name}Bloc Test', () {
-    test("First Test", () {
-      expect(bloc, isInstanceOf<${obj.name}Bloc>());
-    });
-  });
+ // group('${obj.name}Bloc Test', () {
+ //   test("First Test", () {
+ //     expect(bloc, isInstanceOf<${obj.name}Bloc>());
+ //   });
+ // });
 
 }
   ''';
@@ -79,15 +79,15 @@ void main() {
   });
 
   group('${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} Test', () {
-    test("First Test", () {
-      expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
-    });
+  //  test("First Test", () {
+  //    expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
+  //  });
 
-    test("Set Value", () {
-      expect(${obj.name.toLowerCase()}.value, equals(0));
-      ${obj.name.toLowerCase()}.increment();
-      expect(${obj.name.toLowerCase()}.value, equals(1));
-    });
+  //  test("Set Value", () {
+  //    expect(${obj.name.toLowerCase()}.value, equals(0));
+  //    ${obj.name.toLowerCase()}.increment();
+  //    expect(${obj.name.toLowerCase()}.value, equals(1));
+  //  });
   });
 
 }
@@ -103,22 +103,22 @@ import 'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").rep
 void main() {
 
   initModule(${obj.module}());
-  ${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} ${obj.name.toLowerCase()};
-  
+ // ${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} ${obj.name.toLowerCase()};
+ // 
   setUp(() {
-      ${obj.name.toLowerCase()} = ${obj.module}.to.get<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>();
+ //     ${obj.name.toLowerCase()} = ${obj.module}.to.get<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>();
   });
 
   group('${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)} Test', () {
-    test("First Test", () {
-      expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
-    });
+ //   test("First Test", () {
+ //     expect(${obj.name.toLowerCase()}, isInstanceOf<${obj.name}${obj.type[0].toUpperCase()}${obj.type.substring(1)}>());
+ //   });
 
-    test("Set Value", () {
-      expect(${obj.name.toLowerCase()}.value, equals(0));
-      ${obj.name.toLowerCase()}.increment();
-      expect(${obj.name.toLowerCase()}.value, equals(1));
-    });
+ //   test("Set Value", () {
+ //     expect(${obj.name.toLowerCase()}.value, equals(0));
+ //     ${obj.name.toLowerCase()}.increment();
+ //     expect(${obj.name.toLowerCase()}.value, equals(1));
+ //   });
   });
 
 }
