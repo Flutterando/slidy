@@ -1,3 +1,4 @@
+import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
 String pageGenerator(ObjectGenerate obj) => '''
@@ -30,7 +31,7 @@ class _${obj.name}PageState extends State<${obj.name}Page> {
 String pageGeneratorMobX(ObjectGenerate obj) => '''
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '${obj.name.toLowerCase()}_controller.dart';
+import '${ReCase(obj.name).snakeCase}_controller.dart';
 
 class ${obj.name}Page extends StatefulWidget {
   
