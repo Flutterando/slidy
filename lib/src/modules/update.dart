@@ -12,6 +12,10 @@ void update(List<String> packs, isDev) async {
   var node = yaml.readAsLinesSync();
   bool isAlter = false;
 
+  int indexDependency = isDev
+      ? node.indexWhere((t) => t.contains("dev_dependencies:")) + 1
+      : node.indexWhere((t) => t.contains("dependencies:")) + 1;
+
   for (String pack in packs) {
     if (pack.isEmpty) continue;
     if (!dependencies.containsKey(pack)) {
@@ -23,6 +27,9 @@ void update(List<String> packs, isDev) async {
 
     String version = await PubService().getPackage(pack, '');
     int index = node.indexWhere((t) => t.contains("  $pack:"));
+    if (index < indexDependency) {
+      index = node.lastIndexWhere((t) => t.contains("  $pack:"));
+    }
     node[index] = "  $pack: ^$version";
 
     output.success("Updated $pack in pubspec");
