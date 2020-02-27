@@ -30,7 +30,7 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-    Router('/', module: HomeModule()),
+    Router(Modular.initialRoute, module: HomeModule()),
   ];
 
   @override

@@ -32,7 +32,7 @@ class StartCommand extends CommandBase {
   }
 
   @override
-  void run() {
+  void run() {    
     start(
         completeStart: argResults['complete'],
         providerSystem: argResults['provider-system'],

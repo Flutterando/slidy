@@ -35,7 +35,7 @@ String moduleGeneratorModular(ObjectGenerate obj) {
   var import =
       pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
   var router = pkg.isNotEmpty
-      ? "Router('/', child: (_, args) => ${obj.name}Page()),"
+      ? "Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),"
       : '';
 
   return '''
