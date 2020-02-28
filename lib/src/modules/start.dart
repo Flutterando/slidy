@@ -159,8 +159,7 @@ Future start(
     String providerSystem,
     String stateManagement}) async {
   dir ??= Directory('lib');
-  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]),
-      selecStateManagement(stateManagementOptions[stateManagement]));
+  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), selecStateManagement(stateManagementOptions[stateManagement]));
   await isContinue(dir, force ? 1 : null);
   await tuple.item1();
   await tuple.item2();

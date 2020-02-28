@@ -22,15 +22,16 @@ class Generate {
     await file_utils.createFile('${mainDirectory}$path', moduleType,
         m ? templateModular : templates.moduleGenerator);
     if (createCompleteModule) {
-      await page(path, false, m);
+      await page(path, false, m, await checkDependency('flutter_mobx'));
     }
   }
 
   static void page(String path, bool blocLess,
       [bool flutter_bloc = false, bool mobx = false]) async {
     var m = await isModular();
+
     await file_utils.createFile('${mainDirectory}$path', 'page',
-        m ? templates.pageGeneratorMobX : templates.pageGenerator,
+        mobx ? templates.pageGeneratorMobX : templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: m);
     var name = basename(path);
     if (!blocLess) {
