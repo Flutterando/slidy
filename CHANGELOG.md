@@ -1,3 +1,6 @@
+## 1.5.3
+- Fixed error in generated page in RXDart project
+
 ## 1.5.2
 - Generate Store Command
   ```
