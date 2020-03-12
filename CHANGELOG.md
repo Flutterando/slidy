@@ -1,4 +1,4 @@
-## 2.0.0
+## 2.0.0+1
 WE GET SLIDY VERSION 2
 Thanks to everyone in the community
 
