@@ -1,6 +1,7 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/command/revert.dart';
 import 'package:slidy/src/command/run_command.dart';
 
 void main(List<String> arguments) {
@@ -48,7 +49,8 @@ CommandRunner configureCommand(List<String> arguments) {
         ..addCommand(InstallCommand())
         ..addCommand(InstallCommandAbbr())
         ..addCommand(UninstallCommand())
-        ..addCommand(CreateCommand());
+        ..addCommand(CreateCommand())
+        ..addCommand(RevertCommand());
 
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;

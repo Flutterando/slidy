@@ -5,6 +5,7 @@ import 'package:slidy/src/templates/templates.dart';
 import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
+import 'local_save_log.dart';
 import 'object_generate.dart';
 
 Future createFile(String path, String type, Function(ObjectGenerate) generator,
@@ -62,6 +63,7 @@ Future createFile(String path, String type, Function(ObjectGenerate) generator,
     }
 
     file.createSync(recursive: true);
+    LocalSaveLog().add(file.path);
     output.msg('File ${file.path} created');
 
     if (type == 'module_complete') {
@@ -102,6 +104,8 @@ Future createFile(String path, String type, Function(ObjectGenerate) generator,
 
     if (generatorTest != null) {
       fileTest.createSync(recursive: true);
+      LocalSaveLog().add(fileTest.path);
+
       output.msg('File test ${fileTest.path} created');
       if (type == 'widget' || type == 'page') {
         fileTest.writeAsStringSync(generatorTest(ObjectGenerate(
@@ -155,10 +159,13 @@ Future createFile(String path, String type, Function(ObjectGenerate) generator,
     }
 
     fileBloc.createSync(recursive: true);
+    LocalSaveLog().add(fileBloc.path);
     output.msg('File ${fileBloc.path} created');
     fileState.createSync(recursive: true);
+    LocalSaveLog().add(fileState.path);
     output.msg('File ${fileState.path} created');
     fileEvent.createSync(recursive: true);
+    LocalSaveLog().add(fileEvent.path);
     output.msg('File ${fileEvent.path} created');
 
     fileBloc.writeAsStringSync(
@@ -184,6 +191,8 @@ Future createFile(String path, String type, Function(ObjectGenerate) generator,
 
     if (generatorTest != null) {
       fileBlocTest.createSync(recursive: true);
+      LocalSaveLog().add(fileBlocTest.path);
+
       output.msg('File test ${fileBlocTest.path} created');
       if (type == 'widget' || type == 'page') {
         fileBlocTest.writeAsStringSync(generatorTest(ObjectGenerate(
@@ -290,6 +299,8 @@ void createStaticFile(String path, String content) {
     var file = File(path)
       ..createSync(recursive: true)
       ..writeAsStringSync(content);
+    LocalSaveLog().add(file.path);
+
     formatFile(file);
     output.success('${file.path} created');
   } catch (e) {
@@ -314,6 +325,8 @@ Future<void> createBlocBuilder() async {
   }
 
   fileBlocProvider.createSync(recursive: true);
+  LocalSaveLog().add(fileBlocProvider.path);
+
   output.msg('File /${fileBlocProvider.path} created');
 
   fileBlocProvider.writeAsStringSync(
