@@ -1,3 +1,13 @@
+## 2.0.0
+WE GET SLIDY VERSION 2
+Thanks to everyone in the community
+
+- Added "Revert" command
+```dart
+slidy revert
+```
+Reverse the last generation command.
+
 ## 1.5.3
 - Fixed error in generated page in RXDart project
 
