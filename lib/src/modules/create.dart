@@ -40,10 +40,10 @@ void startFlutterCreate(
         ['mobx', 'flutter_bloc', 'rxbloc'].indexOf(sm), projectName);
   }
 
-  List<String> flutterArgs = createFlutterArgs(projectName, projectDescription,
+  final flutterArgs = createFlutterArgs(projectName, projectDescription,
       projectOrg, isKotlin, isSwift, isAndroidX);
 
-  Process.start("flutter", flutterArgs, runInShell: true).then((process) {
+  Process.start('flutter', flutterArgs, runInShell: true).then((process) {
     stdout.addStream(process.stdout);
     stderr.addStream(process.stderr);
     process.exitCode.then((exit) {
@@ -65,39 +65,38 @@ void startSlidyCreate(
 
 List<String> createFlutterArgs(String projectName, String projectDescription,
     String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
-  projectDescription = projectDescription == null
-      ? "A new Flutter project. Created by Slidy"
-      : projectDescription;
-  projectOrg = projectOrg == null ? "com.example" : projectOrg;
+  projectDescription =
+      projectDescription ?? 'A new Flutter project. Created by Slidy';
+  projectOrg = projectOrg ?? 'com.example';
 
-  var flutterArgs = ["create"];
-  flutterArgs.add("--no-pub");
+  var flutterArgs = ['create'];
+  flutterArgs.add('--no-pub');
 
   if (isKotlin) {
-    flutterArgs.add("-a");
-    flutterArgs.add("kotlin");
+    flutterArgs.add('-a');
+    flutterArgs.add('kotlin');
   }
 
   if (isSwift) {
-    flutterArgs.add("-i");
-    flutterArgs.add("swift");
+    flutterArgs.add('-i');
+    flutterArgs.add('swift');
   }
 
   if (isAndroidX) {
-    flutterArgs.add("--androidx");
+    flutterArgs.add('--androidx');
   }
 
-  flutterArgs.add("--project-name");
-  flutterArgs.add("$projectName");
+  flutterArgs.add('--project-name');
+  flutterArgs.add('$projectName');
 
   if (projectDescription.isNotEmpty) {
-    flutterArgs.add("--description");
-    flutterArgs.add("'$projectDescription'");
+    flutterArgs.add('--description');
+    flutterArgs.add('$projectDescription');
   }
 
   if (projectOrg.isNotEmpty) {
-    flutterArgs.add("--org");
-    flutterArgs.add("$projectOrg");
+    flutterArgs.add('--org');
+    flutterArgs.add('$projectOrg');
   }
 
   flutterArgs.add(projectName);

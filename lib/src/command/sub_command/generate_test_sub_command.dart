@@ -2,12 +2,14 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GenerateTestSubCommand extends CommandBase {
-  final name = "test";
-  final description = "Creates a Test file";
-
+  @override
+  final name = 'test';
+  @override
+  final description = 'Creates a Test file';
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.test(argResults.rest.first);
     }
@@ -15,5 +17,6 @@ class GenerateTestSubCommand extends CommandBase {
 }
 
 class GenerateTestAbbrSubCommand extends GenerateTestSubCommand {
-  final name = "t";
+  @override
+  final name = 't';
 }

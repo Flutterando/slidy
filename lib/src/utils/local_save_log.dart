@@ -40,7 +40,9 @@ class LocalSaveLog {
         var first = listInt.first;
         _removeFilesInLog('$first');
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _removeFilesInLog(String key) {

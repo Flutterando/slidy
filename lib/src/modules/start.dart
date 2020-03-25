@@ -3,22 +3,21 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:dart_console/dart_console.dart';
 import 'package:slidy/src/command/generate_command.dart';
+import 'package:slidy/src/modules/install.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
-
-import 'package:slidy/src/modules/install.dart';
 import 'package:tuple/tuple.dart';
 
-bool _isContinue() {
-  var result = stdin.readLineSync();
-  if (result.toUpperCase() == 'Y') {
-    return true;
-  } else {
-    return false;
-  }
-}
+// bool _isContinue() {
+//   var result = stdin.readLineSync();
+//   if (result.toUpperCase() == 'Y') {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 Map<String, int> providerSystemOptions = {
   'flutter_modular': 0,
@@ -86,11 +85,11 @@ Function blocOrModular([int selected, String directory]) {
   return () async {
     await removeAllPackages(directory);
     if (selected == 0) {
-      output.msg("Instaling flutter_modular...");
-      await install(["flutter_modular"], false, directory: directory);
+      output.msg('Instaling flutter_modular...');
+      await install(['flutter_modular'], false, directory: directory);
     } else if (selected == 1) {
-      output.msg("Instaling bloc_pattern...");
-      await install(["bloc_pattern"], false, directory: directory);
+      output.msg('Instaling bloc_pattern...');
+      await install(['bloc_pattern'], false, directory: directory);
     } else {
       exit(1);
     }
@@ -110,17 +109,17 @@ Function selecStateManagement([int selected, String directory]) {
 
   return () async {
     if (selected == 2) {
-      output.title("Starting a new project with RX BLoC");
-      await install(["rxdart"], false, directory: directory);
+      output.title('Starting a new project with RX BLoC');
+      await install(['rxdart'], false, directory: directory);
     } else if (selected == 1) {
-      output.title("Starting a new project with flutter_bloc");
+      output.title('Starting a new project with flutter_bloc');
       await createBlocBuilder();
-      await install(["bloc", 'bloc_test', 'equatable'], false,
+      await install(['bloc', 'bloc_test', 'equatable'], false,
           directory: directory);
     } else if (selected == 0) {
-      output.title("Starting a new project with Mobx");
-      await install(["mobx", 'flutter_mobx'], false, directory: directory);
-      await install(["build_runner", "mobx_codegen"], true,
+      output.title('Starting a new project with Mobx');
+      await install(['mobx', 'flutter_mobx'], false, directory: directory);
+      await install(['build_runner', 'mobx_codegen'], true,
           directory: directory);
     } else {
       exit(1);
@@ -135,7 +134,7 @@ Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
     if (dir.listSync().isNotEmpty) {
       selected ??= stateCLIOptions(
-          'This command will delete everything inside the \"lib /\" and \"test\" folders.',
+          'This command will delete everything inside the \'lib /\' and \'test\' folders.',
           [
             'No',
             'Yes',
@@ -159,7 +158,8 @@ Future start(
     String providerSystem,
     String stateManagement}) async {
   dir ??= Directory('lib');
-  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]), selecStateManagement(stateManagementOptions[stateManagement]));
+  tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]),
+      selecStateManagement(stateManagementOptions[stateManagement]));
   await isContinue(dir, force ? 1 : null);
   await tuple.item1();
   await tuple.item2();
@@ -167,13 +167,13 @@ Future start(
   var dirTest = Directory(dir.parent.path + '/test');
   if (await dirTest.exists()) {
     if (dirTest.listSync().isNotEmpty) {
-      output.msg("Removing test folder");
+      output.msg('Removing test folder');
       await dirTest.delete(recursive: true);
     }
   }
 
   var command =
-      CommandRunner("slidy", "CLI package manager and template for Flutter.");
+      CommandRunner('slidy', 'CLI package manager and template for Flutter.');
   command.addCommand(GenerateCommand());
 
   var package = await getNamePackage(dir.parent);
@@ -208,7 +208,7 @@ Future start(
     await command.run(['generate', 'module', 'modules/login', '-c']);
     await command.run(['generate', 'module', 'modules/home', '-c']);
 
-    // await install(["flutter_localizations: sdk: flutter"], false,
+    // await install(['flutter_localizations: sdk: flutter'], false,
     //     haveTwoLines: true);
   } else {
     createStaticFile(
@@ -224,5 +224,5 @@ Future start(
 
   await command.run(['generate', isMobx ? 'controller' : 'bloc', 'app']);
 
-  output.msg("Project started! enjoy!");
+  output.msg('Project started! enjoy!');
 }

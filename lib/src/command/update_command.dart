@@ -11,7 +11,7 @@ class UpdateCommand extends CommandBase {
     argParser.addFlag('dev',
         negatable: false, help: 'Update a package in a dev dependency');
   }
-
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);

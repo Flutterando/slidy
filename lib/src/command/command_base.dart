@@ -2,10 +2,11 @@ import 'package:args/command_runner.dart';
 
 class CommandBase extends Command {
   String invocationSuffix;
+  @override
   String get invocation {
     return invocationSuffix != null && invocationSuffix.isNotEmpty
-        ? "${super.invocation} $invocationSuffix"
-        : "${super.invocation}";
+        ? '${super.invocation} $invocationSuffix'
+        : '${super.invocation}';
   }
 
   @override

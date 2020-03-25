@@ -7,9 +7,9 @@ void main() {
   setUp(() {});
 
   group('search Test', () {
-    test("search", () {
+    test('search', () {
       var directory = Directory(
-          "D:/gitTemp/slidy/example/lib/app/pages/home/home_module.dart");
+          'D:/gitTemp/slidy/example/lib/app/pages/home/home_module.dart');
       expect(search(directory), null);
     });
   });

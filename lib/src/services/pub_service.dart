@@ -6,10 +6,10 @@ import 'package:slidy/src/utils/utils.dart';
 
 class PubService {
   Future<String> getPackage(String pack, String version) async {
-    String url = _getUrlPackages() + "/$pack";
+    var url = _getUrlPackages() + '/$pack';
 
     if (version.isNotEmpty) {
-      url += "/versions/$version";
+      url += '/versions/$version';
     }
 
     var response = await http.get(url);
@@ -19,20 +19,20 @@ class PubService {
       var map = version.isEmpty ? json['latest']['pubspec'] : json['pubspec'];
       return map['version'];
     } else {
-      throw Exception("error");
+      throw Exception('error');
     }
   }
 
   String _getUrlPackages() {
-    String URLBase = 'https://pub.dev';
+    var URLBase = 'https://pub.dev';
 
-    Map<String, String> envVars = Platform.environment;
-    final String URLBaseEnv = envVars['PUB_HOSTED_URL'];
+    final envVars = Platform.environment;
+    final URLBaseEnv = envVars['PUB_HOSTED_URL'];
 
     if (URLBaseEnv != null && validateUrl(URLBaseEnv)) {
       URLBase = URLBaseEnv;
     }
 
-    return "$URLBase/api/packages";
+    return '$URLBase/api/packages';
   }
 }

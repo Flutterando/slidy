@@ -2,8 +2,10 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GenerateControllerSubCommand extends CommandBase {
-  final name = "controller";
-  final description = "Creates a controller";
+  @override
+  final name = 'controller';
+  @override
+  final description = 'Creates a controller';
 
   GenerateControllerSubCommand() {
     argParser.addFlag('notest',
@@ -19,17 +21,18 @@ class GenerateControllerSubCommand extends CommandBase {
         //Add in future configured the release android sign
         );
   }
-
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.bloc(argResults.rest.first, 'controller', !argResults["notest"],
-          argResults["flutter_bloc"], argResults["mobx"]);
+      Generate.bloc(argResults.rest.first, 'controller', !argResults['notest'],
+          argResults['flutter_bloc'], argResults['mobx']);
     }
   }
 }
 
 class GenerateControllerAbbrSubCommand extends GenerateControllerSubCommand {
-  final name = "c";
+  @override
+  final name = 'c';
 }

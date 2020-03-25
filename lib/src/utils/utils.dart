@@ -8,11 +8,11 @@ String mainDirectory = '';
 
 String formatName(String name) {
   name = name
-      .replaceAll("_", " ")
-      .split(" ")
+      .replaceAll('_', ' ')
+      .split(' ')
       .map((t) => t[0].toUpperCase() + t.substring(1))
       .join()
-      .replaceFirst(".dart", "");
+      .replaceFirst('.dart', '');
   return name;
 }
 
@@ -22,14 +22,14 @@ Future<String> getNamePackage([Directory dir]) async {
 }
 
 Future<bool> isModular() async {
-  Directory dir = Directory(mainDirectory);
-  PubSpec yaml = await getPubSpec(directory: dir);
-  return yaml.dependencies.containsKey("flutter_modular");
+  final dir = Directory(mainDirectory);
+  final yaml = await getPubSpec(directory: dir);
+  return yaml.dependencies.containsKey('flutter_modular');
 }
 
 Future<bool> checkDependency(String dep) async {
   try {
-    PubSpec yaml = await getPubSpec();
+    final yaml = await getPubSpec();
     return yaml.dependencies.containsKey(dep);
   } catch (e) {
     print(e);
@@ -39,14 +39,14 @@ Future<bool> checkDependency(String dep) async {
 
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
-  File file =
-      File(File.fromUri(Platform.script).parent.parent.path + "/pubspec.lock");
+  final file =
+      File(File.fromUri(Platform.script).parent.parent.path + '/pubspec.lock');
   var doc = loadYaml(file.readAsStringSync());
   return doc['packages']['slidy']['version'].toString();
 }
 
 Future<PubSpec> getPubSpec({Directory directory}) async {
-  var pubSpec = await PubSpec.load(directory ?? Directory("$mainDirectory"));
+  var pubSpec = await PubSpec.load(directory ?? Directory('$mainDirectory'));
   return pubSpec;
 }
 
@@ -55,23 +55,23 @@ Future removeAllPackages([String directory]) async {
       directory: directory == null ? null : Directory(directory));
   var dep = pubSpec.dependencies.keys
       .map((f) => f.toString())
-      .where((t) => t != "flutter")
+      .where((t) => t != 'flutter')
       .toList();
 
   var devDep = pubSpec.devDependencies.keys
       .map((f) => f.toString())
-      .where((t) => t != "flutter_test")
+      .where((t) => t != 'flutter_test')
       .toList();
 
   await uninstall(dep, false, false, directory);
   await uninstall(devDep, true, false, directory);
 
-  // pubSpec.dependencies.removeWhere((key, value) => key != "flutter");
-  // pubSpec.devDependencies.removeWhere((key, value) => key != "flutter_test");
+  // pubSpec.dependencies.removeWhere((key, value) => key != 'flutter');
+  // pubSpec.devDependencies.removeWhere((key, value) => key != 'flutter_test');
   // var newPubSpec = pubSpec.copy(
   //     dependencies: pubSpec.dependencies,
   //     devDependencies: pubSpec.devDependencies);
-  // await newPubSpec.save(Directory(""));
+  // await newPubSpec.save(Directory(''));
 }
 
 bool checkParam(List<String> args, String param) {
@@ -79,18 +79,18 @@ bool checkParam(List<String> args, String param) {
 }
 
 String libPath(String path) {
-  if (Directory("${mainDirectory}lib/app").existsSync()) {
-    return "${mainDirectory}lib/app/$path";
-  } else if (Directory("lib/src").existsSync()) {
-    return "${mainDirectory}lib/src/$path";
+  if (Directory('${mainDirectory}lib/app').existsSync()) {
+    return '${mainDirectory}lib/app/$path';
+  } else if (Directory('lib/src').existsSync()) {
+    return '${mainDirectory}lib/src/$path';
   } else {
-    return "${mainDirectory}lib/app/$path";
+    return '${mainDirectory}lib/app/$path';
   }
 }
 
 bool validateUrl(String url) {
   var urlPattern =
-      r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+      r'(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?';
   var match = RegExp(urlPattern, caseSensitive: false).firstMatch(url);
   return match != null ? true : false;
 }
