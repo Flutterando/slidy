@@ -10,6 +10,9 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 
 import '../utils/utils.dart';
 
+final PACKAGE_JSON_ANNOTATION = 'json_annotation';
+final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
+
 class Generate {
   static Future module(
       String path, bool createCompleteModule, bool noroute) async {
@@ -213,11 +216,35 @@ class Generate {
   }
 
   static void model(List<String> path,
-      [bool isTest = false, bool isReactive = false]) {
-    file_utils.createFile(
+      [bool isTest = false, bool isReactive = false]) async {
+
+    var templateModel;
+
+    var getJsonDependencies = await Future.wait([
+      checkDependency(PACKAGE_JSON_ANNOTATION),
+      checkDevDependency(PACKAGE_JSON_SERIALIZABLE)
+    ]);
+
+    final checkJsonDependencies = getJsonDependencies.first && getJsonDependencies.last;
+
+    if (isReactive) {
+      if (checkJsonDependencies) {
+        templateModel = templates.modelRxGeneratorJsonSerializable;
+      } else {
+        templateModel = templates.modelRxGenerator;
+      }
+    } else {
+      if (checkJsonDependencies) {
+        templateModel = templates.modelGeneratorJsonSerializable;
+      } else {
+        templateModel = templates.modelGenerator;
+      }
+    }
+  
+    await file_utils.createFile(
       '${mainDirectory}${path.first}',
       'model',
-      isReactive ? templates.modelRxGenerator : templates.modelGenerator,
+      templateModel,
       ignoreSuffix: false,
     );
   }

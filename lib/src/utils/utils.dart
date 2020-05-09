@@ -37,6 +37,16 @@ Future<bool> checkDependency(String dep) async {
   }
 }
 
+Future<bool> checkDevDependency(String dep) async {
+  try {
+    var yaml = await getPubSpec();
+    return yaml.devDependencies.containsKey(dep);
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
   File file =
