@@ -27,7 +27,7 @@ void uninstall(List<String> packs, bool isDev,
   }
 
   if (isAlter) {
-    yaml.writeAsStringSync(node.join('\n'));
+    yaml.writeAsStringSync(node.join('\n') + '\n');
   }
 
   // spec = isDev
