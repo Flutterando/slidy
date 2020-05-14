@@ -8,6 +8,7 @@ export 'package:slidy/src/command/uninstall_command.dart';
 export 'package:slidy/src/command/update_command.dart';
 export 'package:slidy/src/command/upgrade_command.dart';
 export 'package:slidy/src/command/create_command.dart';
+export 'package:slidy/src/command/localization_command.dart';
 
 export 'package:slidy/src/command/sub_command/generate_module_sub_command.dart';
 export 'package:slidy/src/command/sub_command/generate_page_sub_command.dart';

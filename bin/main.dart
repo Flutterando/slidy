@@ -50,7 +50,8 @@ CommandRunner configureCommand(List<String> arguments) {
         ..addCommand(InstallCommandAbbr())
         ..addCommand(UninstallCommand())
         ..addCommand(CreateCommand())
-        ..addCommand(RevertCommand());
+        ..addCommand(RevertCommand())
+        ..addCommand(LocalizationCommand());
 
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;
