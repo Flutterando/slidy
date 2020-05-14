@@ -1,4 +1,3 @@
-
 ![Pub](https://img.shields.io/pub/v/slidy?color=orange)
 [![GitHub stars](https://img.shields.io/github/stars/Flutterando/slidy?color=yellow)](https://github.com/Flutterando/slidy/stargazers)
 [![Telegram](https://img.shields.io/badge/telegram-flutterando-blue)](https://t.me/flutterando)
@@ -28,8 +27,6 @@ Percebemos que a ausência de padrão de projeto está afetando a produtividade 
 
 A estrutura que o slidy oferece a você é semelhante ao MVC, onde uma página mantém suas próprias **business logic classes(BloC)**.
 
-
-
 Recomendamos que você use [flutter_modular](https://pub.dev/packages/flutter_modular) ao estruturar com slidy. Ele oferece a **estrutura do módulo** (estendendo o ModuleWidget) e a injeção de dependência / bloc, ou você provavelmente receberá um erro.
 
 Para entender o **flutter_modular**, consulte o [README](https://github.com/Flutterando/modular/blob/master/README.md).
@@ -44,7 +41,7 @@ Estrutura de pasta de exemplo gerada por **slidy**:
 
 1. Primeiramente você precisa instalar o Dart(nesse link tem um passo a passo de como instalar):
 
-    [https://dart.dev/get-dart](https://dart.dev/get-dart)
+   [https://dart.dev/get-dart](https://dart.dev/get-dart)
 
 2. Ative o slidy usando o pub:
 
@@ -58,23 +55,24 @@ flutter pub global activate slidy
 
 ### upgrade:
 
-Atualiza a versão do slidy:
+Atualiza a versão do slidy.
 
 ```bash
 slidy upgrade
 ```
+
 ### create:
 
-Crie um nome projeto na mesma estrutura descrita no comando start
+Cria um novo projeto na mesma estrutura descrita no comando start.
 
 ```bash
 slidy create **meuprojeto**
 ```
 
-
 ### start:
 
-Crie a estrutura básica do em um projeto existente (verifique se a pasta "lib" está vazia).
+Cria a estrutura básica de um projeto existente.\
+verifique se a pasta _lib/_ está vazia, pois o slidy apagará a pasta após confimação, recriando em seguida.
 
 ```bash
 slidy start
@@ -110,15 +108,15 @@ E você vai ter essa estrutura:
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd_rxdart.PNG?raw=true)
 
-Se você tiver o pacote flutter_bloc ou flutter_mobx no pubspec, a geração de páginas, widgets e blocs será padronizada para o padrão do gerenciador instalado.
+Se você tiver o pacote `flutter_bloc` ou `flutter_mobx` no pubspec, a geração de páginas, widgets e blocs será padronizada para o padrão do gerenciador instalado.
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png)
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/start_cmd.png?raw=true)
 
 #### Opções
 
 O comando permite especificar o provedor e o gerenciador de estados utilizando as seguintes opções:
 
-* Provedor:
+- Provedor:
 
 ```bash
 -p <nome_do_provedor>
@@ -130,7 +128,7 @@ Exemplo:
 slidy start -p flutter_modular
 ```
 
-* Gerenciador de estado:
+- Gerenciador de estado:
 
 ```bash
 -s <gerenciador_de_estado>
@@ -141,13 +139,13 @@ Exemplo:
 slidy start -s mobx
 ```
 
-* Provedor e gerenciador de estado:
+- Provedor e gerenciador de estado:
 
 ```bash
 slidy start -p flutter_modular -s mobx
 ```
 
-O comando avisa que irá apagar a pasta lib/ e pede a confimação. Caso não queira ver esse aviso, adicione a flag -e (do inglês "erase", apagar):
+O comando avisa que irá apagar a pasta _lib/_ e pede a confimação. Caso não queira ver esse aviso, adicione a flag -e (do inglês "erase", apagar):
 
 ```bash
 slidy start -p flutter_modular -s mobx -e
@@ -279,16 +277,19 @@ slidy test nome_da_pasta/
 
 **Não consegue atualizar:**
 1 - Primeiro desinstalar o Slidy no Flutter
+
 ```
 flutter pub global deactivate slidy
 ```
 
 2 - Depois desinstalar o Slidy no Dart
+
 ```
 pub global deactivate slidy
 ```
 
 2 - E instalar apenas no Dart
+
 ```
 pub global activate slidy
 ```
@@ -297,22 +298,21 @@ pub global activate slidy
 
 [https://dart.dev/get-dart](https://dart.dev/get-dart)
 
-
 **Windows:**
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/error_windows_install.jpg?raw=true)
 
-Se você recebeu este erro ao tentar executar o ```pub global enable slidy```, precisará definir as variáveis de ambiente manualmente:
+Se você recebeu este erro ao tentar executar o `pub global enable slidy`, precisará definir as variáveis de ambiente manualmente:
 
-Na pesquisa do Windows, escreva: ```Editar variáveis do sistema```
+Na pesquisa do Windows, escreva: `Editar variáveis do sistema`
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step1.png?raw=true)
 
-Em seguida, clique em ```'Variáveis de ambiente```
+Em seguida, clique em `Variáveis de ambiente`
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step2.png?raw=true)
 
-Vá para ```Path```
+Vá para `Path`
 
 ![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/step3.png?raw=true)
 
