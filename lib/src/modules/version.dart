@@ -1,5 +1,3 @@
-import 'package:slidy/src/utils/utils.dart';
-
 void version(String version) async {
   //String version = await getVersion();
   //String version = '0.0.13';
@@ -12,7 +10,7 @@ void version(String version) async {
 ███████║███████╗██║██████╔╝   ██║       ╚██████╗███████╗██║
 ╚══════╝╚══════╝╚═╝╚═════╝    ╚═╝        ╚═════╝╚══════╝╚═╝                                             
 ''');
-  print("CLI package manager and template for Flutter");
-  print("");
-  print("Slidy version: $version");
+  print('CLI package manager and template for Flutter');
+  print('');
+  print('Slidy version: $version');
 }

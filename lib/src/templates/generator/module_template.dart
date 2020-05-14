@@ -1,10 +1,10 @@
 import 'package:slidy/src/utils/object_generate.dart';
 
 String moduleGenerator(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst("lib/", "");
+  var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
   var import =
-      pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
+      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
 
   var page = pkg.isNotEmpty ? '${obj.name}Page()' : 'Container()';
 
@@ -29,13 +29,13 @@ String moduleGenerator(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModular(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst("lib/", "");
+  var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
 
   var import =
-      pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
+      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
   var router = pkg.isNotEmpty
-      ? "Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),"
+      ? 'Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),'
       : '';
 
   return '''
@@ -55,10 +55,10 @@ String moduleGeneratorModular(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModularNoRoute(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst("lib/", "");
+  var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
   var import =
-      pkg.isNotEmpty ? "import 'package:${pkg}/${path}_page.dart';" : '';
+      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';

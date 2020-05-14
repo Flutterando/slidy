@@ -1,5 +1,3 @@
-import 'package:slidy/src/services/pub_service.dart';
-import 'package:slidy/src/templates/templates.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -2,8 +2,10 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 class GenerateStoreSubCommand extends CommandBase {
-  final name = "store";
-  final description = "Creates a Store";
+  @override
+  final name = 'store';
+  @override
+  final description = 'Creates a Store';
 
   GenerateStoreSubCommand() {
     argParser.addFlag('notest',
@@ -19,17 +21,18 @@ class GenerateStoreSubCommand extends CommandBase {
         //Add in future configured the release android sign
         );
   }
-
+  @override
   void run() {
     if (argResults.rest.isEmpty) {
-      throw UsageException("value not passed for a module command", usage);
+      throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.bloc(argResults.rest.first, 'store', !argResults["notest"],
-          argResults["flutter_bloc"], argResults["mobx"]);
+      Generate.bloc(argResults.rest.first, 'store', !argResults['notest'],
+          argResults['flutter_bloc'], argResults['mobx']);
     }
   }
 }
 
 class GenerateStoreAbbrSubCommand extends GenerateStoreSubCommand {
-  final name = "ss";
+  @override
+  final name = 'ss';
 }

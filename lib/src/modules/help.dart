@@ -1,4 +1,4 @@
-help() {
+void help() {
   print('''
 Usage: slidy [options]
 Options:
