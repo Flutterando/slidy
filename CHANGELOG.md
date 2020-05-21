@@ -1,4 +1,4 @@
-## 2.0.1
+## 2.0.1+1
 - PREVIEW: Added Localization (i18n) generate
 - Added jsonSerializable in Model generate
 - Fix bugs
