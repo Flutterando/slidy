@@ -1,3 +1,8 @@
+## 2.0.1
+- PREVIEW: Added Localization (i18n) generate
+- Added jsonSerializable in Model generate
+- Fix bugs
+
 ## 2.0.0+1
 WE GET SLIDY VERSION 2
 Thanks to everyone in the community
