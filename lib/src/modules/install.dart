@@ -58,7 +58,7 @@ void install(List<String> packs, bool isDev,
     //       : spec.copy(dependencies: dependencies);
     //   await spec.save(Directory(''));
     if (isAlter) {
-      yaml.writeAsStringSync(node.join('\n'));
+      yaml.writeAsStringSync(node.join('\n') + '\n');
     }
   }
 }

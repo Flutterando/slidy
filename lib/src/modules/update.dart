@@ -35,7 +35,7 @@ void update(List<String> packs, isDev) async {
   }
 
   if (isAlter) {
-    yaml.writeAsStringSync(node.join('\n'));
+    yaml.writeAsStringSync(node.join('\n') + '\n');
   }
 
   // spec = isDev
