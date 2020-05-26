@@ -27,6 +27,10 @@ Future<bool> isModular() async {
   return yaml.dependencies.containsKey('flutter_modular');
 }
 
+Future<bool> isMobx() async {
+  return checkDependency('flutter_mobx');
+}
+
 Future<bool> checkDependency(String dep) async {
   try {
     final yaml = await getPubSpec();

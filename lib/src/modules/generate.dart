@@ -25,7 +25,7 @@ class Generate {
     await file_utils.createFile('${mainDirectory}$path', moduleType,
         m ? templateModular : templates.moduleGenerator);
     if (createCompleteModule) {
-      await page(path, false, m, await checkDependency('flutter_mobx'));
+      await page(path, false, m, await isMobx());
     }
   }
 
@@ -33,13 +33,18 @@ class Generate {
       [bool flutter_bloc = false, bool mobx = false]) async {
     var m = await isModular();
 
+    if (!blocLess && !flutter_bloc && !mobx) {
+      mobx = await isMobx();
+    }
+
     await file_utils.createFile('${mainDirectory}$path', 'page',
         mobx ? templates.pageGeneratorMobX : templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: m);
+
     var name = basename(path);
     if (!blocLess) {
-      var isMobx = await checkDependency('flutter_mobx');
-      var type = isMobx ? 'controller' : 'bloc';
+      var _isMobx = await isMobx();
+      var type = _isMobx ? 'controller' : 'bloc';
       bloc('$path/$name', type);
     }
   }
@@ -62,8 +67,7 @@ class Generate {
 
     var name = basename(path);
     if (!blocLess) {
-      var type =
-          (await checkDependency('flutter_mobx')) ? 'controller' : 'bloc';
+      var type = (await isMobx()) ? 'controller' : 'bloc';
 
       bloc('$path/$name', type, true, flutter_bloc, mobx);
     }
@@ -217,7 +221,6 @@ class Generate {
 
   static void model(List<String> path,
       [bool isTest = false, bool isReactive = false]) async {
-
     var templateModel;
 
     var getJsonDependencies = await Future.wait([
@@ -225,7 +228,8 @@ class Generate {
       checkDevDependency(PACKAGE_JSON_SERIALIZABLE)
     ]);
 
-    final checkJsonDependencies = getJsonDependencies.first && getJsonDependencies.last;
+    final checkJsonDependencies =
+        getJsonDependencies.first && getJsonDependencies.last;
 
     if (isReactive) {
       if (checkJsonDependencies) {
@@ -240,7 +244,7 @@ class Generate {
         templateModel = templates.modelGenerator;
       }
     }
-  
+
     await file_utils.createFile(
       '${mainDirectory}${path.first}',
       'model',
@@ -257,7 +261,7 @@ class Generate {
     var m = await isModular();
 
     if (!mobx) {
-      mobx = await checkDependency('flutter_mobx');
+      mobx = await isMobx();
     }
 
     if (!flutter_bloc) {
