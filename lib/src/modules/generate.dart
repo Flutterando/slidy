@@ -14,8 +14,8 @@ final PACKAGE_JSON_ANNOTATION = 'json_annotation';
 final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
 
 class Generate {
-  static Future module(
-      String path, bool createCompleteModule, bool noroute) async {
+  static Future module(String path, bool createCompleteModule, bool noroute,
+      bool withRepository) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
     var templateModular = noroute
@@ -24,8 +24,16 @@ class Generate {
 
     await file_utils.createFile('${mainDirectory}$path', moduleType,
         m ? templateModular : templates.moduleGenerator);
+
     if (createCompleteModule) {
       await page(path, false, m, await isMobx());
+    }
+
+    if (withRepository) {
+      var lastBar = path.lastIndexOf(RegExp(r'/|\\'));
+      var repositoryName = path.substring(lastBar);
+
+      path = await repository('$path/repositories/$repositoryName', false);
     }
   }
 
