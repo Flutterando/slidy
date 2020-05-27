@@ -15,7 +15,7 @@ final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
 
 class Generate {
   static Future module(String path, bool createCompleteModule, bool noroute,
-      bool withRepository) async {
+      bool withRepository, bool withInterface) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
     var templateModular = noroute
@@ -26,14 +26,21 @@ class Generate {
         m ? templateModular : templates.moduleGenerator);
 
     if (createCompleteModule) {
-      await page(path, false, m, await isMobx());
+      var _isMobx = await isMobx();
+      await page(
+        path,
+        false,
+        m,
+        _isMobx,
+      );
     }
 
     if (withRepository) {
       var lastBar = path.lastIndexOf(RegExp(r'/|\\'));
       var repositoryName = path.substring(lastBar);
 
-      path = await repository('$path/repositories/$repositoryName', false);
+      path = await repository(
+          '$path/repositories/$repositoryName', true, withInterface);
     }
   }
 
@@ -204,19 +211,45 @@ class Generate {
       );
     }
 
-    formatFile(entityTest);
+    await formatFile(entityTest);
   }
 
-  static Future repository(String path, [bool isTest = true]) async {
+  static Future repository(String path,
+      [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();
-    await file_utils.createFile(
+
+    if (!withInterface) {
+      await file_utils.createFile(
+          path,
+          'repository',
+          m
+              ? templates.repositoryGeneratorModular
+              : templates.repositoryGenerator,
+          generatorTest: isTest ? templates.repositoryTestGenerator : null,
+          isModular: m);
+    } else {
+      await file_utils.createFile(
         path,
         'repository',
         m
-            ? templates.repositoryGeneratorModular
-            : templates.repositoryGenerator,
+            ? templates.interfaceRepositoryGeneratorModular
+            : templates.interfaceRepositoryGenerator,
+        generatorTest: null,
+        isModular: m,
+        isInterface: true,
+      );
+
+      await file_utils.createFile(
+        path,
+        'repository',
+        m
+            ? templates.extendsInterfaceRepositoryGeneratorModular
+            : templates.extendsInterfaceRepositoryGenerator,
         generatorTest: isTest ? templates.repositoryTestGenerator : null,
-        isModular: m);
+        isModular: m,
+        hasInterface: true,
+      );
+    }
   }
 
   static Future service(String path, [bool isTest = true]) async {

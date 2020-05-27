@@ -19,6 +19,11 @@ class GenerateModuleSubCommand extends CommandBase {
 
     argParser.addFlag('withrepository',
         abbr: 'r', negatable: false, help: 'Creates a module with repository');
+
+    argParser.addFlag('withInterface',
+        abbr: 'i',
+        negatable: false,
+        help: 'create file with interface for repository');
   }
 
   @override
@@ -26,8 +31,12 @@ class GenerateModuleSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.module(argResults.rest.first, argResults['complete'],
-          argResults['noroute'], argResults['withrepository']);
+      Generate.module(
+          argResults.rest.first,
+          argResults['complete'],
+          argResults['noroute'],
+          argResults['withrepository'],
+          argResults['withInterface']);
     }
   }
 }
