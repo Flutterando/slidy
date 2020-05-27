@@ -274,12 +274,15 @@ Future<File> addModule(
 
   index = node.indexWhere((t) => t.contains('binds => ['));
   node[index] = node[index].replaceFirst(
-      'binds => [',
-      (hasInterface
-          ? 'binds => [Bind<I${nameCap}>((i) => ${nameCap}(Dio())),'
-          : packageName.contains('repository')
-              ? 'binds => [Bind((i) => ${nameCap}(Dio())),'
-              : 'binds => [Bind((i) => ${nameCap}()),'));
+    'binds => [',
+    (hasInterface
+        ? (nameCap.contains('Repository')
+            ? 'binds => [Bind<I${nameCap}>((i) => ${nameCap}(Dio())),'
+            : 'binds => [Bind<I${nameCap}>((i) => ${nameCap}()),')
+        : (nameCap.contains('Repository')
+            ? 'binds => [Bind((i) => ${nameCap}(Dio())),'
+            : 'binds => [Bind((i) => ${nameCap}()),')),
+  );
 
   await module.writeAsString(node.join('\n'));
   await formatFile(module);

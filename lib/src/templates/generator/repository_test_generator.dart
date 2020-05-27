@@ -40,7 +40,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
-import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
+import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/").replaceAll("_repository.dart", "_repository_interface.dart")}';
 
 class MockClient extends Mock implements Dio {}
 
@@ -49,8 +49,8 @@ void main() {
  // MockClient client;
 
   setUp(() {
-  // repository = ${obj.name}Repository();
   // client = MockClient();
+  // repository = ${obj.name}Repository(client);
   });
 
   group('${obj.name}Repository Test', () {

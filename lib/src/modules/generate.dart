@@ -245,19 +245,45 @@ class Generate {
         m
             ? templates.extendsInterfaceRepositoryGeneratorModular
             : templates.extendsInterfaceRepositoryGenerator,
-        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        generatorTest:
+            isTest ? templates.interfaceRepositoryTestGenerator : null,
         isModular: m,
         hasInterface: true,
       );
     }
   }
 
-  static Future service(String path, [bool isTest = true]) async {
+  static Future service(String path,
+      [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();
-    await file_utils.createFile('${mainDirectory}$path', 'service',
-        m ? templates.serviceGeneratorModular : templates.serviceGenerator,
-        generatorTest: isTest ? templates.serviceTestGenerator : null,
-        isModular: m);
+
+    if (!withInterface) {
+      await file_utils.createFile('${mainDirectory}$path', 'service',
+          m ? templates.serviceGeneratorModular : templates.serviceGenerator,
+          generatorTest: isTest ? templates.serviceTestGenerator : null,
+          isModular: m);
+    } else {
+      await file_utils.createFile(
+          '${mainDirectory}$path',
+          'service',
+          m
+              ? templates.interfaceServiceGeneratorModular
+              : templates.interfaceServiceGenerator,
+          generatorTest: null,
+          isModular: m,
+          isInterface: true);
+
+      await file_utils.createFile(
+          '${mainDirectory}$path',
+          'service',
+          m
+              ? templates.extendsInterfaceServiceGeneratorModular
+              : templates.extendsInterfaceServiceGenerator,
+          generatorTest:
+              isTest ? templates.interfaceServiceTestGenerator : null,
+          isModular: m,
+          hasInterface: true);
+    }
   }
 
   static void model(List<String> path,

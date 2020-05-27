@@ -13,7 +13,7 @@ class GenerateRepositorySubCommand extends CommandBase {
         //Add in future configured the release android sign
         );
 
-    argParser.addFlag('withInterface',
+    argParser.addFlag('interface',
         abbr: 'i', negatable: false, help: 'create file with interface');
   }
 
@@ -23,7 +23,7 @@ class GenerateRepositorySubCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.repository(argResults.rest.first, !argResults['notest'],
-          argResults['withInterface']);
+          argResults['interface']);
     }
   }
 }
