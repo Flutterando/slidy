@@ -270,20 +270,25 @@ Future<File> addModule(String nameCap, String path, bool isBloc,
   var node = module.readAsStringSync().split('\n');
   var packageName = await getNamePackage();
   var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
-  var import = 'package:${packageName}/${pathFormated}'
-      .replaceAll('$packageName/$packageName', packageName);
-  node.insert(0, "  import '$import';");
+
+  var pathFile = '${packageName}/${pathFormated}'
+      .replaceAll('$packageName/$packageName', '')
+      .replaceFirst('lib/', '')
+      .replaceAll('\\', '/')
+      .split('app/')
+      .last
+      .replaceFirst('modules/', '');
+  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+
+  node.insert(0, "  import '$pathFile';");
 
   if (interface) {
-    var file = pathFormated.split('/').last;
+    var file = pathFile.split('/').last;
 
-    var interfacePath = pathFormated.replaceAll(
+    var interfacePath = pathFile.replaceAll(
         file, 'interfaces/${file.replaceFirst('.dart', '_interface.dart')}');
 
-    var importInterface = 'package:${packageName}/${interfacePath}'
-        .replaceAll('$packageName/$packageName', packageName);
-
-    node.insert(0, "  import '$importInterface';");
+    node.insert(0, "  import '$interfacePath';");
   }
 
   if (isModular) {
