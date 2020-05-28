@@ -6,6 +6,7 @@ class ObjectGenerate {
   final String module;
   final String pathModule;
   final bool isModular;
+  final bool hasInterface;
 
   ObjectGenerate({
     this.isModular,
@@ -15,5 +16,6 @@ class ObjectGenerate {
     this.import,
     this.module,
     this.pathModule,
+    this.hasInterface,
   });
 }

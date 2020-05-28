@@ -195,7 +195,8 @@ class Generate {
     formatFile(entityTest);
   }
 
-  static Future repository(String path, [bool isTest = true]) async {
+  static Future repository(String path,
+      [bool isTest = true, bool interface = false]) async {
     var m = await isModular();
     await file_utils.createFile(
         path,
@@ -204,20 +205,24 @@ class Generate {
             ? templates.repositoryGeneratorModular
             : templates.repositoryGenerator,
         generatorTest: isTest ? templates.repositoryTestGenerator : null,
-        isModular: m);
+        isModular: m,
+        hasInterface: interface,
+        generatorInterface: templates.repositoryInterfaceGenerator);
   }
 
-  static Future service(String path, [bool isTest = true]) async {
+  static Future service(String path,
+      [bool isTest = true, bool hasInterface = false]) async {
     var m = await isModular();
     await file_utils.createFile('${mainDirectory}$path', 'service',
         m ? templates.serviceGeneratorModular : templates.serviceGenerator,
         generatorTest: isTest ? templates.serviceTestGenerator : null,
-        isModular: m);
+        isModular: m,
+        hasInterface: hasInterface,
+        generatorInterface: templates.serviceInterfaceGenerator);
   }
 
   static void model(List<String> path,
       [bool isTest = false, bool isReactive = false]) async {
-
     var templateModel;
 
     var getJsonDependencies = await Future.wait([
@@ -225,7 +230,8 @@ class Generate {
       checkDevDependency(PACKAGE_JSON_SERIALIZABLE)
     ]);
 
-    final checkJsonDependencies = getJsonDependencies.first && getJsonDependencies.last;
+    final checkJsonDependencies =
+        getJsonDependencies.first && getJsonDependencies.last;
 
     if (isReactive) {
       if (checkJsonDependencies) {
@@ -240,7 +246,7 @@ class Generate {
         templateModel = templates.modelGenerator;
       }
     }
-  
+
     await file_utils.createFile(
       '${mainDirectory}${path.first}',
       'model',

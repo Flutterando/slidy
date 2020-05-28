@@ -25,8 +25,9 @@ class ${obj.name}Repository extends Disposable {
 String repositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dio/dio.dart';
+${obj.hasInterface ? obj.import : ''}
 
-class ${obj.name}Repository extends Disposable {
+class ${obj.name}Repository extends Disposable ${obj.hasInterface ? 'implements I${obj.name}Repository' : ''} {
 
   Future fetchPost(Dio client) async {
     final response =
@@ -41,5 +42,10 @@ class ${obj.name}Repository extends Disposable {
     
   }
 
+}
+  ''';
+
+String repositoryInterfaceGenerator(ObjectGenerate obj) => '''
+abstract class ${obj.name}Repository {
 }
   ''';

@@ -248,12 +248,15 @@ Crie um novo **repositório**
 ```bash
 slidy g r nome_da_pasta/repositórios
 ```
+**NOTE:** Você pode criar um "repositorio" com sua interface usando a bandeira **-i**
+
 
 Crie um novo **serviço**
 
 ```bash
 slidy g s folder_name/servicos
 ```
+**NOTE:** Você pode criar um "serviço" com sua interface usando a bandeira **-i**
 
 Crie um novo **modelo**
 

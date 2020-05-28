@@ -8,6 +8,8 @@ class GenerateServiceSubCommand extends CommandBase {
   final description = 'Creates a service';
 
   GenerateServiceSubCommand() {
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'Creates a service interface');
     argParser.addFlag('notest',
         abbr: 'n', negatable: false, help: 'no create file test');
   }
@@ -16,7 +18,8 @@ class GenerateServiceSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.service(argResults.rest.first, !argResults['notest']);
+      Generate.service(argResults.rest.first, !argResults['notest'],
+          argResults['interface']);
     }
   }
 }

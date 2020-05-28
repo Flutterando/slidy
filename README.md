@@ -248,12 +248,14 @@ Create a new **repository**
 ```bash
 slidy g r folder_name/repositories
 ```
+**NOTE:** You can create a repository with interface using ther flag **-i**
 
 Create a new **service**
 
 ```bash
 slidy g s folder_name/services
 ```
+**NOTE:** You can create a service with interface using ther flag **-i**
 
 Create a new **model**
 

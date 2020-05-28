@@ -17,7 +17,9 @@ class ${obj.name}Service extends Disposable {
 String serviceGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ${obj.name}Service extends Disposable {
+${obj.hasInterface ? obj.import : ''}
+
+class ${obj.name}Service extends Disposable ${obj.hasInterface ? 'implements I${obj.name}Service' : ''} {
 
   //dispose will be called automatically
   @override
@@ -25,5 +27,9 @@ class ${obj.name}Service extends Disposable {
     
   }
 
+}
+  ''';
+String serviceInterfaceGenerator(ObjectGenerate obj) => '''
+abstract class ${obj.name}Service {
 }
   ''';
