@@ -260,17 +260,27 @@ Future<File> addModule(
   var node = (await module.readAsString()).split('\n');
 
   var packageName = await getNamePackage();
-  var import =
-      'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
-          .replaceAll('$packageName/$packageName', packageName);
 
+  var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
+  var pathFile = '${packageName}/${pathFormated}'
+      .replaceAll('$packageName/$packageName', '')
+      .replaceFirst('lib/', '')
+      .replaceAll('\\', '/')
+      .split('app/')
+      .last
+      .replaceFirst('modules/', '');
+  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+
+  var import = "import '$pathFile';";
   if (hasInterface) {
-    import +=
-        '\';\n import \'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
-            .replaceAll('.dart', '_interface.dart');
+    var file = pathFile.split('/').last;
+    var interfacePath = pathFile.replaceAll(
+        file, '${file.replaceFirst('.dart', '_interface.dart')}');
+
+    import += "\nimport '${interfacePath}';";
   }
 
-  node.insert(0, "  import '$import';");
+  node.insert(0, import);
 
   index = node.indexWhere((t) => t.contains('binds => ['));
   node[index] = node[index].replaceFirst(
@@ -286,6 +296,7 @@ Future<File> addModule(
 
   await module.writeAsString(node.join('\n'));
   await formatFile(module);
+
   output.success('${module.path} modified');
   return module;
 }
