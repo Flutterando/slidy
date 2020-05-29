@@ -14,6 +14,9 @@ class GenerateRepositorySubCommand extends CommandBase {
         abbr: 'n', negatable: false, help: 'no create file test'
         //Add in future configured the release android sign
         );
+
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'create file with interface');
   }
 
   @override

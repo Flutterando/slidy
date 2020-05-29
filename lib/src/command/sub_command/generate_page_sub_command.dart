@@ -25,7 +25,8 @@ class GeneratePageSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.page(argResults.rest.first, argResults['bloc'], argResults['flutter_bloc'], argResults['mobx']);
+      Generate.page(argResults.rest.first, argResults['bloc'],
+          argResults['flutter_bloc'], argResults['mobx']);
     }
   }
 }
