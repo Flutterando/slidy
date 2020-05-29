@@ -39,7 +39,7 @@ abstract class I${obj.name}Service implements Disposable {
 
 String extendsInterfaceServiceGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
-import '${ReCase(obj.name).snakeCase}_service_interface.dart';
+import 'interfaces/${ReCase(obj.name).snakeCase}_service_interface.dart';
 
 class ${obj.name}Service implements I${obj.name}Service {
   //dispose will be called automatically
@@ -60,7 +60,7 @@ abstract class I${obj.name}Service implements Disposable {
 
 String extendsInterfaceServiceGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
-import '${ReCase(obj.name).snakeCase}_service_interface.dart';
+import 'interfaces/${ReCase(obj.name).snakeCase}_service_interface.dart';
 
 class ${obj.name}Service implements I${obj.name}Service {
   //dispose will be called automatically

@@ -35,12 +35,18 @@ void main() {
 }
   ''';
 
-String interfaceRepositoryTestGenerator(ObjectGenerate obj) => '''
+String interfaceRepositoryTestGenerator(ObjectGenerate obj) {
+  var fileDart = obj.import.split('/').last;
+  var import =
+      '${obj.import.replaceFirst("lib/", "").replaceAll(fileDart, 'interfaces/')}${fileDart}';
+  return '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
-import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/").replaceAll("_repository.dart", "_repository_interface.dart")}';
+import 'package:${obj.packageName}/${import.replaceAll('.dart', '_interface.dart')}';
+
+
 
 class MockClient extends Mock implements Dio {}
 
@@ -69,3 +75,4 @@ void main() {
   });
 }
   ''';
+}

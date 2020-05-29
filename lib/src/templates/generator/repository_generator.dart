@@ -57,7 +57,7 @@ abstract class I${obj.name}Repository implements Disposable {
 
 String extendsInterfaceRepositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:dio/dio.dart';
-import '${ReCase(obj.name).snakeCase}_repository_interface.dart';
+import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
 class ${obj.name}Repository implements I${obj.name}Repository {
 
@@ -90,7 +90,7 @@ abstract class I${obj.name}Repository implements Disposable {
 
 String extendsInterfaceRepositoryGenerator(ObjectGenerate obj) => '''
 import 'package:dio/dio.dart';
-import '${ReCase(obj.name).snakeCase}_repository_interface.dart';
+import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
 class ${obj.name}Repository implements I${obj.name}Repository {
 
