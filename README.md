@@ -262,11 +262,20 @@ slidy g r folder_name/repositories
 
 ```` slidy g m modules/my_module -c -r -i ````
 
+**NOTE :** You can create a "Interface" for your repository using the flag **-i**
+
+```` slidy g m modules/my_module -c -r -i ````
+
 Create a new **service**
 
 ```bash
 slidy g s folder_name/services
 ```
+
+**NOTE :** You can create a "Interface" for your service using the flag **-i**
+
+```` slidy g m modules/my_module -c -s -i ````
+
 
 **NOTE :** You can create a "Interface" for your service using the flag **-i**
 
