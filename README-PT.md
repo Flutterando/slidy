@@ -217,6 +217,17 @@ slidy g m nome_da_pasta
 
 **NOTE:** Você pode criar um "Modulo Completo" com Module, Page, Bloc/Controller, testes para Page e para Bloc/Controller usando a flag **-c**
 
+
+**NOTE² :** Você pode criar um "Repository" com seu Module usando a flag **-r**
+
+```` slidy g m modules/my_module -c -r ````
+
+**NOTE³ :** Você pode criar uma "Interface" para seu repositório with your Module usando a flag flag **-i**
+
+```` slidy g m modules/my_module -c -r -i ````
+
+
+
 Cria uma nova **página** + BloC:
 
 ```bash
@@ -249,11 +260,18 @@ Crie um novo **repositório**
 slidy g r nome_da_pasta/repositórios
 ```
 
+**NOTE :** você pode criar uma "Interface" para seu repositorio usando a flag **-i**
+
+```` slidy g m modules/my_module -c -r -i ````
+
 Crie um novo **serviço**
 
 ```bash
 slidy g s folder_name/servicos
 ```
+**NOTE :** você pode criar uma "Interface" para seu serviço usando a flag **-i**
+
+```` slidy g m modules/my_module -c -s -i ````
 
 Crie um novo **modelo**
 

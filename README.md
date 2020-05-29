@@ -217,6 +217,15 @@ slidy g m folder_name
 
 **NOTE:** You can create a "Complete Module" with Module, Page, Bloc/Controller, tests for Page and for Bloc/Controller using the flag **-c**
 
+**NOTE² :** You can create a "Repository" with your Module using the flag **-r**
+
+```` slidy g m modules/my_module -c -r ````
+
+**NOTE³ :** You can create a "Interface" for your repository with your Module using the flag **-i**
+
+```` slidy g m modules/my_module -c -r -i ````
+
+
 Creates a new **page** + BloC:
 
 ```bash
@@ -249,11 +258,20 @@ Create a new **repository**
 slidy g r folder_name/repositories
 ```
 
+**NOTE :** You can create a "Interface" for your repository using the flag **-i**
+
+```` slidy g m modules/my_module -c -r -i ````
+
 Create a new **service**
 
 ```bash
 slidy g s folder_name/services
 ```
+
+**NOTE :** You can create a "Interface" for your service using the flag **-i**
+
+```` slidy g m modules/my_module -c -s -i ````
+
 
 Create a new **model**
 

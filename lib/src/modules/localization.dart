@@ -7,7 +7,7 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 void runCommand() async {
   try {
     final yaml = File('pubspec.yaml');
-    var node = yaml.readAsStringSync();
+    var node = await yaml.readAsString();
     var doc = loadYaml(node);
 
     if (!(doc as Map).containsKey('localization_dir')) {

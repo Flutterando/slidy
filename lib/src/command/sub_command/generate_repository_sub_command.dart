@@ -9,12 +9,12 @@ class GenerateRepositorySubCommand extends CommandBase {
 
   GenerateRepositorySubCommand() {
     argParser.addFlag('notest',
-        abbr: 'n',
-        negatable: false,
-        help:
-            'no create file test'
+        abbr: 'n', negatable: false, help: 'no create file test'
         //Add in future configured the release android sign
         );
+
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'create file with interface');
   }
 
   @override
@@ -22,7 +22,8 @@ class GenerateRepositorySubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.repository(argResults.rest.first, !argResults['notest']);
+      Generate.repository(argResults.rest.first, !argResults['notest'],
+          argResults['interface']);
     }
   }
 }
