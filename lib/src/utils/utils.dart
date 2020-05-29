@@ -27,6 +27,10 @@ Future<bool> isModular() async {
   return yaml.dependencies.containsKey('flutter_modular');
 }
 
+Future<bool> isMobx() async {
+  return checkDependency('flutter_mobx');
+}
+
 Future<bool> checkDependency(String dep) async {
   try {
     final yaml = await getPubSpec();
@@ -51,7 +55,7 @@ Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
   final file =
       File(File.fromUri(Platform.script).parent.parent.path + '/pubspec.lock');
-  var doc = loadYaml(file.readAsStringSync());
+  var doc = loadYaml(await file.readAsString());
   return doc['packages']['slidy']['version'].toString();
 }
 

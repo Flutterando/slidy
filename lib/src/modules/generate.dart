@@ -14,8 +14,8 @@ final PACKAGE_JSON_ANNOTATION = 'json_annotation';
 final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
 
 class Generate {
-  static Future module(
-      String path, bool createCompleteModule, bool noroute) async {
+  static Future module(String path, bool createCompleteModule, bool noroute,
+      bool withRepository, bool withInterface) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
     var templateModular = noroute
@@ -24,8 +24,23 @@ class Generate {
 
     await file_utils.createFile('${mainDirectory}$path', moduleType,
         m ? templateModular : templates.moduleGenerator);
+
     if (createCompleteModule) {
-      await page(path, false, m, await checkDependency('flutter_mobx'));
+      var _isMobx = await isMobx();
+      await page(
+        path,
+        false,
+        m,
+        _isMobx,
+      );
+    }
+
+    if (withRepository) {
+      var lastBar = path.lastIndexOf(RegExp(r'/|\\'));
+      var repositoryName = path.substring(lastBar);
+
+      path = await repository(
+          '$path/repositories/$repositoryName', true, withInterface);
     }
   }
 
@@ -33,13 +48,18 @@ class Generate {
       [bool flutter_bloc = false, bool mobx = false]) async {
     var m = await isModular();
 
+    if (!blocLess && !flutter_bloc && !mobx) {
+      mobx = await isMobx();
+    }
+
     await file_utils.createFile('${mainDirectory}$path', 'page',
         mobx ? templates.pageGeneratorMobX : templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: m);
+
     var name = basename(path);
     if (!blocLess) {
-      var isMobx = await checkDependency('flutter_mobx');
-      var type = isMobx ? 'controller' : 'bloc';
+      var _isMobx = await isMobx();
+      var type = _isMobx ? 'controller' : 'bloc';
       bloc('$path/$name', type);
     }
   }
@@ -62,8 +82,7 @@ class Generate {
 
     var name = basename(path);
     if (!blocLess) {
-      var type =
-          (await checkDependency('flutter_mobx')) ? 'controller' : 'bloc';
+      var type = (await isMobx()) ? 'controller' : 'bloc';
 
       bloc('$path/$name', type, true, flutter_bloc, mobx);
     }
@@ -192,33 +211,79 @@ class Generate {
       );
     }
 
-    formatFile(entityTest);
+    await formatFile(entityTest);
   }
 
   static Future repository(String path,
-      [bool isTest = true, bool interface = false]) async {
+      [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();
-    await file_utils.createFile(
+
+    if (!withInterface) {
+      await file_utils.createFile(
+          path,
+          'repository',
+          m
+              ? templates.repositoryGeneratorModular
+              : templates.repositoryGenerator,
+          generatorTest: isTest ? templates.repositoryTestGenerator : null,
+          isModular: m);
+    } else {
+      await file_utils.createFile(
         path,
         'repository',
         m
-            ? templates.repositoryGeneratorModular
-            : templates.repositoryGenerator,
-        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+            ? templates.interfaceRepositoryGeneratorModular
+            : templates.interfaceRepositoryGenerator,
+        generatorTest: null,
         isModular: m,
-        hasInterface: interface,
-        generatorInterface: templates.repositoryInterfaceGenerator);
+        isInterface: true,
+      );
+
+      await file_utils.createFile(
+        path,
+        'repository',
+        m
+            ? templates.extendsInterfaceRepositoryGeneratorModular
+            : templates.extendsInterfaceRepositoryGenerator,
+        generatorTest:
+            isTest ? templates.interfaceRepositoryTestGenerator : null,
+        isModular: m,
+        hasInterface: true,
+      );
+    }
   }
 
   static Future service(String path,
-      [bool isTest = true, bool hasInterface = false]) async {
+      [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();
-    await file_utils.createFile('${mainDirectory}$path', 'service',
-        m ? templates.serviceGeneratorModular : templates.serviceGenerator,
-        generatorTest: isTest ? templates.serviceTestGenerator : null,
-        isModular: m,
-        hasInterface: hasInterface,
-        generatorInterface: templates.serviceInterfaceGenerator);
+
+    if (!withInterface) {
+      await file_utils.createFile('${mainDirectory}$path', 'service',
+          m ? templates.serviceGeneratorModular : templates.serviceGenerator,
+          generatorTest: isTest ? templates.serviceTestGenerator : null,
+          isModular: m);
+    } else {
+      await file_utils.createFile(
+          '${mainDirectory}$path',
+          'service',
+          m
+              ? templates.interfaceServiceGeneratorModular
+              : templates.interfaceServiceGenerator,
+          generatorTest: null,
+          isModular: m,
+          isInterface: true);
+
+      await file_utils.createFile(
+          '${mainDirectory}$path',
+          'service',
+          m
+              ? templates.extendsInterfaceServiceGeneratorModular
+              : templates.extendsInterfaceServiceGenerator,
+          generatorTest:
+              isTest ? templates.interfaceServiceTestGenerator : null,
+          isModular: m,
+          hasInterface: true);
+    }
   }
 
   static void model(List<String> path,
@@ -263,7 +328,7 @@ class Generate {
     var m = await isModular();
 
     if (!mobx) {
-      mobx = await checkDependency('flutter_mobx');
+      mobx = await isMobx();
     }
 
     if (!flutter_bloc) {

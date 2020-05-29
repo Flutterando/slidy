@@ -16,8 +16,8 @@ Future createFile(
   bool ignoreSuffix = false,
   bool isModular = false,
   StateManagementEnum stateManagement = StateManagementEnum.rxDart,
+  bool isInterface = false,
   bool hasInterface = false,
-  Function(ObjectGenerate) generatorInterface,
 }) async {
   output.msg('Creating $type...');
 
@@ -46,89 +46,71 @@ Future createFile(
   if (type != 'bloc' || stateManagement != StateManagementEnum.flutter_bloc) {
     var name = basename(path);
     File file;
-    File fileInterface;
     File fileTest;
-    if (ignoreSuffix) {
-      file = File('${dir.path}/${name}.dart');
-      fileInterface = File('${dir.path}/interfaces/${name}_interface.dart');
-      fileTest =
-          File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');
+    if (!isInterface) {
+      if (ignoreSuffix) {
+        file = File('${dir.path}/${name}.dart');
+        fileTest =
+            File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');
+      } else {
+        file = File(
+            '${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
+        fileTest = File(
+            '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+      }
     } else {
       file =
-          File('${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
-      fileInterface = File(
-          '${dir.path}/interfaces/${name}_${type.replaceAll("_complete", "")}_interface.dart');
-      fileTest = File(
-          '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+          File('${dir.path}/${ReCase(name).snakeCase}_${type}_interface.dart');
     }
 
-    if (file.existsSync()) {
+    if (await file.exists()) {
       output.error('already exists a $type $name');
       exit(1);
     }
 
-    if (fileTest.existsSync()) {
+    if (await fileTest?.exists() ?? false) {
       output.error('already exists a $type $name test file');
       exit(1);
     }
 
-    if (hasInterface) {
-      if (fileInterface.existsSync()) {
-        output.error('already exists a $type $name interface file');
-        exit(1);
-      }
-    }
-
-    file.createSync(recursive: true);
+    await file.create(recursive: true);
     LocalSaveLog().add(file.path);
     output.msg('File ${file.path} created');
 
-    if (hasInterface) {
-      fileInterface.createSync(recursive: true);
-      LocalSaveLog().add(fileInterface.path);
-      output.msg('File ${fileInterface.path} created');
-    }
-
     if (type == 'module_complete') {
       var package = await getNamePackage();
-      file.writeAsStringSync(generator(ObjectGenerate(
+      await file.writeAsString(generator(ObjectGenerate(
           packageName: package,
           name: formatName(name),
           pathModule: '$path/$name')));
     } else if (type == 'module') {
-      file.writeAsStringSync(generator(ObjectGenerate(
+      await file.writeAsString(generator(ObjectGenerate(
           name: formatName(name), packageName: '', pathModule: path)));
     } else {
-      file.writeAsStringSync(generator(ObjectGenerate(
-          name: formatName(name),
-          type: type,
-          import:
-              "import '${fileInterface.path.replaceFirst('${dir.path}/', '')}';",
-          hasInterface: hasInterface)));
-      if (hasInterface) {
-        fileInterface.writeAsStringSync(generatorInterface(
-            ObjectGenerate(name: 'I${formatName(name)}', type: type)));
-        formatFile(fileInterface);
-      }
+      await file.writeAsString(
+          generator(ObjectGenerate(name: formatName(name), type: type)));
     }
 
-    formatFile(file);
+    await formatFile(file);
 
     File module;
     String nameModule;
 
-    if (type == 'bloc' ||
-        type == 'controller' ||
-        type == 'repository' ||
-        type == 'store' ||
-        type == 'service') {
+    if (!isInterface &&
+        (type == 'bloc' ||
+            type == 'controller' ||
+            type == 'repository' ||
+            type == 'store' ||
+            type == 'service')) {
       try {
-        module = await addModule(
-            formatName('${name}_$type'),
-            file.path,
-            type == 'bloc' || type == 'controller' || type == 'store',
-            isModular,
-            hasInterface);
+        module = isModular
+            ? await addModule(formatName('${name}_$type'), file.path,
+                hasInterface: hasInterface)
+            : await addModuleOld(
+                formatName('${name}_$type'),
+                file.path,
+                type == 'bloc' || type == 'controller' || type == 'store',
+                hasInterface);
       } catch (e) {
         print('not Module');
       }
@@ -136,12 +118,12 @@ Future createFile(
     }
 
     if (generatorTest != null) {
-      fileTest.createSync(recursive: true);
+      await fileTest.create(recursive: true);
       LocalSaveLog().add(fileTest.path);
 
       output.msg('File test ${fileTest.path} created');
       if (type == 'widget' || type == 'page') {
-        fileTest.writeAsStringSync(generatorTest(ObjectGenerate(
+        await fileTest.writeAsString(generatorTest(ObjectGenerate(
             name: formatName(name),
             packageName: await getNamePackage(),
             import: file.path,
@@ -149,7 +131,7 @@ Future createFile(
             pathModule: module?.path,
             isModular: isModular)));
       } else {
-        fileTest.writeAsStringSync(generatorTest(ObjectGenerate(
+        await fileTest.writeAsString(generatorTest(ObjectGenerate(
             name: formatName(name),
             type: type,
             packageName: await getNamePackage(),
@@ -158,7 +140,7 @@ Future createFile(
             pathModule: module?.path)));
       }
 
-      formatFile(fileTest);
+      await formatFile(fileTest);
     }
 
     output.success('$type created');
@@ -179,56 +161,60 @@ Future createFile(
     fileBlocTest = File(
         '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}_test.dart');
 
-    if (fileBloc.existsSync() ||
-        fileState.existsSync() ||
-        fileEvent.existsSync()) {
+    if (await fileBloc.exists() ||
+        await fileState.exists() ||
+        await fileEvent.exists()) {
       output.error('already exists a $type $name');
       exit(1);
     }
 
-    if (fileBlocTest.existsSync()) {
+    if (await fileBlocTest.exists()) {
       output.error('already exists a $type $name test file');
       exit(1);
     }
 
-    fileBloc.createSync(recursive: true);
+    await fileBloc.create(recursive: true);
     LocalSaveLog().add(fileBloc.path);
     output.msg('File ${fileBloc.path} created');
-    fileState.createSync(recursive: true);
+    await fileState.create(recursive: true);
     LocalSaveLog().add(fileState.path);
     output.msg('File ${fileState.path} created');
-    fileEvent.createSync(recursive: true);
+    await fileEvent.create(recursive: true);
     LocalSaveLog().add(fileEvent.path);
     output.msg('File ${fileEvent.path} created');
 
-    fileBloc.writeAsStringSync(
+    await fileBloc.writeAsString(
         flutter_blocGenerator(ObjectGenerate(name: formatName(name))));
-    fileState.writeAsStringSync(
+    await fileState.writeAsString(
         flutter_blocStateGenerator(ObjectGenerate(name: formatName(name))));
-    fileEvent.writeAsStringSync(
+    await fileEvent.writeAsString(
         flutter_blocEventGenerator(ObjectGenerate(name: formatName(name))));
 
-    formatFile(fileBloc);
-    formatFile(fileState);
-    formatFile(fileEvent);
+    await formatFile(fileBloc);
+    await formatFile(fileState);
+    await formatFile(fileEvent);
 
     File module;
     String nameModule;
 
-    module = await addModule(
-        formatName('${ReCase(name).snakeCase}_$type'),
-        fileBloc.path,
-        type == 'bloc' || type == 'controller' || type == 'store',
-        isModular);
+    module = isModular
+        ? await addModule(
+            formatName('${ReCase(name).snakeCase}_$type'),
+            fileBloc.path,
+          )
+        : await addModuleOld(
+            formatName('${ReCase(name).snakeCase}_$type'),
+            fileBloc.path,
+            type == 'bloc' || type == 'controller' || type == 'store');
     nameModule = module == null ? null : basename(module.path);
 
     if (generatorTest != null) {
-      fileBlocTest.createSync(recursive: true);
+      await fileBlocTest.create(recursive: true);
       LocalSaveLog().add(fileBlocTest.path);
 
       output.msg('File test ${fileBlocTest.path} created');
       if (type == 'widget' || type == 'page') {
-        fileBlocTest.writeAsStringSync(generatorTest(ObjectGenerate(
+        await fileBlocTest.writeAsString(generatorTest(ObjectGenerate(
             name: formatName(name),
             type: type,
             packageName: await getNamePackage(),
@@ -237,7 +223,7 @@ Future createFile(
             pathModule: module?.path,
             isModular: isModular)));
       } else {
-        fileBlocTest.writeAsStringSync(generatorTest(ObjectGenerate(
+        await fileBlocTest.writeAsString(generatorTest(ObjectGenerate(
             name: formatName(name),
             type: type,
             packageName: await getNamePackage(),
@@ -246,19 +232,23 @@ Future createFile(
             pathModule: module?.path)));
       }
 
-      formatFile(fileBlocTest);
+      await formatFile(fileBlocTest);
     }
 
     output.success('$type created');
   }
 }
 
-void formatFile(File file) {
-  Process.runSync('flutter', ['format', file.absolute.path], runInShell: true);
+Future<void> formatFile(File file) async {
+  await Process.run('flutter', ['format', file.absolute.path],
+      runInShell: true);
 }
 
-Future<File> addModule(String nameCap, String path, bool isBloc,
-    [bool isModular = false, bool interface = false]) async {
+Future<File> addModule(
+  String nameCap,
+  String path, {
+  bool hasInterface = false,
+}) async {
   int index;
   var module = findModule(path);
 
@@ -267,49 +257,74 @@ Future<File> addModule(String nameCap, String path, bool isBloc,
     exit(1);
   }
 
-  var node = module.readAsStringSync().split('\n');
+  var node = (await module.readAsString()).split('\n');
+
   var packageName = await getNamePackage();
-  var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
+  var import =
+      'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceAll('$packageName/$packageName', packageName);
 
-  var pathFile = '${packageName}/${pathFormated}'
-      .replaceAll('$packageName/$packageName', '')
-      .replaceFirst('lib/', '')
-      .replaceAll('\\', '/')
-      .split('app/')
-      .last
-      .replaceFirst('modules/', '');
-  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
-
-  node.insert(0, "  import '$pathFile';");
-
-  if (interface) {
-    var file = pathFile.split('/').last;
-
-    var interfacePath = pathFile.replaceAll(
-        file, 'interfaces/${file.replaceFirst('.dart', '_interface.dart')}');
-
-    node.insert(0, "  import '$interfacePath';");
+  if (hasInterface) {
+    import +=
+        '\';\n import \'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+            .replaceAll('.dart', '_interface.dart');
   }
 
-  if (isModular) {
-    var addInterface = (interface) ? '<I$nameCap>' : '';
-    index = node.indexWhere((t) => t.contains('binds => ['));
-    node[index] = node[index].replaceFirst(
-        'binds => [', 'binds => [Bind$addInterface((i) => ${nameCap}()),');
+  node.insert(0, "  import '$import';");
+
+  index = node.indexWhere((t) => t.contains('binds => ['));
+  node[index] = node[index].replaceFirst(
+    'binds => [',
+    (hasInterface
+        ? (nameCap.contains('Repository')
+            ? 'binds => [Bind<I${nameCap}>((i) => ${nameCap}(Dio())),'
+            : 'binds => [Bind<I${nameCap}>((i) => ${nameCap}()),')
+        : (nameCap.contains('Repository')
+            ? 'binds => [Bind((i) => ${nameCap}(Dio())),'
+            : 'binds => [Bind((i) => ${nameCap}()),')),
+  );
+
+  await module.writeAsString(node.join('\n'));
+  await formatFile(module);
+  output.success('${module.path} modified');
+  return module;
+}
+
+@deprecated
+Future<File> addModuleOld(String nameCap, String path, bool isBloc,
+    [bool hasInterface]) async {
+  int index;
+  var module = findModule(path);
+
+  if (module == null) {
+    output.error('Module not found');
+    exit(1);
+  }
+
+  var node = (await module.readAsString()).split('\n');
+  var packageName = await getNamePackage();
+  var import = hasInterface
+      ? 'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceAll('$packageName/${packageName}_interface', packageName)
+      : 'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+          .replaceAll('$packageName/$packageName', packageName);
+  node.insert(0, "  import '$import';");
+
+  if (isBloc) {
+    index = node.indexWhere((t) => t.contains('blocs => ['));
+    node[index] = node[index]
+        .replaceFirst('blocs => [', 'blocs => [Bloc((i) => ${nameCap}()),');
   } else {
-    if (isBloc) {
-      index = node.indexWhere((t) => t.contains('blocs => ['));
-      node[index] = node[index]
-          .replaceFirst('blocs => [', 'blocs => [Bloc((i) => ${nameCap}()),');
-    } else {
-      index = node.indexWhere((t) => t.contains('dependencies => ['));
-      node[index] = node[index].replaceFirst('dependencies => [',
-          'dependencies => [Dependency((i) => ${nameCap}()),');
-    }
+    index = node.indexWhere((t) => t.contains('dependencies => ['));
+    node[index] = node[index].replaceFirst(
+        'dependencies => [',
+        hasInterface
+            ? 'dependencies => [Dependency((i) => I${nameCap}()),'
+            : 'dependencies => [Dependency((i) => ${nameCap}()),');
   }
 
-  module.writeAsStringSync(node.join('\n'));
-  formatFile(module);
+  await module.writeAsString(node.join('\n'));
+  await formatFile(module);
   output.success('${module.path} modified');
 
   return module;
@@ -345,14 +360,14 @@ File search(Directory dir) {
   }
 }
 
-void createStaticFile(String path, String content) {
+void createStaticFile(String path, String content) async {
   try {
     var file = File(path)
       ..createSync(recursive: true)
       ..writeAsStringSync(content);
     LocalSaveLog().add(file.path);
 
-    formatFile(file);
+    await formatFile(file);
     output.success('${file.path} created');
   } catch (e) {
     output.error(e);
@@ -383,7 +398,7 @@ Future<void> createBlocBuilder() async {
   fileBlocProvider.writeAsStringSync(
       bloc_builderGenerator(ObjectGenerate(name: formatName(name))));
 
-  formatFile(fileBlocProvider);
+  await formatFile(fileBlocProvider);
 
   output.success('bloc_provider created');
 }

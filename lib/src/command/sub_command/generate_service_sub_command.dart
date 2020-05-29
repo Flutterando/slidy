@@ -8,10 +8,11 @@ class GenerateServiceSubCommand extends CommandBase {
   final description = 'Creates a service';
 
   GenerateServiceSubCommand() {
-    argParser.addFlag('interface',
-        abbr: 'i', negatable: false, help: 'Creates a service interface');
     argParser.addFlag('notest',
         abbr: 'n', negatable: false, help: 'no create file test');
+
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'create file with interface');
   }
   @override
   void run() {

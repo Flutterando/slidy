@@ -1,3 +1,4 @@
+import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
 String repositoryGenerator(ObjectGenerate obj) => '''
@@ -25,11 +26,13 @@ class ${obj.name}Repository extends Disposable {
 String repositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dio/dio.dart';
-${obj.hasInterface ? obj.import : ''}
 
-class ${obj.name}Repository extends Disposable ${obj.hasInterface ? 'implements I${obj.name}Repository' : ''} {
+class ${obj.name}Repository extends Disposable {
+  final Dio client;
 
-  Future fetchPost(Dio client) async {
+  ${obj.name}Repository(this.client);
+
+  Future fetchPost() async {
     final response =
         await client.get('https://jsonplaceholder.typicode.com/posts/1');
     return response.data;
@@ -45,7 +48,62 @@ class ${obj.name}Repository extends Disposable ${obj.hasInterface ? 'implements 
 }
   ''';
 
-String repositoryInterfaceGenerator(ObjectGenerate obj) => '''
-abstract class ${obj.name}Repository {
+String interfaceRepositoryGeneratorModular(ObjectGenerate obj) => '''
+import 'package:flutter_modular/flutter_modular.dart';
+
+abstract class I${obj.name}Repository implements Disposable {
+  Future fetchPost();
+}''';
+
+String extendsInterfaceRepositoryGeneratorModular(ObjectGenerate obj) => '''
+import 'package:dio/dio.dart';
+import '${ReCase(obj.name).snakeCase}_repository_interface.dart';
+
+class ${obj.name}Repository implements I${obj.name}Repository {
+
+  final Dio client;
+
+  ${obj.name}Repository(this.client);
+
+  Future fetchPost() async {
+    final response =
+        await client.get('https://jsonplaceholder.typicode.com/posts/1');
+    return response.data;
+  }
+
+  //dispose will be called automatically
+  @override
+  void dispose() {
+    
+  }
+}''';
+
+String interfaceRepositoryGenerator(ObjectGenerate obj) => '''
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
+
+abstract class I${obj.name}Repository implements Disposable {
+
+  Future fetchPost(Dio client);
+}
+  ''';
+
+String extendsInterfaceRepositoryGenerator(ObjectGenerate obj) => '''
+import 'package:dio/dio.dart';
+import '${ReCase(obj.name).snakeCase}_repository_interface.dart';
+
+class ${obj.name}Repository implements I${obj.name}Repository {
+
+  Future fetchPost(Dio client) async {
+    final response = await client.get('https://jsonplaceholder.typicode.com/posts/1');
+    return response.data;
+  }
+
+  //dispose will be called automatically
+  @override
+  void dispose() {
+    
+  }
+
 }
   ''';
