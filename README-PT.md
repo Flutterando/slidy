@@ -264,28 +264,14 @@ slidy g r nome_da_pasta/repositórios
 
 ```` slidy g m modules/my_module -c -r -i ````
 
-**NOTE :** você pode criar uma "Interface" para seu repositorio usando a flag **-i**
-
-```` slidy g m modules/my_module -c -r -i ````
-
 Crie um novo **serviço**
 
 ```bash
 slidy g s folder_name/servicos
 ```
-<<<<<<< HEAD
 **NOTE :** você pode criar uma "Interface" para seu serviço usando a flag **-i**
 
 ```` slidy g m modules/my_module -c -s -i ````
-=======
-<<<<<<< HEAD
-**NOTE:** Você pode criar um "serviço" com sua interface usando a bandeira **-i**
-=======
-**NOTE :** você pode criar uma "Interface" para seu serviço usando a flag **-i**
-
-```` slidy g m modules/my_module -c -s -i ````
->>>>>>> 4e59006a8d7df4f729e42c36f68a6c781bc39085
->>>>>>> 3d3fc0fb1fdc70c19f2fffb864937c88100072ee
 
 Crie um novo **modelo**
 
