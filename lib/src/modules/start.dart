@@ -96,6 +96,26 @@ Function blocOrModular([int selected, String directory]) {
   };
 }
 
+void generateScript() async {
+  final yaml = File('pubspec.yaml');
+  var node = yaml.readAsLinesSync();
+
+  final index =
+      node.indexWhere((t) => t.contains('uses-material-design: true')) + 1;
+
+  try {
+    node.insert(index, 'scripts: ');
+    node.insert(index + 1,
+        '\n    mobx_build: flutter clean & flutter pub get & flutter pub run build_runner build --delete-conflicting-outputs');
+    node.insert(index + 1,
+        '\n    mobx_watch: flutter clean & flutter pub get & flutter pub run build_runner watch --delete-conflicting-outputs');
+
+    yaml.writeAsStringSync(node.join('\n') + '\n');
+  } catch (e) {
+    output.error('Erro o generate scripts');
+  }
+}
+
 Function selecStateManagement([int selected, String directory]) {
   selected ??= stateCLIOptions('Choose a state manager', [
     'mobx (default)',
@@ -121,6 +141,7 @@ Function selecStateManagement([int selected, String directory]) {
       await install(['mobx', 'flutter_mobx'], false, directory: directory);
       await install(['build_runner', 'mobx_codegen'], true,
           directory: directory);
+      await generateScript();
     } else {
       exit(1);
     }
