@@ -29,7 +29,7 @@ We realized that the project pattern absence is affecting the productivity of mo
 
 The structure that slidy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**.
 
-We recommend you to use [flutter_modular](https://pub.dev/packages/flutter_modular) when structuring with slidy. It offers you the **module structure**(extending the ModuleWidget) and dependency/bloc injection, or you will probably get an error.
+We recommend you to use [flutter_modular](https://pub.dev/packages/flutter_modular) when structuring with slidy. It offers you the **module structure**(extending the WidgetModule) and dependency/bloc injection, or you will probably get an error.
 
 To understand **flutter_modular**, take a look at the [README](https://github.com/Flutterando/modular/blob/master/README.md).
 
