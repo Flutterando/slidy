@@ -120,7 +120,7 @@ void generateScript() async {
 
     yaml.writeAsStringSync(node.join('\n') + '\n');
   } catch (e) {
-    output.error('Erro o generate scripts');
+    output.error('Erro ao adicionar os scripts scripts');
   }
 }
 
