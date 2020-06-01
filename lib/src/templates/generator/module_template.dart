@@ -67,7 +67,7 @@ String moduleGeneratorModularNoRoute(ObjectGenerate obj) {
   import 'package:flutter/material.dart';
   import 'package:dio/dio.dart';
   ${import.replaceFirst('$pkg/$pkg', pkg)}
-  class ${obj.name}Module extends ModuleWidget {
+  class ${obj.name}Module extends WidgetModule {
   @override
   List<Bind> get binds => [];
 

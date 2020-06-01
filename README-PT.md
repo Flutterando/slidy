@@ -27,7 +27,7 @@ Percebemos que a ausência de padrão de projeto está afetando a produtividade 
 
 A estrutura que o slidy oferece a você é semelhante ao MVC, onde uma página mantém suas próprias **business logic classes(BloC)**.
 
-Recomendamos que você use [flutter_modular](https://pub.dev/packages/flutter_modular) ao estruturar com slidy. Ele oferece a **estrutura do módulo** (estendendo o ModuleWidget) e a injeção de dependência / bloc, ou você provavelmente receberá um erro.
+Recomendamos que você use [flutter_modular](https://pub.dev/packages/flutter_modular) ao estruturar com slidy. Ele oferece a **estrutura do módulo** (estendendo o WidgetModule) e a injeção de dependência / bloc, ou você provavelmente receberá um erro.
 
 Para entender o **flutter_modular**, consulte o [README](https://github.com/Flutterando/modular/blob/master/README.md).
 
