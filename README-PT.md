@@ -168,7 +168,7 @@ slidy run open_folder
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/dependencies.png?raw=true)
 
 ```bash
-install slidy rxdart dio bloc_pattern
+slidy install rxdart dio bloc_pattern
 ```
 
 ou você pode simplesmente usar o comando **i** (ambos são iguais)
