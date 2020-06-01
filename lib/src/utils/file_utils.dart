@@ -59,8 +59,8 @@ Future createFile(
             '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
       }
     } else {
-      file =
-          File('${dir.path}/${ReCase(name).snakeCase}_${type}_interface.dart');
+      file = File(
+          '${dir.path}/interfaces/${ReCase(name).snakeCase}_${type}_interface.dart');
     }
 
     if (await file.exists()) {
@@ -260,17 +260,32 @@ Future<File> addModule(
   var node = (await module.readAsString()).split('\n');
 
   var packageName = await getNamePackage();
-  var import =
-      'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
-          .replaceAll('$packageName/$packageName', packageName);
 
+  var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
+  var pathFile = '${packageName}/${pathFormated}'
+      .replaceAll('$packageName/$packageName', '')
+      .replaceFirst('lib/', '')
+      .replaceAll('\\', '/')
+      .split('app/')
+      .last
+      .replaceFirst('modules/', '');
+  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+
+  var import = "import '$pathFile';";
   if (hasInterface) {
-    import +=
-        '\';\n import \'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
-            .replaceAll('.dart', '_interface.dart');
+    var file = pathFile.split('/').last;
+    var interfacePath = pathFile.replaceAll(
+        file, 'interfaces/${file.replaceFirst('.dart', '_interface.dart')}');
+
+    import += "\nimport '${interfacePath}';";
   }
 
-  node.insert(0, "  import '$import';");
+  node.insert(0, import);
+  if (nameCap.contains('Repository') &&
+      !node.any(
+          (element) => element.contains("import 'package:dio/dio.dart';"))) {
+    node.insert(0, "import 'package:dio/dio.dart';");
+  }
 
   index = node.indexWhere((t) => t.contains('binds => ['));
   node[index] = node[index].replaceFirst(
@@ -286,6 +301,7 @@ Future<File> addModule(
 
   await module.writeAsString(node.join('\n'));
   await formatFile(module);
+
   output.success('${module.path} modified');
   return module;
 }
