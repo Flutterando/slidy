@@ -8,7 +8,7 @@ Widget buildTestableWidget(Widget widget) {
 }
 
 main() {
-  testWidgets('CardWidget has message', (WidgetTester tester) async {
+  testWidgets('CardWidget has message', (tester) async {
     await tester.pumpWidget(buildTestableWidget(CardWidget()));
     final textFinder = find.text('Card');
     expect(textFinder, findsOneWidget);
