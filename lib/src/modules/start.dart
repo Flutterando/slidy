@@ -153,7 +153,8 @@ Function selecStateManagement([int selected, String directory]) {
 
 Future isContinue(Directory dir, [int selected]) async {
   if (await dir.exists()) {
-    if (dir.listSync().isNotEmpty) {
+    print(dir.listSync());
+    if (dir.listSync().isEmpty) {
       selected ??= stateCLIOptions(
           'This command will delete everything inside the \'lib /\' and \'test\' folders.',
           [

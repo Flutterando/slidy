@@ -6,9 +6,9 @@
     "configurations": [
         {
             "name": "Launch",
-            "program": "/Volumes/mac-suport/Projects/FlutterProject/slidy/bin/main.dart",
-            "cwd": "C:\\Users\\jacob\\FlutterProject\\slidyapptest",
-            "args": ["g", "b", "bloc2"],
+            "program": "C:\\Users\\jacob\\FlutterProjects\\slidy\\bin\\main.dart",
+            "cwd": "C:\\Users\\jacob\\FlutterProjects\\arch",
+            "args": ["start", "-p","flutter_modular", "-s", "mobx", "-f"],
             "request": "launch",
             "type": "dart"
         }

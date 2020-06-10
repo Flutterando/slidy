@@ -1,3 +1,22 @@
+## 2.1.0
+- Add annotation @JsonSerializable to when create a model [#144](https://github.com/Flutterando/slidy/pull/144)
+- Added "slidy localization" command [#146](https://github.com/Flutterando/slidy/pull/146)
+- New Flag -i to generate interface [#146](https://github.com/Flutterando/slidy/pull/146)
+```
+slidy g repository /modules/home/repositories/post -t
+```
+New Features in Module:
+```
+-r => generate with Repository
+-i => generate with Repository and Interface to repository
+Slidy g m modules/MyModule -c -r -i
+```
+- Fix imports [#154](https://github.com/Flutterando/slidy/pull/154)
+- Fix order of commands in documentation [#159](https://github.com/Flutterando/slidy/pull/159)
+- Some fixes for effective dart pattern [#160](https://github.com/Flutterando/slidy/pull/160)
+
+- Fix bugs
+
 ## 2.0.1+1
 - PREVIEW: Added Localization (i18n) generate
 - Added jsonSerializable in Model generate
