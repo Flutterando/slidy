@@ -1,9 +1,9 @@
-export 'start.dart';
-export 'help.dart';
+export 'create.dart';
 export 'generate.dart';
+export 'help.dart';
+export 'install.dart';
+export 'start.dart';
+export 'uninstall.dart';
 export 'update.dart';
 export 'upgrade.dart';
-export 'install.dart';
-export 'uninstall.dart';
 export 'version.dart';
-export 'create.dart';

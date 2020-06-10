@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class UninstallCommand extends CommandBase {
   @override
-  final name = 'uninstall';
+  String get name => 'uninstall';
   @override
-  final description = 'Remove a package';
+  String get description => 'Remove a package';
 
   UninstallCommand() {
     argParser.addFlag('dev',
@@ -16,7 +16,7 @@ class UninstallCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      uninstall(argResults.rest, argResults['dev']);
+      uninstall(packs: argResults.rest, isDev: argResults['dev']);
     }
   }
 }

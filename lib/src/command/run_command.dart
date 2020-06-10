@@ -4,11 +4,11 @@ import 'package:slidy/src/modules/run.dart';
 
 class RunCommand extends CommandBase {
   @override
-  final name = 'run';
+  final String name = 'run';
   @override
-  final description = 'run scripts in pubspec.yaml';
+  final String description = 'run scripts in pubspec.yaml';
   @override
-  final invocationSuffix = '<project name>';
+  String get invocationSuffix => '<project name>';
   @override
   void run() {
     if (argResults.rest.isEmpty) {

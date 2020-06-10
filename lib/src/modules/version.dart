@@ -1,4 +1,4 @@
-void version(String version) async {
+void version(String version) {
   //String version = await getVersion();
   //String version = '0.0.13';
   print('''

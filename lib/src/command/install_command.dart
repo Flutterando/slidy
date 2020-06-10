@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class InstallCommand extends CommandBase {
   @override
-  final name = 'install';
+  final String name = 'install';
   @override
-  final description = 'Install (or update) a new package or packages:';
+  final String description = 'Install (or update) a new package or packages:';
 
   InstallCommand() {
     argParser.addFlag('dev',
@@ -18,12 +18,12 @@ class InstallCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      install(argResults.rest, argResults['dev']);
+      install(packs: argResults.rest, isDev: argResults['dev']);
     }
   }
 }
 
 class InstallCommandAbbr extends InstallCommand {
   @override
-  final name = 'i';
+  String get name => 'i';
 }

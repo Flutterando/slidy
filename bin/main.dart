@@ -7,14 +7,14 @@ import 'package:slidy/src/command/run_command.dart';
 void main(List<String> arguments) {
   final runner = configureCommand(arguments);
 
-  var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
+  final hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
 
   if (hasCommand) {
     executeCommand(runner, arguments);
   } else {
     var parser = ArgParser();
     parser = runner.argParser;
-    var results = parser.parse(arguments);
+    final results = parser.parse(arguments);
     executeOptions(results, arguments, runner);
   }
 }
@@ -38,7 +38,7 @@ void executeCommand(CommandRunner runner, List<String> arguments) {
 }
 
 CommandRunner configureCommand(List<String> arguments) {
-  var runner =
+  final runner =
       CommandRunner('slidy', 'CLI package manager and template for Flutter.')
         ..addCommand(StartCommand())
         ..addCommand(RunCommand())

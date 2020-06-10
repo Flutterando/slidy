@@ -16,7 +16,7 @@ class PubSpec {
           .listSync()
           .firstWhere((i) => i.path.contains('pubspec.yaml')) as File;
 
-      YamlMap doc = loadYaml(await file.readAsString());
+      final YamlMap doc = loadYaml(await file.readAsString());
 
       return PubSpec(
           name: doc['name'],

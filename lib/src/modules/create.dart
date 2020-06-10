@@ -1,30 +1,29 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
+import 'package:tuple/tuple.dart';
+
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/utils/utils.dart' show mainDirectory;
-import 'package:tuple/tuple.dart';
 
 import '../utils/utils.dart';
 
-void create(String projectName, String projectDescription, String projectOrg,
-    bool isKotlin, bool isSwift, bool isAndroidX, String sm, String provider) {
-  startFlutterCreate(projectName, projectDescription, projectOrg, isKotlin,
-      isSwift, isAndroidX, sm, provider);
-}
+const create = startFlutterCreate;
 
-void startFlutterCreate(
-    String projectName,
-    String projectDescription,
-    String projectOrg,
-    bool isKotlin,
-    bool isSwift,
-    bool isAndroidX,
-    String sm,
-    String provider) {
-  mainDirectory = projectName + '/';
+void startFlutterCreate({
+  @required String projectName,
+  @required String projectDescription,
+  @required String projectOrg,
+  @required bool isKotlin,
+  @required bool isSwift,
+  @required bool isAndroidX,
+  @required String sm,
+  @required String provider,
+}) {
+  mainDirectory = '$projectName/';
 
-  var selectedProvider;
-  var selectedBloc;
+  Function selectedProvider;
+  Function selectedBloc;
 
   if (provider == null) {
     selectedProvider = blocOrModular(null, projectName);
@@ -40,8 +39,14 @@ void startFlutterCreate(
         ['mobx', 'flutter_bloc', 'rxbloc'].indexOf(sm), projectName);
   }
 
-  final flutterArgs = createFlutterArgs(projectName, projectDescription,
-      projectOrg, isKotlin, isSwift, isAndroidX);
+  final flutterArgs = createFlutterArgs(
+    projectName: projectName,
+    projectDescription: projectDescription,
+    projectOrg: projectOrg,
+    isKotlin: isKotlin,
+    isSwift: isSwift,
+    isAndroidX: isAndroidX,
+  );
 
   Process.start('flutter', flutterArgs, runInShell: true).then((process) {
     stdout.addStream(process.stdout);
@@ -63,13 +68,15 @@ void startSlidyCreate(
       tuple: Tuple2(selectedProvider, selectedState));
 }
 
-List<String> createFlutterArgs(String projectName, String projectDescription,
-    String projectOrg, bool isKotlin, bool isSwift, bool isAndroidX) {
-  projectDescription =
-      projectDescription ?? 'A new Flutter project. Created by Slidy';
-  projectOrg = projectOrg ?? 'com.example';
-
-  var flutterArgs = ['create'];
+List<String> createFlutterArgs({
+  @required String projectName,
+  String projectDescription = 'A new Flutter project. Created by Slidy',
+  String projectOrg = 'com.example',
+  @required bool isKotlin,
+  @required bool isSwift,
+  @required bool isAndroidX,
+}) {
+  final flutterArgs = ['create'];
   flutterArgs.add('--no-pub');
 
   if (isKotlin) {

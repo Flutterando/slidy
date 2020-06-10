@@ -2,9 +2,9 @@ import 'package:slidy/slidy.dart';
 
 class UpgradeCommand extends CommandBase {
   @override
-  final name = 'upgrade';
+  String get name => 'upgrade';
   @override
-  final description = 'Upgrade the Slidy version';
+  String get description => 'Upgrade the Slidy version';
 
   @override
   void run() {

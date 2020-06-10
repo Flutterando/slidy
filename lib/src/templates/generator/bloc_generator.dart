@@ -70,9 +70,9 @@ import 'package:mobx/mobx.dart';
 
 part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
 
-class ${ReCase(obj.name + '_' + obj.type).pascalCase} = _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with _\$${ReCase(obj.name + '_' + obj.type).pascalCase};
+class ${ReCase("${obj.name}_${obj.type}").pascalCase} = _${ReCase("${obj.name}_${obj.type}").pascalCase}Base with _\$${ReCase("${obj.name}_${obj.type}").pascalCase};
 
-abstract class _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with Store {
+abstract class _${ReCase("${obj.name}_${obj.type}").pascalCase}Base with Store {
   @observable
   int value = 0;
 

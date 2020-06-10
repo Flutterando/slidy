@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateControllerSubCommand extends CommandBase {
   @override
-  final name = 'controller';
+  final String name = 'controller';
   @override
-  final description = 'Creates a controller';
+  final String description = 'Creates a controller';
 
   GenerateControllerSubCommand() {
     argParser.addFlag('notest',
@@ -26,13 +26,18 @@ class GenerateControllerSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.bloc(argResults.rest.first, 'controller', !argResults['notest'],
-          argResults['flutter_bloc'], argResults['mobx']);
+      Generate.bloc(
+        path: argResults.rest.first,
+        type: 'controller',
+        isTest: !argResults['notest'],
+        flutter_bloc: argResults['flutter_bloc'],
+        mobx: argResults['mobx'],
+      );
     }
   }
 }
 
 class GenerateControllerAbbrSubCommand extends GenerateControllerSubCommand {
   @override
-  final name = 'c';
+  String get name => 'c';
 }

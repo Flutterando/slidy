@@ -23,21 +23,21 @@ class LocalSaveLog {
     if (!file.existsSync()) {
       file.createSync(recursive: true);
     }
-    var body = file.readAsStringSync();
+    final body = file.readAsStringSync();
     file.writeAsStringSync('$body\n$value'.trim());
   }
 
   void removeLastLog() {
     try {
-      var dir = Directory(_path);
+      final dir = Directory(_path);
       if (dir.existsSync()) {
-        var listInt = dir
+        final listInt = dir
             .listSync()
             .map((e) => basename(e.path))
             .map((e) => int.parse(e))
             .toList();
         listInt.sort((a, b) => b.compareTo(a));
-        var first = listInt.first;
+        final first = listInt.first;
         _removeFilesInLog('$first');
       }
     } catch (e) {
@@ -49,8 +49,8 @@ class LocalSaveLog {
     print(key);
     final file = File('$_path/$key');
     if (file.existsSync()) {
-      for (var item in file.readAsStringSync().split('\n')) {
-        var arch = File(item);
+      for (final item in file.readAsStringSync().split('\n')) {
+        final arch = File(item);
         if (arch.existsSync()) {
           arch.deleteSync(recursive: true);
           _removeEmptyFolder(arch.parent);

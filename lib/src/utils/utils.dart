@@ -7,17 +7,16 @@ import 'package:yaml/yaml.dart';
 String mainDirectory = '';
 
 String formatName(String name) {
-  name = name
+  return name
       .replaceAll('_', ' ')
       .split(' ')
       .map((t) => t[0].toUpperCase() + t.substring(1))
       .join()
       .replaceFirst('.dart', '');
-  return name;
 }
 
 Future<String> getNamePackage([Directory dir]) async {
-  var yaml = await getPubSpec(directory: Directory(mainDirectory));
+  final yaml = await getPubSpec(directory: Directory(mainDirectory));
   return yaml.name;
 }
 
@@ -43,7 +42,7 @@ Future<bool> checkDependency(String dep) async {
 
 Future<bool> checkDevDependency(String dep) async {
   try {
-    var yaml = await getPubSpec();
+    final yaml = await getPubSpec();
     return yaml.devDependencies.containsKey(dep);
   } catch (e) {
     print(e);
@@ -54,31 +53,41 @@ Future<bool> checkDevDependency(String dep) async {
 Future<String> getVersion() async {
   //PubSpec yaml = await getPubSpec(path: File.fromUri(Platform.script).parent.parent.path);
   final file =
-      File(File.fromUri(Platform.script).parent.parent.path + '/pubspec.lock');
-  var doc = loadYaml(await file.readAsString());
+      File('${File.fromUri(Platform.script).parent.parent.path}/pubspec.lock');
+  final doc = loadYaml(await file.readAsString());
   return doc['packages']['slidy']['version'].toString();
 }
 
 Future<PubSpec> getPubSpec({Directory directory}) async {
-  var pubSpec = await PubSpec.load(directory ?? Directory('$mainDirectory'));
+  final pubSpec = await PubSpec.load(directory ?? Directory('$mainDirectory'));
   return pubSpec;
 }
 
 Future removeAllPackages([String directory]) async {
-  var pubSpec = await getPubSpec(
+  final pubSpec = await getPubSpec(
       directory: directory == null ? null : Directory(directory));
-  var dep = pubSpec.dependencies.keys
+  final dep = pubSpec.dependencies.keys
       .map((f) => f.toString())
       .where((t) => t != 'flutter')
       .toList();
 
-  var devDep = pubSpec.devDependencies.keys
+  final devDep = pubSpec.devDependencies.keys
       .map((f) => f.toString())
       .where((t) => t != 'flutter_test')
       .toList();
 
-  await uninstall(dep, false, false, directory);
-  await uninstall(devDep, true, false, directory);
+  uninstall(
+    packs: dep,
+    isDev: false,
+    showErrors: false,
+    directory: directory,
+  );
+  uninstall(
+    packs: devDep,
+    isDev: true,
+    showErrors: false,
+    directory: directory,
+  );
 
   // pubSpec.dependencies.removeWhere((key, value) => key != 'flutter');
   // pubSpec.devDependencies.removeWhere((key, value) => key != 'flutter_test');
@@ -103,10 +112,10 @@ String libPath(String path) {
 }
 
 bool validateUrl(String url) {
-  var urlPattern =
+  const urlPattern =
       r'(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?';
-  var match = RegExp(urlPattern, caseSensitive: false).firstMatch(url);
-  return match != null ? true : false;
+  final match = RegExp(urlPattern, caseSensitive: false).firstMatch(url);
+  return match != null;
 }
 
 enum StateManagementEnum { rxDart, mobx, flutter_bloc }

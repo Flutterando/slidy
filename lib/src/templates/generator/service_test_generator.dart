@@ -1,4 +1,3 @@
-import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
 String serviceTestGenerator(ObjectGenerate obj) => '''
@@ -24,9 +23,9 @@ void main() {
   ''';
 
 String interfaceServiceTestGenerator(ObjectGenerate obj) {
-  var fileDart = obj.import.split('/').last;
-  var import =
-      '${obj.import.replaceFirst("lib/", "").replaceAll(fileDart, 'interfaces/')}${fileDart}';
+  final fileDart = obj.import.split('/').last;
+  final import =
+      '${obj.import.replaceFirst("lib/", "").replaceAll(fileDart, 'interfaces/')}$fileDart';
   return '''
 import 'package:flutter_test/flutter_test.dart';
 

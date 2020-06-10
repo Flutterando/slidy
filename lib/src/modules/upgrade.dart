@@ -5,12 +5,12 @@ void upgrade() {
   var isFlutterDart = true;
 
   if (Platform.isWindows) {
-    var process = Process.runSync('where', ['slidy'], runInShell: true);
+    final process = Process.runSync('where', ['slidy'], runInShell: true);
 
     isFlutterDart =
         process.stdout.toString().contains('flutter\\.pub-cache\\bin\\slidy');
   } else {
-    var process = Process.runSync('which', ['slidy'], runInShell: true);
+    final process = Process.runSync('which', ['slidy'], runInShell: true);
     isFlutterDart =
         process.stdout.toString().contains('flutter/.pub-cache/bin/slidy');
   }
@@ -24,7 +24,7 @@ void upgrade() {
     Process.runSync('pub', ['global', 'activate', 'slidy'], runInShell: true);
   }
 
-  var process =
+  final process =
       Process.runSync('slidy', ['-v'], runInShell: true, stdoutEncoding: utf8);
   print(process.stdout);
 }

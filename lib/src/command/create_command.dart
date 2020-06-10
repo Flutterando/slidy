@@ -3,11 +3,11 @@ import 'package:slidy/slidy.dart';
 
 class CreateCommand extends CommandBase {
   @override
-  final name = 'create';
+  final String name = 'create';
   @override
-  final description = 'Create a Flutter project with basic structure';
+  final String description = 'Create a Flutter project with basic structure';
   @override
-  final invocationSuffix = '<project name>';
+  String get invocationSuffix => '<project name>';
 
   CreateCommand() {
     argParser.addOption('description',
@@ -46,15 +46,18 @@ class CreateCommand extends CommandBase {
       throw UsageException(
           'project name not passed for a create command', usage);
     } else {
+      /*
+      
+      */
       create(
-        argResults.rest.first,
-        argResults['description'],
-        argResults['org'],
-        argResults['kotlin'],
-        argResults['swift'],
-        argResults['androidx'],
-        argResults['state-management'],
-        argResults['provider-system'],
+        projectName: argResults.rest.first,
+        projectDescription: argResults['description'],
+        projectOrg: argResults['org'],
+        isKotlin: argResults['kotlin'],
+        isSwift: argResults['swift'],
+        isAndroidX: argResults['androidx'],
+        sm: argResults['state-management'],
+        provider: argResults['provider-system'],
       );
     }
   }

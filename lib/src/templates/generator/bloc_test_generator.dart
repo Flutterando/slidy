@@ -1,11 +1,11 @@
 import 'package:slidy/src/utils/object_generate.dart';
 
 String blocTestGenerator(ObjectGenerate obj) {
-  var importBloc =
+  final importBloc =
       'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}'
           .replaceFirst(
               '${obj.packageName}/${obj.packageName}', obj.packageName);
-  var importModule =
+  final importModule =
       'package:${obj.packageName}/${obj.pathModule.replaceFirst("lib/", "").replaceAll("\\", "/")}'
           .replaceFirst(
               '${obj.packageName}/${obj.packageName}', obj.packageName);

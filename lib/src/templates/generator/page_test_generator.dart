@@ -8,7 +8,7 @@ String pageTestGenerator(ObjectGenerate obj) {
     package = "import 'package:bloc_pattern/bloc_pattern_test.dart'";
   }
 
-  var importPage =
+  final importPage =
       'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}'
           .replaceFirst(
               '${obj.packageName}/${obj.packageName}', obj.packageName);

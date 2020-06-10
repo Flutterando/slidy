@@ -1,6 +1,6 @@
 String startAppWidget(String package) => '''
 import 'package:flutter/material.dart';
-import 'package:${package}/app/modules/home/home_module.dart';
+import 'package:$package/app/modules/home/home_module.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -38,11 +38,11 @@ class AppWidget extends StatelessWidget {
 
 String startAppWidgetComplete(String package) => '''
 import 'package:flutter/material.dart';
-import 'package:${package}/app/routes.dart';
-import 'package:${package}/app/modules/home/home_module.dart';
-import 'package:${package}/app/modules/login/login_module.dart';
-import 'package:${package}/app/shared/styles/theme_style.dart';
-import 'package:${package}/app/shared/locale/locales.dart';
+import 'package:$package/app/routes.dart';
+import 'package:$package/app/modules/home/home_module.dart';
+import 'package:$package/app/modules/login/login_module.dart';
+import 'package:$package/app/shared/styles/theme_style.dart';
+import 'package:$package/app/shared/locale/locales.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {

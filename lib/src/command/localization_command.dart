@@ -3,13 +3,13 @@ import 'package:slidy/src/modules/localization.dart';
 
 class LocalizationCommand extends CommandBase {
   @override
-  final name = 'localization';
+  final String name = 'localization';
 
   @override
-  final description = 'automatically creates translation files';
+  final String description = 'automatically creates translation files';
 
   @override
-  final invocationSuffix = '<project name>';
+  String get invocationSuffix => '<project name>';
 
   @override
   void run() {

@@ -4,17 +4,17 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void runCommand() async {
+Future<void> runCommand() async {
   try {
     final yaml = File('pubspec.yaml');
-    var node = await yaml.readAsString();
-    var doc = loadYaml(node);
+    final node = await yaml.readAsString();
+    final doc = loadYaml(node);
 
     if (!(doc as Map).containsKey('localization_dir')) {
       throw 'Please, add param "localization_dir" (localization directory of your project) in your pubspec.yaml';
     }
 
-    String localizationPath = doc['localization_dir'];
+    final String localizationPath = doc['localization_dir'];
 
     if ((localizationPath ?? '') == '') {
       throw 'Please, the param "localization_dir" can not be null';
@@ -34,7 +34,7 @@ void runCommand() async {
       print('${itemsToAdd.length} items to add.');
       newContent.addEntries(itemsToAdd);
 
-      var encoder = JsonEncoder.withIndent('  ');
+      const encoder = JsonEncoder.withIndent('  ');
       return MapEntry(file, encoder.convert(newContent));
     });
     writeJsonFiles(newFilesData);
@@ -57,9 +57,9 @@ void removeI18nComments(File file) {
   final findRegex = RegExp(r'''[\'\"](.*)[\'\"].i18n\(.*\).*\/\/(.*)''');
   final replaceRegex = RegExp(r'''\/\/(.*)''');
 
-  var data = file.readAsLinesSync();
+  final data = file.readAsLinesSync();
   var containsUpdate = false;
-  var newData = data.map((line) {
+  final newData = data.map((line) {
     if (line.contains(findRegex)) {
       containsUpdate = true;
       return line.replaceAll(replaceRegex, '');
@@ -75,7 +75,7 @@ void removeI18nComments(File file) {
 
 Future<List<FileSystemEntity>> getAllDartFiles() async {
   final files = <FileSystemEntity>[];
-  var dir = Directory(getLibDirectory());
+  final dir = Directory(getLibDirectory());
   final filesSubscription = dir
       .list(recursive: true)
       .where((file) => file.path.substring(file.path.length - 5) == '.dart')
@@ -90,7 +90,7 @@ Future<List<FileSystemEntity>> getAllDartFiles() async {
 Map<String, String> getI18nKeysFromFile(File file) {
   final regex = RegExp(r'''[\'\"](.*)[\'\"].i18n\(.*\).*\/\/(.*)''');
   final response = <String, String>{};
-  var data = file.readAsStringSync();
+  final data = file.readAsStringSync();
   if (regex.hasMatch(data)) {
     regex.allMatches(data).forEach((match) => (match.groupCount == 4)
         ? response[match.group(3)] = match.group(3)
@@ -104,7 +104,7 @@ Map<File, String> readJsonFiles(String localizationPath) {
   final dir = Directory(localizationPath);
   final files = dir.listSync();
 
-  for (var file in files) {
+  for (final file in files) {
     response[file] = (file as File).readAsStringSync();
   }
 

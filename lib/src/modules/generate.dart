@@ -1,72 +1,91 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart';
+
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart' as file_utils;
 import 'package:slidy/src/utils/file_utils.dart';
 import 'package:slidy/src/utils/object_generate.dart';
-import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
+import 'package:slidy/src/utils/utils.dart';
 
 import '../utils/utils.dart';
 
-final PACKAGE_JSON_ANNOTATION = 'json_annotation';
-final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
+const PACKAGE_JSON_ANNOTATION = 'json_annotation';
+const PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
 
 class Generate {
-  static Future module(String path, bool createCompleteModule, bool noroute,
-      bool withRepository, bool withInterface) async {
-    var moduleType = createCompleteModule ? 'module_complete' : 'module';
-    var m = await isModular();
-    var templateModular = noroute
+  static Future module({
+    @required String path,
+    @required bool createCompleteModule,
+    @required bool noroute,
+    @required bool withRepository,
+    @required bool withInterface,
+  }) async {
+    final moduleType = createCompleteModule ? 'module_complete' : 'module';
+    final m = await isModular();
+    final templateModular = noroute
         ? templates.moduleGeneratorModularNoRoute
         : templates.moduleGeneratorModular;
 
-    await file_utils.createFile('${mainDirectory}$path', moduleType,
+    await file_utils.createFile('$mainDirectory$path', moduleType,
         m ? templateModular : templates.moduleGenerator);
 
     if (createCompleteModule) {
-      var _isMobx = await isMobx();
-      await page(
-        path,
-        false,
-        m,
-        _isMobx,
+      final _isMobx = await isMobx();
+      page(
+        path: path,
+        blocLess: false,
+        flutter_bloc: m,
+        mobx: _isMobx,
       );
     }
 
     if (withRepository) {
-      var lastBar = path.lastIndexOf(RegExp(r'/|\\'));
-      var repositoryName = path.substring(lastBar);
+      final lastBar = path.lastIndexOf(RegExp(r'/|\\'));
+      final repositoryName = path.substring(lastBar);
 
-      path = await repository(
-          '$path/repositories/$repositoryName', true, withInterface);
+      await repository(
+        path: '$path/repositories/$repositoryName',
+        isTest: true,
+        withInterface: withInterface,
+      );
     }
   }
 
-  static void page(String path, bool blocLess,
-      [bool flutter_bloc = false, bool mobx = false]) async {
-    var m = await isModular();
+  static Future<void> page({
+    @required String path,
+    @required bool blocLess,
+    bool flutter_bloc = false,
+    bool mobx = false,
+  }) async {
+    final m = await isModular();
 
     if (!blocLess && !flutter_bloc && !mobx) {
       mobx = await isMobx();
     }
 
-    await file_utils.createFile('${mainDirectory}$path', 'page',
+    await file_utils.createFile('$mainDirectory$path', 'page',
         mobx ? templates.pageGeneratorMobX : templates.pageGenerator,
         generatorTest: templates.pageTestGenerator, isModular: m);
 
-    var name = basename(path);
+    final name = basename(path);
     if (!blocLess) {
-      var _isMobx = await isMobx();
-      var type = _isMobx ? 'controller' : 'bloc';
-      bloc('$path/$name', type);
+      final _isMobx = await isMobx();
+      final type = _isMobx ? 'controller' : 'bloc';
+      bloc(path: '$path/$name', type: type);
     }
   }
 
-  static Future widget(String path, bool blocLess, bool ignoreSuffix,
-      [bool flutter_bloc = false, bool mobx = false]) async {
-    var m = await isModular();
+  static Future widget({
+    @required String path,
+    @required bool blocLess,
+    @required bool ignoreSuffix,
+    bool flutter_bloc = false,
+    bool mobx = false,
+  }) async {
+    final m = await isModular();
 
     if (ignoreSuffix) {
       await file_utils.createFile(
@@ -76,21 +95,27 @@ class Generate {
           isModular: m);
     } else {
       await file_utils.createFile(
-          '${mainDirectory}$path', 'widget', templates.widgetGenerator,
+          '$mainDirectory$path', 'widget', templates.widgetGenerator,
           generatorTest: templates.widgetTestGenerator, isModular: m);
     }
 
-    var name = basename(path);
+    final name = basename(path);
     if (!blocLess) {
-      var type = (await isMobx()) ? 'controller' : 'bloc';
+      final type = (await isMobx()) ? 'controller' : 'bloc';
 
-      bloc('$path/$name', type, true, flutter_bloc, mobx);
+      bloc(
+        path: '$path/$name',
+        type: type,
+        isTest: true,
+        flutter_bloc: flutter_bloc,
+        mobx: mobx,
+      );
     }
   }
 
   static void test(String path) {
     if (path.contains('.dart')) {
-      var entity = File(libPath(path));
+      final entity = File(libPath(path));
       if (!entity.existsSync()) {
         output.error('File $path not exist');
         exit(1);
@@ -101,13 +126,13 @@ class Generate {
               .replaceFirst('lib/', 'test/')
               .replaceFirst('.dart', '_test.dart')));
     } else {
-      var entity = Directory(libPath(path));
+      final entity = Directory(libPath(path));
       if (!entity.existsSync()) {
         output.error('Directory $path not exist');
         exit(1);
       }
 
-      for (var file in entity.listSync()) {
+      for (final file in entity.listSync()) {
         if (file is File) {
           _generateTest(
               file,
@@ -125,10 +150,10 @@ class Generate {
       exit(1);
     }
 
-    var m = await isModular();
-    var name = basename(entity.path);
-    var module = file_utils.findModule(entity.path);
-    var nameModule = module == null ? null : basename(module.path);
+    final m = await isModular();
+    final name = basename(entity.path);
+    final module = file_utils.findModule(entity.path);
+    final nameModule = module == null ? null : basename(module.path);
 
     if (name.contains('_bloc.dart')) {
       entityTest.createSync(recursive: true);
@@ -214,9 +239,12 @@ class Generate {
     await formatFile(entityTest);
   }
 
-  static Future repository(String path,
-      [bool isTest = true, bool withInterface = false]) async {
-    var m = await isModular();
+  static Future repository({
+    @required String path,
+    bool isTest = true,
+    bool withInterface = false,
+  }) async {
+    final m = await isModular();
 
     if (!withInterface) {
       await file_utils.createFile(
@@ -253,18 +281,21 @@ class Generate {
     }
   }
 
-  static Future service(String path,
-      [bool isTest = true, bool withInterface = false]) async {
-    var m = await isModular();
+  static Future service({
+    @required String path,
+    bool isTest = true,
+    bool withInterface = false,
+  }) async {
+    final m = await isModular();
 
     if (!withInterface) {
-      await file_utils.createFile('${mainDirectory}$path', 'service',
+      await file_utils.createFile('$mainDirectory$path', 'service',
           m ? templates.serviceGeneratorModular : templates.serviceGenerator,
           generatorTest: isTest ? templates.serviceTestGenerator : null,
           isModular: m);
     } else {
       await file_utils.createFile(
-          '${mainDirectory}$path',
+          '$mainDirectory$path',
           'service',
           m
               ? templates.interfaceServiceGeneratorModular
@@ -274,7 +305,7 @@ class Generate {
           isInterface: true);
 
       await file_utils.createFile(
-          '${mainDirectory}$path',
+          '$mainDirectory$path',
           'service',
           m
               ? templates.extendsInterfaceServiceGeneratorModular
@@ -286,11 +317,14 @@ class Generate {
     }
   }
 
-  static void model(List<String> path,
-      [bool isTest = false, bool isReactive = false]) async {
-    var templateModel;
+  static Future<void> model({
+    @required List<String> path,
+    bool isTest = false,
+    bool isReactive = false,
+  }) async {
+    Function(ObjectGenerate) templateModel;
 
-    var getJsonDependencies = await Future.wait([
+    final getJsonDependencies = await Future.wait([
       checkDependency(PACKAGE_JSON_ANNOTATION),
       checkDevDependency(PACKAGE_JSON_SERIALIZABLE)
     ]);
@@ -313,19 +347,22 @@ class Generate {
     }
 
     await file_utils.createFile(
-      '${mainDirectory}${path.first}',
+      '$mainDirectory${path.first}',
       'model',
       templateModel,
       ignoreSuffix: false,
     );
   }
 
-  static void bloc(String path, String type,
-      [bool isTest = true,
-      bool flutter_bloc = false,
-      bool mobx = false]) async {
-    var template;
-    var m = await isModular();
+  static Future<void> bloc({
+    @required String path,
+    @required String type,
+    bool isTest = true,
+    bool flutter_bloc = false,
+    bool mobx = false,
+  }) async {
+    String Function(ObjectGenerate obj) template;
+    final m = await isModular();
 
     if (!mobx) {
       mobx = await isMobx();
@@ -343,7 +380,7 @@ class Generate {
       template = m ? templates.blocGeneratorModular : templates.blocGenerator;
     }
 
-    var testTemplate = mobx
+    final testTemplate = mobx
         ? (m
             ? templates.mobxBlocTestGeneratorModular
             : templates.mobxBlocTestGenerator)
@@ -351,13 +388,13 @@ class Generate {
             ? templates.blocTestGeneratorModular
             : templates.blocTestGenerator);
 
-    var stateManagement = mobx
+    final stateManagement = mobx
         ? StateManagementEnum.mobx
         : flutter_bloc
             ? StateManagementEnum.flutter_bloc
             : StateManagementEnum.rxDart;
 
-    await file_utils.createFile('${mainDirectory}$path', type, template,
+    await file_utils.createFile('$mainDirectory$path', type, template,
         generatorTest: isTest ? testTemplate : null,
         isModular: m,
         stateManagement: stateManagement);

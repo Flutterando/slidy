@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateBlocSubCommand extends CommandBase {
   @override
-  final name = 'bloc';
+  final String name = 'bloc';
   @override
-  final description = 'Creates a bloc';
+  final String description = 'Creates a bloc';
 
   GenerateBlocSubCommand() {
     argParser.addFlag('notest',
@@ -26,13 +26,18 @@ class GenerateBlocSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.bloc(argResults.rest.first, 'bloc', !argResults['notest'],
-          argResults['flutter_bloc'], argResults['mobx']);
+      Generate.bloc(
+        path: argResults.rest.first,
+        type: 'bloc',
+        isTest: !argResults['notest'],
+        flutter_bloc: argResults['flutter_bloc'],
+        mobx: argResults['mobx'],
+      );
     }
   }
 }
 
 class GenerateBlocAbbrSubCommand extends GenerateBlocSubCommand {
   @override
-  final name = 'b';
+  String get name => 'b';
 }

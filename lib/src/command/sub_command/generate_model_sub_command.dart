@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateModelSubCommand extends CommandBase {
   @override
-  final name = 'model';
+  final String name = 'model';
   @override
-  final description = 'Creates a model';
+  final String description = 'Creates a model';
 
   GenerateModelSubCommand() {
     argParser.addFlag('notest',
@@ -19,12 +19,16 @@ class GenerateModelSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.model(argResults.rest, !argResults['notest'], argResults['rx']);
+      Generate.model(
+        path: argResults.rest,
+        isTest: !argResults['notest'],
+        isReactive: argResults['rx'],
+      );
     }
   }
 }
 
 class GenerateModelAbbrSubCommand extends GenerateModelSubCommand {
   @override
-  final name = 'mm';
+  String get name => 'mm';
 }

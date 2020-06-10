@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class UpdateCommand extends CommandBase {
   @override
-  final name = 'update';
+  String get name => 'update';
   @override
-  final description = 'Update a new package or packages.';
+  String get description => 'Update a new package or packages.';
 
   UpdateCommand() {
     argParser.addFlag('dev',
@@ -16,7 +16,7 @@ class UpdateCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      update(argResults.rest, argResults['dev']);
+      update(packs: argResults.rest, isDev: argResults['dev']);
     }
   }
 }

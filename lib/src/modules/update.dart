@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:slidy/src/services/pub_service.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 
-void update(List<String> packs, isDev) async {
+Future<void> update({
+  @required List<String> packs,
+  @required bool isDev,
+}) async {
   final spec = await getPubSpec();
-  var dependencies = isDev ? spec.devDependencies : spec.dependencies;
+  final dependencies = isDev ? spec.devDependencies : spec.dependencies;
   final yaml = File('pubspec.yaml');
   final node = yaml.readAsLinesSync();
   var isAlter = false;
@@ -35,7 +39,7 @@ void update(List<String> packs, isDev) async {
   }
 
   if (isAlter) {
-    yaml.writeAsStringSync(node.join('\n') + '\n');
+    yaml.writeAsStringSync('${node.join('\n')}\n');
   }
 
   // spec = isDev

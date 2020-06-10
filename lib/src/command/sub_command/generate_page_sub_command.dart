@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GeneratePageSubCommand extends CommandBase {
   @override
-  final name = 'page';
+  String get name => 'page';
   @override
-  final description = 'Creates a page';
+  String get description => 'Creates a page';
 
   GeneratePageSubCommand() {
     argParser.addFlag('bloc',
@@ -25,13 +25,17 @@ class GeneratePageSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.page(argResults.rest.first, argResults['bloc'],
-          argResults['flutter_bloc'], argResults['mobx']);
+      Generate.page(
+        path: argResults.rest.first,
+        blocLess: argResults['bloc'],
+        flutter_bloc: argResults['flutter_bloc'],
+        mobx: argResults['mobx'],
+      );
     }
   }
 }
 
 class GeneratePageAbbrSubCommand extends GeneratePageSubCommand {
   @override
-  final name = 'p';
+  String get name => 'p';
 }

@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateModuleSubCommand extends CommandBase {
   @override
-  final name = 'module';
+  final String name = 'module';
   @override
-  final description = 'Creates a module';
+  final String description = 'Creates a module';
 
   GenerateModuleSubCommand() {
     argParser.addFlag('complete',
@@ -32,16 +32,17 @@ class GenerateModuleSubCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.module(
-          argResults.rest.first,
-          argResults['complete'],
-          argResults['noroute'],
-          argResults['withrepository'],
-          argResults['withInterface']);
+        path: argResults.rest.first,
+        createCompleteModule: argResults['complete'],
+        noroute: argResults['noroute'],
+        withRepository: argResults['withrepository'],
+        withInterface: argResults['withInterface'],
+      );
     }
   }
 }
 
 class GenerateModuleAbbrSubCommand extends GenerateModuleSubCommand {
   @override
-  final name = 'm';
+  String get name => 'm';
 }

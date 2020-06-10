@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateStoreSubCommand extends CommandBase {
   @override
-  final name = 'store';
+  String get name => 'store';
   @override
-  final description = 'Creates a Store';
+  String get description => 'Creates a Store';
 
   GenerateStoreSubCommand() {
     argParser.addFlag('notest',
@@ -26,13 +26,18 @@ class GenerateStoreSubCommand extends CommandBase {
     if (argResults.rest.isEmpty) {
       throw UsageException('value not passed for a module command', usage);
     } else {
-      Generate.bloc(argResults.rest.first, 'store', !argResults['notest'],
-          argResults['flutter_bloc'], argResults['mobx']);
+      Generate.bloc(
+        path: argResults.rest.first,
+        type: 'store',
+        isTest: !argResults['notest'],
+        flutter_bloc: argResults['flutter_bloc'],
+        mobx: argResults['mobx'],
+      );
     }
   }
 }
 
 class GenerateStoreAbbrSubCommand extends GenerateStoreSubCommand {
   @override
-  final name = 'ss';
+  String get name => 'ss';
 }

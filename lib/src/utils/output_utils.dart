@@ -5,8 +5,8 @@ AnsiPen green = AnsiPen()..green(bold: true);
 AnsiPen white = AnsiPen()..white(bold: true);
 AnsiPen yellow = AnsiPen()..yellow(bold: true);
 
-void success(msg) => print(green('SUCCESS: $msg'));
-void title(msg) => print(green('$msg'));
-void warn(msg) => print(yellow('WARN: $msg'));
-void error(msg) => print(red('ERROR: $msg'));
-void msg(msg) => print(white(msg));
+void success(String msg) => print(green('SUCCESS: $msg'));
+void title(String msg) => print(green('$msg'));
+void warn(String msg) => print(yellow('WARN: $msg'));
+void error(String msg) => print(red('ERROR: $msg'));
+void msg(String msg) => print(white(msg));

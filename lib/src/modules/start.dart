@@ -33,7 +33,7 @@ Map<String, int> stateManagementOptions = {
 int stateCLIOptions(String title, List<String> options) {
   stdin.echoMode = false;
   stdin.lineMode = false;
-  var console = Console();
+  final console = Console();
   var isRunning = true;
   var selected = 0;
 
@@ -52,7 +52,7 @@ int stateCLIOptions(String title, List<String> options) {
     print('\nUse ↑↓ (keyboard arrows)');
     print('Press \'q\' to quit.');
 
-    var key = console.readKey();
+    final key = console.readKey();
 
     if (key.controlChar == ControlCharacter.arrowDown) {
       if (selected < options.length - 1) {
@@ -86,19 +86,27 @@ Function blocOrModular([int selected, String directory]) {
     await removeAllPackages(directory);
     if (selected == 0) {
       output.msg('Instaling flutter_modular...');
-      await install(['flutter_modular'], false, directory: directory);
+      await install(
+        packs: ['flutter_modular'],
+        isDev: false,
+        directory: directory,
+      );
     } else if (selected == 1) {
       output.msg('Instaling bloc_pattern...');
-      await install(['bloc_pattern'], false, directory: directory);
+      await install(
+        packs: ['bloc_pattern'],
+        isDev: false,
+        directory: directory,
+      );
     } else {
       exit(1);
     }
   };
 }
 
-void generateScript() async {
+Future<void> generateScript() async {
   final yaml = File('pubspec.yaml');
-  var node = yaml.readAsLinesSync();
+  final node = yaml.readAsLinesSync();
 
   final index =
       node.indexWhere((t) => t.contains('uses-material-design: true')) + 1;
@@ -110,7 +118,7 @@ void generateScript() async {
     node.insert(index + 1,
         '\n    mobx_watch: flutter clean & flutter pub get & flutter pub run build_runner watch --delete-conflicting-outputs');
 
-    yaml.writeAsStringSync(node.join('\n') + '\n');
+    yaml.writeAsStringSync('${node.join('\n')}\n');
   } catch (e) {
     output.error('Erro o generate scripts');
   }
@@ -130,24 +138,46 @@ Function selecStateManagement([int selected, String directory]) {
   return () async {
     if (selected == 2) {
       output.title('Starting a new project with RX BLoC');
-      await install(['rxdart'], false, directory: directory);
+      await install(
+        packs: ['rxdart'],
+        isDev: false,
+        directory: directory,
+      );
     } else if (selected == 1) {
       output.title('Starting a new project with flutter_bloc');
       await createBlocBuilder();
-      await install(['bloc', 'bloc_test', 'equatable'], false,
-          directory: directory);
+      await install(
+        packs: ['bloc', 'bloc_test', 'equatable'],
+        isDev: false,
+        directory: directory,
+      );
     } else if (selected == 0) {
       output.title('Starting a new project with Mobx');
-      await install(['mobx', 'flutter_mobx'], false, directory: directory);
-      await install(['build_runner', 'mobx_codegen'], true,
-          directory: directory);
+      await install(
+        packs: ['mobx', 'flutter_mobx'],
+        isDev: false,
+        directory: directory,
+      );
+      await install(
+        packs: ['build_runner', 'mobx_codegen'],
+        isDev: true,
+        directory: directory,
+      );
       await generateScript();
     } else {
       exit(1);
     }
 
-    await install(['dio'], false, directory: directory);
-    await install(['mockito'], true, directory: directory);
+    await install(
+      packs: ['dio'],
+      isDev: false,
+      directory: directory,
+    );
+    await install(
+      packs: ['mockito'],
+      isDev: true,
+      directory: directory,
+    );
   };
 }
 
@@ -171,13 +201,14 @@ Future isContinue(Directory dir, [int selected]) async {
   }
 }
 
-Future start(
-    {completeStart,
-    bool force = false,
-    Directory dir,
-    Tuple2<Function, Function> tuple,
-    String providerSystem,
-    String stateManagement}) async {
+Future start({
+  bool completeStart,
+  bool force = false,
+  Directory dir,
+  Tuple2<Function, Function> tuple,
+  String providerSystem,
+  String stateManagement,
+}) async {
   dir ??= Directory('lib');
   tuple ??= Tuple2(blocOrModular(providerSystemOptions[providerSystem]),
       selecStateManagement(stateManagementOptions[stateManagement]));
@@ -185,7 +216,7 @@ Future start(
   await tuple.item1();
   await tuple.item2();
 
-  var dirTest = Directory(dir.parent.path + '/test');
+  final dirTest = Directory('${dir.parent.path}/test');
   if (await dirTest.exists()) {
     if (dirTest.listSync().isNotEmpty) {
       output.msg('Removing test folder');
@@ -193,12 +224,12 @@ Future start(
     }
   }
 
-  var command =
+  final command =
       CommandRunner('slidy', 'CLI package manager and template for Flutter.');
   command.addCommand(GenerateCommand());
 
-  var package = await getNamePackage(dir.parent);
-  var m = await isModular();
+  final package = await getNamePackage(dir.parent);
+  final m = await isModular();
   createStaticFile('${dir.path}/main.dart',
       m ? templates.startMainModular(package) : templates.startMain(package));
 
@@ -241,9 +272,10 @@ Future start(
     await command.run(['generate', 'module', 'modules/home', '-c']);
   }
 
-  var _isMobx = await isMobx();
+  final _isMobx = await isMobx();
 
-  await command.run(['generate', _isMobx ? 'controller' : 'bloc', 'app']);
+  final target = _isMobx ? 'controller' : 'bloc';
+  await command.run(['generate', target, 'app']);
 
   output.msg('Project started! enjoy!');
 }

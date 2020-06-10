@@ -1,16 +1,21 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 
-void uninstall(List<String> packs, bool isDev,
-    [bool showErrors = true, String directory]) async {
+Future<void> uninstall({
+  @required List<String> packs,
+  @required bool isDev,
+  bool showErrors = true,
+  String directory,
+}) async {
   final spec = await getPubSpec(
       directory: directory == null ? null : Directory(directory));
-  var dependencies = isDev ? spec.devDependencies : spec.dependencies;
+  final dependencies = isDev ? spec.devDependencies : spec.dependencies;
   final yaml =
       File(directory == null ? 'pubspec.yaml' : '$directory/pubspec.yaml');
-  var node = yaml.readAsLinesSync();
+  final node = yaml.readAsLinesSync();
   var isAlter = false;
 
   for (final pack in packs) {
@@ -27,7 +32,7 @@ void uninstall(List<String> packs, bool isDev,
   }
 
   if (isAlter) {
-    yaml.writeAsStringSync(node.join('\n') + '\n');
+    yaml.writeAsStringSync('${node.join('\n')}\n');
   }
 
   // spec = isDev

@@ -1,9 +1,12 @@
 import 'dart:io';
+
+import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:recase/recase.dart';
+
 import 'package:slidy/src/templates/templates.dart';
-import 'package:slidy/src/utils/utils.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
+import 'package:slidy/src/utils/utils.dart';
 
 import 'local_save_log.dart';
 import 'object_generate.dart';
@@ -44,12 +47,12 @@ Future createFile(
   }
 
   if (type != 'bloc' || stateManagement != StateManagementEnum.flutter_bloc) {
-    var name = basename(path);
+    final name = basename(path);
     File file;
     File fileTest;
     if (!isInterface) {
       if (ignoreSuffix) {
-        file = File('${dir.path}/${name}.dart');
+        file = File('${dir.path}/$name.dart');
         fileTest =
             File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');
       } else {
@@ -78,7 +81,7 @@ Future createFile(
     output.msg('File ${file.path} created');
 
     if (type == 'module_complete') {
-      var package = await getNamePackage();
+      final package = await getNamePackage();
       await file.writeAsString(generator(ObjectGenerate(
           packageName: package,
           name: formatName(name),
@@ -107,10 +110,12 @@ Future createFile(
             ? await addModule(formatName('${name}_$type'), file.path,
                 hasInterface: hasInterface)
             : await addModuleOld(
-                formatName('${name}_$type'),
-                file.path,
-                type == 'bloc' || type == 'controller' || type == 'store',
-                hasInterface);
+                nameCap: formatName('${name}_$type'),
+                path: file.path,
+                isBloc:
+                    type == 'bloc' || type == 'controller' || type == 'store',
+                hasInterface: hasInterface,
+              );
       } catch (e) {
         print('not Module');
       }
@@ -147,7 +152,7 @@ Future createFile(
   } else {
     //Bloc padrao Flutter Bloc
 
-    var name = basename(path);
+    final name = basename(path);
     File fileBloc;
     File fileEvent;
     File fileState;
@@ -203,9 +208,10 @@ Future createFile(
             fileBloc.path,
           )
         : await addModuleOld(
-            formatName('${ReCase(name).snakeCase}_$type'),
-            fileBloc.path,
-            type == 'bloc' || type == 'controller' || type == 'store');
+            nameCap: formatName('${ReCase(name).snakeCase}_$type'),
+            path: fileBloc.path,
+            isBloc: type == 'bloc' || type == 'controller' || type == 'store',
+          );
     nameModule = module == null ? null : basename(module.path);
 
     if (generatorTest != null) {
@@ -250,19 +256,19 @@ Future<File> addModule(
   bool hasInterface = false,
 }) async {
   int index;
-  var module = findModule(path);
+  final module = findModule(path);
 
   if (module == null) {
     output.error('Module not found');
     exit(1);
   }
 
-  var node = (await module.readAsString()).split('\n');
+  final node = (await module.readAsString()).split('\n');
 
-  var packageName = await getNamePackage();
+  final packageName = await getNamePackage();
 
-  var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
-  var pathFile = '${packageName}/${pathFormated}'
+  final pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
+  var pathFile = '$packageName/$pathFormated'
       .replaceAll('$packageName/$packageName', '')
       .replaceFirst('lib/', '')
       .replaceAll('\\', '/')
@@ -273,11 +279,11 @@ Future<File> addModule(
 
   var import = "import '$pathFile';";
   if (hasInterface) {
-    var file = pathFile.split('/').last;
-    var interfacePath = pathFile.replaceAll(
+    final file = pathFile.split('/').last;
+    final interfacePath = pathFile.replaceAll(
         file, 'interfaces/${file.replaceFirst('.dart', '_interface.dart')}');
 
-    import += "\nimport '${interfacePath}';";
+    import += "\nimport '$interfacePath';";
   }
 
   node.insert(0, import);
@@ -290,13 +296,13 @@ Future<File> addModule(
   index = node.indexWhere((t) => t.contains('binds => ['));
   node[index] = node[index].replaceFirst(
     'binds => [',
-    (hasInterface
+    hasInterface
         ? (nameCap.contains('Repository')
-            ? 'binds => [Bind<I${nameCap}>((i) => ${nameCap}(Dio())),'
-            : 'binds => [Bind<I${nameCap}>((i) => ${nameCap}()),')
+            ? 'binds => [Bind<I$nameCap>((i) => $nameCap(Dio())),'
+            : 'binds => [Bind<I$nameCap>((i) => $nameCap()),')
         : (nameCap.contains('Repository')
-            ? 'binds => [Bind((i) => ${nameCap}(Dio())),'
-            : 'binds => [Bind((i) => ${nameCap}()),')),
+            ? 'binds => [Bind((i) => $nameCap(Dio())),'
+            : 'binds => [Bind((i) => $nameCap()),'),
   );
 
   await module.writeAsString(node.join('\n'));
@@ -306,37 +312,41 @@ Future<File> addModule(
   return module;
 }
 
-@deprecated
-Future<File> addModuleOld(String nameCap, String path, bool isBloc,
-    [bool hasInterface]) async {
+@Deprecated("Consider using addModule()")
+Future<File> addModuleOld({
+  @required String nameCap,
+  @required String path,
+  @required bool isBloc,
+  bool hasInterface,
+}) async {
   int index;
-  var module = findModule(path);
+  final module = findModule(path);
 
   if (module == null) {
     output.error('Module not found');
     exit(1);
   }
 
-  var node = (await module.readAsString()).split('\n');
-  var packageName = await getNamePackage();
-  var import = hasInterface
-      ? 'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+  final node = (await module.readAsString()).split('\n');
+  final packageName = await getNamePackage();
+  final import = hasInterface
+      ? 'package:$packageName/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
           .replaceAll('$packageName/${packageName}_interface', packageName)
-      : 'package:${packageName}/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
+      : 'package:$packageName/${path.replaceFirst("lib/", "").replaceAll("\\", "/")}'
           .replaceAll('$packageName/$packageName', packageName);
   node.insert(0, "  import '$import';");
 
   if (isBloc) {
     index = node.indexWhere((t) => t.contains('blocs => ['));
     node[index] = node[index]
-        .replaceFirst('blocs => [', 'blocs => [Bloc((i) => ${nameCap}()),');
+        .replaceFirst('blocs => [', 'blocs => [Bloc((i) => $nameCap()),');
   } else {
     index = node.indexWhere((t) => t.contains('dependencies => ['));
     node[index] = node[index].replaceFirst(
         'dependencies => [',
         hasInterface
-            ? 'dependencies => [Dependency((i) => I${nameCap}()),'
-            : 'dependencies => [Dependency((i) => ${nameCap}()),');
+            ? 'dependencies => [Dependency((i) => I$nameCap()),'
+            : 'dependencies => [Dependency((i) => $nameCap()),');
   }
 
   await module.writeAsString(node.join('\n'));
@@ -357,17 +367,16 @@ File findModule(String path) {
     loop = module == null && basename(dir.path) != 'lib' && count < 10;
     count++;
   } while (loop);
-  module = File(module.path.replaceAll('\\', '/'));
-  return module;
+  return File(module.path.replaceAll('\\', '/'));
 }
 
 File search(Directory dir) {
   try {
-    var a = dir
+    final a = dir
         .listSync()
         .firstWhere((f) => f is File && f.path.contains('_module.dart'));
 
-    print(' Teste' + a?.toString());
+    print(' Teste${a?.toString()}');
     return dir
         .listSync()
         .firstWhere((f) => f is File && f.path.contains('_module.dart'));
@@ -376,9 +385,9 @@ File search(Directory dir) {
   }
 }
 
-void createStaticFile(String path, String content) async {
+Future<void> createStaticFile(String path, String content) async {
   try {
-    var file = File(path)
+    final file = File(path)
       ..createSync(recursive: true)
       ..writeAsStringSync(content);
     LocalSaveLog().add(file.path);
@@ -393,11 +402,11 @@ void createStaticFile(String path, String content) async {
 
 Future<void> createBlocBuilder() async {
   output.success('Creating the bloc?');
-  var path = 'lib/app/shared/';
+  const path = 'lib/app/shared/';
 
-  var dir = Directory(path);
+  final dir = Directory(path);
 
-  var name = basename(path);
+  final name = basename(path);
   File fileBlocProvider;
 
   fileBlocProvider = File('${dir.path}/bloc_builder.dart');

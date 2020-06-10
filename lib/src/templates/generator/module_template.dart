@@ -1,12 +1,12 @@
 import 'package:slidy/src/utils/object_generate.dart';
 
 String moduleGenerator(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst('lib/', '');
-  var pkg = obj.packageName;
-  var import =
-      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
+  final path = obj.pathModule.replaceFirst('lib/', '');
+  final pkg = obj.packageName;
+  final import =
+      pkg.isNotEmpty ? 'import \'package:$pkg/${path}_page.dart\';' : '';
 
-  var page = pkg.isNotEmpty ? '${obj.name}Page()' : 'Container()';
+  final page = pkg.isNotEmpty ? '${obj.name}Page()' : 'Container()';
 
   return '''
   import 'package:bloc_pattern/bloc_pattern.dart';
@@ -21,7 +21,7 @@ String moduleGenerator(ObjectGenerate obj) {
   List<Dependency> get dependencies => [];
 
   @override
-  Widget get view => ${page};
+  Widget get view => $page;
 
   static Inject get to => Inject<${obj.name}Module>.of();
 
@@ -30,12 +30,12 @@ String moduleGenerator(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModular(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst('lib/', '');
-  var pkg = obj.packageName;
+  final path = obj.pathModule.replaceFirst('lib/', '');
+  final pkg = obj.packageName;
 
-  var import =
-      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
-  var router = pkg.isNotEmpty
+  final import =
+      pkg.isNotEmpty ? 'import \'package:$pkg/${path}_page.dart\';' : '';
+  final router = pkg.isNotEmpty
       ? 'Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),'
       : '';
 
@@ -57,10 +57,10 @@ String moduleGeneratorModular(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModularNoRoute(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst('lib/', '');
-  var pkg = obj.packageName;
-  var import =
-      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
+  final path = obj.pathModule.replaceFirst('lib/', '');
+  final pkg = obj.packageName;
+  final import =
+      pkg.isNotEmpty ? 'import \'package:$pkg/${path}_page.dart\';' : '';
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';

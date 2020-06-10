@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 
-void runCommand(List<String> commands) async {
+Future<void> runCommand(List<String> commands) async {
   try {
     final yaml = File('pubspec.yaml');
-    var node = await yaml.readAsString();
-    var doc = loadYaml(node);
-    for (var command in commands) {
-      var regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
+    final node = await yaml.readAsString();
+    final doc = loadYaml(node);
+    for (final command in commands) {
+      final regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
 
       if (!(doc as Map).containsKey('scripts')) {
         throw 'Please, add param \'scripts\' in your pubspec.yaml';
@@ -20,12 +20,12 @@ void runCommand(List<String> commands) async {
         throw 'command "$command" not found';
       }
 
-      String commandExec = doc['scripts'][command];
+      final String commandExec = doc['scripts'][command];
 
       for (final item in commandExec.split('&')) {
         final matchList =
             regex.allMatches(item).map((v) => v.group(0)).toList();
-        await callProcess(matchList);
+        callProcess(matchList);
       }
     }
   } catch (e) {
@@ -33,15 +33,15 @@ void runCommand(List<String> commands) async {
   }
 }
 
-void callProcess(List<String> commands) async {
+Future<void> callProcess(List<String> commands) async {
   try {
-    var process = await Process.start(
+    final process = await Process.start(
         commands.first,
         commands.length <= 1
             ? []
             : commands.getRange(1, commands.length).toList(),
         runInShell: true);
-    await for (var line in process.stdout.transform(utf8.decoder)) {
+    await for (final line in process.stdout.transform(utf8.decoder)) {
       print(line);
     }
   } catch (error) {

@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateTestSubCommand extends CommandBase {
   @override
-  final name = 'test';
+  String get name => 'test';
   @override
-  final description = 'Creates a Test file';
+  String get description => 'Creates a Test file';
   @override
   void run() {
     if (argResults.rest.isEmpty) {
@@ -18,5 +18,5 @@ class GenerateTestSubCommand extends CommandBase {
 
 class GenerateTestAbbrSubCommand extends GenerateTestSubCommand {
   @override
-  final name = 't';
+  String get name => 't';
 }

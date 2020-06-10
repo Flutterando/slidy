@@ -34,25 +34,25 @@ void main() {
 
   group('LibPath Test', () {
     test('libPath 01', () async {
-      expect(await libPath('folder/app/home'), 'lib/src/folder/app/home');
+      expect(libPath('folder/app/home'), 'lib/src/folder/app/home');
     });
 
     test('libPath 02', () async {
-      expect(await libPath('command'), 'lib/src/command');
+      expect(libPath('command'), 'lib/src/command');
     });
   });
 
   group('ValidateUrl Test', () {
     test('validateUrl 01', () async {
-      expect(await validateUrl('https://github.com/flutterando'), true);
+      expect(validateUrl('https://github.com/flutterando'), true);
     });
 
     test('validateUrl 02', () async {
-      expect(await validateUrl('http://github.com/flutterando'), true);
+      expect(validateUrl('http://github.com/flutterando'), true);
     });
 
     test('validateUrl 03', () async {
-      expect(await validateUrl('github.com/flutterando'), false);
+      expect(validateUrl('github.com/flutterando'), false);
     });
   });
 }

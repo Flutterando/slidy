@@ -3,9 +3,9 @@ import 'package:slidy/slidy.dart';
 
 class GenerateWidgetSubCommand extends CommandBase {
   @override
-  final name = 'widget';
+  String get name => 'widget';
   @override
-  final description = 'Creates a widget';
+  String get description => 'Creates a widget';
 
   GenerateWidgetSubCommand() {
     argParser.addFlag('bloc',
@@ -32,12 +32,17 @@ class GenerateWidgetSubCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.widget(
-          argResults.rest.first, argResults['bloc'], argResults['suffix'], argResults['flutter_bloc'], argResults['mobx']);
+        path: argResults.rest.first,
+        blocLess: argResults['bloc'],
+        ignoreSuffix: argResults['suffix'],
+        flutter_bloc: argResults['flutter_bloc'],
+        mobx: argResults['mobx'],
+      );
     }
   }
 }
 
 class GenerateWidgetAbbrSubCommand extends GenerateWidgetSubCommand {
   @override
-  final name = 'w';
+  String get name => 'w';
 }
