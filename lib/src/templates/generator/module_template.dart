@@ -1,3 +1,4 @@
+import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
 String moduleGenerator(ObjectGenerate obj) {
@@ -33,8 +34,9 @@ String moduleGeneratorModular(ObjectGenerate obj) {
   var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
 
-  var import =
-      pkg.isNotEmpty ? 'import \'package:${pkg}/${path}_page.dart\';' : '';
+  var import = pkg.isNotEmpty
+      ? 'import \'${ReCase(obj.name).snakeCase}_page.dart\';'
+      : '';
   var router = pkg.isNotEmpty
       ? 'Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),'
       : '';

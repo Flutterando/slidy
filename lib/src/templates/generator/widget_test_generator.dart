@@ -15,8 +15,8 @@ $package;
 
 import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
-main() {
-//  testWidgets('${obj.name}Widget has message', (WidgetTester tester) async {
+void main() {
+//  testWidgets('${obj.name}Widget has message', (tester) async {
 //    await tester.pumpWidget(buildTestableWidget(${obj.name}Widget()));
 //    final textFinder = find.text('${obj.name}');
 //    expect(textFinder, findsOneWidget);
@@ -39,8 +39,8 @@ import 'package:flutter_test/flutter_test.dart';
 $package;
 import 'package:${obj.packageName}/${obj.import.replaceFirst("lib/", "").replaceAll("\\", "/")}';
 
-main() {
-  testWidgets('${obj.name} has message', (WidgetTester tester) async {
+void main() {
+  testWidgets('${obj.name} has message', (tester) async {
  //   await tester.pumpWidget(buildTestableWidget(${obj.name}()));
  //   final textFinder = find.text('${obj.name}');
  //   expect(textFinder, findsOneWidget);

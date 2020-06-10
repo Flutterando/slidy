@@ -6,8 +6,8 @@ Widget buildTestableWidget(Widget widget) {
   return MediaQuery(data: MediaQueryData(), child: MaterialApp(home: widget));
 }
 
-main() {
-  testWidgets('MyWidget has message', (WidgetTester tester) async {
+void main() {
+  testWidgets('MyWidget has message', (tester) async {
     await tester.pumpWidget(buildTestableWidget(HomePage(title: 'Home')));
     final titleFinder = find.text('Home');
     expect(titleFinder, findsOneWidget);
