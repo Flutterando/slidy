@@ -264,6 +264,10 @@ slidy g r nome_da_pasta/repositórios
 
 ```` slidy g m modules/my_module -c -r -i ````
 
+Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
+
+![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
+
 Crie um novo **serviço**
 
 ```bash
@@ -279,9 +283,9 @@ Crie um novo **modelo**
 slidy g mm nome_da_pasta/modelo
 ```
 
-Você também pode usar o "repositório" no lugar de "r", mas ele terá a mesma função.
+**NOTE :** Se você estiver utilizando o JsonSerializable (e 'json_annotation' estiver Dependecy e o 'json_serializable' estiver no dev_dependencies) esse comando ira cria com as Anotations
 
-![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
+
 
 #### Testes de unidade:
 

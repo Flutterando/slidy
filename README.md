@@ -258,6 +258,11 @@ Create a new **repository**
 slidy g r folder_name/repositories
 ```
 
+
+You can also use "repository" in "r"'s place, but it will have the same function.
+
+![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
+
 **NOTE :** You can create a "Interface" for your repository using the flag **-i**
 
 ```` slidy g m modules/my_module -c -r -i ````
@@ -279,9 +284,8 @@ Create a new **model**
 slidy g mm folder_name/model
 ```
 
-You can also use "repository" in "r"'s place, but it will have the same function.
+**NOTE :** if you are using JsonSerializable (and 'json_annotation' is in Dependecy and 'json_serializable' is in dev_dependencies) this command will create using anotation
 
-![Folder example](https://github.com/Flutterando/slidy/blob/master/screenshots/structure.png?raw=true)
 
 ## Unit Tests:
 
