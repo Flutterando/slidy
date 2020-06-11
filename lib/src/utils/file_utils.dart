@@ -269,8 +269,11 @@ Future<File> addModule(
       .split('app/')
       .last
       .replaceFirst('modules/', '');
-  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
-
+  //pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+  if (pathFormated.contains('modules/')) {
+    pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+    print(pathFile);
+  }
   var import = "import '$pathFile';";
   if (hasInterface) {
     var file = pathFile.split('/').last;
