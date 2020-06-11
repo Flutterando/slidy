@@ -100,11 +100,11 @@ Function blocOrModular([int selected, String directory]) {
 void generateScript() async {
   final yaml = File('pubspec.yaml');
   var node = yaml.readAsLinesSync();
-  LocalSaveLog().add("=>>>> Nada?");
+  LocalSaveLog().add('=>>>> Nada?');
 
   if ((node?.where((element) => element?.trim() == 'scripts:')?.length ?? 0) >
       0) {
-    LocalSaveLog().add("=>>>> TUDO");
+    LocalSaveLog().add('=>>>> TUDO');
     return;
   }
 

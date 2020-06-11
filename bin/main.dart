@@ -26,7 +26,7 @@ void executeOptions(
   }
 
   if (results.wasParsed('version')) {
-    version('2.1.0');
+    version('2.1.1');
   }
 }
 

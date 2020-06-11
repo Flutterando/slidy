@@ -1,4 +1,4 @@
-## 2.1.0
+## 2.1.1
 - Add annotation @JsonSerializable to when create a model [#144](https://github.com/Flutterando/slidy/pull/144)
 - Added "slidy localization" command [#146](https://github.com/Flutterando/slidy/pull/146)
 - New Flag -i to generate interface [#146](https://github.com/Flutterando/slidy/pull/146)
