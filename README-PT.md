@@ -291,6 +291,87 @@ Gere **testes de unidade** na pasta de teste para você.
 slidy test nome_da_pasta/
 ```
 
+## Automação de Tradução - Localização
+O comando `slidy localization` ajuda na utilização do [package localization](https://pub.dev/packages/localization).
+
+Esse comando captura todos os `.i18n()` no código e os comentários em sua frente. Se essa chave já existir, atualiza seu valor em todos os arquivos de localização, se não, inclui a chave e seu valor no final de todos os arquivos de localização. 
+
+Em ambas situações, o comentário é removido para manter o código limpo.
+
+O diretório de localização deve ser definido na raíz do arquivo `pubspec.yaml`, dessa forma:
+```
+localization_dir: assets\language
+```
+**NOTE :** É recomendado definir o diretório no final do arquivo.
+
+### Exemplo
+
+<details>
+<summary><b>Antes do comando</b></summary><br/>
+
+**pt_BR.json**
+```json
+{
+  "login-label": "Usuário"
+}
+```
+
+**login_page.dart**
+```dart
+import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Column(
+        children: [
+          TextField(decoration: InputDecoration(labelText: "user-label".i18n())),
+          TextField(decoration: InputDecoration(labelText: "password-label".i18n())), //Senha
+        ],
+      ),
+    );
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Após o comando</b></summary><br/>
+
+**pt_BR.json**
+```json
+{
+  "login-label": "Usuário",
+  "password-label": "Senha"
+}
+```
+
+**login_page.dart**
+```dart
+import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Column(
+        children: [
+          TextField(decoration: InputDecoration(labelText: "user-label".i18n())),
+          TextField(decoration: InputDecoration(labelText: "password-label".i18n())),
+        ],
+      ),
+    );
+  }
+}
+```
+</details>
+
 ## Erros comuns:
 
 **Não consegue atualizar:**
