@@ -291,6 +291,87 @@ Generate **unit tests** on the test folder for you.
 slidy test folder_name/
 ```
 
+## Localization Automation
+Use `slidy localization` command to help in use with [localization package](https://pub.dev/packages/localization).
+
+This command get all `.i18n()` in code and trailing comments. If this key already exists, updates value in all localization files, else, inserts this key and your value in end of all localization files. 
+
+In all cases, the comment is removed to mantain clean the code.
+
+The localization directory is defined in root of `pubspec.yaml`, like this:
+```
+localization_dir: assets\language
+```
+**NOTE :** Is recommended create this definition in file's end.
+
+### Example
+
+<details>
+<summary><b>Before command</b></summary><br/>
+
+**pt_BR.json**
+```json
+{
+  "login-label": "Usuário"
+}
+```
+
+**login_page.dart**
+```dart
+import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Column(
+        children: [
+          TextField(decoration: InputDecoration(labelText: "user-label".i18n())),
+          TextField(decoration: InputDecoration(labelText: "password-label".i18n())), //Senha
+        ],
+      ),
+    );
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>After command</b></summary><br/>
+
+**pt_BR.json**
+```json
+{
+  "login-label": "Usuário",
+  "password-label": "Senha"
+}
+```
+
+**login_page.dart**
+```dart
+import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Column(
+        children: [
+          TextField(decoration: InputDecoration(labelText: "user-label".i18n())),
+          TextField(decoration: InputDecoration(labelText: "password-label".i18n())),
+        ],
+      ),
+    );
+  }
+}
+```
+</details>
+
 ## Common errors:
 
 **I cant update:**
