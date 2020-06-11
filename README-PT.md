@@ -291,7 +291,7 @@ Gere **testes de unidade** na pasta de teste para você.
 slidy test nome_da_pasta/
 ```
 
-## Localização - Automação
+## Automação de Tradução - Localização
 O comando `slidy localization` ajuda na utilização do [package localization](https://pub.dev/packages/localization).
 
 Esse comando captura todos os `.i18n()` no código e os comentários em sua frente. Se essa chave já existir, atualiza seu valor em todos os arquivos de localização, se não, inclui a chave e seu valor no final de todos os arquivos de localização. 
@@ -304,10 +304,10 @@ localization_dir: assets\language
 ```
 **NOTE :** É recomendado definir o diretório no final do arquivo.
 
-### Example
+### Exemplo
 
 <details>
-<summary><b>Before command</b></summary><br/>
+<summary><b>Antes do comando</b></summary><br/>
 
 **pt_BR.json**
 ```json
@@ -340,7 +340,7 @@ class LoginPage extends StatelessWidget {
 </details>
 
 <details>
-<summary><b>After command</b></summary><br/>
+<summary><b>Após o comando</b></summary><br/>
 
 **pt_BR.json**
 ```json
