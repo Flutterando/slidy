@@ -6,6 +6,7 @@ import 'package:slidy/src/command/generate_command.dart';
 import 'package:slidy/src/modules/install.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
+import 'package:slidy/src/utils/local_save_log.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 import 'package:tuple/tuple.dart';
@@ -99,6 +100,13 @@ Function blocOrModular([int selected, String directory]) {
 void generateScript() async {
   final yaml = File('pubspec.yaml');
   var node = yaml.readAsLinesSync();
+  LocalSaveLog().add("=>>>> Nada?");
+
+  if ((node?.where((element) => element?.trim() == 'scripts:')?.length ?? 0) >
+      0) {
+    LocalSaveLog().add("=>>>> TUDO");
+    return;
+  }
 
   final index =
       node.indexWhere((t) => t.contains('uses-material-design: true')) + 1;
@@ -141,6 +149,7 @@ Function selecStateManagement([int selected, String directory]) {
       await install(['mobx', 'flutter_mobx'], false, directory: directory);
       await install(['build_runner', 'mobx_codegen'], true,
           directory: directory);
+
       await generateScript();
     } else {
       exit(1);
@@ -151,10 +160,10 @@ Function selecStateManagement([int selected, String directory]) {
   };
 }
 
-Future isContinue(Directory dir, [int selected]) async {
-  if (await dir.exists()) {
+void isContinue(Directory dir, [int selected]) {
+  if (dir.existsSync()) {
     print(dir.listSync());
-    if (dir.listSync().isEmpty) {
+    if ((dir.listSync()).isNotEmpty) {
       selected ??= stateCLIOptions(
           'This command will delete everything inside the \'lib /\' and \'test\' folders.',
           [
@@ -164,7 +173,7 @@ Future isContinue(Directory dir, [int selected]) async {
     }
     if (selected == 1) {
       output.msg('Removing lib folder');
-      await dir.delete(recursive: true);
+      dir.deleteSync(recursive: true);
     } else {
       output.error('The lib folder must be empty');
       exit(1);
