@@ -23,6 +23,7 @@ class PubSpec {
           dependencies: Map.from(doc['dependencies']),
           devDependencies: Map.from(doc['dev_dependencies']));
     } catch (e) {
+      output.error(e);
       output.error('No valid project found in this folder.');
       output.title('If you haven\'t created your project yet create with:');
 
