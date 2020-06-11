@@ -25,10 +25,10 @@ class ${obj.name}Repository extends Disposable {
 
 String repositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/native_imp.dart';
 
 class ${obj.name}Repository extends Disposable {
-  final Dio client;
+  final DioForNative client;
 
   ${obj.name}Repository(this.client);
 
@@ -56,12 +56,12 @@ abstract class I${obj.name}Repository implements Disposable {
 }''';
 
 String extendsInterfaceRepositoryGeneratorModular(ObjectGenerate obj) => '''
-import 'package:dio/dio.dart';
+import 'package:dio/native_imp.dart';
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
 class ${obj.name}Repository implements I${obj.name}Repository {
 
-  final Dio client;
+  final DioForNative client;
 
   ${obj.name}Repository(this.client);
 
@@ -80,21 +80,21 @@ class ${obj.name}Repository implements I${obj.name}Repository {
 
 String interfaceRepositoryGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/native_imp.dart';
 
 abstract class I${obj.name}Repository implements Disposable {
 
-  Future fetchPost(Dio client);
+  Future fetchPost(DioForNative client);
 }
   ''';
 
 String extendsInterfaceRepositoryGenerator(ObjectGenerate obj) => '''
-import 'package:dio/dio.dart';
+import 'package:dio/native_imp.dart';
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
 class ${obj.name}Repository implements I${obj.name}Repository {
 
-  Future fetchPost(Dio client) async {
+  Future fetchPost(DioForNative client) async {
     final response = await client.get('https://jsonplaceholder.typicode.com/posts/1');
     return response.data;
   }
