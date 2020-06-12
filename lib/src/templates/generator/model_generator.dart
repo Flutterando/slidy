@@ -1,9 +1,10 @@
+import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
 String modelGeneratorJsonSerializable(ObjectGenerate obj) => '''
 import 'package:json_annotation/json_annotation.dart';
 
-part '${obj.name.toLowerCase()}_model.g.dart';
+part '${ReCase(obj.name).snakeCase}_model.g.dart';
 
 @JsonSerializable()
 class ${obj.name}Model {
@@ -22,7 +23,7 @@ String modelRxGeneratorJsonSerializable(ObjectGenerate obj) => '''
 import 'package:mobx/mobx.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part '${obj.name.toLowerCase()}_model.g.dart';
+part '${ReCase(obj.name).snakeCase}_model.g.dart';
 
 @JsonSerializable()
 class ${obj.name}Model extends _${obj.name}ModelBase with _\$${obj.name}Model {
@@ -59,7 +60,7 @@ class ${obj.name}Model {
 
 String modelRxGenerator(ObjectGenerate obj) => '''
 import 'package:mobx/mobx.dart';
-part '${obj.name.toLowerCase()}_model.g.dart';
+part '${ReCase(obj.name).snakeCase}_model.g.dart';
 
 class ${obj.name}Model extends _${obj.name}ModelBase with _\$${obj.name}Model {
   ${obj.name}Model({String name}) : super(name: name);
