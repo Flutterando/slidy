@@ -23,8 +23,15 @@ void runCommand(List<String> commands) async {
       String commandExec = doc['scripts'][command];
 
       for (final item in commandExec.split('&')) {
-        final matchList =
-            regex.allMatches(item).map((v) => v.group(0)).toList();
+        final matchList = regex
+            .allMatches(item)
+            .map((v) => v.group(0))
+            .toList()
+            .map<String>((e) => (e.startsWith('\$')
+                ? doc['vars'][e.replaceFirst('\$', '')]
+                : e))
+            .toList();
+
         await callProcess(matchList);
       }
     }

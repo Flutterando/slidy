@@ -264,13 +264,16 @@ Future<File> addModule(
 
   var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
   var pathFile = '${packageName}/${pathFormated}'
-      .replaceAll('$packageName/$packageName', '')
+      .replaceFirst('$packageName/$packageName/', '')
       .replaceFirst('lib/', '')
       .replaceAll('\\', '/')
       .split('app/')
       .last
       .replaceFirst('modules/', '');
-  pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+
+  if (pathFormated.contains('modules/')) {
+    pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
+  }
 
   var import = "import '$pathFile';";
   if (hasInterface) {

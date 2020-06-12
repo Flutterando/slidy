@@ -161,6 +161,22 @@ slidy run open_folder
 
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
+
+Você pode adicionar uma sessão var para customizar seus scripots
+```
+vars:
+  runner: flutter pub run build_runner
+  clean: flutter clean
+  get: flutter pub get
+scripts: 
+    mobx_build: $clean & $get & $runner build --delete-conflicting-outputs
+    mobx_watch: $clean & $get & $runner watch --delete-conflicting-outputs
+```
+
+```bash
+slidy run mobx_build
+```
+
 ### install:
 
 **Instala ou atualiza os pacotes em dependências:**

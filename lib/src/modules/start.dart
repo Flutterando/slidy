@@ -100,11 +100,9 @@ Function blocOrModular([int selected, String directory]) {
 void generateScript() async {
   final yaml = File('pubspec.yaml');
   var node = yaml.readAsLinesSync();
-  LocalSaveLog().add('=>>>> Nada?');
 
   if ((node?.where((element) => element?.trim() == 'scripts:')?.length ?? 0) >
       0) {
-    LocalSaveLog().add('=>>>> TUDO');
     return;
   }
 
@@ -114,11 +112,31 @@ void generateScript() async {
   try {
     node.insert(index, 'scripts: ');
     node.insert(index + 1,
-        '\n    mobx_build: flutter clean & flutter pub get & flutter pub run build_runner build --delete-conflicting-outputs');
+        '    mobx_build: flutter clean & flutter pub get & flutter pub run build_runner build --delete-conflicting-outputs');
     node.insert(index + 1,
-        '\n    mobx_watch: flutter clean & flutter pub get & flutter pub run build_runner watch --delete-conflicting-outputs');
+        '    mobx_watch: flutter clean & flutter pub get & flutter pub run build_runner watch --delete-conflicting-outputs');
 
     yaml.writeAsStringSync(node.join('\n') + '\n');
+  } catch (e) {
+    output.error('Erro o generate scripts');
+  }
+}
+
+void gnerateGitignore() async {
+  final gitignore = File('.gitignore');
+  var node = gitignore.readAsLinesSync();
+
+  if ((node?.where((element) => element?.trim() == '.slidy/')?.length ?? 0) >
+      0) {
+    return;
+  }
+
+  try {
+    node.insert(0, '');
+    node.insert(0, '.slidy/');
+    node.insert(0, '# Slidy History Files');
+
+    gitignore.writeAsStringSync(node.join('\n'));
   } catch (e) {
     output.error('Erro o generate scripts');
   }
@@ -155,6 +173,7 @@ Function selecStateManagement([int selected, String directory]) {
       exit(1);
     }
 
+    await gnerateGitignore();
     await install(['dio'], false, directory: directory);
     await install(['mockito'], true, directory: directory);
   };
