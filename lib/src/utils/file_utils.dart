@@ -371,7 +371,7 @@ File search(Directory dir) {
         .listSync()
         .firstWhere((f) => f is File && f.path.contains('_module.dart'));
 
-    print(' Teste' + a?.toString());
+    print(' Test' + a?.toString());
     return dir
         .listSync()
         .firstWhere((f) => f is File && f.path.contains('_module.dart'));
