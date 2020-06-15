@@ -97,8 +97,11 @@ Function blocOrModular([int selected, String directory]) {
   };
 }
 
-void generateScript() async {
-  final yaml = File('pubspec.yaml');
+void generateScript({String directory}) async {
+  final yaml = File('$directory/pubspec.yaml');
+  if(!(await yaml.exists())){
+    return output.warn('Not found pubspec.yaml. Try to add the scripts manually');
+  }
   var node = yaml.readAsLinesSync();
 
   if ((node?.where((element) => element?.trim() == 'scripts:')?.length ?? 0) >
@@ -122,7 +125,7 @@ void generateScript() async {
   }
 }
 
-void gnerateGitignore() async {
+void generateGitignore() async {
   final gitignore = File('.gitignore');
   var node = gitignore.readAsLinesSync();
 
@@ -168,12 +171,12 @@ Function selecStateManagement([int selected, String directory]) {
       await install(['build_runner', 'mobx_codegen'], true,
           directory: directory);
 
-      await generateScript();
+      await generateScript(directory: directory);
     } else {
       exit(1);
     }
 
-    await gnerateGitignore();
+    await generateGitignore();
     await install(['dio'], false, directory: directory);
     await install(['mockito'], true, directory: directory);
   };
