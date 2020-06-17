@@ -1,4 +1,4 @@
-## 2.1.2
+## 2.1.2+1
 - Algumas correções no import por referencia no module [#170](https://github.com/Flutterando/slidy/pull/170)
 - Correções no Start e Scripts adds [#168](https://github.com/Flutterando/slidy/pull/168)
 - fix: path to add script on pubspec.yaml [#172](https://github.com/Flutterando/slidy/pull/172)
