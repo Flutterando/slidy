@@ -101,6 +101,9 @@ void generateScript({String directory}) async {
   final yaml =
       File(directory == null ? 'pubspec.yaml' : '$directory/pubspec.yaml');
 
+  if(!(await yaml.exists())){
+    return output.warn('Not found pubspec.yaml. Try to add the scripts manually');
+  }
   var node = yaml.readAsLinesSync();
 
   if ((node?.where((element) => element?.trim() == 'scripts:')?.length ?? 0) >
@@ -129,9 +132,11 @@ void generateScript({String directory}) async {
   }
 }
 
+
 void generateGitignore({String directory}) async {
   final gitignore =
       File(directory == null ? '.gitignore' : '$directory/.gitignore');
+
   var node = gitignore.readAsLinesSync();
 
   if ((node?.where((element) => element?.trim() == '.slidy/')?.length ?? 0) >
