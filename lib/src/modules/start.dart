@@ -98,7 +98,9 @@ Function blocOrModular([int selected, String directory]) {
 }
 
 void generateScript({String directory}) async {
-  final yaml = File('$directory/pubspec.yaml');
+  final yaml =
+      File(directory == null ? 'pubspec.yaml' : '$directory/pubspec.yaml');
+
   if(!(await yaml.exists())){
     return output.warn('Not found pubspec.yaml. Try to add the scripts manually');
   }
@@ -113,20 +115,28 @@ void generateScript({String directory}) async {
       node.indexWhere((t) => t.contains('uses-material-design: true')) + 1;
 
   try {
-    node.insert(index, 'scripts: ');
-    node.insert(index + 1,
-        '    mobx_build: flutter clean & flutter pub get & flutter pub run build_runner build --delete-conflicting-outputs');
-    node.insert(index + 1,
-        '    mobx_watch: flutter clean & flutter pub get & flutter pub run build_runner watch --delete-conflicting-outputs');
+    node.insert(index, 'vars: ');
+    node.insert(index + 1, '    clean: flutter clean');
+    node.insert(index + 2, '    get: flutter pub get');
+    node.insert(index + 3, '    runner: flutter pub run build_runner');
 
-    yaml.writeAsStringSync(node.join('\n') + '\n');
+    node.insert(index + 4, 'scripts: ');
+    node.insert(index + 5,
+        '    mobx_build: \$clean & \$get & \$runner build --delete-conflicting-outputs');
+    node.insert(index + 6,
+        '    mobx_watch: \$clean & \$get & \$runner watch --delete-conflicting-outputs');
+
+    yaml.writeAsStringSync('${node.join('\n')}\n');
   } catch (e) {
     output.error('Erro o generate scripts');
   }
 }
 
-void generateGitignore() async {
-  final gitignore = File('.gitignore');
+
+void generateGitignore({String directory}) async {
+  final gitignore =
+      File(directory == null ? '.gitignore' : '$directory/.gitignore');
+
   var node = gitignore.readAsLinesSync();
 
   if ((node?.where((element) => element?.trim() == '.slidy/')?.length ?? 0) >
@@ -176,9 +186,9 @@ Function selecStateManagement([int selected, String directory]) {
       exit(1);
     }
 
-    await generateGitignore();
     await install(['dio'], false, directory: directory);
     await install(['mockito'], true, directory: directory);
+    await generateGitignore(directory: directory);
   };
 }
 
