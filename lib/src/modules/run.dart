@@ -11,6 +11,7 @@ void runCommand(List<String> commands) async {
     var doc = loadYaml(node);
     for (var command in commands) {
       var regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
+      var regexVar = RegExp(r'\$([a-zA-Z0-9]+)');
 
       if (!(doc as Map).containsKey('scripts')) {
         throw 'Please, add param \'scripts\' in your pubspec.yaml';
@@ -22,6 +23,17 @@ void runCommand(List<String> commands) async {
 
       String commandExec = doc['scripts'][command];
 
+      for (var match in regexVar.allMatches(commandExec)) {
+        if (match.groupCount != 0) {
+          var variable = match.group(0).replaceFirst('\$', '');
+          if ((doc['vars'] as Map).containsKey(variable)) {
+            commandExec = commandExec.replaceAll(match.group(0), doc['vars'][variable]);
+          }
+        }
+      }
+
+      print(commandExec);
+
       for (final item in commandExec.split('&')) {
         final matchList = regex
             .allMatches(item)
@@ -31,7 +43,6 @@ void runCommand(List<String> commands) async {
                 ? doc['vars'][e.replaceFirst('\$', '')]
                 : e))
             .toList();
-
         await callProcess(matchList);
       }
     }
@@ -40,7 +51,7 @@ void runCommand(List<String> commands) async {
   }
 }
 
-void callProcess(List<String> commands) async {
+Future callProcess(List<String> commands) async {
   try {
     var process = await Process.start(
         commands.first,
@@ -52,6 +63,7 @@ void callProcess(List<String> commands) async {
       print(line);
     }
   } catch (error) {
+    print(error);
     throw 'Command Error';
   }
 }
