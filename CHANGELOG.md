@@ -1,3 +1,10 @@
+## 2.1.2+2
+- Algumas correções no import por referencia no module [#170](https://github.com/Flutterando/slidy/pull/170)
+- Correções no Start e Scripts adds [#168](https://github.com/Flutterando/slidy/pull/168)
+- fix: path to add script on pubspec.yaml [#172](https://github.com/Flutterando/slidy/pull/172)
+- fix console message when creating a TestFile [#173](https://github.com/Flutterando/slidy/pull/173)
+- Correção de bug ao realizar slidy start para gerar gitignore e scripts [#176](https://github.com/Flutterando/slidy/pull/176)
+
 ## 2.1.1
 - Add annotation @JsonSerializable to when create a model [#144](https://github.com/Flutterando/slidy/pull/144)
 - Added "slidy localization" command [#146](https://github.com/Flutterando/slidy/pull/146)
