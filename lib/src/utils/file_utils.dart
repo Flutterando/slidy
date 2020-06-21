@@ -49,14 +49,14 @@ Future createFile(
     File fileTest;
     if (!isInterface) {
       if (ignoreSuffix) {
-        file = File('${dir.path}/${name}.dart');
-        fileTest =
-            File('${dir.path.replaceFirst("lib/", "test/")}/${name}_test.dart');
+        file = File('${dir.path}/${ReCase(name).snakeCase}.dart');
+        fileTest = File(
+            '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_test.dart');
       } else {
         file = File(
-            '${dir.path}/${name}_${type.replaceAll("_complete", "")}.dart');
+            '${dir.path}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}.dart');
         fileTest = File(
-            '${dir.path.replaceFirst("lib/", "test/")}/${name}_${type.replaceAll("_complete", "")}_test.dart');
+            '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}_test.dart');
       }
     } else {
       file = File(
@@ -64,12 +64,13 @@ Future createFile(
     }
 
     if (await file.exists()) {
-      output.error('already exists a $type $name');
+      output.error('already exists a $type ${ReCase(name).snakeCase}');
       exit(1);
     }
 
     if (await fileTest?.exists() ?? false) {
-      output.error('already exists a $type $name test file');
+      output
+          .error('already exists a $type ${ReCase(name).snakeCase} test file');
       exit(1);
     }
 
