@@ -6,9 +6,9 @@
     "configurations": [
         {
             "name": "Launch",
-            "program": "C:\\Users\\jacob\\FlutterProjects\\slidy\\bin\\main.dart",
-            "cwd": "C:\\Users\\jacob\\FlutterProjects\\arch",
-            "args": ["start", "-p","flutter_modular", "-s", "mobx", "-f"],
+            "program": "/Volumes/mac-suport/Projects/FlutterProject/slidy/bin/main.dart",
+            "cwd": "/Volumes/mac-suport/Projects/FlutterProject/cubit_test",
+            "args": ["run","mobx_build"],
             "request": "launch",
             "type": "dart"
         }
