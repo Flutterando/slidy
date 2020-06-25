@@ -260,20 +260,12 @@ Future<File> addModule(
 
   var node = (await module.readAsString()).split('\n');
 
-  var packageName = await getNamePackage();
-
-  var pathFormated = path.replaceFirst('lib/', '').replaceAll('\\', '/');
-  var pathFile = '${packageName}/${pathFormated}'
-      .replaceFirst('$packageName/$packageName/', '')
-      .replaceFirst('lib/', '')
+  var modulePath = module.path
       .replaceAll('\\', '/')
-      .split('app/')
-      .last
-      .replaceFirst('modules/', '');
+      .replaceFirst(module.path.split('/').last, '');
 
-  if (pathFormated.contains('modules/')) {
-    pathFile = pathFile.replaceFirst('${pathFile.split('/').first}/', '');
-  }
+  var pathFormated = path.replaceAll('\\', '/');
+  var pathFile = pathFormated.replaceAll(modulePath, '');
 
   var import = "import '$pathFile';";
   if (hasInterface) {
