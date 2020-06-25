@@ -211,6 +211,21 @@ Remove um pacote
 
 Você também pode remover uma **dev_dependency** usando o sinalizador --dev
 
+### update:
+
+Atualiza depedencias para a ultima versao:
+Você pode atualizar apenas uma depedencia
+```bash
+slidy update mobx
+```
+
+Ou atualizar todas as depedencias usando o sinalizador --all ou -a
+```bash
+slidy update -a
+```
+
+Você também pode atualizar uma ou todas **dev_dependencies** usando o sinalizador --dev
+
 ### generate:
 
 Cria um módulo, página, widget ou repositório, incluindo sua classe BloC.

@@ -211,28 +211,20 @@ slidy uninstall dio
 ```
 
 You can also remove a **dev_dependency** using the flag --dev
+
 ### update:
 
 Update package's version:
 You can update just once package
-Update dependencies
 ```bash
 slidy update mobx
 ```
-Update dev_dependencies
-```bash
-slidy update mobx_codegen --dev
-```
 
-Or you can update all packages
-Update dependencies
+Or you can update all packages using the flag --all or -a
 ```bash
 slidy update -a
 ```
-Update dev_dependencies
-```bash
-slidy update -a --dev
-```
+You can also update a **dev_dependency** or all using the flag --dev
 
 ### generate:
 
