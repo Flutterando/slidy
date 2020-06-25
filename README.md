@@ -212,6 +212,20 @@ slidy uninstall dio
 
 You can also remove a **dev_dependency** using the flag --dev
 
+### update:
+
+Update package's version:
+You can update just once package
+```bash
+slidy update mobx
+```
+
+Or you can update all packages using the flag --all or -a
+```bash
+slidy update -a
+```
+You can also update a **dev_dependency** or all using the flag --dev
+
 ### generate:
 
 Creates a module, page, widget or repository including its BloC class.
