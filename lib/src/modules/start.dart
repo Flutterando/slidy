@@ -101,8 +101,9 @@ void generateScript({String directory}) async {
   final yaml =
       File(directory == null ? 'pubspec.yaml' : '$directory/pubspec.yaml');
 
-  if(!(await yaml.exists())){
-    return output.warn('Not found pubspec.yaml. Try to add the scripts manually');
+  if (!(await yaml.exists())) {
+    return output
+        .warn('Not found pubspec.yaml. Try to add the scripts manually');
   }
   var node = yaml.readAsLinesSync();
 
@@ -111,8 +112,7 @@ void generateScript({String directory}) async {
     return;
   }
 
-  final index =
-      node.indexWhere((t) => t.contains('uses-material-design: true')) + 1;
+  final index = node.length;
 
   try {
     node.insert(index, 'vars: ');
@@ -131,7 +131,6 @@ void generateScript({String directory}) async {
     output.error('Erro o generate scripts');
   }
 }
-
 
 void generateGitignore({String directory}) async {
   final gitignore =
