@@ -18,6 +18,9 @@ class ${obj.name}Service extends Disposable {
 String serviceGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 
+part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
+
+@Injectable()
 class ${obj.name}Service extends Disposable {
 
   //dispose will be called automatically
@@ -62,6 +65,9 @@ String extendsInterfaceServiceGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 import 'interfaces/${ReCase(obj.name).snakeCase}_service_interface.dart';
 
+part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
+
+@Injectable()
 class ${obj.name}Service implements I${obj.name}Service {
   //dispose will be called automatically
   @override

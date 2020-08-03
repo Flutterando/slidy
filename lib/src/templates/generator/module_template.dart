@@ -43,7 +43,7 @@ String moduleGeneratorModular(ObjectGenerate obj) {
 
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
-  import 'package:dio/dio.dart';
+
   ${import.replaceFirst('$pkg/$pkg', pkg)}
   class ${obj.name}Module extends ChildModule {
   @override
@@ -67,7 +67,7 @@ String moduleGeneratorModularNoRoute(ObjectGenerate obj) {
   return '''
   import 'package:flutter_modular/flutter_modular.dart';
   import 'package:flutter/material.dart';
-  import 'package:dio/dio.dart';
+
   ${import.replaceFirst('$pkg/$pkg', pkg)}
   class ${obj.name}Module extends WidgetModule {
   @override

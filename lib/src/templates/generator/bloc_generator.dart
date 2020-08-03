@@ -67,9 +67,12 @@ class Initial${ReCase(obj.name).pascalCase}State extends ${ReCase(obj.name).pasc
 
 String mobx_blocGenerator(ObjectGenerate obj) => '''
 import 'package:mobx/mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
 
+
+@Injectable()
 class ${ReCase(obj.name + '_' + obj.type).pascalCase} = _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with _\$${ReCase(obj.name + '_' + obj.type).pascalCase};
 
 abstract class _${ReCase(obj.name + '_' + obj.type).pascalCase}Base with Store {

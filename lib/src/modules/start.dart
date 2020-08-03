@@ -121,10 +121,10 @@ void generateScript({String directory}) async {
     node.insert(index + 3, '    runner: flutter pub run build_runner');
 
     node.insert(index + 4, 'scripts: ');
-    node.insert(index + 5, '    mobx_build: \$clean & \$get & \$runner build');
+    node.insert(index + 5, '    \$runner build');
     node.insert(index + 6, '    mobx_watch: \$clean & \$get & \$runner watch');
     node.insert(index + 7,
-        '    mobx_build_delete: \$clean & \$get & \$runner build --delete-conflicting-outputs');
+        '    mobx_build_clean: \$clean & \$get & \$runner build --delete-conflicting-outputs');
 
     yaml.writeAsStringSync('${node.join('\n')}\n');
   } catch (e) {
@@ -177,7 +177,7 @@ Function selecStateManagement([int selected, String directory]) {
     } else if (selected == 0) {
       output.title('Starting a new project with Mobx');
       await install(['mobx', 'flutter_mobx'], false, directory: directory);
-      await install(['build_runner', 'mobx_codegen'], true,
+      await install(['build_runner', 'mobx_codegen', 'modular_codegen'], true,
           directory: directory);
 
       await generateScript(directory: directory);

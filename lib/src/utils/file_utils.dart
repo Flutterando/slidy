@@ -268,13 +268,6 @@ Future<File> addModule(
   var pathFile = pathFormated.replaceAll(modulePath, '');
 
   var import = "import '$pathFile';";
-  if (hasInterface) {
-    var file = pathFile.split('/').last;
-    var interfacePath = pathFile.replaceAll(
-        file, 'interfaces/${file.replaceFirst('.dart', '_interface.dart')}');
-
-    import += "\nimport '${interfacePath}';";
-  }
 
   node.insert(0, import);
   if (nameCap.contains('Repository') &&
@@ -286,13 +279,7 @@ Future<File> addModule(
   index = node.indexWhere((t) => t.contains('binds => ['));
   node[index] = node[index].replaceFirst(
     'binds => [',
-    (hasInterface
-        ? (nameCap.contains('Repository')
-            ? 'binds => [Bind<I${nameCap}>((i) => ${nameCap}(Dio())),'
-            : 'binds => [Bind<I${nameCap}>((i) => ${nameCap}()),')
-        : (nameCap.contains('Repository')
-            ? 'binds => [Bind((i) => ${nameCap}(Dio())),'
-            : 'binds => [Bind((i) => ${nameCap}()),')),
+    'binds => [\$$nameCap,',
   );
 
   await module.writeAsString(node.join('\n'));
