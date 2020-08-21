@@ -29,8 +29,8 @@ class AppModule extends MainModule {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [
-    Router(Modular.initialRoute, module: HomeModule()),
+  List<ModularRouter> get routers => [
+    ModularRouter(Modular.initialRoute, module: HomeModule()),
   ];
 
   @override
