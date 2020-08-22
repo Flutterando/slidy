@@ -1,3 +1,7 @@
+## 2.2.0+1
+- Fix Version
+- Fix Slidy Create
+
 ## 2.2.0
 - flutter_modular 2.0.0 compatibility
 

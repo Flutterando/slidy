@@ -115,15 +115,15 @@ void generateScript({String directory}) async {
 
   try {
     node.insert(index, 'vars: ');
-    node.insert(index + 1, '    clean: flutter clean');
-    node.insert(index + 2, '    get: flutter pub get');
-    node.insert(index + 3, '    runner: flutter pub run build_runner');
+    node.insert(index + 1, '    clean\: flutter clean');
+    node.insert(index + 2, '    get\: flutter pub get');
+    node.insert(index + 3, '    runner\: flutter pub run build_runner');
 
     node.insert(index + 4, 'scripts: ');
-    node.insert(index + 5, '    \$runner build');
-    node.insert(index + 6, '    mobx_watch: \$clean & \$get & \$runner watch');
+    node.insert(index + 5, '    mobx_build\: \$runner build');
+    node.insert(index + 6, '    mobx_watch\: \$clean & \$get & \$runner watch');
     node.insert(index + 7,
-        '    mobx_build_clean: \$clean & \$get & \$runner build --delete-conflicting-outputs');
+        '    mobx_build_clean\: \$clean & \$get & \$runner build --delete-conflicting-outputs');
 
     yaml.writeAsStringSync('${node.join('\n')}\n');
   } catch (e) {
