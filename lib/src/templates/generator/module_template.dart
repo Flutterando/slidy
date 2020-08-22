@@ -31,7 +31,6 @@ String moduleGenerator(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModular(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
 
   var import = pkg.isNotEmpty

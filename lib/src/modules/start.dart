@@ -6,7 +6,6 @@ import 'package:slidy/src/command/generate_command.dart';
 import 'package:slidy/src/modules/install.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
-import 'package:slidy/src/utils/local_save_log.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 import 'package:tuple/tuple.dart';
