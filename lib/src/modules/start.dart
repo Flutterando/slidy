@@ -177,7 +177,8 @@ Function selecStateManagement([int selected, String directory]) {
     } else if (selected == 0) {
       output.title('Starting a new project with Mobx');
       await install(['mobx', 'flutter_mobx'], false, directory: directory);
-      await install(['build_runner', 'mobx_codegen', 'modular_codegen'], true,
+      await install(
+          ['build_runner:1.10.1', 'mobx_codegen', 'modular_codegen'], true,
           directory: directory);
 
       await generateScript(directory: directory);
