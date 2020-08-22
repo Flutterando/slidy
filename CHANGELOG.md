@@ -1,3 +1,6 @@
+## 2.2.0
+- flutter_modular 2.0.0 compatibility
+
 ## 2.1.2+2
 - Algumas correções no import por referencia no module [#170](https://github.com/Flutterando/slidy/pull/170)
 - Correções no Start e Scripts adds [#168](https://github.com/Flutterando/slidy/pull/168)
