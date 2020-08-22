@@ -31,14 +31,13 @@ String moduleGenerator(ObjectGenerate obj) {
 }
 
 String moduleGeneratorModular(ObjectGenerate obj) {
-  var path = obj.pathModule.replaceFirst('lib/', '');
   var pkg = obj.packageName;
 
   var import = pkg.isNotEmpty
       ? 'import \'${ReCase(obj.name).snakeCase}_page.dart\';'
       : '';
   var router = pkg.isNotEmpty
-      ? 'Router(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),'
+      ? 'ModularRouter(Modular.initialRoute, child: (_, args) => ${obj.name}Page()),'
       : '';
 
   return '''
@@ -50,7 +49,7 @@ String moduleGeneratorModular(ObjectGenerate obj) {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [$router];
+  List<ModularRouter> get routers => [$router];
 
   static Inject get to => Inject<${obj.name}Module>.of();
 

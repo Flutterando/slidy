@@ -6,7 +6,6 @@ import 'package:slidy/src/command/generate_command.dart';
 import 'package:slidy/src/modules/install.dart';
 import 'package:slidy/src/templates/templates.dart' as templates;
 import 'package:slidy/src/utils/file_utils.dart';
-import 'package:slidy/src/utils/local_save_log.dart';
 import 'package:slidy/src/utils/output_utils.dart' as output;
 import 'package:slidy/src/utils/utils.dart';
 import 'package:tuple/tuple.dart';
@@ -177,7 +176,8 @@ Function selecStateManagement([int selected, String directory]) {
     } else if (selected == 0) {
       output.title('Starting a new project with Mobx');
       await install(['mobx', 'flutter_mobx'], false, directory: directory);
-      await install(['build_runner', 'mobx_codegen', 'modular_codegen'], true,
+      await install(
+          ['build_runner:1.10.1', 'mobx_codegen', 'modular_codegen'], true,
           directory: directory);
 
       await generateScript(directory: directory);

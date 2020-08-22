@@ -23,10 +23,9 @@ void install(List<String> packs, bool isDev,
   for (final pack in packs) {
     var packName = '';
     var version = '';
-
     if (pack.contains(':')) {
       packName = pack.split(':')[0];
-      version = pack.split(':').length > 1
+      version = pack.split(':').length > 2
           ? pack.split(':')[1] + ':' + pack.split(':')[2]
           : pack.split(':')[1];
     } else {
