@@ -111,19 +111,24 @@ void generateScript({String directory}) async {
     return;
   }
 
-  final index = node.length;
+  final index = node.indexWhere((element) => element?.trim() == 'environment:') -1;
 
   try {
-    node.insert(index, 'vars: ');
-    node.insert(index + 1, '    clean\: flutter clean');
-    node.insert(index + 2, '    get\: flutter pub get');
-    node.insert(index + 3, '    runner\: flutter pub run build_runner');
+    var indexIncrement = 0;
+    node.insert(index, '## Slidy Scripts ');
+    node.insert(index + (++indexIncrement), 'vars: ');
+    node.insert(index + (++indexIncrement), '    clean\: flutter clean');
+    node.insert(index + (++indexIncrement), '    get\: flutter pub get');
+    node.insert(index + (++indexIncrement), '    runner\: flutter pub run build_runner');
 
-    node.insert(index + 4, 'scripts: ');
-    node.insert(index + 5, '    mobx_build\: \$runner build');
-    node.insert(index + 6, '    mobx_watch\: \$clean & \$get & \$runner watch');
-    node.insert(index + 7,
+    node.insert(index + (++indexIncrement), 'scripts: ');
+    node.insert(index + (++indexIncrement), '    mobx_build\: \$runner build');
+    node.insert(index + (++indexIncrement), '    mobx_watch\: \$clean & \$get & \$runner watch');
+    node.insert(index + (++indexIncrement),
         '    mobx_build_clean\: \$clean & \$get & \$runner build --delete-conflicting-outputs');
+
+    node.insert(index + (++indexIncrement), '');
+    node.insert(index + (++indexIncrement), '');
 
     yaml.writeAsStringSync('${node.join('\n')}\n');
   } catch (e) {
