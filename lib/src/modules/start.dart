@@ -111,19 +111,22 @@ void generateScript({String directory}) async {
     return;
   }
 
-  final index = node.indexWhere((element) => element?.trim() == 'environment:') -1;
+  final index =
+      node.indexWhere((element) => element?.trim() == 'environment:') - 1;
 
   try {
     var indexIncrement = 0;
-    node.insert(index, '## Slidy Scripts ');
+    node.insert(index, '\n## Slidy Scripts ');
     node.insert(index + (++indexIncrement), 'vars: ');
     node.insert(index + (++indexIncrement), '    clean\: flutter clean');
     node.insert(index + (++indexIncrement), '    get\: flutter pub get');
-    node.insert(index + (++indexIncrement), '    runner\: flutter pub run build_runner');
+    node.insert(index + (++indexIncrement),
+        '    runner\: flutter pub run build_runner');
 
     node.insert(index + (++indexIncrement), 'scripts: ');
     node.insert(index + (++indexIncrement), '    mobx_build\: \$runner build');
-    node.insert(index + (++indexIncrement), '    mobx_watch\: \$clean & \$get & \$runner watch');
+    node.insert(index + (++indexIncrement),
+        '    mobx_watch\: \$clean & \$get & \$runner watch');
     node.insert(index + (++indexIncrement),
         '    mobx_build_clean\: \$clean & \$get & \$runner build --delete-conflicting-outputs');
 
