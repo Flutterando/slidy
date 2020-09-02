@@ -1,4 +1,5 @@
-## 2.2.0+1
+## 2.2.1
+- Fix Router by ModularRouter
 - Fix Version
 - Fix Slidy Create
 
