@@ -39,9 +39,13 @@ Estrutura de pasta de exemplo gerada por **slidy**:
 
 ## Instalação
 
-1. Primeiramente você precisa instalar o Dart(nesse link tem um passo a passo de como instalar):
-
-   [https://dart.dev/get-dart](https://dart.dev/get-dart)
+1. Primeiramente você precisa instalar o Dart versão 2.9.2
+   1. Sistema operacional windows:
+      1. Realizar o download da versão 2.9.2 em https://dart.dev/tools/sdk/archive
+      2. Extrair o zip em algum diretório
+      3. Adicionar o diretório/bin no path antes da entrada do flutter.
+      4. Reiniciar o prompt para que busque os novos caminhos.
+   2. Para outros sistemas operacionais acesse[https://dart.dev/get-dart](https://dart.dev/get-dart) e siga as instruções de como instalar):
 
 2. Ative o slidy usando o pub:
 
@@ -168,7 +172,7 @@ vars:
   runner: flutter pub run build_runner
   clean: flutter clean
   get: flutter pub get
-scripts: 
+scripts:
     mobx_build: $clean & $get & $runner build --delete-conflicting-outputs
     mobx_watch: $clean & $get & $runner watch --delete-conflicting-outputs
 ```
@@ -329,7 +333,7 @@ slidy test nome_da_pasta/
 ## Automação de Tradução - Localização
 O comando `slidy localization` ajuda na utilização do [package localization](https://pub.dev/packages/localization).
 
-Esse comando captura todos os `.i18n()` no código e os comentários em sua frente. Se essa chave já existir, atualiza seu valor em todos os arquivos de localização, se não, inclui a chave e seu valor no final de todos os arquivos de localização. 
+Esse comando captura todos os `.i18n()` no código e os comentários em sua frente. Se essa chave já existir, atualiza seu valor em todos os arquivos de localização, se não, inclui a chave e seu valor no final de todos os arquivos de localização.
 
 Em ambas situações, o comentário é removido para manter o código limpo.
 
