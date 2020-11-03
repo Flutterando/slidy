@@ -36,6 +36,7 @@ Future createFile(
       type == 'store' ||
       type == 'controller' ||
       type == 'repository' ||
+      type == 'usecase' ||
       type == 'service' ||
       type == 'model') {
     dir = Directory(path).parent;
@@ -59,8 +60,13 @@ Future createFile(
             '${dir.path.replaceFirst("lib/", "test/")}/${ReCase(name).snakeCase}_${type.replaceAll("_complete", "")}_test.dart');
       }
     } else {
-      file = File(
-          '${dir.path}/interfaces/${ReCase(name).snakeCase}_${type}_interface.dart');
+      var filename =
+          '${dir.path}/interfaces/${ReCase(name).snakeCase}_${type}_interface.dart';
+      if (ignoreSuffix) {
+        filename =
+            '${dir.path}/interfaces/${ReCase(name).snakeCase}_interface.dart';
+      }
+      file = File(filename);
     }
 
     if (await file.exists()) {

@@ -214,6 +214,43 @@ class Generate {
     await formatFile(entityTest);
   }
 
+  static Future usecase(String path,
+      [bool isTest = true, bool withInterface = false]) async {
+    var m = await isModular();
+
+    if (!withInterface) {
+      await file_utils.createFile(
+        path,
+        'usecase',
+        templates.useCaseGenerator,
+        ignoreSuffix: true,
+        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        isModular: m,
+      );
+    } else {
+      await file_utils.createFile(
+        path,
+        'usecase',
+        templates.interfaceUseCaseGenerator,
+        ignoreSuffix: true,
+        generatorTest: null,
+        isModular: m,
+        isInterface: true,
+      );
+
+      await file_utils.createFile(
+        path,
+        'usecase',
+        templates.extendsInterfaceUseCaseGenerator,
+        ignoreSuffix: true,
+        generatorTest:
+            isTest ? templates.interfaceRepositoryTestGenerator : null,
+        isModular: m,
+        hasInterface: true,
+      );
+    }
+  }
+
   static Future repository(String path,
       [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();

@@ -6,6 +6,8 @@ import 'package:slidy/src/command/sub_command/generate_service_sub_command.dart'
 import 'package:slidy/src/command/sub_command/generate_store.dart';
 import 'package:slidy/src/command/sub_command/generate_test_sub_command.dart';
 
+import 'sub_command/generate_use_case_sub_command.dart';
+
 class GenerateCommand extends CommandBase {
   @override
   final name = 'generate';
@@ -35,6 +37,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateTestAbbrSubCommand());
     addSubcommand(GenerateModelSubCommand());
     addSubcommand(GenerateModelAbbrSubCommand());
+    addSubcommand(GenerateUsecaseSubCommand());
+    addSubcommand(GenerateUsecaseAbbrSubCommand());
   }
 }
 
