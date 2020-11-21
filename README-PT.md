@@ -162,7 +162,7 @@ slidy run open_folder
 ![Exemplo de pasta](https://github.com/Flutterando/slidy/blob/master/screenshots/scripts.png?raw=true)
 
 
-Você pode adicionar uma sessão var para customizar seus scripots
+Você pode adicionar uma sessão var para customizar seus scripts
 ```
 vars:
   runner: flutter pub run build_runner
