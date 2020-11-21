@@ -409,6 +409,14 @@ class LoginPage extends StatelessWidget {
 
 ## Erros comuns:
 
+**Comando não encontrado: slidy**
+
+Em caso `command not found: slidy` ou `Comando não encontrado`, verifique se a variável de ambiente PATH está devidamente configurada (.bashrc, .bash_profile, .zshrc, etc.):
+
+```
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+```
+
 **Não consegue atualizar:**
 1 - Primeiro desinstalar o Slidy no Flutter
 
