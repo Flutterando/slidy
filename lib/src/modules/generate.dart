@@ -220,18 +220,37 @@ class Generate {
       bool withInterface = false,
       bool withHasura = false]) async {
     var m = await isModular();
-    
-    Future<Function(ObjectGenerate)> _resolveRepositoryTemplateToString() async {
-      if (withHasura) {
-        final isExistsHasuraConnect = await checkDependency(PACKAGE_HASURA_CONNECT);
 
-        if (!isExistsHasuraConnect) {
-          throw 'Use slidy i hasura_connect to install package first';
-        }
+    Future<Function(ObjectGenerate)>
+        _resolveRepositoryTemplateWithHasuraToString() async {
+      final isExistsHasuraConnect =
+          await checkDependency(PACKAGE_HASURA_CONNECT);
 
+      if (!isExistsHasuraConnect) {
+        throw 'Use slidy i hasura_connect to install package first';
+      }
+
+      if (withInterface) {
         return m
-            ? templates.repositoyGeneratorModularWithHasura
-            : templates.repositoryGeneratorWithHasura;
+            ? templates.extendsInterfaceRepositoryGeneratorModularWithHasura
+            : templates.extendsInterfaceRepositoryGeneratorWithHasura;
+      }
+
+      return m
+          ? templates.repositoyGeneratorModularWithHasura
+          : templates.repositoryGeneratorWithHasura;
+    }
+
+    Future<Function(ObjectGenerate)>
+        _resolveRepositoryTemplateToString() async {
+      if (withHasura) {
+        return await _resolveRepositoryTemplateWithHasuraToString();
+      }
+
+      if (withInterface) {
+        return m
+            ? templates.extendsInterfaceRepositoryGenerator
+            : templates.extendsInterfaceRepositoryGenerator;
       }
 
       return m
@@ -241,14 +260,7 @@ class Generate {
 
     final template = await _resolveRepositoryTemplateToString();
 
-    if (!withInterface) {
-      await file_utils.createFile(
-          path,
-          'repository',
-          template,
-          generatorTest: isTest ? templates.repositoryTestGenerator : null,
-          isModular: m);
-    } else {
+    if (withInterface) {
       await file_utils.createFile(
         path,
         'repository',
@@ -263,13 +275,19 @@ class Generate {
       await file_utils.createFile(
         path,
         'repository',
-        m
-            ? templates.extendsInterfaceRepositoryGeneratorModular
-            : templates.extendsInterfaceRepositoryGenerator,
+        template,
         generatorTest:
             isTest ? templates.interfaceRepositoryTestGenerator : null,
         isModular: m,
         hasInterface: true,
+      );
+    } else {
+      await file_utils.createFile(
+        path,
+        'repository',
+        template,
+        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        isModular: m,
       );
     }
   }
