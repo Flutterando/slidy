@@ -1,6 +1,28 @@
 import 'package:recase/recase.dart';
 import 'package:slidy/src/utils/object_generate.dart';
 
+String repositoryGeneratorWithHasura(ObjectGenerate obj) => '''
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:hasura_connect/hasura_connect.dart';
+
+class ${obj.name}Repository extends Disposable {
+
+  Future fetchPost(HasuraConnect client) async {
+    final response =
+        await client.get('https://jsonplaceholder.typicode.com/posts/1');
+    return response.data;
+  }
+
+
+  //dispose will be called automatically
+  @override
+  void dispose() {
+    
+  }
+
+}
+  ''';
+
 String repositoryGenerator(ObjectGenerate obj) => '''
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
@@ -24,6 +46,45 @@ class ${obj.name}Repository extends Disposable {
 }
   ''';
 
+String repositoyGeneratorModularWithHasura(ObjectGenerate obj) => '''
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hasura_connect/hasura_connect.dart';
+
+part '${ReCase(obj.name).snakeCase}_${obj.type}.g.dart';
+
+@Injectable()
+class ${obj.name}Repository extends Disposable {
+  final HasuraConnect client;
+
+  ${obj.name}Repository(this.client);
+
+  Future fetchPost() async {
+    String docQuery = """
+      query {
+        posts {
+          id
+          userId
+          title
+          body
+        }
+      }
+    """;
+
+    final response =
+        await client.query(docQuery);
+
+    return response;
+  }
+
+  //dispose will be called automatically
+  @override
+  void dispose() {
+    
+  }
+
+}
+''';
+
 String repositoryGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dio/native_imp.dart';
@@ -39,7 +100,7 @@ class ${obj.name}Repository extends Disposable {
   Future fetchPost() async {
     final response =
         await client.get('https://jsonplaceholder.typicode.com/posts/1');
-    return response.data;
+    return response;
   }
 
 

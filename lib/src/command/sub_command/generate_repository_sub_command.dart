@@ -13,8 +13,19 @@ class GenerateRepositorySubCommand extends CommandBase {
         //Add in future configured the release android sign
         );
 
-    argParser.addFlag('interface',
-        abbr: 'i', negatable: false, help: 'create file with interface');
+    argParser.addFlag(
+      'interface',
+      abbr: 'i',
+      negatable: false,
+      help: 'create file with interface',
+    );
+
+    argParser.addFlag(
+      'hasura',
+      abbr: 'u',
+      negatable: false,
+      help: 'create file with hasura',
+    );
   }
 
   @override
@@ -23,7 +34,7 @@ class GenerateRepositorySubCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       Generate.repository(argResults.rest.first, !argResults['notest'],
-          argResults['interface']);
+          argResults['interface'], argResults['hasura']);
     }
   }
 }

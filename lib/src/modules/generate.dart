@@ -10,8 +10,9 @@ import 'package:slidy/src/utils/output_utils.dart' as output;
 
 import '../utils/utils.dart';
 
-final PACKAGE_JSON_ANNOTATION = 'json_annotation';
-final PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
+const PACKAGE_JSON_ANNOTATION = 'json_annotation';
+const PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
+const PACKAGE_HASURA_CONNECT = 'hasura_connect';
 
 class Generate {
   static Future module(String path, bool createCompleteModule, bool noroute,
@@ -215,16 +216,36 @@ class Generate {
   }
 
   static Future repository(String path,
-      [bool isTest = true, bool withInterface = false]) async {
+      [bool isTest = true,
+      bool withInterface = false,
+      bool withHasura = false]) async {
     var m = await isModular();
+    
+    Future<Function(ObjectGenerate)> _resolveRepositoryTemplateToString() async {
+      if (withHasura) {
+        final isExistsHasuraConnect = await checkDependency(PACKAGE_HASURA_CONNECT);
+
+        if (!isExistsHasuraConnect) {
+          throw 'Use slidy i hasura_connect to install package first';
+        }
+
+        return m
+            ? templates.repositoyGeneratorModularWithHasura
+            : templates.repositoryGeneratorWithHasura;
+      }
+
+      return m
+          ? templates.repositoryGeneratorModular
+          : templates.repositoryGenerator;
+    }
+
+    final template = await _resolveRepositoryTemplateToString();
 
     if (!withInterface) {
       await file_utils.createFile(
           path,
           'repository',
-          m
-              ? templates.repositoryGeneratorModular
-              : templates.repositoryGenerator,
+          template,
           generatorTest: isTest ? templates.repositoryTestGenerator : null,
           isModular: m);
     } else {
