@@ -221,15 +221,19 @@ class Generate {
       bool withHasura = false]) async {
     var m = await isModular();
 
-    Future<Function(ObjectGenerate)>
-        _resolveRepositoryTemplateWithHasuraToString() async {
+    Future<bool> _resolveIsExistsHasuraConnectPackage() async {
       final isExistsHasuraConnect =
           await checkDependency(PACKAGE_HASURA_CONNECT);
 
-      if (!isExistsHasuraConnect) {
-        throw 'Use slidy i hasura_connect to install package first';
+      if (isExistsHasuraConnect) {
+        return true;
       }
 
+      throw 'Use slidy i hasura_connect to install package first';
+    }
+
+    Function(ObjectGenerate)
+        _resolveRepositoryTemplateWithHasuraToString() {
       if (withInterface) {
         return m
             ? templates.extendsInterfaceRepositoryGeneratorModularWithHasura
@@ -241,15 +245,15 @@ class Generate {
           : templates.repositoryGeneratorWithHasura;
     }
 
-    Future<Function(ObjectGenerate)>
-        _resolveRepositoryTemplateToString() async {
+    Function(ObjectGenerate)
+        _resolveRepositoryTemplateToString() {
       if (withHasura) {
-        return await _resolveRepositoryTemplateWithHasuraToString();
+        return _resolveRepositoryTemplateWithHasuraToString();
       }
 
       if (withInterface) {
         return m
-            ? templates.extendsInterfaceRepositoryGenerator
+            ? templates.extendsInterfaceRepositoryGeneratorModular
             : templates.extendsInterfaceRepositoryGenerator;
       }
 
@@ -258,7 +262,33 @@ class Generate {
           : templates.repositoryGenerator;
     }
 
-    final template = await _resolveRepositoryTemplateToString();
+    Function(ObjectGenerate)
+        _resolveRepositoryTemplateTestWithHasuraToString() {
+      if (withInterface) {
+        return templates.interfaceRepositoryTestGeneratorWithHasura;
+      }
+
+      return templates.repositoryTestGeneratorWithHasura;
+    }
+
+    Function(ObjectGenerate) _resolveRepositoryTemplateTestToString() {
+      if (!isTest) {
+        return null;
+      }
+
+      if (withHasura) {
+        return _resolveRepositoryTemplateTestWithHasuraToString();
+      }
+
+      return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
+    }
+
+    if (withHasura) {
+      await _resolveIsExistsHasuraConnectPackage();
+    }
+
+    final template = _resolveRepositoryTemplateToString();
+    final templateTest = _resolveRepositoryTemplateTestToString();
 
     if (withInterface) {
       await file_utils.createFile(
@@ -276,8 +306,7 @@ class Generate {
         path,
         'repository',
         template,
-        generatorTest:
-            isTest ? templates.interfaceRepositoryTestGenerator : null,
+        generatorTest: templateTest,
         isModular: m,
         hasInterface: true,
       );
@@ -286,7 +315,7 @@ class Generate {
         path,
         'repository',
         template,
-        generatorTest: isTest ? templates.repositoryTestGenerator : null,
+        generatorTest: templateTest,
         isModular: m,
       );
     }
