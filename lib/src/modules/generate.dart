@@ -218,6 +218,20 @@ class Generate {
       [bool isTest = true, bool withInterface = false]) async {
     var m = await isModular();
 
+    Function(ObjectGenerate) _resolveTemplateTest() {
+      if (!isTest) {
+        return null;
+      }
+
+      if (m) {
+        return withInterface ? templates.interfaceRepositoryTestGeneratorModular : templates.repositoryTestGeneratorModular;
+      }
+
+      return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
+    }
+
+    final templateTest = _resolveTemplateTest();
+
     if (!withInterface) {
       await file_utils.createFile(
           path,
@@ -225,7 +239,7 @@ class Generate {
           m
               ? templates.repositoryGeneratorModular
               : templates.repositoryGenerator,
-          generatorTest: isTest ? templates.repositoryTestGenerator : null,
+          generatorTest: templateTest,
           isModular: m);
     } else {
       await file_utils.createFile(
@@ -245,8 +259,7 @@ class Generate {
         m
             ? templates.extendsInterfaceRepositoryGeneratorModular
             : templates.extendsInterfaceRepositoryGenerator,
-        generatorTest:
-            isTest ? templates.interfaceRepositoryTestGenerator : null,
+        generatorTest: templateTest,
         isModular: m,
         hasInterface: true,
       );
