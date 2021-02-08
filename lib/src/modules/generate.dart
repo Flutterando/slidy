@@ -283,12 +283,24 @@ class Generate {
       return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
     }
 
+    Function(ObjectGenerate) _resolveTemplateTest() {
+      if (!isTest) {
+        return null;
+      }
+
+      if (m) {
+        return withInterface ? templates.interfaceRepositoryTestGeneratorModular : templates.repositoryTestGeneratorModular;
+      }
+
+      return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
+    }
+
     if (withHasura) {
       await _resolveIsExistsHasuraConnectPackage();
     }
 
     final template = _resolveRepositoryTemplateToString();
-    final templateTest = _resolveRepositoryTemplateTestToString();
+    final templateTest = _resolveTemplateTest();
 
     if (withInterface) {
       await file_utils.createFile(
