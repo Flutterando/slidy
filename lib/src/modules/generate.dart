@@ -265,13 +265,14 @@ class Generate {
     Function(ObjectGenerate)
         _resolveRepositoryTemplateTestWithHasuraToString() {
       if (withInterface) {
-        return templates.interfaceRepositoryTestGeneratorWithHasura;
+        return m ? templates.interfaceRepositoryTestGeneratorModularWithHasura : templates.interfaceRepositoryTestGeneratorWithHasura;
       }
 
-      return templates.repositoryTestGeneratorWithHasura;
+      return m ? templates.repositoryTestGeneratorModularWithHasura : templates.repositoryTestGeneratorWithHasura;
     }
 
-    Function(ObjectGenerate) _resolveRepositoryTemplateTestToString() {
+    
+    Function(ObjectGenerate) _resolveTemplateTest() {
       if (!isTest) {
         return null;
       }
@@ -280,19 +281,19 @@ class Generate {
         return _resolveRepositoryTemplateTestWithHasuraToString();
       }
 
-      return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
-    }
-
-    Function(ObjectGenerate) _resolveTemplateTest() {
-      if (!isTest) {
-        return null;
-      }
-
       if (m) {
         return withInterface ? templates.interfaceRepositoryTestGeneratorModular : templates.repositoryTestGeneratorModular;
       }
 
       return withInterface ? templates.interfaceRepositoryTestGenerator : templates.repositoryTestGenerator;
+    }
+
+    Function(ObjectGenerate) _resolveTemplateInterface() {
+      if (m) {
+        return templates.interfaceRepositoryGeneratorModular;
+      }
+
+      return withHasura ? templates.interfaceRepositoryGeneratorWithHasura : templates.interfaceRepositoryGenerator;
     }
 
     if (withHasura) {
@@ -303,12 +304,11 @@ class Generate {
     final templateTest = _resolveTemplateTest();
 
     if (withInterface) {
+      final templateInterface = _resolveTemplateInterface();
       await file_utils.createFile(
         path,
         'repository',
-        m
-            ? templates.interfaceRepositoryGeneratorModular
-            : templates.interfaceRepositoryGenerator,
+        templateInterface,
         generatorTest: null,
         isModular: m,
         isInterface: true,

@@ -112,7 +112,7 @@ class ${obj.name}Repository extends Disposable {
   Future fetchPost() async {
     final response =
         await client.get('https://jsonplaceholder.typicode.com/posts/1');
-    return response;
+    return response.data;
   }
 
 
@@ -164,6 +164,10 @@ class ${obj.name}Repository implements I${obj.name}Repository {
 
     return response;
   }
+
+  //dispose will be called automatically
+  @override
+  void dispose() {}
 }''';
 
 String extendsInterfaceRepositoryGeneratorModular(ObjectGenerate obj) => '''
@@ -203,9 +207,20 @@ abstract class I${obj.name}Repository implements Disposable {
   Future fetchPost(DioForNative client);
 }
   ''';
+
+String interfaceRepositoryGeneratorWithHasura(ObjectGenerate obj) => '''
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:hasura_connect/hasura_connect.dart';
+
+abstract class I${obj.name}Repository implements Disposable {
+
+  Future fetchPost(HasuraConnect client);
+}
+''';
+
 String extendsInterfaceRepositoryGeneratorWithHasura(ObjectGenerate obj) => '''
-import 'package:dio/native_imp.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:hasura_connect/hasura_connect.dart';
 
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
@@ -241,7 +256,7 @@ class ${obj.name}Repository implements I${obj.name}Repository {
 
 String extendsInterfaceRepositoryGenerator(ObjectGenerate obj) => '''
 import 'package:dio/native_imp.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
