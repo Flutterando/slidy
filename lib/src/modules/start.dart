@@ -175,7 +175,11 @@ Function selecStateManagement([int selected, String directory]) {
   return () async {
     if (selected == 2) {
       output.title('Starting a new project with RX BLoC');
-      await install(['rxdart'], false, directory: directory);
+      await install([
+        'rxdart',
+      ], false, directory: directory);
+      await install(['build_runner:1.10.1' 'modular_codegen'], true,
+          directory: directory);
     } else if (selected == 1) {
       output.title('Starting a new project with flutter_bloc');
       await createBlocBuilder();

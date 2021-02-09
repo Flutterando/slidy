@@ -18,6 +18,9 @@ class ${ReCase(obj.name).pascalCase}Bloc extends BlocBase {
 String blocGeneratorModular(ObjectGenerate obj) => '''
 import 'package:flutter_modular/flutter_modular.dart';
 
+part '${ReCase(obj.name).snakeCase}.g.dart';
+
+@Injectable()
 class ${ReCase(obj.name).pascalCase}Bloc extends Disposable {
 
   //dispose will be called automatically by closing its streams
