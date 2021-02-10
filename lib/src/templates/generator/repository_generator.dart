@@ -219,7 +219,6 @@ abstract class I${obj.name}Repository implements Disposable {
 ''';
 
 String extendsInterfaceRepositoryGeneratorWithHasura(ObjectGenerate obj) => '''
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:hasura_connect/hasura_connect.dart';
 
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
@@ -256,7 +255,6 @@ class ${obj.name}Repository implements I${obj.name}Repository {
 
 String extendsInterfaceRepositoryGenerator(ObjectGenerate obj) => '''
 import 'package:dio/native_imp.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 
 import 'interfaces/${ReCase(obj.name).snakeCase}_repository_interface.dart';
 
