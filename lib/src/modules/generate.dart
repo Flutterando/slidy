@@ -15,8 +15,8 @@ const PACKAGE_JSON_SERIALIZABLE = 'json_serializable';
 const PACKAGE_HASURA_CONNECT = 'hasura_connect';
 
 class Generate {
-  static Future module(String path, bool createCompleteModule, bool noroute,
-      bool withRepository, bool withInterface) async {
+  static Future  module(String path, bool createCompleteModule, bool noroute,
+      bool withRepository, bool withInterface, bool withHasura) async {
     var moduleType = createCompleteModule ? 'module_complete' : 'module';
     var m = await isModular();
     var templateModular = noroute
@@ -41,7 +41,7 @@ class Generate {
       var repositoryName = path.substring(lastBar);
 
       path = await repository(
-          '$path/repositories/$repositoryName', true, withInterface);
+          '$path/repositories/$repositoryName', true, withInterface, withHasura);
     }
   }
 

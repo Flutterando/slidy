@@ -24,6 +24,13 @@ class GenerateModuleSubCommand extends CommandBase {
         abbr: 'i',
         negatable: false,
         help: 'create file with interface for repository');
+
+    argParser.addFlag(
+      'hasura',
+      abbr: 'u',
+      negatable: false,
+      help: 'create repository file with hasura',
+    );    
   }
 
   @override
@@ -36,7 +43,8 @@ class GenerateModuleSubCommand extends CommandBase {
           argResults['complete'],
           argResults['noroute'],
           argResults['withrepository'],
-          argResults['withInterface']);
+          argResults['withInterface'],
+          argResults['hasura']);
     }
   }
 }
