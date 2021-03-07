@@ -4,7 +4,7 @@ description: A sample command-line application.
 # homepage: https://www.example.com
 
 environment:
-  sdk: '>=2.12.0-0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   dart_console: ^1.0.0-nullsafety.0
