@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
@@ -7,6 +8,7 @@ import '../../templates/triple.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
+import '../install_command.dart';
 
 class GenerateTripleSubCommand extends CommandBase {
   @override
@@ -35,6 +37,11 @@ class GenerateTripleSubCommand extends CommandBase {
   @override
   FutureOr run() async {
     final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '');
+
+    if (!await templateFile.checkDependencyIsExist('flutter_triple')) {
+      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      await command.run(['install', 'flutter_triple']);
+    }
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.file, key: 'triple'));
     execute(result);

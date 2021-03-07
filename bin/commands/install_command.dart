@@ -9,6 +9,7 @@ import 'command_base.dart';
 class InstallCommand extends CommandBase {
   @override
   final name = 'install';
+
   @override
   final description = 'Install (or update) a new package or packages:';
 

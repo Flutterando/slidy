@@ -14,24 +14,6 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateModuleAbbrSubCommand());
     addSubcommand(GenerateTripleSubCommand());
     addSubcommand(GenerateTripleAbbrSubCommand());
-    // addSubcommand(GeneratePageSubCommand());
-    // addSubcommand(GeneratePageAbbrSubCommand());
-    // addSubcommand(GenerateWidgetSubCommand());
-    // addSubcommand(GenerateWidgetAbbrSubCommand());
-    // addSubcommand(GenerateBlocSubCommand());
-    // addSubcommand(GenerateBlocAbbrSubCommand());
-    // addSubcommand(GenerateStoreSubCommand());
-    // addSubcommand(GenerateControllerSubCommand());
-    // addSubcommand(GenerateControllerAbbrSubCommand());
-    // addSubcommand(GenerateStoreAbbrSubCommand());
-    // addSubcommand(GenerateRepositorySubCommand());
-    // addSubcommand(GenerateRepositoryAbbrSubCommand());
-    // addSubcommand(GenerateServiceSubCommand());
-    // addSubcommand(GenerateServiceAbbrSubCommand());
-    // addSubcommand(GenerateTestSubCommand());
-    // addSubcommand(GenerateTestAbbrSubCommand());
-    // addSubcommand(GenerateModelSubCommand());
-    // addSubcommand(GenerateModelAbbrSubCommand());
   }
 
   @override

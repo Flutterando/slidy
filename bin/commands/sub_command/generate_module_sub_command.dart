@@ -5,12 +5,13 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
-import '../../templates/generate.dart';
+import '../../templates/module.dart';
 import '../command_base.dart';
 
 class GenerateModuleSubCommand extends CommandBase {
   @override
   final name = 'module';
+
   @override
   final description = 'Creates a module';
 

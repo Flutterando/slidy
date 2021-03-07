@@ -47,9 +47,9 @@ CommandRunner configureCommand(List<String> arguments) {
     ..addCommand(UninstallCommand())
     ..addCommand(StartCommand())
     ..addCommand(GenerateCommand())
+    ..addCommand(GenerateCommandAbbr())
     ..addCommand(RunCommand())
-    ..addCommand(UpgradeCommand())
-    ..addCommand(GenerateCommandAbbr());
+    ..addCommand(UpgradeCommand());
 
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/pubspec_service.dart';
+import 'package:slidy/src/core/models/pubspec.dart';
 
 class TemplateFile {
   late final File file;
@@ -22,5 +23,16 @@ class TemplateFile {
   static Future<TemplateFile> getInstance(String path) async {
     final pubspec = Slidy.instance.get<PubspecService>();
     return TemplateFile._(path, (await pubspec.getLine('name')).value);
+  }
+
+  Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {
+    try {
+      final dependenciesLine = isDev ? 'dev_dependencies' : 'dependencies';
+      final pubspec = Slidy.instance.get<PubspecService>();
+      final map = (await pubspec.getLine(dependenciesLine)).value as LineMap;
+      return map.containsKey(dependency);
+    } catch (e) {
+      return false;
+    }
   }
 }

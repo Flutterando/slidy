@@ -18,6 +18,5 @@ flutter:
   uses-material-design: true
 scripts:
   test: flutter pub get
-
 vars:
   name: jacob
