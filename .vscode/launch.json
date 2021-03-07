@@ -1,0 +1,71 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "slidy version",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["--version"]
+        }, {
+            "name": "slidy install",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["install", "triple"]
+        },
+        {
+            "name": "slidy install error",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["install", "tripple"]
+        },
+        {
+            "name": "slidy uninstall",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["uninstall", "triple"]
+        },
+        {
+            "name": "slidy start",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "console": "terminal",
+            "type": "dart",
+            "args": ["start", "-f"]
+        },
+        {
+            "name": "slidy generate m 1",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["g", "m","home"]
+        },
+        {
+            "name": "slidy generate m 2",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["g", "m","home/internal"]
+        },{
+            "name": "slidy generate triple",
+            "request": "launch",
+            "program": "../bin/slidy.dart",
+            "cwd": "example",
+            "type": "dart",
+            "args": ["g", "triple","home/home"]
+        }
+    ]
+}
