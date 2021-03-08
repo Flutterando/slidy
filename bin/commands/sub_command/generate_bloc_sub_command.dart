@@ -19,7 +19,7 @@ class GenerateBlocSubCommand extends CommandBase {
   GenerateBlocSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
     argParser.addOption('bind',
-        abbr: 'i',
+        abbr: 'b',
         allowed: [
           'singleton',
           'lazy-singleton',
