@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:recase/recase.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/pubspec_service.dart';
 import 'package:slidy/src/core/models/pubspec.dart';
@@ -15,7 +16,7 @@ class TemplateFile {
   TemplateFile._(String path, String type, this.packageName) {
     file = File('lib/app/${path}_${type}.dart');
     fileTest = File('test/app/${path}_${type}_test.dart');
-    fileName = Uri.parse(path).pathSegments.last;
+    fileName = ReCase(Uri.parse(path).pathSegments.last).camelCase;
     fileNameWithUppeCase = fileName[0].toUpperCase() + fileName.substring(1);
     import = 'import \'package:$packageName/app/${path}_${type}.dart\';';
   }
