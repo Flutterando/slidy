@@ -18,8 +18,8 @@ class GenerateRxNotifierSubCommand extends CommandBase {
 
   GenerateRxNotifierSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
-        abbr: 'i',
+    argParser.addOption('bind',
+        abbr: 'b',
         allowed: [
           'singleton',
           'lazy-singleton',
