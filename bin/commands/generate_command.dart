@@ -3,6 +3,7 @@ import 'sub_command/generate_mobx_sub_command.dart';
 import 'sub_command/generate_bloc_sub_command.dart';
 import 'sub_command/generate_module_sub_command.dart';
 import 'sub_command/generate_rx_notifier_sub_command.dart';
+import 'sub_command/generate_repository_sub_command.dart';
 import 'sub_command/generate_triple_sub_command.dart';
 
 class GenerateCommand extends CommandBase {
@@ -23,6 +24,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateBlocAbbrSubCommand());
     addSubcommand(GenerateRxNotifierSubCommand());
     addSubcommand(GenerateRxNotifierAbbrSubCommand());
+    addSubcommand(GenerateRepositorySubCommand());
+    addSubcommand(GenerateRepositoryAbbrSubCommand());
   }
 
   @override
