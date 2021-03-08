@@ -31,6 +31,29 @@ bloc_test:
   -     expect: () => [1],
   -   );
   - }
+cubit:
+  - import 'package:bloc/bloc.dart';
+  - 
+  - class $fileName|pascalcase extends Cubit<int> {
+  -   $fileName|pascalcase() : super(0);
+  - 
+  -   @override
+  -   void increment() => emit(state+1);
+  - 
+  - }
+cubit_test:
+  - import 'package:flutter_test/flutter_test.dart';
+  - import 'package:bloc_test/bloc_test.dart';
+  - $arg2
+  -  
+  - void main() {
+  - 
+  -   blocTest<$arg1, int>('emits [1] when increment is added',
+  -     build: () => $arg1(),
+  -     act: (cubit) => cubit.increment(),
+  -     expect: () => [1],
+  -   );
+  - }
 '''
     .split('\n');
 

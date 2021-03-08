@@ -1,7 +1,10 @@
 import 'command_base.dart';
 import 'sub_command/generate_bloc_sub_command.dart';
+import 'sub_command/generate_cubit_sub_command.dart';
 import 'sub_command/generate_module_sub_command.dart';
+import 'sub_command/generate_page_sub_command.dart';
 import 'sub_command/generate_triple_sub_command.dart';
+import 'sub_command/generate_widget_sub_command.dart';
 
 class GenerateCommand extends CommandBase {
   @override
@@ -17,6 +20,12 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateTripleAbbrSubCommand());
     addSubcommand(GenerateBlocSubCommand());
     addSubcommand(GenerateBlocAbbrSubCommand());
+    addSubcommand(GenerateCubitSubCommand());
+    addSubcommand(GenerateCubitAbbrSubCommand());
+    addSubcommand(GeneratePageSubCommand());
+    addSubcommand(GeneratePageAbbrSubCommand());
+    addSubcommand(GenerateWidgetSubCommand());
+    addSubcommand(GenerateWidgetAbbrSubCommand());
   }
 
   @override
