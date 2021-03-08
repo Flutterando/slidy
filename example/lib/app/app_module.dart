@@ -1,4 +1,3 @@
-import 'package:example/app/mobx/test_store.dart';
 import 'package:example/app/bloc/test_bloc.dart';
 import 'package:example/app/bloc/test_bloc.dart';
 import 'package:example/app/teee_service.dart';
@@ -12,7 +11,6 @@ import 'modules/home/home_module.dart';
 class AppModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => TestStore()),
     Bind.lazySingleton((i) => TestBloc()),
     Bind.lazySingleton((i) => TestBloc()),
     Bind.lazySingleton((i) => TeeeService()),
