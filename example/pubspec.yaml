@@ -10,6 +10,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_modular: 3.0.0-nullsafety.46
   flutter_triple: ^1.0.4
+  rx_notifier: ^1.0.0
   bloc: 7.0.0-nullsafety.3
   flutter_bloc: 7.0.0-nullsafety.3
 dev_dependencies:
