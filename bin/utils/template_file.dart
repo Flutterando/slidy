@@ -14,16 +14,16 @@ class TemplateFile {
   late final import;
 
   TemplateFile._(String path, String type, this.packageName) {
-    file = File('lib/app/${path}_${type}.dart');
-    fileTest = File('test/app/${path}_${type}_test.dart');
+    file = File('lib/app/${path}${type}.dart');
+    fileTest = File('test/app/${path}${type}_test.dart');
     fileName = ReCase(Uri.parse(path).pathSegments.last).camelCase;
     fileNameWithUppeCase = fileName[0].toUpperCase() + fileName.substring(1);
-    import = 'import \'package:$packageName/app/${path}_${type}.dart\';';
+    import = 'import \'package:$packageName/app/${path}${type}.dart\';';
   }
 
-  static Future<TemplateFile> getInstance(String path, String type) async {
+  static Future<TemplateFile> getInstance(String path, String? type) async {
     final pubspec = Slidy.instance.get<PubspecService>();
-    return TemplateFile._(path, type, (await pubspec.getLine('name')).value);
+    return TemplateFile._(path, type == null ? '' : '_$type', (await pubspec.getLine('name')).value);
   }
 
   Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {
