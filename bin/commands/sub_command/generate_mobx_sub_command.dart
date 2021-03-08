@@ -18,6 +18,7 @@ class GenerateMobxSubCommand extends CommandBase {
 
   GenerateMobxSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('page', abbr: 'p', negatable: true, help: 'Create a Page file');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -44,21 +45,18 @@ class GenerateMobxSubCommand extends CommandBase {
       await command.run(['install', 'mobx_codegen', 'build_runner', '--dev']);
     }
 
-    var result = await Slidy.instance.template
-        .createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.file, key: 'mobx'));
+    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.file, key: 'mobx'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Store()',
-          templateFile.import, templateFile.file.parent);
+      if (argResults!['page'] == true) {
+        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Store');
+      }
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template.createFile(
-          info: TemplateInfo(
-              yaml: mobxFile,
-              destiny: templateFile.fileTest,
-              key: 'mobx_test',
-              args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
+      result = await Slidy.instance.template
+          .createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.fileTest, key: 'mobx_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
       execute(result);
     }
   }

@@ -15,7 +15,6 @@ class GenerateCommand extends CommandBase {
   final name = 'generate';
   @override
   final description = 'Creates a module, page, widget or repository according to the option.';
-  final abbr = 'g';
 
   GenerateCommand() {
     addSubcommand(GenerateModuleSubCommand());

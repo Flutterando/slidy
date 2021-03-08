@@ -46,12 +46,7 @@ class GenerateRepositorySubCommand extends CommandBase {
     );
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(
-        argResults!['bind'],
-        '${templateFile.fileNameWithUppeCase}Repository()',
-        templateFile.import,
-        templateFile.file.parent,
-      );
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Repository()', templateFile.import, templateFile.file.parent);
     }
 
     if (argResults!['interface']) {
