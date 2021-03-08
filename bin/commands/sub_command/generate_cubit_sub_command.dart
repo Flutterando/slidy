@@ -18,8 +18,8 @@ class GenerateCubitSubCommand extends CommandBase {
 
   GenerateCubitSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
-        abbr: 'i',
+    argParser.addOption('bind',
+        abbr: 'b',
         allowed: [
           'singleton',
           'lazy-singleton',
@@ -47,7 +47,7 @@ class GenerateCubitSubCommand extends CommandBase {
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'cubit'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Cubit()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Cubit()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {

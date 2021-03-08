@@ -18,8 +18,8 @@ class GenerateTripleSubCommand extends CommandBase {
 
   GenerateTripleSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
-        abbr: 'i',
+    argParser.addOption('bind',
+        abbr: 'b',
         allowed: [
           'singleton',
           'lazy-singleton',
@@ -46,7 +46,7 @@ class GenerateTripleSubCommand extends CommandBase {
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.file, key: 'triple'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {

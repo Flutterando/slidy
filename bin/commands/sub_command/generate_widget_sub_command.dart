@@ -16,20 +16,6 @@ class GenerateWidgetSubCommand extends CommandBase {
 
   GenerateWidgetSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
-        abbr: 'i',
-        allowed: [
-          'singleton',
-          'lazy-singleton',
-          'factory',
-        ],
-        defaultsTo: 'lazy-singleton',
-        allowedHelp: {
-          'singleton': 'Object persist while module exists',
-          'lazy-singleton': 'Object persist while module exists, but only after being called first for the fist time',
-          'factory': 'A new object is created each time it is called.',
-        },
-        help: 'Define type injection in parent module');
   }
 
   @override

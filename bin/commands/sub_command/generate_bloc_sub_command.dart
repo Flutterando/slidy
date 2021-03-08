@@ -18,7 +18,7 @@ class GenerateBlocSubCommand extends CommandBase {
 
   GenerateBlocSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
+    argParser.addOption('bind',
         abbr: 'i',
         allowed: [
           'singleton',
@@ -47,7 +47,7 @@ class GenerateBlocSubCommand extends CommandBase {
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
