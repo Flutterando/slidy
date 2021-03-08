@@ -1,4 +1,5 @@
 import 'command_base.dart';
+import 'sub_command/clean_dart/generate_use_case_sub_command.dart';
 import 'sub_command/generate_mobx_sub_command.dart';
 import 'sub_command/generate_bloc_sub_command.dart';
 import 'sub_command/generate_cubit_sub_command.dart';
@@ -35,6 +36,7 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GeneratePageAbbrSubCommand());
     addSubcommand(GenerateWidgetSubCommand());
     addSubcommand(GenerateWidgetAbbrSubCommand());
+    addSubcommand(GenerateUseCaseAbbrSubCommand());
   }
 
   @override
