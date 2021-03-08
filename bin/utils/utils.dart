@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/line_params.dart';
 
+import '../commands/generate_command.dart';
 import '../prints/prints.dart';
+import 'template_file.dart';
 
 Future injectParentModule(String injectionType, String fileNameWithUppeCase, String import, Directory directory) async {
   final injection = _injectionTemplate(injectionType, fileNameWithUppeCase);
@@ -27,6 +30,17 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
       await formatFile(parentModule);
     }
   }
+}
+
+Future<void> addedInjectionInPage({required TemplateFile templateFile, required String pathCommand, required bool noTest, required String type}) async {
+  var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
+  await command.run(['generate', 'page', pathCommand, if (noTest) '--notest']);
+  final insertLine = '  final ${templateFile.fileNameWithUppeCase}$type ${type.toLowerCase()} = Modular.get();';
+  final pageFile = File(templateFile.file.parent.path + '/${templateFile.fileName}_page.dart');
+  var result = await Slidy.instance.template.addLine(params: LineParams(pageFile, position: 9, inserts: [insertLine, '']));
+  execute(result);
+  result = await Slidy.instance.template.addLine(params: LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
+  execute(result);
 }
 
 Future<void> formatFile(File file) async {

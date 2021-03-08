@@ -14,11 +14,15 @@ dependencies:
   bloc: 7.0.0-nullsafety.3
   flutter_bloc: 7.0.0-nullsafety.3
   dartz: 0.10.0-nullsafety.1
+  flutter_mobx: 2.0.0-nullsafety.0
+  mobx: 2.0.0-nullsafety.2
 dev_dependencies:
   flutter_modular_test: 1.0.0-nullsafety.3
   flutter_test:
     sdk: flutter
   bloc_test: 8.0.0-nullsafety.2
+  mobx_codegen: ^1.1.2
+  build_runner: ^1.11.5
 flutter:
   uses-material-design: true
 scripts:

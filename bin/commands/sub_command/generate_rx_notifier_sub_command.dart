@@ -18,6 +18,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
 
   GenerateRxNotifierSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('page', abbr: 'p', negatable: true, help: 'Create a Page file');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -43,21 +44,18 @@ class GenerateRxNotifierSubCommand extends CommandBase {
       await command.run(['install', 'rx_notifier']);
     }
 
-    var result = await Slidy.instance.template
-        .createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.file, key: 'rx_notifier'));
+    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.file, key: 'rx_notifier'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Controller()',
-          templateFile.import, templateFile.file.parent);
+      if (argResults!['page'] == true) {
+        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Controller');
+      }
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Controller()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template.createFile(
-          info: TemplateInfo(
-              yaml: rxnotifierFile,
-              destiny: templateFile.fileTest,
-              key: 'rx_notifier_test',
-              args: [templateFile.fileNameWithUppeCase + 'Controller', templateFile.import]));
+      result = await Slidy.instance.template
+          .createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.fileTest, key: 'rx_notifier_test', args: [templateFile.fileNameWithUppeCase + 'Controller', templateFile.import]));
       execute(result);
     }
   }

@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/modules/template_creator/domain/models/line_params.dart';
 
 import '../../prints/prints.dart';
 import '../../templates/bloc.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
+import '../generate_command.dart';
 import '../install_command.dart';
 
 class GenerateBlocSubCommand extends CommandBase {
@@ -18,6 +21,7 @@ class GenerateBlocSubCommand extends CommandBase {
 
   GenerateBlocSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('page', abbr: 'p', negatable: true, help: 'Create a Page file');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -38,8 +42,8 @@ class GenerateBlocSubCommand extends CommandBase {
   FutureOr run() async {
     final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'bloc');
 
+    var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
     if (!await templateFile.checkDependencyIsExist('bloc')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'bloc@7.0.0-nullsafety.3', 'flutter_bloc@7.0.0-nullsafety.3']);
       await command.run(['install', 'bloc_test@8.0.0-nullsafety.2', '--dev']);
     }
@@ -47,6 +51,9 @@ class GenerateBlocSubCommand extends CommandBase {
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight) {
+      if (argResults!['page'] == true) {
+        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Bloc');
+      }
       await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
     }
 

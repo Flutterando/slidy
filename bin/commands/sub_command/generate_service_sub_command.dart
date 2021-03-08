@@ -4,20 +4,20 @@ import 'dart:io';
 import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
-import '../../templates/repository.dart';
+import '../../templates/service.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
 
-class GenerateRepositorySubCommand extends CommandBase {
+class GenerateServiceSubCommand extends CommandBase {
   @override
-  final name = 'repository';
+  final name = 'service';
   @override
-  final description = 'Creates a Repository';
+  final description = 'Creates a Service';
 
-  GenerateRepositorySubCommand() {
+  GenerateServiceSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addFlag('interface', abbr: 'i', negatable: false, help: 'Create Repository Inteface');
+    argParser.addFlag('interface', abbr: 'i', negatable: false, help: 'Create Service Inteface');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -36,33 +36,38 @@ class GenerateRepositorySubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'repository');
+    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'service');
     var result = await Slidy.instance.template.createFile(
       info: TemplateInfo(
-        yaml: repositoryFile,
+        yaml: serviceFile,
         destiny: templateFile.file,
-        key: argResults!['interface'] ? 'impl_repository' : 'repository',
+        key: argResults!['interface'] ? 'impl_service' : 'service',
       ),
     );
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Repository()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+        argResults!['bind'],
+        '${templateFile.fileNameWithUppeCase}Service()',
+        templateFile.import,
+        templateFile.file.parent,
+      );
     }
 
     if (argResults!['interface']) {
       print('${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
       result = await Slidy.instance.template.createFile(
           info: TemplateInfo(
-              yaml: repositoryFile,
-              destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_repository_interface.dart'),
-              key: 'i_repository',
-              args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
+              yaml: serviceFile,
+              destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
+              key: 'i_service',
+              args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
       execute(result);
     }
 
     if (!argResults!['notest']) {
       result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: repositoryFile, destiny: templateFile.fileTest, key: 'test_repository', args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
+          .createFile(info: TemplateInfo(yaml: serviceFile, destiny: templateFile.fileTest, key: 'test_service', args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
       execute(result);
     }
   }
@@ -71,7 +76,7 @@ class GenerateRepositorySubCommand extends CommandBase {
   String? get invocationSuffix => null;
 }
 
-class GenerateRepositoryAbbrSubCommand extends GenerateRepositorySubCommand {
+class GenerateServiceAbbrSubCommand extends GenerateServiceSubCommand {
   @override
-  final name = 'r';
+  final name = 's';
 }

@@ -1,32 +1,32 @@
 import 'package:slidy/src/core/models/custom_file.dart';
 
-final _repositoryTemplate = r''' 
-repository:
+final _serviceTemplate = r''' 
+service:
   - class $fileName|pascalcase {
   - 
   - }
-i_repository:
+i_service:
   - abstract class I$arg1 {
   - 
   - }
-impl_repository:
+impl_service:
   - import '$fileName_interface.dart';
   - 
   - class $fileName|pascalcase implements I$fileName|pascalcase {
   - 
   - }
-test_repository:
+test_service:
   - import 'package:flutter_test/flutter_test.dart';
   - $arg2
   -  
   - void main() {
-  -   late $arg1 repository;
+  -   late $arg1 service;
   - 
   -   setUpAll(() {
-  -     repository = $arg1();
+  -     service = $arg1();
   -   });
   - }
 '''
     .split('\n');
 
-final repositoryFile = CustomFile(lines: _repositoryTemplate);
+final serviceFile = CustomFile(lines: _serviceTemplate);

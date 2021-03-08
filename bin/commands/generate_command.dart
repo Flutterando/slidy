@@ -7,6 +7,7 @@ import 'sub_command/generate_module_sub_command.dart';
 import 'sub_command/generate_rx_notifier_sub_command.dart';
 import 'sub_command/generate_repository_sub_command.dart';
 import 'sub_command/generate_page_sub_command.dart';
+import 'sub_command/generate_service_sub_command.dart';
 import 'sub_command/generate_triple_sub_command.dart';
 import 'sub_command/generate_widget_sub_command.dart';
 
@@ -15,7 +16,6 @@ class GenerateCommand extends CommandBase {
   final name = 'generate';
   @override
   final description = 'Creates a module, page, widget or repository according to the option.';
-  final abbr = 'g';
 
   GenerateCommand() {
     addSubcommand(GenerateModuleSubCommand());
@@ -30,6 +30,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateRxNotifierAbbrSubCommand());
     addSubcommand(GenerateRepositorySubCommand());
     addSubcommand(GenerateRepositoryAbbrSubCommand());
+    addSubcommand(GenerateServiceSubCommand());
+    addSubcommand(GenerateServiceAbbrSubCommand());
     addSubcommand(GenerateCubitSubCommand());
     addSubcommand(GenerateCubitAbbrSubCommand());
     addSubcommand(GeneratePageSubCommand());

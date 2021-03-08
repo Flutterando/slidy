@@ -18,6 +18,7 @@ class GenerateCubitSubCommand extends CommandBase {
 
   GenerateCubitSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('page', abbr: 'p', negatable: true, help: 'Create a Page file');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -47,6 +48,9 @@ class GenerateCubitSubCommand extends CommandBase {
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'cubit'));
     execute(result);
     if (result.isRight) {
+      if (argResults!['page'] == true) {
+        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Cubit');
+      }
       await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Cubit()', templateFile.import, templateFile.file.parent);
     }
 
