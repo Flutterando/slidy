@@ -4,19 +4,19 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
-import '../../templates/triple.dart';
+import '../../templates/bloc.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
 import '../install_command.dart';
 
-class GenerateTripleSubCommand extends CommandBase {
+class GenerateCubitSubCommand extends CommandBase {
   @override
-  final name = 'triple';
+  final name = 'cubit';
   @override
-  final description = 'Creates a Triple Store';
+  final description = 'Creates a Cubit file';
 
-  GenerateTripleSubCommand() {
+  GenerateCubitSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
     argParser.addOption('bind',
         abbr: 'b',
@@ -36,22 +36,23 @@ class GenerateTripleSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'store');
+    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'cubit');
 
-    if (!await templateFile.checkDependencyIsExist('flutter_triple')) {
+    if (!await templateFile.checkDependencyIsExist('bloc')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
-      await command.run(['install', 'flutter_triple']);
+      await command.run(['install', 'bloc@7.0.0-nullsafety.3', 'flutter_bloc@7.0.0-nullsafety.3']);
+      await command.run(['install', 'bloc_test@8.0.0-nullsafety.2', '--dev']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.file, key: 'triple'));
+    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'cubit'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Cubit()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
       result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.fileTest, key: 'triple_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
+          .createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.fileTest, key: 'cubit_test', args: [templateFile.fileNameWithUppeCase + 'Cubit', templateFile.import]));
       execute(result);
     }
   }
@@ -60,7 +61,7 @@ class GenerateTripleSubCommand extends CommandBase {
   String? get invocationSuffix => null;
 }
 
-class GenerateTripleAbbrSubCommand extends GenerateTripleSubCommand {
+class GenerateCubitAbbrSubCommand extends GenerateCubitSubCommand {
   @override
-  final name = 't';
+  final name = 'c';
 }

@@ -5,7 +5,6 @@ import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
 import '../../templates/bloc.dart';
-import '../../templates/triple.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
@@ -19,7 +18,7 @@ class GenerateBlocSubCommand extends CommandBase {
 
   GenerateBlocSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('injection',
+    argParser.addOption('bind',
         abbr: 'i',
         allowed: [
           'singleton',
@@ -41,21 +40,22 @@ class GenerateBlocSubCommand extends CommandBase {
 
     if (!await templateFile.checkDependencyIsExist('bloc')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
-      await command.run(['install', 'bloc', 'flutter_bloc']);
-      await command.run(['install', 'bloc_test']);
+      await command.run(['install', 'bloc@7.0.0-nullsafety.3', 'flutter_bloc@7.0.0-nullsafety.3']);
+      await command.run(['install', 'bloc_test@8.0.0-nullsafety.2', '--dev']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc'));
+    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
     }
 
-    // if (!argResults!['notest']) {
-    //   result = await Slidy.instance.template
-    //       .createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.fileTest, key: 'triple_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
-    //   execute(result);
-    // }
+    if (!argResults!['notest']) {
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: blocFile, destiny: templateFile.fileTest, key: 'bloc_test', args: [templateFile.fileNameWithUppeCase + 'Bloc', templateFile.import, templateFile.fileNameWithUppeCase + 'Event']));
+      execute(result);
+    }
   }
 
   @override
