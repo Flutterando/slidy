@@ -1,5 +1,6 @@
 import 'command_base.dart';
 import 'sub_command/generate_mobx_sub_command.dart';
+import 'sub_command/generate_bloc_sub_command.dart';
 import 'sub_command/generate_module_sub_command.dart';
 import 'sub_command/generate_triple_sub_command.dart';
 
@@ -17,6 +18,8 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GenerateTripleAbbrSubCommand());
     addSubcommand(GenerateMobxSubCommand());
     addSubcommand(GenerateMobxAbbrSubCommand());
+    addSubcommand(GenerateBlocSubCommand());
+    addSubcommand(GenerateBlocAbbrSubCommand());
   }
 
   @override

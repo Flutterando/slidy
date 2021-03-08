@@ -4,19 +4,20 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../prints/prints.dart';
+import '../../templates/bloc.dart';
 import '../../templates/triple.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
 import '../command_base.dart';
 import '../install_command.dart';
 
-class GenerateTripleSubCommand extends CommandBase {
+class GenerateBlocSubCommand extends CommandBase {
   @override
-  final name = 'triple';
+  final name = 'bloc';
   @override
-  final description = 'Creates a Triple Store';
+  final description = 'Creates a BLoC file';
 
-  GenerateTripleSubCommand() {
+  GenerateBlocSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
     argParser.addOption('injection',
         abbr: 'i',
@@ -36,31 +37,32 @@ class GenerateTripleSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'store');
+    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'bloc');
 
-    if (!await templateFile.checkDependencyIsExist('flutter_triple')) {
+    if (!await templateFile.checkDependencyIsExist('bloc')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
-      await command.run(['install', 'flutter_triple']);
+      await command.run(['install', 'bloc', 'flutter_bloc']);
+      await command.run(['install', 'bloc_test']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.file, key: 'triple'));
+    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc'));
     execute(result);
     if (result.isRight) {
-      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(argResults!['injection'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
     }
 
-    if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.fileTest, key: 'triple_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
-      execute(result);
-    }
+    // if (!argResults!['notest']) {
+    //   result = await Slidy.instance.template
+    //       .createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.fileTest, key: 'triple_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
+    //   execute(result);
+    // }
   }
 
   @override
   String? get invocationSuffix => null;
 }
 
-class GenerateTripleAbbrSubCommand extends GenerateTripleSubCommand {
+class GenerateBlocAbbrSubCommand extends GenerateBlocSubCommand {
   @override
-  final name = 't';
+  final name = 'b';
 }

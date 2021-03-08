@@ -12,17 +12,17 @@ class TemplateFile {
   final String packageName;
   late final import;
 
-  TemplateFile._(String path, this.packageName) {
-    file = File('lib/app/${path}_store.dart');
-    fileTest = File('test/app/${path}_store_test.dart');
+  TemplateFile._(String path, String type, this.packageName) {
+    file = File('lib/app/${path}_${type}.dart');
+    fileTest = File('test/app/${path}_${type}_test.dart');
     fileName = Uri.parse(path).pathSegments.last;
     fileNameWithUppeCase = fileName[0].toUpperCase() + fileName.substring(1);
-    import = 'import \'package:$packageName/app/${path}_store.dart\';';
+    import = 'import \'package:$packageName/app/${path}_${type}.dart\';';
   }
 
-  static Future<TemplateFile> getInstance(String path) async {
+  static Future<TemplateFile> getInstance(String path, String type) async {
     final pubspec = Slidy.instance.get<PubspecService>();
-    return TemplateFile._(path, (await pubspec.getLine('name')).value);
+    return TemplateFile._(path, type, (await pubspec.getLine('name')).value);
   }
 
   Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {

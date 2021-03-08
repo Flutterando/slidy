@@ -36,7 +36,7 @@ class GenerateMobxSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '');
+    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'store');
 
     if (!await templateFile.checkDependencyIsExist('mobx')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
