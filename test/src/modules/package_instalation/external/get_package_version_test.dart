@@ -15,17 +15,17 @@ void main() {
   final datasource = GetPackageVersionImpl(client);
 
   test('should install package', () async {
-    when(client).calls(#get).thenAnswer((_) async => Response(jsonPackageResult, 200));
+    when(() => client.get(any())).thenAnswer((_) async => Response(jsonPackageResult, 200));
     final result = await datasource.fetch('package');
     expect(result, '2.0.1');
   });
   test(' statusCode 404', () async {
-    when(client).calls(#get).thenAnswer((_) async => Response('', 404));
+    when(() => client.get(any())).thenAnswer((_) async => Response('', 404));
     expect(() async => await datasource.fetch('package'), throwsA(isA<PackageInstalationError>()));
   });
 
   test('Client http error', () async {
-    when(client).calls(#get).thenThrow(Exception('error'));
+    when(() => client.get(any())).thenThrow(Exception('error'));
     expect(() async => await datasource.fetch('package'), throwsA(isA<PackageInstalationError>()));
   });
 }

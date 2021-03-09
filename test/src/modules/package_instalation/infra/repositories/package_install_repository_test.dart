@@ -18,21 +18,25 @@ void main() {
   final service = PackageInstalationRepositoryImpl(pubspec: pubspecService, client: client);
 
   test('should install package', () async {
-    when(pubspecService).calls(#add).thenAnswer((_) async => true);
-    when(client).calls(#fetch).thenAnswer((_) async => '1.0.0');
+    when(() => pubspecService.add(any())).thenAnswer((_) async => true);
+    when(() => client.fetch(any())).thenAnswer((_) async => '1.0.0');
     final result = await service.install(PackageName('package'));
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('should install package with version', () async {
-    when(pubspecService).calls(#add).thenAnswer((_) async => true);
+    when(() => pubspecService.add(any())).thenAnswer((_) async => true);
     final result = await service.install(PackageName('package@1.0.2'));
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('should uninstall package', () async {
-    when(pubspecService).calls(#replace).thenAnswer((_) async => true);
-    when(pubspecService).calls(#getLine).thenAnswer((_) async => Line(name: 'dependencies', value: LineMap({'package': Line(name: 'name', value: 'value')})));
+    when(() => pubspecService.replace(any())).thenAnswer((_) async => true);
+    when(() => pubspecService.getLine(any())).thenAnswer((_) async => Line(
+        name: 'dependencies',
+        value: LineMap({
+          'package': Line(name: 'name', value: 'value')
+        })));
     final result = await service.uninstall(PackageName('package'));
     expect(result.right, isA<SlidyProccess>());
   });

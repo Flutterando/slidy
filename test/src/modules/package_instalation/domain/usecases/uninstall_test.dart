@@ -16,13 +16,13 @@ void main() {
   final usecase = Uninstall(service);
 
   test('should install package', () async {
-    when(service).calls(#uninstall).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
+    when(() => service.uninstall(any())).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
     final result = await usecase(params: PackageName('package'));
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('install package error', () async {
-    when(service).calls(#uninstall).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
+    when(() => service.uninstall(any())).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
     final result = await usecase(params: PackageName('package'));
     expect(result.left, isA<PackageInstalationError>());
   });
