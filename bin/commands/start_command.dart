@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-// import 'package:dart_console/dart_console.dart';
+import 'package:dart_console/dart_console.dart';
 import 'package:slidy/slidy.dart';
 
 import '../prints/prints.dart';
@@ -21,44 +21,44 @@ class StartCommand extends CommandBase {
   }
 
   int stateCLIOptions(String title, List<String> options) {
-    // stdin.echoMode = false;
-    // stdin.lineMode = false;
-    // var console = Console();
-    // var isRunning = true;
-    // var selected = 0;
+    stdin.echoMode = false;
+    stdin.lineMode = false;
+    var console = Console();
+    var isRunning = true;
+    var selected = 0;
 
-    // while (isRunning) {
-    //   print('\x1B[2J\x1B[0;0H');
-    //   output.title('Slidy CLI Interative\n');
-    //   output.warn(title);
-    //   for (var i = 0; i < options.length; i++) {
-    //     if (selected == i) {
-    //       print(output.green(options[i]));
-    //     } else {
-    //       print(output.white(options[i]));
-    //     }
-    //   }
+    while (isRunning) {
+      print('\x1B[2J\x1B[0;0H');
+      output.title('Slidy CLI Interative\n');
+      output.warn(title);
+      for (var i = 0; i < options.length; i++) {
+        if (selected == i) {
+          print(output.green(options[i]));
+        } else {
+          print(output.white(options[i]));
+        }
+      }
 
-    //   print('\nUse ↑↓ (keyboard arrows)');
-    //   print('Press \'q\' to quit.');
+      print('\nUse ↑↓ (keyboard arrows)');
+      print('Press \'q\' to quit.');
 
-    //   var key = console.readKey();
+      var key = console.readKey();
 
-    //   if (key.controlChar == ControlCharacter.arrowDown) {
-    //     if (selected < options.length - 1) {
-    //       selected++;
-    //     }
-    //   } else if (key.controlChar == ControlCharacter.arrowUp) {
-    //     if (selected > 0) {
-    //       selected--;
-    //     }
-    //   } else if (key.controlChar == ControlCharacter.enter) {
-    //     isRunning = false;
-    //     return selected;
-    //   } else if (key.char == 'q') {
-    //     return -1;
-    //   } else {}
-    // }
+      if (key.controlChar == ControlCharacter.arrowDown) {
+        if (selected < options.length - 1) {
+          selected++;
+        }
+      } else if (key.controlChar == ControlCharacter.arrowUp) {
+        if (selected > 0) {
+          selected--;
+        }
+      } else if (key.controlChar == ControlCharacter.enter) {
+        isRunning = false;
+        return selected;
+      } else if (key.char == 'q') {
+        return -1;
+      } else {}
+    }
     return -1;
   }
 
@@ -80,7 +80,7 @@ class StartCommand extends CommandBase {
     final dirLib = Directory('lib');
     final dirTest = Directory('test');
     if (dirLib.existsSync()) {
-      selected ??= stateCLIOptions('This command will delete everything inside the \'lib /\' and \'test\' folders.', [
+      selected ??= stateCLIOptions('This command will delete everything inside the \'lib/\' and \'test\/\' folders.', [
         'No',
         'Yes',
       ]);
@@ -94,7 +94,7 @@ class StartCommand extends CommandBase {
         await dirTest.delete(recursive: true);
       }
     } else {
-      output.error('The lib folder must be empty');
+      output.error('The lib folder must be empty. Or use -f to force start');
       exit(1);
     }
   }
