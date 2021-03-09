@@ -3,12 +3,12 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_modular: 3.0.0-nullsafety.46
+  flutter_modular: ^3.0.0+1
   flutter_triple: ^1.0.4
   rx_notifier: ^1.0.0
   bloc: 7.0.0-nullsafety.3
@@ -19,7 +19,7 @@ dependencies:
   dio: 4.0.0-beta6
   mockito: 5.0.0
 dev_dependencies:
-  flutter_modular_test: 1.0.0-nullsafety.3
+  flutter_modular_test: ^1.0.0
   flutter_test:
     sdk: flutter
   bloc_test: 8.0.0-nullsafety.2

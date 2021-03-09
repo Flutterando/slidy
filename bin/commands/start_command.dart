@@ -81,7 +81,7 @@ class StartCommand extends CommandBase {
     final dirLib = Directory('lib');
     final dirTest = Directory('test');
     if (dirLib.existsSync()) {
-      selected ??= stateCLIOptions('This command will delete everything inside the \'lib /\' and \'test\' folders.', [
+      selected ??= stateCLIOptions('This command will delete everything inside the \'lib/\' and \'test\/\' folders.', [
         'No',
         'Yes',
       ]);
@@ -95,7 +95,7 @@ class StartCommand extends CommandBase {
         await dirTest.delete(recursive: true);
       }
     } else {
-      output.error('The lib folder must be empty');
+      output.error('The lib folder must be empty. Or use -f to force start');
       exit(1);
     }
   }

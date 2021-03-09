@@ -29,10 +29,10 @@ class FileRealMock extends Mock implements File {
 void main() {
   final file = FileMock();
   final service = PubspecServiceImpl(yaml: file);
-  when(file).calls(#readAsLines).thenAnswer((_) async => yaml.split('\n'));
+  when(() => file.readAsLines()).thenAnswer((_) async => yaml.split('\n'));
   final fileReal = FileRealMock();
   final serviceReal = PubspecServiceImpl(yaml: fileReal);
-  when(fileReal).calls(#readAsLines).thenAnswer((_) async => realPubspec.split('\n'));
+  when(() => fileReal.readAsLines()).thenAnswer((_) async => realPubspec.split('\n'));
 
   test('load yaml', () async {
     final list = await service.loadYaml();

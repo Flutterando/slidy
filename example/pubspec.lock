@@ -243,7 +243,7 @@ packages:
       name: flutter_modular
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.46"
+    version: "3.0.0+1"
   flutter_modular_annotations:
     dependency: transitive
     description:
@@ -257,7 +257,7 @@ packages:
       name: flutter_modular_test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-nullsafety.3"
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -463,7 +463,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -556,5 +556,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0-29.10.beta <3.0.0"
+  dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.16.0"
