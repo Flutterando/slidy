@@ -9,6 +9,7 @@ main:
   - import 'app/app_widget.dart';
   - 
   - void main() => runApp(ModularApp(module: AppModule(), child: AppWidget()));
+  
 app_module:
   - import 'package:flutter_modular/flutter_modular.dart';
   - 
@@ -24,6 +25,7 @@ app_module:
   -   ];
   - 
   - }
+
 app_widget:
   - import 'package:flutter/material.dart';
   - import 'package:flutter_modular/flutter_modular.dart';
@@ -37,6 +39,7 @@ app_widget:
   -     ).modular();
   -   }
   - }
+
 home_page:
   - import 'package:flutter/material.dart';
   -  
@@ -61,6 +64,7 @@ home_page:
   -     );
   -   }
   - }
+
 home_module:
   - import 'package:flutter_modular/flutter_modular.dart';
   -  
@@ -75,6 +79,7 @@ home_module:
   -     ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
   -   ];
   - }
+
 mobx:
   - import 'package:mobx/mobx.dart';
   - 
@@ -90,6 +95,7 @@ mobx:
   -     counter = counter + 1;
   -   }
   - }
+
 mobx_g:
   - // GENERATED CODE - DO NOT MODIFY BY HAND
   - 
@@ -122,6 +128,7 @@ mobx_g:
   -     return '- counter: \${counter}';
   -   }
   - }
+
 cubit:
   - import 'package:flutter_bloc/flutter_bloc.dart';
   - 
@@ -131,6 +138,7 @@ cubit:
   -   void increment() => emit(state + 1);
   -   void decrement() => emit(state - 1);
   - }
+
 home_page_cubit:
   - import 'package:flutter/material.dart';
   - import 'package:flutter_bloc/flutter_bloc.dart';
@@ -189,6 +197,7 @@ home_page_cubit:
   -     );
   -   }
   - }
+
 home_module_cubit:
   - import 'package:flutter_modular/flutter_modular.dart';
   - 
@@ -229,6 +238,7 @@ rx_dart:
   -     _controller.close();
   -   }
   - }
+
 triple:
   - import 'package:flutter_triple/flutter_triple.dart';
   - 
@@ -250,6 +260,7 @@ triple:
   -     setLoading(false);
   -   }
   - }
+
 home_page_triple:
   - import 'package:flutter/material.dart';
   - import 'package:flutter_modular/flutter_modular.dart';
@@ -348,7 +359,6 @@ home_page_mobx:
   -   }
   - }
 
-
 home_module_mobx:
   -  import 'package:flutter_modular/flutter_modular.dart';
   -  import '../home/home_store.dart'; 
@@ -400,7 +410,6 @@ home_page_rx_dart:
   -     );
   -   }
   - }
-
 
 home_module_rx_dart:
   - import 'package:flutter_modular/flutter_modular.dart';
