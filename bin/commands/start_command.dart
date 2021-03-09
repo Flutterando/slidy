@@ -178,6 +178,12 @@ class StartCommand extends CommandBase {
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_controller.dart'), key: 'rx_dart'));
         execute(result);
 
+        //Page
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page_rx_dart'));
+        execute(result);
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module_rx_dart'));
+        execute(result);
+
         break;
       default:
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page'));
