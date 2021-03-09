@@ -5,7 +5,7 @@ module:
   - import 'package:flutter_modular/flutter_modular.dart';
   - import 'package:flutter/material.dart';
   - 
-  - class \$fileName|pascalcase extends ChildModule {
+  - class \$fileName|pascalcase extends Module {
   -   @override
   -   final List<Bind> binds = [];
   - 
