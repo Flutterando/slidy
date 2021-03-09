@@ -84,14 +84,43 @@ mobx:
   - 
   - abstract class HomeStoreBase with Store {
   -   @observable
-  -   String firstName;
+  -   int counter = 0;
   - 
-  -   @observable
-  -   String lastName;
+  -   Future<void> increment() async {
+  -     counter = counter + 1;
+  -   }
+  - }
+mobx_g:
+  - // GENERATED CODE - DO NOT MODIFY BY HAND
   - 
-  -   @computed
-  -   String get fullName => '\$firstName, \$lastName';
+  - part of 'home_store.dart';
   - 
+  - // **************************************************************************
+  - // StoreGenerator
+  - // **************************************************************************
+  - 
+  - // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+  - 
+  - mixin _\$HomeStore on HomeStoreBase, Store {
+  -   final _\$counterAtom = Atom(name: 'HomeStoreBase.counter');
+  - 
+  -   @override
+  -   int get counter {
+  -     _\$counterAtom.reportRead();
+  -     return super.counter;
+  -   }
+  - 
+  -   @override
+  -   set counter(int value) {
+  -     _\$counterAtom.reportWrite(value, super.counter, () {
+  -       super.counter = value;
+  -     });
+  -   }
+  - 
+  -   @override
+  -   String toString() {
+  -     return '- counter: \${counter}';
+  -   }
   - }
 cubit:
   - import 'package:flutter_bloc/flutter_bloc.dart';
@@ -215,13 +244,13 @@ home_module_triple:
 
 home_page_mobx:
   - import 'package:flutter/material.dart';
+  - import 'package:flutter_mobx/flutter_mobx.dart';
   - import 'package:flutter_modular/flutter_modular.dart';
-  - import 'package:flutter_triple/flutter_triple.dart';
   - import 'package:slidy_testes/app/modules/home/home_store.dart';
   - 
   - class HomePage extends StatefulWidget {
   -   final String title;
-  -   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+  -   const HomePage({Key key, this.title = "Home"}) : super(key: key);
   - 
   -   @override
   -   _HomePageState createState() => _HomePageState();
@@ -234,20 +263,8 @@ home_page_mobx:
   -       appBar: AppBar(
   -         title: Text('Counter'),
   -       ),
-  -       body: ScopedBuilder<HomeStore, Exception, int>(
-  -         store: store,
-  -         onState: (_, counter) {
-  -           return Padding(
-  -             padding: EdgeInsets.all(10),
-  -             child: Text('\$counter'),
-  -           );
-  -         },
-  -         onError: (context, error) => Center(
-  -           child: Text(
-  -             'Too many clicks',
-  -             style: TextStyle(color: Colors.red),
-  -           ),
-  -         ),
+  -       body: Observer(
+  -         builder: (context) => Text('\${store.counter}'),
   -       ),
   -       floatingActionButton: FloatingActionButton(
   -         onPressed: () {
@@ -258,6 +275,7 @@ home_page_mobx:
   -     );
   -   }
   - }
+
 
 home_module_mobx:
   -  import 'package:flutter_modular/flutter_modular.dart';

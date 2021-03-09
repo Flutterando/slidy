@@ -139,13 +139,18 @@ class StartCommand extends CommandBase {
         //Instal mobx
         result = await Slidy.instance.instalation.install(package: PackageName('mobx', isDev: false));
         execute(result);
+        //Instal flutter_mobx
+        result = await Slidy.instance.instalation.install(package: PackageName('flutter_mobx', isDev: false));
+        execute(result);
+
         //Instal mobx_codegen
         result = await Slidy.instance.instalation.install(package: PackageName('mobx_codegen', isDev: true));
         execute(result);
         //Create a mobx
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'mobx'));
         execute(result);
-
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.g.dart'), key: 'mobx_g'));
+        execute(result);
         //Page
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page_mobx'));
         execute(result);
