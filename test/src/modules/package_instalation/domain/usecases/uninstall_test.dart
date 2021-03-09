@@ -16,14 +16,16 @@ void main() {
   final usecase = Uninstall(service);
 
   test('should install package', () async {
-    when(() => service.uninstall(any())).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
-    final result = await usecase(params: PackageName('package'));
+    final mockParam = PackageName('package');
+    when(() => service.uninstall(mockParam)).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
+    final result = await usecase(params: mockParam);
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('install package error', () async {
-    when(() => service.uninstall(any())).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
-    final result = await usecase(params: PackageName('package'));
+    final mockParam = PackageName('package');
+    when(() => service.uninstall(mockParam)).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
+    final result = await usecase(params: mockParam);
     expect(result.left, isA<PackageInstalationError>());
   });
 }

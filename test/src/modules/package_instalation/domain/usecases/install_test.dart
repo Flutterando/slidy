@@ -12,18 +12,19 @@ class PackageInstalationRepositoryMock extends Mock implements PackageInstalatio
 
 void main() {
   final service = PackageInstalationRepositoryMock();
-
   final usecase = Install(service);
 
   test('should install package', () async {
-    when(() => service.install(any())).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
-    final result = await usecase(params: PackageName('package'));
+    final mockParam = PackageName('package');
+    when(() => service.install(mockParam)).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
+    final result = await usecase(params: mockParam);
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('install package error', () async {
-    when(() => service.install(any())).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
-    final result = await usecase(params: PackageName('package'));
+    final mockParam = PackageName('package');
+    when(() => service.install(mockParam)).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
+    final result = await usecase(params: mockParam);
     expect(result.left, isA<PackageInstalationError>());
   });
 }

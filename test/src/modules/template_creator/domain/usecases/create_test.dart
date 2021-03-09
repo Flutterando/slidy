@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:either_dart/either.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
-import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/template_info.dart';
 import 'package:slidy/src/modules/template_creator/domain/usecases/create.dart';
 import 'package:test/test.dart';
@@ -51,18 +48,20 @@ class FileDestinyMock extends Mock implements File {
 void main() {
   final yaml = FileYamlMock();
   final destiny = FileDestinyMock();
-
   final usecase = Create();
 
   test('should create template', () async {
-    when(yaml).calls(#readAsLines).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedText);
   });
   test('should create template with args', () async {
-    when(yaml).calls(#readAsLines).thenAnswer((_) async => yamlText.split('\n'));
-    final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
+    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
+    final result = await usecase(
+        params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: [
+      'Modular()'
+    ]));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedTextWithArgs);
   });
