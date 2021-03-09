@@ -168,7 +168,11 @@ class StartCommand extends CommandBase {
         //Create a cubit
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/counter_cubit.dart'), key: 'cubit'));
         execute(result);
-
+        //Page
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page_cubit'));
+        execute(result);
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module_cubit'));
+        execute(result);
         break;
       case 3:
         //Instal rxdart
