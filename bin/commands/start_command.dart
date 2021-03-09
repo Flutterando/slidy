@@ -112,10 +112,6 @@ class StartCommand extends CommandBase {
     execute(result);
     result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/app_widget.dart'), key: 'app_widget'));
     execute(result);
-    result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page'));
-    execute(result);
-    result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module'));
-    execute(result);
 
     //install packages
     result = await Slidy.instance.instalation.install(package: PackageName('flutter_modular'));
@@ -132,42 +128,57 @@ class StartCommand extends CommandBase {
         //Create a controller
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'triple'));
         execute(result);
+        //Page
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page_triple'));
+        execute(result);
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module_triple'));
+        execute(result);
 
         break;
       case 1:
-        //Instal flutter_triple
+        //Instal mobx
         result = await Slidy.instance.instalation.install(package: PackageName('mobx', isDev: false));
         execute(result);
-        //Instal rx_notifier
+        //Instal mobx_codegen
         result = await Slidy.instance.instalation.install(package: PackageName('mobx_codegen', isDev: true));
         execute(result);
-        //Create a controller
+        //Create a mobx
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'mobx'));
+        execute(result);
+
+        //Page
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page_mobx'));
+        execute(result);
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module_mobx'));
         execute(result);
 
         break;
       case 2:
-        //Instal flutter_triple
-        result = await Slidy.instance.instalation.install(package: PackageName('flutter_bloc', isDev: false));
+        //Instal flutter_bloc
+        result = await Slidy.instance.instalation.install(package: PackageName('flutter_bloc@7.0.0-nullsafety.4', isDev: false));
         execute(result);
-        //Instal rx_notifier
-        result = await Slidy.instance.instalation.install(package: PackageName('bloc_test', isDev: true));
+        //Instal bloc_test
+        result = await Slidy.instance.instalation.install(package: PackageName('bloc_test@8.0.0-nullsafety.4', isDev: true));
         execute(result);
-        //Create a controller
-        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/counter_store.dart'), key: 'cubit'));
+        //Create a cubit
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/counter_cubit.dart'), key: 'cubit'));
         execute(result);
 
         break;
       case 3:
-        //Instal flutter_triple
+        //Instal rxdart
         result = await Slidy.instance.instalation.install(package: PackageName('rxdart', isDev: false));
         execute(result);
-        //Create a controller
+        //Create a rxdart
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_controller.dart'), key: 'rx_dart'));
         execute(result);
 
         break;
       default:
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_page.dart'), key: 'home_page'));
+        execute(result);
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_module.dart'), key: 'home_module'));
+        execute(result);
     }
 
     //devs
