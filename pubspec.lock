@@ -91,7 +91,7 @@ packages:
       name: dart_console
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-nullsafety.0"
+    version: "1.0.0"
   either_dart:
     dependency: "direct main"
     description:
@@ -105,7 +105,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.1"
+    version: "1.0.0"
   file:
     dependency: "direct main"
     description:
@@ -392,7 +392,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.9"
+    version: "2.0.0"
   yaml:
     dependency: transitive
     description:

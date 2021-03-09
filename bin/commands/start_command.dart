@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-// import 'package:dart_console/dart_console.dart';
+import 'package:dart_console/dart_console.dart' show Console, ControlCharacter;
+
 import 'package:slidy/slidy.dart';
 
 import '../prints/prints.dart';
@@ -21,44 +22,44 @@ class StartCommand extends CommandBase {
   }
 
   int stateCLIOptions(String title, List<String> options) {
-    // stdin.echoMode = false;
-    // stdin.lineMode = false;
-    // var console = Console();
-    // var isRunning = true;
-    // var selected = 0;
+    stdin.echoMode = false;
+    stdin.lineMode = false;
+    var console = Console();
+    var isRunning = true;
+    var selected = 0;
 
-    // while (isRunning) {
-    //   print('\x1B[2J\x1B[0;0H');
-    //   output.title('Slidy CLI Interative\n');
-    //   output.warn(title);
-    //   for (var i = 0; i < options.length; i++) {
-    //     if (selected == i) {
-    //       print(output.green(options[i]));
-    //     } else {
-    //       print(output.white(options[i]));
-    //     }
-    //   }
+    while (isRunning) {
+      print('\x1B[2J\x1B[0;0H');
+      output.title('Slidy CLI Interative\n');
+      output.warn(title);
+      for (var i = 0; i < options.length; i++) {
+        if (selected == i) {
+          print(output.green(options[i]));
+        } else {
+          print(output.white(options[i]));
+        }
+      }
 
-    //   print('\nUse ↑↓ (keyboard arrows)');
-    //   print('Press \'q\' to quit.');
+      print('\nUse ↑↓ (keyboard arrows)');
+      print('Press \'q\' to quit.');
 
-    //   var key = console.readKey();
+      var key = console.readKey();
 
-    //   if (key.controlChar == ControlCharacter.arrowDown) {
-    //     if (selected < options.length - 1) {
-    //       selected++;
-    //     }
-    //   } else if (key.controlChar == ControlCharacter.arrowUp) {
-    //     if (selected > 0) {
-    //       selected--;
-    //     }
-    //   } else if (key.controlChar == ControlCharacter.enter) {
-    //     isRunning = false;
-    //     return selected;
-    //   } else if (key.char == 'q') {
-    //     return -1;
-    //   } else {}
-    // }
+      if (key.controlChar == ControlCharacter.arrowDown) {
+        if (selected < options.length - 1) {
+          selected++;
+        }
+      } else if (key.controlChar == ControlCharacter.arrowUp) {
+        if (selected > 0) {
+          selected--;
+        }
+      } else if (key.controlChar == ControlCharacter.enter) {
+        isRunning = false;
+        return selected;
+      } else if (key.char == 'q') {
+        return -1;
+      } else {}
+    }
     return -1;
   }
 
@@ -66,7 +67,7 @@ class StartCommand extends CommandBase {
     var selected = stateCLIOptions('Choose a state manager', [
       'triple (default)',
       'mobx',
-      'flutter_bloc',
+      'flutter_bloc - Cubit',
       'BLoC with rxdart',
     ]);
 
@@ -101,6 +102,8 @@ class StartCommand extends CommandBase {
 
   @override
   FutureOr run() async {
+    var resultStateManagement = selecStateManagement();
+
     await isContinue((argResults?['force'] == true) ? 1 : null);
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/main.dart'), key: 'main'));
@@ -117,6 +120,56 @@ class StartCommand extends CommandBase {
     //install packages
     result = await Slidy.instance.instalation.install(package: PackageName('flutter_modular'));
     execute(result);
+
+    switch (resultStateManagement) {
+      case 0:
+        //Instal flutter_triple
+        result = await Slidy.instance.instalation.install(package: PackageName('flutter_triple', isDev: false));
+        execute(result);
+        //Instal rx_notifier
+        result = await Slidy.instance.instalation.install(package: PackageName('rx_notifier', isDev: false));
+        execute(result);
+        //Create a controller
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'triple'));
+        execute(result);
+
+        break;
+      case 1:
+        //Instal flutter_triple
+        result = await Slidy.instance.instalation.install(package: PackageName('mobx', isDev: false));
+        execute(result);
+        //Instal rx_notifier
+        result = await Slidy.instance.instalation.install(package: PackageName('mobx_codegen', isDev: true));
+        execute(result);
+        //Create a controller
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'mobx'));
+        execute(result);
+
+        break;
+      case 2:
+        //Instal flutter_triple
+        result = await Slidy.instance.instalation.install(package: PackageName('flutter_bloc', isDev: false));
+        execute(result);
+        //Instal rx_notifier
+        result = await Slidy.instance.instalation.install(package: PackageName('bloc_test', isDev: true));
+        execute(result);
+        //Create a controller
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/counter_store.dart'), key: 'cubit'));
+        execute(result);
+
+        break;
+      case 3:
+        //Instal flutter_triple
+        result = await Slidy.instance.instalation.install(package: PackageName('rxdart', isDev: false));
+        execute(result);
+        //Create a controller
+        result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_controller.dart'), key: 'rx_dart'));
+        execute(result);
+
+        break;
+      default:
+    }
+
     //devs
     result = await Slidy.instance.instalation.install(package: PackageName('flutter_modular_test', isDev: true));
     execute(result);
