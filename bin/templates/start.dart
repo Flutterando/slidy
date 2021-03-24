@@ -283,7 +283,7 @@ home_page_triple:
   -         title: Text('Counter'),
   -       ),
   -       body: ScopedBuilder<HomeStore, Exception, int>(
-  -         store: store,
+  -         store: controller,
   -         onState: (_, counter) {
   -           return Padding(
   -             padding: EdgeInsets.all(10),
@@ -299,7 +299,7 @@ home_page_triple:
   -       ),
   -       floatingActionButton: FloatingActionButton(
   -         onPressed: () {
-  -           store.increment();
+  -           controller.increment();
   -         },
   -         child: Icon(Icons.add),
   -       ),
