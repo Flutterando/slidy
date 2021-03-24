@@ -7,3 +7,6 @@ build/
 
 # Directory created by dartdoc
 doc/api/
+
+# MacOS
+.DS_Store
