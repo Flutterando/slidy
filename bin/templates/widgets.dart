@@ -6,7 +6,7 @@ page:
   - 
   - class $fileName|pascalcase extends StatefulWidget {
   -   final String title;
-  -   const $fileName|pascalcase({Key? key, this.title = "$fileName|pascalcase"}) : super(key: key);
+  -   const $fileName|pascalcase({Key key, this.title = "$fileName|pascalcase"}) : super(key: key);
   -   @override
   -   $fileName|pascalcaseState createState() => $fileName|pascalcaseState();
   - }
@@ -42,7 +42,7 @@ widget:
   - 
   - class $fileName|pascalcase extends StatelessWidget {
   -   final String title;
-  -   const $fileName|pascalcase({Key? key, this.title = "$fileName|pascalcase"}) : super(key: key);
+  -   const $fileName|pascalcase({Key key, this.title = "$fileName|pascalcase"}) : super(key: key);
   - 
   -   @override
   -   Widget build(BuildContext context) {

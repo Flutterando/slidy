@@ -45,7 +45,7 @@ home_page:
   -  
   - class HomePage extends StatefulWidget {
   -   final String title;
-  -   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+  -   const HomePage({Key key, this.title = "Home"}) : super(key: key);
   -  
   -   @override
   -   _HomePageState createState() => _HomePageState();
@@ -269,7 +269,7 @@ home_page_triple:
   - 
   - class HomePage extends StatefulWidget {
   -   final String title;
-  -   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+  -   const HomePage({ key, this.title = "Home"}) : super(key: key);
   - 
   -   @override
   -   _HomePageState createState() => _HomePageState();
@@ -384,7 +384,7 @@ home_page_rx_dart:
   - 
   - class HomePage extends StatefulWidget {
   -   final String title;
-  -   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+  -   const HomePage({Key key, this.title = "Home"}) : super(key: key);
   - 
   -   @override
   -   _HomePageState createState() => _HomePageState();
