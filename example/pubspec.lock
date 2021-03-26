@@ -196,7 +196,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0-beta6"
+    version: "3.0.10"
   fake_async:
     dependency: transitive
     description:
@@ -297,7 +297,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "3.1.4"
   io:
     dependency: transitive
     description:
@@ -355,7 +355,7 @@ packages:
     source: hosted
     version: "2.0.0-nullsafety.2"
   mockito:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mockito
       url: "https://pub.dartlang.org"
@@ -437,7 +437,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.7.9"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -463,7 +463,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:

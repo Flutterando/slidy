@@ -29,9 +29,7 @@ class Slidy {
   final template = TemplateCreator();
 
   Future<File> getParentModule(Directory dir) async {
-    final files = await dir.list();
-
-    await for (var file in files) {
+    await for (var file in dir.list()) {
       if (file.path.contains('_module.dart')) {
         return file as File;
       }

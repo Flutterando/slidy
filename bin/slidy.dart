@@ -29,7 +29,7 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   }
 
   if (results.wasParsed('version')) {
-    version('3.0.0');
+    version('3.0.1+1');
   }
 }
 
