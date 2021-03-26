@@ -3,6 +3,7 @@
 - Fix slidy install
 - Fix template error
 - Fix uninstall
+- Fix unknown command
 
 ## 3.0.0
 - complete rework!
