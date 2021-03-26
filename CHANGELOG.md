@@ -2,6 +2,8 @@
 - Fix slidy run
 - Fix slidy install
 - Fix template error
+- Fix uninstall
+
 ## 3.0.0
 - complete rework!
 - Added Clean Arch templates (usecase and datasource).

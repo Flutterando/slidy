@@ -26,10 +26,11 @@ void main(List<String> arguments) {
 void executeOptions(ArgResults results, List<String> arguments, CommandRunner runner) {
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
-  }
-
-  if (results.wasParsed('version')) {
+  } else if (results.wasParsed('version')) {
     version('3.0.1+1');
+  } else {
+    print('Command not found!\n');
+    print(runner.usage);
   }
 }
 
