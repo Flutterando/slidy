@@ -1,3 +1,7 @@
+## 3.0.2
+- Fix slidy run
+- Fix slidy install
+- Fix template error
 ## 3.0.0
 - complete rework!
 - Added Clean Arch templates (usecase and datasource).

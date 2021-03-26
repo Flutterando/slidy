@@ -45,7 +45,7 @@ home_page:
   -  
   - class HomePage extends StatefulWidget {
   -   final String title;
-  -   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+  -   const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   -  
   -   @override
   -   _HomePageState createState() => _HomePageState();
@@ -265,7 +265,7 @@ home_page_triple:
   - import 'package:flutter/material.dart';
   - import 'package:flutter_modular/flutter_modular.dart';
   - import 'package:flutter_triple/flutter_triple.dart';
-  - import 'package:slidy_testes/app/modules/home/home_store.dart';
+  - import 'home_store.dart';
   - 
   - class HomePage extends StatefulWidget {
   -   final String title;
