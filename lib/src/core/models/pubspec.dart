@@ -68,7 +68,7 @@ class LineMap with MapMixin<String, Line> implements Map<String, Line> {
 
   @override
   Line? remove(Object? key) {
-    _map.remove(key);
+    return _map.remove(key);
   }
 }
 

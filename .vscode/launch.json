@@ -73,7 +73,7 @@
             "program": "/Users/jacobmoura/Projects/slidy/bin/slidy.dart",
             "cwd": "/Users/jacobmoura/Projects/triple_pattern/examples/search",
             "type": "dart",
-            "args": ["run", "mobx_build"]
+            "args": ["uninstall", "abcdd"]
         }
     ]
 }

@@ -80,12 +80,22 @@ class StartCommand extends CommandBase {
   Future isContinue([int? selected]) async {
     final dirLib = Directory('lib');
     final dirTest = Directory('test');
-    if (dirLib.existsSync()) {
+
+    if (await dirLib.exists()) {
       selected ??= stateCLIOptions('This command will delete everything inside the \'lib/\' and \'test\/\' folders.', [
         'No',
         'Yes',
       ]);
+    } else {
+      selected = 2;
+      if (await dirLib.exists()) {
+        await dirLib.delete(recursive: true);
+      }
+      if (await dirTest.exists()) {
+        await dirTest.delete(recursive: true);
+      }
     }
+
     if (selected == 1) {
       output.msg('Removing lib and test folders');
       if (await dirLib.exists()) {
@@ -94,7 +104,7 @@ class StartCommand extends CommandBase {
       if (await dirTest.exists()) {
         await dirTest.delete(recursive: true);
       }
-    } else {
+    } else if (selected < 1) {
       output.error('The lib folder must be empty. Or use -f to force start');
       exit(1);
     }

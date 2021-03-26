@@ -1,5 +1,6 @@
 import 'package:slidy/src/core/interfaces/pubspec_service.dart';
 import 'package:slidy/src/core/models/pubspec.dart';
+import 'package:slidy/src/modules/package_instalation/domain/errors/errors.dart';
 import 'package:slidy/src/modules/package_instalation/domain/models/package_name.dart';
 import 'package:slidy/src/core/errors/errors.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
@@ -36,7 +37,10 @@ class PackageInstalationRepositoryImpl implements PackageInstalationRepository {
   Future<Either<SlidyError, SlidyProccess>> uninstall(PackageName package) async {
     try {
       var line = await pubspec.getLine(package.isDev ? 'dev_dependencies' : 'dependencies');
-      (line.value as LineMap).remove(package.name);
+      final isRemoved = (line.value as LineMap).remove(package.name) != null;
+      if (!isRemoved) {
+        throw PackageInstalationError('Dependency not exist');
+      }
       final result = await pubspec.replace(line);
       return Right(SlidyProccess(result: result ? 'Removed ${package.name}' : ''));
     } on SlidyError catch (e) {
