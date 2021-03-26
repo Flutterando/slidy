@@ -22,14 +22,17 @@ class PubspecServiceImpl implements PubspecService {
         continue;
       } else if (string.startsWith(RegExp(r'[a-z]'))) {
         final elements = string.split(':');
-        final line = Line(name: elements[0].trim(), value: elements[1].trim().isEmpty ? null : elements[1].trim());
+        final name = elements[0].trim();
+        final value = elements[1].trim().isEmpty ? null : (elements..removeAt(0)).join(':').trim();
+        final line = Line(name: name, value: value);
         lines.add(line);
         continue;
       } else if (string.startsWith(RegExp(r'  +[a-z]'))) {
         final elements = string.split(':');
         var internal = string.replaceAll('  ', '//44//').split('//44//').length - 1;
-
-        final line = Line(name: elements[0].trim(), value: elements[1].trim().isEmpty ? null : elements[1].trim());
+        final name = elements[0].trim();
+        final value = elements[1].trim().isEmpty ? null : (elements..removeAt(0)).join(':').trim();
+        final line = Line(name: name, value: value);
         dynamic candidate = lines.where((element) => element is! NoCountLine).last;
         final tempLines = <dynamic>[];
         for (var i = 0; i < internal; i++) {
@@ -52,7 +55,13 @@ class PubspecServiceImpl implements PubspecService {
           }
         }
 
-        lines.last = tempLines.reversed.reduce((value, element) => element.copyWith(value: value));
+        lines.last = tempLines.reversed.reduce((value, element) {
+          if (elements is Line) {
+            return element.copyWith(value: value);
+          } else {
+            return element;
+          }
+        });
         continue;
       } else if (string.startsWith(RegExp(r'  +-'))) {
         var internal = string.split('-')[0].replaceAll('  ', '//44//').split('//44//').length - 1;
