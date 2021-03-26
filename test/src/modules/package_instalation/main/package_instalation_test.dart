@@ -16,6 +16,11 @@ class ClientMock extends Mock implements Client {}
 class PubspecServiceMock extends Mock implements PubspecService {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue<Uri>(Uri());
+    registerFallbackValue<Line>(Line(name: '', value: null));
+  });
+
   StartAllModules();
   final main = PackageInstalation();
   final client = ClientMock();
@@ -25,15 +30,15 @@ void main() {
   sl.changeRegister<PubspecService>((i) => pubspecService);
 
   test('install', () async {
-    when(client).calls(#get).thenAnswer((_) async => Response(jsonPackageResult, 200));
-    when(pubspecService).calls(#add).thenAnswer((_) async => true);
+    when(() => client.get(any())).thenAnswer((_) async => Response(jsonPackageResult, 200));
+    when(() => pubspecService.add(any())).thenAnswer((_) async => true);
     final result = await main.install(package: PackageName('package'));
     expect(result.right, isA<SlidyProccess>());
   });
 
   test('uninstall', () async {
-    when(pubspecService).calls(#replace).thenAnswer((_) async => true);
-    when(pubspecService).calls(#getLine).thenAnswer((_) async => Line(name: 'dependencies', value: LineMap({'package': Line(name: 'name', value: 'value')})));
+    when(() => pubspecService.replace(any())).thenAnswer((_) async => true);
+    when(() => pubspecService.getLine(any())).thenAnswer((_) async => Line(name: 'dependencies', value: LineMap({'package': Line(name: 'name', value: 'value')})));
     final result = await main.uninstall(package: PackageName('package'));
     expect(result.right, isA<SlidyProccess>());
   });

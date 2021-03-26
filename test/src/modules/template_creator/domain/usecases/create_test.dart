@@ -55,13 +55,13 @@ void main() {
   final usecase = Create();
 
   test('should create template', () async {
-    when(yaml).calls(#readAsLines).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedText);
   });
   test('should create template with args', () async {
-    when(yaml).calls(#readAsLines).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedTextWithArgs);
