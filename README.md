@@ -58,7 +58,7 @@ slidy start
 ```     
 
 **run:** 
-     Run scripts placed in the "scripts" parameter in pubspect.yaml
+     Run scripts placed in the "scripts" parameter in pubspec.yaml
 ```  
 slidy run open_folder
 ```   
