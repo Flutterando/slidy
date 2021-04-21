@@ -1,17 +1,34 @@
 import 'dart:io';
 
+import 'package:yaml/yaml.dart';
+
 import 'package:slidy/src/core/interfaces/yaml_service.dart';
 import 'package:slidy/src/modules/yaml_edit/yaml_edit.dart';
-import 'package:yaml/yaml.dart';
 
 class YamlServiceImpl implements YamlService {
   final File yaml;
   late final YamlEditor yamlEditor;
+  late final File Function(File yaml, String path) getYamlFile;
 
   YamlServiceImpl({
     required this.yaml,
+    YamlEditor? customyamlEditor,
+    File Function(File yaml, String path)? getYamlFileParam,
   }) {
-    yamlEditor = YamlEditor(yaml.readAsStringSync());
+    if (customyamlEditor == null) {
+      yamlEditor = YamlEditor(yaml.readAsStringSync());
+    } else {
+      yamlEditor = customyamlEditor;
+    }
+
+    getYamlFile = getYamlFileParam ??
+        (File yaml, String path) {
+          if (path.startsWith('/')) {
+            return File(path);
+          } else {
+            return File(yaml.parent.path + '/$path');
+          }
+        };
   }
 
   @override
@@ -42,5 +59,17 @@ class YamlServiceImpl implements YamlService {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<YamlService> readAllIncludes() async {
+    final node = getValue(['include']);
+    if (node is YamlScalar) {
+      final file = getYamlFile(yaml, node.value);
+      final newYaml = yamlEditor.toString() + '\n' + (await file.readAsString());
+      return YamlServiceImpl(yaml: File(''), customyamlEditor: YamlEditor(newYaml));
+    } else if (node is YamlList) {}
+
+    return this;
   }
 }
