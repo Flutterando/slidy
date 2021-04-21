@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:either_dart/src/either.dart';
 import 'package:recase/recase.dart';
-import 'package:slidy/src/core/models/pubspec.dart';
 import 'package:slidy/src/core/services/yaml_service_impl.dart';
 import 'package:slidy/src/modules/template_creator/domain/errors/errors.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/template_info.dart';
+import 'package:yaml/yaml.dart';
 import '../../../../core/entities/slidy_process.dart';
 import '../../../../core/errors/errors.dart';
 import '../../../../core/interfaces/usecase.dart';
@@ -23,11 +21,11 @@ class Create implements UseCase<SlidyError, SlidyProccess, TemplateInfo> {
 
     await params.destiny.create(recursive: true);
 
-    final service = YamlServiceImpl(params.yaml);
-    final line = await service.getLine(params.key);
-    final value = line.value;
-    if (value is LineList) {
-      final list = value.map<String>((e) => _processLine(e.value, params.args, fileName)).toList();
+    final service = YamlServiceImpl(yaml: params.yaml);
+    final node = service.getValue([params.key]);
+    if (node is YamlScalar) {
+      var list = node.value.toString().trim().split('/n');
+      list = list.map<String>((e) => _processLine(e, params.args, fileName)).toList();
       await params.destiny.writeAsString(list.join('\n'));
       return Right(SlidyProccess(result: '$fileName created'));
     } else {

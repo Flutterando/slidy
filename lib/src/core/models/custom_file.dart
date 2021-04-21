@@ -4,9 +4,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 class CustomFile implements File {
-  final List<String> lines;
+  final String yaml;
 
-  CustomFile({required this.lines});
+  CustomFile({required this.yaml});
   @override
   // TODO: implement absolute
   File get absolute => throw UnimplementedError();
@@ -142,24 +142,22 @@ class CustomFile implements File {
 
   @override
   Future<List<String>> readAsLines({Encoding encoding = utf8}) {
-    return Future.value(lines);
+    throw UnimplementedError();
   }
 
   @override
   List<String> readAsLinesSync({Encoding encoding = utf8}) {
-    return lines;
+    throw UnimplementedError();
   }
 
   @override
   Future<String> readAsString({Encoding encoding = utf8}) {
-    // TODO: implement readAsString
-    throw UnimplementedError();
+    return Future.value(yaml);
   }
 
   @override
   String readAsStringSync({Encoding encoding = utf8}) {
-    // TODO: implement readAsStringSync
-    throw UnimplementedError();
+    return yaml;
   }
 
   @override

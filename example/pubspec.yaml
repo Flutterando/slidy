@@ -8,25 +8,18 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_modular: ^3.0.2+1
-  flutter_triple: ^1.0.4
-  rx_notifier: ^1.0.0
-  bloc: 7.0.0-nullsafety.3
-  flutter_bloc: 7.0.0-nullsafety.3
-  dartz: 0.10.0-nullsafety.1
-  flutter_mobx: 2.0.0-nullsafety.0
-  mobx: 2.0.0-nullsafety.2
-  dio: ^3.0.10
+  flutter_modular: ^3.1.0
+  flutter_triple: ^1.0.5+1
+  rx_notifier: ^1.1.0
+  
 dev_dependencies:
-  mockito: 5.0.0
-  flutter_modular_test: ^1.0.0
+  flutter_modular_test: ^1.0.1
   flutter_test:
     sdk: flutter
-  bloc_test: 8.0.0-nullsafety.2
-  build_runner: ^1.11.5
 flutter:
   uses-material-design: true
 scripts:
   test: flutter pub get
+  print: echo $name
 vars:
   name: jacob

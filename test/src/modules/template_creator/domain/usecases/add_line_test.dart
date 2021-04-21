@@ -1,15 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:either_dart/either.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
-import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/line_params.dart';
-import 'package:slidy/src/modules/template_creator/domain/models/template_info.dart';
 import 'package:slidy/src/modules/template_creator/domain/usecases/add_line.dart';
-import 'package:slidy/src/modules/template_creator/domain/usecases/create.dart';
 import 'package:test/test.dart';
 
 class FileDestinyMock extends Mock implements File {

@@ -42,6 +42,7 @@ class GenerateTripleSubCommand extends CommandBase {
     if (!await templateFile.checkDependencyIsExist('flutter_triple')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'flutter_triple']);
+      await command.run(['install', 'triple_test', '--dev']);
     }
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.file, key: 'triple'));

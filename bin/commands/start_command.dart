@@ -133,7 +133,7 @@ class StartCommand extends CommandBase {
         result = await Slidy.instance.instalation.install(package: PackageName('flutter_triple', isDev: false));
         execute(result);
         //Instal rx_notifier
-        result = await Slidy.instance.instalation.install(package: PackageName('rx_notifier', isDev: false));
+        result = await Slidy.instance.instalation.install(package: PackageName('triple_test', isDev: true));
         execute(result);
         //Create a controller
         result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mainFile, destiny: File('lib/app/modules/home/home_store.dart'), key: 'triple'));

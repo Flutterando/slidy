@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:either_dart/either.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
-import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/template_info.dart';
 import 'package:slidy/src/modules/template_creator/domain/usecases/create.dart';
 import 'package:test/test.dart';
@@ -22,6 +18,11 @@ class FileYamlMock extends Mock implements File {
   Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
     savedFile = contents;
     return this;
+  }
+
+  @override
+  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
+    savedFile = contents;
   }
 }
 
@@ -46,6 +47,11 @@ class FileDestinyMock extends Mock implements File {
     savedFile = contents;
     return this;
   }
+
+  @override
+  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
+    savedFile = contents;
+  }
 }
 
 void main() {
@@ -55,13 +61,13 @@ void main() {
   final usecase = Create();
 
   test('should create template', () async {
-    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => yaml.readAsStringSync()).thenReturn(yamlText);
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedText);
   });
   test('should create template with args', () async {
-    when(() => yaml.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => yaml.readAsStringSync()).thenReturn(yamlText);
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
     expect(result.right, isA<SlidyProccess>());
     expect(destiny.savedFile, savedTextWithArgs);
@@ -75,18 +81,19 @@ void main() {
 }
 
 const yamlText = '''
-main:
-  - File created name is \$fileName and with camelcase \$fileName|pascalcase !!
-  - void main() {
-  -    runApp(myApp(\$arg1));
-  - }
+main: |
+  void main() {
+    runApp(myApp(\$arg1));
+  }
 ''';
-const savedText = '''File created name is main and with camelcase Main !!
+final savedText = '''
 void main() {
-   runApp(myApp(\$arg1));
-}''';
+  runApp(myApp(\$arg1));
+}'''
+    .trim();
 
-const savedTextWithArgs = '''File created name is main and with camelcase Main !!
+final savedTextWithArgs = '''
 void main() {
-   runApp(myApp(Modular()));
-}''';
+  runApp(myApp(Modular()));
+}'''
+    .trim();

@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/interfaces/pubspec_service.dart';
-import 'package:slidy/src/core/models/pubspec.dart';
+import 'package:slidy/src/core/interfaces/yaml_service.dart';
+import 'package:yaml/yaml.dart';
 
 import '../prints/prints.dart' as output;
 import 'command_base.dart';
@@ -26,12 +26,11 @@ class RunCommand extends CommandBase {
   }
 
   Future<void> runCommand(List<String> commands) async {
-    final pubspec = Slidy.instance.get<PubspecService>();
-    late Line scripts;
+    final pubspec = Slidy.instance.get<YamlService>();
+    YamlMap? scripts;
     try {
-      scripts = await pubspec.getLine('scripts');
+      scripts = pubspec.getValue(['scripts'])!.value;
     } catch (e) {
-      scripts = Line(name: '', value: '');
       output.error('Please, add param \'scripts\' in your pubspec.yaml');
       return;
     }
@@ -42,7 +41,7 @@ class RunCommand extends CommandBase {
 
       late String commandExec;
       try {
-        commandExec = (scripts.value as LineMap)[command]!.value as String;
+        commandExec = scripts?.value[command] as String;
       } catch (e) {
         commandExec = '';
         output.error('command "$command" not found');
@@ -51,10 +50,10 @@ class RunCommand extends CommandBase {
 
       final vars = <String, String>{};
       try {
-        var varsLine = await pubspec.getLine('vars');
-        final maps = varsLine.value as LineMap;
+        var varsLine = pubspec.getValue(['vars']);
+        final maps = varsLine?.value as YamlMap;
         for (var key in maps.keys) {
-          vars[key] = maps[key]?.value;
+          vars[key] = maps[key];
         }
         // ignore: empty_catches
       } catch (e) {}

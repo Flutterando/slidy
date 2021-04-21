@@ -1,7 +1,8 @@
-import 'package:slidy/src/core/models/pubspec.dart';
+import 'package:yaml/yaml.dart';
 
-import 'pubspec_service.dart';
-
-abstract class YamlService extends PubspecService {
-  Future<List<Line>> getLines();
+abstract class YamlService {
+  void update(List<String> path, String value);
+  bool remove(List<String> path);
+  YamlNode? getValue(List<String> path);
+  Future<bool> save();
 }
