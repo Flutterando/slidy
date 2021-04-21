@@ -49,7 +49,7 @@ class GenerateTripleSubCommand extends CommandBase {
     execute(result);
     if (result.isRight) {
       if (argResults!['page'] == true) {
-        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Bloc');
+        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Store');
       }
       await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
     }

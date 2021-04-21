@@ -12,7 +12,7 @@ import '../install_command.dart';
 
 class GenerateRxNotifierSubCommand extends CommandBase {
   @override
-  final name = 'rxnotifier';
+  final name = 'rx_notifier';
   @override
   final description = 'Creates a RxNotifier Controller';
 

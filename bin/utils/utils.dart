@@ -26,10 +26,33 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
   execute(result);
 
   if (result.isRight) {
-    result = await Slidy.instance.template.addLine(
-        params: LineParams(parentModule, inserts: [
-      import
-    ]));
+    result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
+    execute(result);
+    if (result.isRight) {
+      await formatFile(parentModule);
+    }
+  }
+}
+
+Future injectParentModuleRouting(String path, String fileNameWithUppeCase, String import, Directory directory) async {
+  final injection = 'ChildRoute(\'$path\', child: (_, args) => $fileNameWithUppeCase)';
+
+  final parentModule = await Slidy.instance.getParentModule(directory);
+
+  var result = await Slidy.instance.template.addLine(
+      params: LineParams(parentModule, replaceLine: (line) {
+    if (line.contains('final List<ModularRoute> routes = [')) {
+      return line.replaceFirst('final List<ModularRoute> routes = [', 'final List<ModularRoute> routes = [$injection,');
+    } else if (line.contains('List<ModularRoute> get routes => [')) {
+      return line.replaceFirst('List<ModularRoute> get routes => [\n', 'List<ModularRoute> get routes => [$injection,');
+    }
+    return line;
+  }));
+
+  execute(result);
+
+  if (result.isRight) {
+    result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
     execute(result);
     if (result.isRight) {
       await formatFile(parentModule);
@@ -39,36 +62,17 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
 
 Future<void> addedInjectionInPage({required TemplateFile templateFile, required String pathCommand, required bool noTest, required String type}) async {
   var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
-  await command.run([
-    'generate',
-    'page',
-    pathCommand,
-    if (noTest) '--notest'
-  ]);
+  await command.run(['generate', 'page', pathCommand, if (noTest) '--notest']);
   final insertLine = '  final ${templateFile.fileNameWithUppeCase}$type ${type.toLowerCase()} = Modular.get();';
   final pageFile = File(templateFile.file.parent.path + '/${templateFile.fileName}_page.dart');
-  var result = await Slidy.instance.template.addLine(
-      params: LineParams(pageFile, position: 9, inserts: [
-    insertLine,
-    ''
-  ]));
+  var result = await Slidy.instance.template.addLine(params: LineParams(pageFile, position: 9, inserts: [insertLine, '']));
   execute(result);
-  result = await Slidy.instance.template.addLine(
-      params: LineParams(pageFile, inserts: [
-    'import \'package:flutter_modular/flutter_modular.dart\';',
-    templateFile.import
-  ]));
+  result = await Slidy.instance.template.addLine(params: LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
   execute(result);
 }
 
 Future<void> formatFile(File file) async {
-  await Process.run(
-      'flutter',
-      [
-        'format',
-        file.absolute.path
-      ],
-      runInShell: true);
+  await Process.run('flutter', ['format', file.absolute.path], runInShell: true);
 }
 
 String _injectionTemplate(String injectionType, String classInstance) {
