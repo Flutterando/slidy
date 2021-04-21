@@ -1,3 +1,19 @@
+## 3.1.0
+ - Generate Module -c IS BACK!
+ ```dart
+ slidy g m modules/profile -c
+//generate Module, Controller and Page
+ ```
+ - New YAML Reader.
+ - New FLAG to Page --routing
+ ```dart
+ slidy g page path/home --routing /home
+ //Add a new ChildRoute in parent Module
+ ```
+- Slidy run works again.
+- Many errors were happening because the old YAML Reader system went down. We replaced that and Slidy is back.
+
+
 ## 3.0.2
 - Fix slidy run
 - Fix slidy install
