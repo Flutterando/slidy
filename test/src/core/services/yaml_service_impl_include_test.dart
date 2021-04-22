@@ -66,8 +66,8 @@ include: folder/other.yaml
 ''';
 const stringYamlList = ''' 
 include: 
-  - folder/other.yaml
-  - folder/other2.yaml
+- folder/other.yaml
+- folder/other2.yaml
 ''';
 
 const otherYaml = ''' 
