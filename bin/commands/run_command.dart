@@ -1,33 +1,72 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:dart_console/dart_console.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
 import '../prints/prints.dart' as output;
 import 'command_base.dart';
+import 'package:rxdart/rxdart.dart';
 
 class RunCommand extends CommandBase {
+  String? stateCLIOptions(String title, List<String> options) {
+    stdin.echoMode = false;
+    stdin.lineMode = false;
+    var console = Console();
+    var isRunning = true;
+    var selected = 0;
+
+    while (isRunning) {
+      print('\x1B[2J\x1B[0;0H');
+      output.title('Slidy CLI Interactive\n');
+      output.warn(title);
+      for (var i = 0; i < options.length; i++) {
+        if (selected == i) {
+          print(output.green(options[i]));
+        } else {
+          print(output.white(options[i]));
+        }
+      }
+
+      print('\nUse ↑↓ (keyboard arrows)');
+      print('Press \'q\' to quit.');
+
+      var key = console.readKey();
+
+      if (key.controlChar == ControlCharacter.arrowDown) {
+        if (selected < options.length - 1) {
+          selected++;
+        }
+      } else if (key.controlChar == ControlCharacter.arrowUp) {
+        if (selected > 0) {
+          selected--;
+        }
+      } else if (key.controlChar == ControlCharacter.enter) {
+        isRunning = false;
+        print('\x1B[2J\x1B[0;0H');
+        return options[selected];
+      } else if (key.char == 'q') {
+        return null;
+      }
+    }
+    print('\x1B[2J\x1B[0;0H');
+    return null;
+  }
+
   @override
   final name = 'run';
   @override
   final description = 'run scripts in pubspec.yaml';
   @override
-  final invocationSuffix = '<project name>';
+  final invocationSuffix = null;
   @override
-  void run() {
-    if (argResults!.rest.isEmpty) {
-      throw UsageException('script name not passed for a run command', usage);
-    } else {
-      runCommand(argResults!.rest);
-    }
-  }
-
-  Future<void> runCommand(List<String> commands) async {
+  FutureOr run() async {
     final pubspec = Slidy.instance.get<YamlService>();
-    YamlMap? scripts;
+    YamlMap scripts;
     try {
       scripts = pubspec.getValue(['scripts'])!.value;
     } catch (e) {
@@ -35,28 +74,44 @@ class RunCommand extends CommandBase {
       return;
     }
 
+    final vars = <String, String>{};
+    try {
+      var varsLine = pubspec.getValue(['vars']);
+      final maps = varsLine?.value as YamlMap;
+      for (var key in maps.keys) {
+        vars[key] = maps[key];
+      }
+      // ignore: empty_catches
+    } catch (e) {}
+
+    final commands = argResults?.rest.isNotEmpty == true ? List<String>.from(argResults!.rest) : <String>[];
+
+    if (commands.isEmpty) {
+      final command = stateCLIOptions('Select a command', scripts.value.keys.toList().cast());
+      if (command != null) {
+        commands.add(command);
+      }
+    }
+
+    if (commands.isEmpty) {
+      throw UsageException('script name not passed for a run command', usage);
+    }
+    await runCommand(commands, scripts, vars);
+  }
+
+  Future<void> runCommand(List<String> commands, YamlMap scripts, Map vars) async {
     for (var command in commands) {
       var regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
       var regexVar = RegExp(r'\$([a-zA-Z0-9]+)');
 
       late String commandExec;
       try {
-        commandExec = scripts?.value[command] as String;
+        commandExec = scripts.value[command] as String;
       } catch (e) {
         commandExec = '';
         output.error('command "$command" not found');
         return;
       }
-
-      final vars = <String, String>{};
-      try {
-        var varsLine = pubspec.getValue(['vars']);
-        final maps = varsLine?.value as YamlMap;
-        for (var key in maps.keys) {
-          vars[key] = maps[key];
-        }
-        // ignore: empty_catches
-      } catch (e) {}
 
       for (var match in regexVar.allMatches(commandExec)) {
         if (match.groupCount != 0) {
@@ -77,10 +132,18 @@ class RunCommand extends CommandBase {
   Future callProcess(List<String> commands) async {
     try {
       var process = await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
-      await for (var line in process.stdout.transform(utf8.decoder)) {
+
+      final error = process.stderr.transform(utf8.decoder).map(output.red);
+      final success = process.stdout.transform(utf8.decoder).map(output.green);
+
+      await for (var line in Rx.merge([success, error])) {
         print(line);
       }
-      output.success(commands.join(' '));
+      if (await process.exitCode == 0) {
+        output.success(commands.join(' '));
+      } else {
+        output.error(commands.join(' '));
+      }
     } catch (error) {
       output.error(commands.join(' '));
     }

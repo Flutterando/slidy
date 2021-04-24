@@ -1,3 +1,6 @@
+## 3.2.0
+- **slidy run** improve statement error
+- New Interactive slidy run. Type only **slidy run** to view all avaliable scripts commands in your pubspec
 ## 3.1.0
  - Generate Module -c IS BACK!
  ```dart

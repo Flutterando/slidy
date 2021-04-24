@@ -30,7 +30,7 @@ class StartCommand extends CommandBase {
 
     while (isRunning) {
       print('\x1B[2J\x1B[0;0H');
-      output.title('Slidy CLI Interative\n');
+      output.title('Slidy CLI Interactive\n');
       output.warn(title);
       for (var i = 0; i < options.length; i++) {
         if (selected == i) {

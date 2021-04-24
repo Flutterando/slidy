@@ -20,7 +20,18 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 scripts:
-  test: flutter pub get
-  print: echo $name
+  mobx: fvm flutter pub get & fvm flutter pub run build_runner watch  --delete-conflicting-outputs
+  mobb: flutter pub get & flutter pub run build_runner build  --delete-conflicting-outputs
+  mobd: flutter pub get & flutter pub run build_runner build
+  mobw: fvm flutter pub get & fvm flutter pub run build_runner watch
+  build_apk: flutter pub get & flutter build apk -t lib/main_production.dart --release
+  build_apk_qa: fvm flutter pub get & fvm flutter build apk --flavor qa -t  lib/main_qa.dart --release
+  build_apk_prod: fvm flutter pub get & fvm flutter build apk --flavor prod -t  lib/main_production.dart --release
+  build_ios: flutter pub get &  flutter build ios -t lib/main_production.dart --flavor prod --release
+  build_web: flutter pub get & flutter build web -t lib/main_production.dart --release
+  localization: dart lib\app\commands\localization.dart
+  # test: flutter pub get
+  # test_error: flutter pub get2
+  # print: echo $name
 vars:
   name: jacob
