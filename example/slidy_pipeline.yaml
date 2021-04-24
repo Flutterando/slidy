@@ -4,14 +4,14 @@ version: v1
 create_custom_file:  #this is command name
   name: Named Command
   steps:
-  - id: First: File Creation
+  - id: First File Creation
     generate: 
       path: lib/app/path/file.dart
       file: |
         Generate file line 1
         generate file line 2 ${{ fileName | camelcase }}
       module_injection:
-        type: bind|route
+        type: bind
         value: Bind.singleton((i) => ${{ fileName | camelcase }}())
       run: echo "Custom Command"
     commands:
