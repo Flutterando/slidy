@@ -30,8 +30,8 @@ scripts:
   build_ios: flutter pub get &  flutter build ios -t lib/main_production.dart --flavor prod --release
   build_web: flutter pub get & flutter build web -t lib/main_production.dart --release
   localization: dart lib\app\commands\localization.dart
-  # test: flutter pub get
-  # test_error: flutter pub get2
-  # print: echo $name
+  test: flutter pub get
+  test_error: flutter pub get2
+  print: echo $name
 vars:
   name: jacob
