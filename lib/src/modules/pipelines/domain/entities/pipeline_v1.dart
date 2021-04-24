@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:either_dart/src/either.dart';
+import 'package:dartz/dartz.dart';
 
 import 'package:slidy/src/core/entities/slidy_process.dart';
 import 'package:slidy/src/modules/pipelines/domain/errors/errors.dart';
@@ -13,9 +13,10 @@ class PipelineV1 extends Pipeline {
   final String version;
   final List<JobV1> jobs;
 
-  PipelineV1(FutureOr<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline) usecase, {required this.name, this.version = 'v1', this.jobs = const []}) : super(usecase);
+  PipelineV1(Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase, {required this.name, this.version = 'v1', this.jobs = const []})
+      : super(usecase);
 
-  factory PipelineV1.fromMap(Map map, FutureOr<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline) usecase) {
+  factory PipelineV1.fromMap(Map map, Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase) {
     final jobs = <JobV1>[];
 
     for (var key in map.keys) {
@@ -37,7 +38,7 @@ class PipelineV1 extends Pipeline {
 
   factory PipelineV1.fromJson(
     String source,
-    FutureOr<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline) usecase,
+    Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase,
   ) =>
       PipelineV1.fromMap(json.decode(source), usecase);
 }

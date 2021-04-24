@@ -25,10 +25,10 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
 
   execute(result);
 
-  if (result.isRight) {
+  if (result.isRight()) {
     result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       await formatFile(parentModule);
     }
   }
@@ -51,10 +51,10 @@ Future injectParentModuleRouting(String path, String fileNameWithUppeCase, Strin
 
   execute(result);
 
-  if (result.isRight) {
+  if (result.isRight()) {
     result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       await formatFile(parentModule);
     }
   }

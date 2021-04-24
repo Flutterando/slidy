@@ -99,13 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.0-nullsafety.1"
-  either_dart:
-    dependency: "direct main"
-    description:
-      name: either_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0-nullsafety.1"
   ffi:
     dependency: transitive
     description:

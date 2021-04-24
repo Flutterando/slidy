@@ -47,7 +47,7 @@ class GenerateBlocSubCommand extends CommandBase {
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       if (argResults!['page'] == true) {
         await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Bloc');
       }

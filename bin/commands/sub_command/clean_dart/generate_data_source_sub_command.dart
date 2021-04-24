@@ -41,10 +41,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
 
     if (!await templateFile.checkDependencyIsExist('dio')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
-      await command.run([
-        'install',
-        'dio@4.0.0-beta6'
-      ]);
+      await command.run(['install', 'dio@4.0.0-beta6']);
     }
 
     var splited = templateFile.file.path.split('/');
@@ -57,9 +54,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
         yaml: data_source,
         destiny: File(body + '/../infra/datasource/' + last),
         key: 'interface_data_source',
-        args: [
-          templateFile.fileNameWithUppeCase + 'Event'
-        ],
+        args: [templateFile.fileNameWithUppeCase + 'Event'],
       ),
     );
 
@@ -73,26 +68,20 @@ class GenerateDataSourceSubCommand extends CommandBase {
         yaml: data_source,
         destiny: File(body + '/../external/datasource/' + last),
         key: 'data_source',
-        args: [
-          templateFile.fileNameWithUppeCase + 'Event',
-          importDataSourceInterface
-        ],
+        args: [templateFile.fileNameWithUppeCase + 'Event', importDataSourceInterface],
       ),
     );
 
     execute(result);
 
-    if (result.isRight) {
+    if (result.isRight()) {
       await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())', importDataSource, templateFile.file.parent.parent);
     }
 
     if (!argResults!['notest']) {
       if (!await templateFile.checkDependencyIsExist('mockito')) {
         var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
-        await command.run([
-          'install',
-          'mockito@5.0.0'
-        ]);
+        await command.run(['install', 'mockito@5.0.0']);
       }
 
       result = await Slidy.instance.template.createFile(
@@ -100,11 +89,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
           yaml: data_source,
           destiny: templateFile.fileTest,
           key: 'data_source_test',
-          args: [
-            'I${templateFile.fileNameWithUppeCase}DataSource',
-            templateFile.import,
-            '${templateFile.fileNameWithUppeCase}DataSourceImpl'
-          ],
+          args: ['I${templateFile.fileNameWithUppeCase}DataSource', templateFile.import, '${templateFile.fileNameWithUppeCase}DataSourceImpl'],
         ),
       );
 

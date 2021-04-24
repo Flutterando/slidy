@@ -3,7 +3,7 @@ import 'package:slidy/src/modules/package_instalation/domain/errors/errors.dart'
 import 'package:slidy/src/modules/package_instalation/domain/models/package_name.dart';
 import 'package:slidy/src/core/errors/errors.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
-import 'package:either_dart/src/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/src/modules/package_instalation/domain/repositories/package_instalation_repository.dart';
 import 'package:slidy/src/modules/package_instalation/infra/datasources/get_package_version.dart';
 

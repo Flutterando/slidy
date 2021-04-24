@@ -45,7 +45,7 @@ class GenerateServiceSubCommand extends CommandBase {
       ),
     );
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       await utils.injectParentModule(
         argResults!['bind'],
         '${templateFile.fileNameWithUppeCase}Service()',

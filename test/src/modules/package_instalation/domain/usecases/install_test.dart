@@ -1,4 +1,4 @@
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
 import 'package:slidy/src/core/errors/errors.dart';
@@ -21,12 +21,12 @@ void main() {
   test('should install package', () async {
     when(() => service.install(any())).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
     final result = await usecase(params: PackageName('package'));
-    expect(result.right, isA<SlidyProccess>());
+    expect(result.isRight(), isA<SlidyProccess>());
   });
 
   test('install package error', () async {
     when(() => service.install(any())).thenAnswer((_) async => Left<SlidyError, SlidyProccess>(PackageInstalationError('Error')));
     final result = await usecase(params: PackageName('package'));
-    expect(result.left, isA<PackageInstalationError>());
+    expect(result.fold(id, id), isA<PackageInstalationError>());
   });
 }

@@ -1,4 +1,4 @@
-import 'package:either_dart/src/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/usecase.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/line_params.dart';

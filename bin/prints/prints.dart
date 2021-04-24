@@ -1,5 +1,5 @@
 import 'package:ansicolor/ansicolor.dart';
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/slidy.dart';
 
 AnsiPen red = AnsiPen()..red(bold: true);

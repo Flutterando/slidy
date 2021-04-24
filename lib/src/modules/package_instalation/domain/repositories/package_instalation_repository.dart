@@ -1,4 +1,4 @@
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/src/modules/package_instalation/domain/models/package_name.dart';
 
 import '../../../../core/entities/slidy_process.dart';

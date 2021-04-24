@@ -1,4 +1,4 @@
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/modules/pipelines/domain/entities/pipeline_v1.dart';
 import 'package:test/test.dart';
@@ -7,7 +7,7 @@ import 'package:yaml/yaml.dart';
 void main() {
   test('fromJson', () {
     final yaml = loadYaml(yamlText);
-    final pipeline = PipelineV1.fromMap(yaml as Map, (pipeline) => Right(SlidyProccess(result: 'result')));
+    final pipeline = PipelineV1.fromMap(yaml as Map, (pipeline, c, a) async => Right(SlidyProccess(result: 'result')));
     expect(pipeline.name, 'Slidy Pipeline');
     expect(pipeline.version, 'v1');
     expect(pipeline.jobs.first.name, 'Named Command');

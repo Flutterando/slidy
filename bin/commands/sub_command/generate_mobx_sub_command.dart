@@ -47,7 +47,7 @@ class GenerateMobxSubCommand extends CommandBase {
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.file, key: 'mobx'));
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       if (argResults!['page'] == true) {
         await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Store');
       }

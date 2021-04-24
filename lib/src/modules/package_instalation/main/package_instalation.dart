@@ -1,4 +1,4 @@
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:slidy/di/injection.dart';
 import 'package:slidy/src/core/entities/slidy_process.dart';
 import 'package:slidy/src/core/errors/errors.dart';

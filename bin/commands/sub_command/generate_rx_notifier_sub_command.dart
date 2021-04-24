@@ -46,7 +46,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
 
     var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.file, key: 'rx_notifier'));
     execute(result);
-    if (result.isRight) {
+    if (result.isRight()) {
       if (argResults!['page'] == true) {
         await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Controller');
       }

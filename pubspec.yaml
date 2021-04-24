@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   dart_console: ^1.0.0
-  either_dart: ^0.1.0-nullsafety.1
   http: ^0.13.0
   args: ^2.0.0
   ansicolor: ^2.0.0-nullsafety.0
