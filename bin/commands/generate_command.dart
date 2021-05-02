@@ -39,7 +39,9 @@ class GenerateCommand extends CommandBase {
     addSubcommand(GeneratePageAbbrSubCommand());
     addSubcommand(GenerateWidgetSubCommand());
     addSubcommand(GenerateWidgetAbbrSubCommand());
+    addSubcommand(GenerateUseCaseSubCommand());
     addSubcommand(GenerateUseCaseAbbrSubCommand());
+    addSubcommand(GenerateDataSourceSubCommand());
     addSubcommand(GenerateDataSourceAbbrSubCommand());
   }
 

@@ -36,7 +36,7 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   } else if (results.wasParsed('version')) {
-    version('3.2.1');
+    version('3.2.1+1');
   } else {
     print('Command not found!\n');
     print(runner.usage);

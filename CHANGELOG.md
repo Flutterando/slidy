@@ -1,4 +1,5 @@
-## 3.2.1
+## 3.2.1+1
+
 - Execute commands faster 🔥
 
 ## 3.2.0+1
