@@ -1,3 +1,6 @@
+## 3.2.1
+- Execute commands faster 🔥
+
 ## 3.2.0+1
 - **slidy run** improve statement error
 - New Interactive slidy run. Type only **slidy run** to view all avaliable scripts commands in your pubspec

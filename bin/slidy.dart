@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:io/io.dart';
 
 import 'commands/generate_command.dart';
 import 'commands/install_command.dart';
@@ -8,13 +11,19 @@ import 'commands/start_command.dart';
 import 'commands/uninstall_command.dart';
 import 'commands/upgrade_command.dart';
 
-void main(List<String> arguments) {
+Future main(List<String> arguments) async {
   final runner = configureCommand(arguments);
 
   var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
 
   if (hasCommand) {
-    executeCommand(runner, arguments);
+    try {
+      await executeCommand(runner, arguments);
+      exit(ExitCode.success.code);
+    } on UsageException catch (error) {
+      print(error);
+      exit(ExitCode.ioError.code);
+    }
   } else {
     var parser = ArgParser();
     parser = runner.argParser;
@@ -27,18 +36,15 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   } else if (results.wasParsed('version')) {
-    version('3.2.0+1');
+    version('3.2.1');
   } else {
     print('Command not found!\n');
     print(runner.usage);
   }
 }
 
-void executeCommand(CommandRunner runner, List<String> arguments) {
-  runner.run(arguments).catchError((error) {
-    if (error is! UsageException) throw error;
-    print(error);
-  });
+Future executeCommand(CommandRunner runner, List<String> arguments) {
+  return runner.run(arguments);
 }
 
 CommandRunner configureCommand(List<String> arguments) {

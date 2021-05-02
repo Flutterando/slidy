@@ -55,6 +55,7 @@ class StartCommand extends CommandBase {
         }
       } else if (key.controlChar == ControlCharacter.enter) {
         isRunning = false;
+        print('\x1B[2J\x1B[0;0H');
         return selected;
       } else if (key.char == 'q') {
         return -1;
