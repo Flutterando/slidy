@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:slidy/slidy.dart';
 
-import '../../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import '../../templates/widgets.dart';
 import '../../utils/template_file.dart';
 import '../command_base.dart';

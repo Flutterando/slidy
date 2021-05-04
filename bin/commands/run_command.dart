@@ -8,7 +8,7 @@ import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
-import '../prints/prints.dart' as output;
+import 'package:slidy/src/core/prints/prints.dart' as output;
 import 'command_base.dart';
 import 'package:rxdart/rxdart.dart';
 

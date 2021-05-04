@@ -10,6 +10,7 @@ export 'src/modules/template_creator/domain/models/template_info.dart';
 export 'src/core/entities/slidy_process.dart';
 export 'src/core/errors/errors.dart';
 export 'src/modules/package_instalation/domain/models/package_name.dart';
+export 'src/core/prints/prints.dart';
 
 class Slidy {
   static final Slidy instance = Slidy._internal();

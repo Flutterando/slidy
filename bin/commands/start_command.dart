@@ -5,10 +5,10 @@ import 'package:dart_console/dart_console.dart' show Console, ControlCharacter;
 
 import 'package:slidy/slidy.dart';
 
-import '../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import '../templates/start.dart';
 import 'command_base.dart';
-import '../prints/prints.dart' as output;
+import 'package:slidy/src/core/prints/prints.dart' as output;
 
 class StartCommand extends CommandBase {
   @override

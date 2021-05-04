@@ -5,7 +5,7 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 import 'package:slidy/src/core/interfaces/yaml_service.dart';
 
-import '../../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import '../../templates/module.dart';
 import '../../utils/template_file.dart';
 import '../command_base.dart';

@@ -72,7 +72,7 @@ class StepV1 {
     return StepV1(
       id: map['id'],
       commands: map['commands'] == null ? [] : List<String>.from(map['commands']),
-      generate: GenerateV1.fromMap(map['generate']),
+      generate: map.containsKey('generate') ? GenerateV1.fromMap(map['generate']) : null,
     );
   }
 

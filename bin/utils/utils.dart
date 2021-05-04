@@ -5,7 +5,7 @@ import 'package:slidy/slidy.dart';
 import 'package:slidy/src/modules/template_creator/domain/models/line_params.dart';
 
 import '../commands/generate_command.dart';
-import '../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import 'template_file.dart';
 
 Future injectParentModule(String injectionType, String fileNameWithUppeCase, String import, Directory directory) async {

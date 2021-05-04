@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
-import '../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import 'command_base.dart';
 
 class UninstallCommand extends CommandBase {

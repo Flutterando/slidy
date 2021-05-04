@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:slidy/slidy.dart';
 
-import '../../prints/prints.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import '../../templates/service.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;

@@ -2,17 +2,14 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/core/interfaces/usecase.dart';
 import 'package:slidy/src/modules/pipelines/domain/entities/pipeline.dart';
 import 'package:slidy/src/modules/pipelines/domain/entities/pipeline_v1.dart';
 import 'package:slidy/src/modules/pipelines/domain/errors/errors.dart';
 import 'package:slidy/src/modules/pipelines/domain/services/yaml_to_map_service.dart';
-import 'package:slidy/src/modules/pipelines/domain/usecases/pipeline_v1_execute.dart';
+import 'package:slidy/src/modules/pipelines/domain/usecases/pipeline_v1_usecase.dart';
 
-abstract class PipelineExecute {
-  FutureOr<Either<PipelineError, SlidyProccess>> call(PipelineParams params);
-}
-
-class PipelineExecuteImpl implements PipelineExecute {
+class PipelineExecuteImpl implements UseCase<SlidyError, SlidyProccess, PipelineParams> {
   final PipelineV1Usecase v1;
   final YamlToMapService yamlToMapService;
 
@@ -20,7 +17,7 @@ class PipelineExecuteImpl implements PipelineExecute {
 
   PipelineExecuteImpl({required this.v1, required this.yamlToMapService});
   @override
-  FutureOr<Either<PipelineError, SlidyProccess>> call(PipelineParams params) async {
+  Future<Either<PipelineError, SlidyProccess>> call({required PipelineParams params}) async {
     final yamlToMapResult = await yamlToMapService.convert(params.yamlPath);
     return yamlToMapResult.bind<Pipeline>(_bindServiceResult).asyncBind<SlidyProccess>((pipeline) {
       return pipeline(params.command, params.args);

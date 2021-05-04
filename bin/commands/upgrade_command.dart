@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'command_base.dart';
-import '../prints/prints.dart' as output;
+import 'package:slidy/src/core/prints/prints.dart' as output;
 
 class UpgradeCommand extends CommandBase {
   @override
