@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
+import 'package:io/io.dart';
 import 'package:slidy/slidy.dart';
 
 import 'package:slidy/src/core/prints/prints.dart';
