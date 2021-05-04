@@ -136,7 +136,7 @@ cubit: |
     CounterCubit() : super(0);
   
     void increment() => emit(state + 1);
-    void decrement() => emit(state 1);
+    void decrement() => emit(state - 1);
   }
 
 home_page_cubit: |
@@ -329,11 +329,11 @@ home_page_mobx: |
   import 'package:flutter/material.dart';
   import 'package:flutter_mobx/flutter_mobx.dart';
   import 'package:flutter_modular/flutter_modular.dart';
-  import 'package:slidy_testes/app/modules/home/home_store.dart';
+  import 'home_store.dart';
   
   class HomePage extends StatefulWidget {
     final String title;
-    const HomePage({Key key, this.title = "Home"}) : super(key: key);
+    const HomePage({Key? key, this.title = "Home"}) : super(key: key);
   
     @override
     _HomePageState createState() => _HomePageState();
