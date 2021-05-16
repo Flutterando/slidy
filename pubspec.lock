@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.0.0"
+  build_test:
+    dependency: "direct dev"
+    description:
+      name: build_test
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   build_version:
     dependency: "direct dev"
     description:
@@ -178,6 +185,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   dart_console:
     dependency: "direct main"
     description:
@@ -255,6 +269,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.0"
   http:
     dependency: "direct main"
     description:

@@ -27,6 +27,7 @@ dev_dependencies:
   build_version: ^2.0.3
   test: ^1.16.0-nullsafety.17
   mocktail: ^0.1.1
+  build_test: ^2.1.0
   cli_pkg:
     git: https://github.com/leoafarias/dart_cli_pkg
   grinder: ^0.9.0
