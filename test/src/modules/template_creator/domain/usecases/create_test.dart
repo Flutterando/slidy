@@ -63,19 +63,19 @@ void main() {
   test('should create template', () async {
     when(() => yaml.readAsStringSync()).thenReturn(yamlText);
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedText);
   });
   test('should create template with args', () async {
     when(() => yaml.readAsStringSync()).thenReturn(yamlText);
     final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextWithArgs);
   });
 
   test('should create template with real yaml', () async {
     // final result = await usecase(params: TemplateInfo(yaml: File('lib/'), destiny: destiny, key: 'main', args: ['Modular()']));
-    // expect(result.isRight(), isA<SlidyProccess>());
+    // expect(result.isRight(), true);
     // expect(destiny.savedFile, savedTextWithArgs);
   });
 }

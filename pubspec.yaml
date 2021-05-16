@@ -1,6 +1,6 @@
 name: slidy
 description: CLI package manager and template for Flutter. Generate Modules, Pages, Widgets, BLoCs, MobX, Triple and more.
-version: 3.2.1+1
+version: 3.2.2
 homepage: https://github.com/Flutterando/slidy
 
 environment:
@@ -25,6 +25,9 @@ dependencies:
 dev_dependencies:
   test: ^1.16.0-nullsafety.17
   mocktail: ^0.1.1
+  cli_pkg:
+    git: https://github.com/leoafarias/dart_cli_pkg
+  grinder: ^0.9.0
 
 # dependency_overrides:
 #   args: '2.0.0-nullsafety.0'

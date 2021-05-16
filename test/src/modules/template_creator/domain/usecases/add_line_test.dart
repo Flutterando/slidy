@@ -37,21 +37,21 @@ void main() {
   test('should add one line in template', () async {
     when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: LineParams(destiny, inserts: ['jacob']));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedText);
   });
 
   test('should add more then one line in template', () async {
     when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: LineParams(destiny, inserts: ['jacob', 'joão', 'maria']));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedMultipleTexts);
   });
 
   test('should add line inside main()', () async {
     when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(params: LineParams(destiny, position: 1, inserts: ['inside();']));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextInsertedInExpecificPosition);
   });
 
@@ -67,7 +67,7 @@ void main() {
         return line;
       },
     ));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextAfterReplaced);
   });
   test('should added above line', () async {
@@ -82,7 +82,7 @@ void main() {
         return line;
       },
     ));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextAboveLine);
   });
 }

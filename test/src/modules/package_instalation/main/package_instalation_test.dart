@@ -35,13 +35,13 @@ void main() {
     when(() => client.get(any())).thenAnswer((_) async => Response(jsonPackageResult, 200));
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     final result = await main.install(package: PackageName('package'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 
   test('uninstall', () async {
     when(() => pubspecService.remove(any())).thenReturn(true);
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     final result = await main.uninstall(package: PackageName('package'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 }

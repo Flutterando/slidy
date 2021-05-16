@@ -24,19 +24,19 @@ void main() {
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     when(() => client.fetch(any())).thenAnswer((_) async => '1.0.0');
     final result = await service.install(PackageName('package'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 
   test('should install package with version', () async {
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     final result = await service.install(PackageName('package@1.0.2'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 
   test('should uninstall package', () async {
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     when(() => pubspecService.remove(any())).thenReturn(true);
     final result = await service.uninstall(PackageName('package'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 }

@@ -21,7 +21,7 @@ void main() {
   test('should install package', () async {
     when(() => service.uninstall(any())).thenAnswer((_) async => Right<SlidyError, SlidyProccess>(SlidyProccess(result: 'ok')));
     final result = await usecase(params: PackageName('package'));
-    expect(result.isRight(), isA<SlidyProccess>());
+    expect(result.isRight(), true);
   });
 
   test('install package error', () async {
