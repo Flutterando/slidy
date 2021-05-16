@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
+import 'package:slidy/src/version.dart';
 
 import 'commands/generate_command.dart';
 import 'commands/install_command.dart';
@@ -36,7 +37,7 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   } else if (results.wasParsed('version')) {
-    version('3.2.1+1');
+    version(packageVersion);
   } else {
     print('Command not found!\n');
     print(runner.usage);
