@@ -39,4 +39,4 @@ scripts:
 
 
 executables:
-  slidy: slidy
+  slidy: main
