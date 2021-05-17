@@ -49,11 +49,11 @@ You can get Slidy of many ways.
 ### curl and wget (linux)
 
 ```bash
-curl -o- https://raw.githubusercontent.com/allansrc/slidy/master/install.sh | bash
+curl -o- https://raw.githubusercontent.com/Flutterando/slidy/master/install.sh | bash
 ```
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/allansrc/slidy/master/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/Flutterando/slidy/master/install.sh | bash
 ```
 
 ### Hello world!
