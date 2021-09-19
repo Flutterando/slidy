@@ -26,7 +26,7 @@ page: |
 page_test: |
   $arg2
   import 'package:flutter_test/flutter_test.dart';
-  import 'package:flutter_modular_test/flutter_modular_test.dart';
+  import 'package:modular_test/modular_test.dart';
   
   main() {
     group('$arg1', () {
