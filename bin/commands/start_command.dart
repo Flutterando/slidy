@@ -208,7 +208,7 @@ class StartCommand extends CommandBase {
     }
 
     //devs
-    result = await Slidy.instance.instalation.install(package: PackageName('flutter_modular_test', isDev: true));
+    result = await Slidy.instance.instalation.install(package: PackageName('modular_test', isDev: true));
     execute(result);
   }
 

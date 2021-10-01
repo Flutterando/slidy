@@ -8,12 +8,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_modular: ^3.1.0
-  flutter_triple: ^1.0.5+1
+  flutter_modular: ^4.0.1+2
+  flutter_triple: ^1.2.4+3
   rx_notifier: ^1.1.0
   
 dev_dependencies:
-  flutter_modular_test: ^1.0.1
+  modular_test: ^1.0.1
   flutter_test:
     sdk: flutter
   triple_test: ^0.0.5
