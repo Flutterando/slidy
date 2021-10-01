@@ -123,7 +123,12 @@ class RunCommand extends CommandBase {
       }
 
       for (final item in commandExec.split('&')) {
-        final matchList = regex.allMatches(item).map((v) => v.group(0)!).toList().map<String>((e) => (e.startsWith('\$') ? vars[e.replaceFirst('\$', '')] ?? e : e)).toList();
+        final matchList = regex
+            .allMatches(item)
+            .map((v) => v.group(0)!)
+            .toList()
+            .map<String>((e) => (e.startsWith('\$') ? vars[e.replaceFirst('\$', '')] ?? e : e))
+            .toList();
         await callProcess(matchList);
       }
     }
@@ -131,7 +136,8 @@ class RunCommand extends CommandBase {
 
   Future callProcess(List<String> commands) async {
     try {
-      var process = await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
+      var process =
+          await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
 
       final error = process.stderr.transform(utf8.decoder).map(output.red);
       final success = process.stdout.transform(utf8.decoder).map(output.green);

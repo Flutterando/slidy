@@ -74,7 +74,8 @@ class PipelineV1UsecaseImpl implements PipelineV1Usecase {
 
   Future<int> callProcess(List<String> commands) async {
     try {
-      var process = await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
+      var process =
+          await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
 
       final error = process.stderr.transform(utf8.decoder).map(output.red);
       final success = process.stdout.transform(utf8.decoder);

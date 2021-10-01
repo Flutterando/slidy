@@ -49,14 +49,20 @@ class GenerateTripleSubCommand extends CommandBase {
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
-        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Store');
+        await utils.addedInjectionInPage(
+            templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Store');
       }
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+          argResults!['bind'], '${templateFile.fileNameWithUppeCase}Store()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: tripleFile, destiny: templateFile.fileTest, key: 'triple_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: tripleFile,
+              destiny: templateFile.fileTest,
+              key: 'triple_test',
+              args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
       execute(result);
     }
   }

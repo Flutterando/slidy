@@ -60,14 +60,16 @@ Future injectParentModuleRouting(String path, String fileNameWithUppeCase, Strin
   }
 }
 
-Future<void> addedInjectionInPage({required TemplateFile templateFile, required String pathCommand, required bool noTest, required String type}) async {
+Future<void> addedInjectionInPage(
+    {required TemplateFile templateFile, required String pathCommand, required bool noTest, required String type}) async {
   var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
   await command.run(['generate', 'page', pathCommand, if (noTest) '--notest']);
   final insertLine = '  final ${templateFile.fileNameWithUppeCase}$type ${type.toLowerCase()} = Modular.get();';
   final pageFile = File(templateFile.file.parent.path + '/${templateFile.fileName}_page.dart');
   var result = await Slidy.instance.template.addLine(params: LineParams(pageFile, position: 9, inserts: [insertLine, '']));
   execute(result);
-  result = await Slidy.instance.template.addLine(params: LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
+  result = await Slidy.instance.template
+      .addLine(params: LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
   execute(result);
 }
 

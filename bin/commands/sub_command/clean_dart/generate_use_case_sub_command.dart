@@ -43,15 +43,22 @@ class GenerateUseCaseSubCommand extends CommandBase {
       await command.run(['install', 'dartz@0.10.0-nullsafety.1 ']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: use_case, destiny: templateFile.file, key: 'use_case', args: [templateFile.fileNameWithUppeCase + 'Event']));
+    var result = await Slidy.instance.template.createFile(
+        info:
+            TemplateInfo(yaml: use_case, destiny: templateFile.file, key: 'use_case', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight()) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+          argResults!['bind'], '${templateFile.fileNameWithUppeCase}()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
       result = await Slidy.instance.template.createFile(
-          info: TemplateInfo(yaml: use_case, destiny: templateFile.fileTest, key: 'use_case_test', args: [templateFile.fileNameWithUppeCase, templateFile.import, templateFile.fileNameWithUppeCase]));
+          info: TemplateInfo(
+              yaml: use_case,
+              destiny: templateFile.fileTest,
+              key: 'use_case_test',
+              args: [templateFile.fileNameWithUppeCase, templateFile.import, templateFile.fileNameWithUppeCase]));
       execute(result);
     }
   }

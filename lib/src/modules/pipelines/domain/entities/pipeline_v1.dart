@@ -13,10 +13,12 @@ class PipelineV1 extends Pipeline {
   final String version;
   final List<JobV1> jobs;
 
-  PipelineV1(Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase, {required this.name, this.version = 'v1', this.jobs = const []})
+  PipelineV1(Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase,
+      {required this.name, this.version = 'v1', this.jobs = const []})
       : super(usecase);
 
-  factory PipelineV1.fromMap(Map map, Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase) {
+  factory PipelineV1.fromMap(
+      Map map, Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase) {
     final jobs = <JobV1>[];
 
     for (var key in map.keys) {
@@ -107,7 +109,8 @@ class ModuleInjectionV1 {
 
   factory ModuleInjectionV1.fromMap(Map map) {
     return ModuleInjectionV1(
-      type: ModuleInjectionV1Type.values.firstWhere((element) => map['type'] == element.toString().replaceFirst('ModuleInjectionV1Type.', '')),
+      type: ModuleInjectionV1Type.values
+          .firstWhere((element) => map['type'] == element.toString().replaceFirst('ModuleInjectionV1Type.', '')),
       value: map['value'],
     );
   }

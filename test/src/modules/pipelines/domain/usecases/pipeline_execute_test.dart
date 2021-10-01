@@ -17,7 +17,8 @@ void main() async {
   final yamlToMapService = YamlToMapServiceMock();
   final pipelineV1Usecase = PipelineV1UsecaseMock();
   setUpAll(() {
-    registerFallbackValue<Pipeline>(PipelineV1.fromMap(loadYaml(yamlText), (pipeline, command, args) => pipelineV1Usecase.call(pipeline, command, args)));
+    registerFallbackValue<Pipeline>(
+        PipelineV1.fromMap(loadYaml(yamlText), (pipeline, command, args) => pipelineV1Usecase.call(pipeline, command, args)));
   });
   final usecase = PipelineExecuteImpl(v1: pipelineV1Usecase, yamlToMapService: yamlToMapService);
   test('should execute pipeline v1', () async {

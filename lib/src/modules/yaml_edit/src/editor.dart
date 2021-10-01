@@ -619,7 +619,8 @@ class YamlEditor {
     }
 
     if (tree is YamlMap) {
-      return updatedYamlMap(tree, (nodes) => nodes[keyOrIndex] = _deepModify(nodes[keyOrIndex], path, path.take(subPath.length + 1), expectedNode));
+      return updatedYamlMap(
+          tree, (nodes) => nodes[keyOrIndex] = _deepModify(nodes[keyOrIndex], path, path.take(subPath.length + 1), expectedNode));
     }
 
     /// Should not ever reach here.

@@ -26,8 +26,12 @@ class GenerateWidgetSubCommand extends CommandBase {
     execute(result);
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: widgetsFile,
+              destiny: templateFile.fileTest,
+              key: 'page_test',
+              args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
       execute(result);
     }
   }
