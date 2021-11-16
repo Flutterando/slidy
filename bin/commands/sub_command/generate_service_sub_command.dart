@@ -66,8 +66,12 @@ class GenerateServiceSubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: serviceFile, destiny: templateFile.fileTest, key: 'test_service', args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: serviceFile,
+              destiny: templateFile.fileTest,
+              key: 'test_service',
+              args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
       execute(result);
     }
   }

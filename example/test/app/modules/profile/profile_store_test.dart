@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:example/app/modules/profile/profile_store.dart';
- 
+
 void main() {
   late ProfileStore store;
 

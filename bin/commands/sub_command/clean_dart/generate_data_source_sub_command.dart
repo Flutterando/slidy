@@ -75,7 +75,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
     execute(result);
 
     if (result.isRight()) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())', importDataSource, templateFile.file.parent.parent);
+      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())', importDataSource,
+          templateFile.file.parent.parent);
     }
 
     if (!argResults!['notest']) {
@@ -89,7 +90,11 @@ class GenerateDataSourceSubCommand extends CommandBase {
           yaml: data_source,
           destiny: templateFile.fileTest,
           key: 'data_source_test',
-          args: ['I${templateFile.fileNameWithUppeCase}DataSource', templateFile.import, '${templateFile.fileNameWithUppeCase}DataSourceImpl'],
+          args: [
+            'I${templateFile.fileNameWithUppeCase}DataSource',
+            templateFile.import,
+            '${templateFile.fileNameWithUppeCase}DataSourceImpl'
+          ],
         ),
       );
 

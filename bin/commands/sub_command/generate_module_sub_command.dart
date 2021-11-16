@@ -20,7 +20,8 @@ class GenerateModuleSubCommand extends CommandBase {
 
   GenerateModuleSubCommand() {
     argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addFlag('complete', abbr: 'c', negatable: true, help: 'Creates a module with Page and Controller/Store files (Triple, MobX, BLoC, Cubit...)');
+    argParser.addFlag('complete',
+        abbr: 'c', negatable: true, help: 'Creates a module with Page and Controller/Store files (Triple, MobX, BLoC, Cubit...)');
   }
 
   @override
@@ -32,12 +33,17 @@ class GenerateModuleSubCommand extends CommandBase {
     var templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'module');
     templateFile = await TemplateFile.getInstance('${argResults!.rest.first}/${templateFile.fileName}', 'module');
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(key: 'module', destiny: templateFile.file, yaml: generateFile));
+    var result =
+        await Slidy.instance.template.createFile(info: TemplateInfo(key: 'module', destiny: templateFile.file, yaml: generateFile));
     execute(result);
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: generateFile, destiny: templateFile.fileTest, key: 'module_test', args: [templateFile.fileNameWithUppeCase + 'Module', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: generateFile,
+              destiny: templateFile.fileTest,
+              key: 'module_test',
+              args: [templateFile.fileNameWithUppeCase + 'Module', templateFile.import]));
       execute(result);
     }
 

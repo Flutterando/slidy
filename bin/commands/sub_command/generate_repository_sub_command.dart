@@ -46,7 +46,8 @@ class GenerateRepositorySubCommand extends CommandBase {
     );
     execute(result);
     if (result.isRight()) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Repository()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+          argResults!['bind'], '${templateFile.fileNameWithUppeCase}Repository()', templateFile.import, templateFile.file.parent);
     }
 
     if (argResults!['interface']) {
@@ -61,8 +62,12 @@ class GenerateRepositorySubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: repositoryFile, destiny: templateFile.fileTest, key: 'test_repository', args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: repositoryFile,
+              destiny: templateFile.fileTest,
+              key: 'test_repository',
+              args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
       execute(result);
     }
   }

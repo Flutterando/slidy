@@ -27,12 +27,17 @@ class GeneratePageSubCommand extends CommandBase {
     execute(result);
 
     if (argResults!['routing'] != null) {
-      await utils.injectParentModuleRouting(argResults!['routing'], '${templateFile.fileNameWithUppeCase}Page()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModuleRouting(
+          argResults!['routing'], '${templateFile.fileNameWithUppeCase}Page()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Page', templateFile.import]));
+      result = await Slidy.instance.template.createFile(
+          info: TemplateInfo(
+              yaml: widgetsFile,
+              destiny: templateFile.fileTest,
+              key: 'page_test',
+              args: [templateFile.fileNameWithUppeCase + 'Page', templateFile.import]));
       execute(result);
     }
   }

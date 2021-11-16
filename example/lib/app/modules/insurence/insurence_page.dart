@@ -8,6 +8,7 @@ class InsurencePage extends StatefulWidget {
   @override
   InsurencePageState createState() => InsurencePageState();
 }
+
 class InsurencePageState extends State<InsurencePage> {
   final InsurenceStore store = Modular.get();
 

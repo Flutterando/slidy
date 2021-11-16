@@ -45,19 +45,25 @@ class GenerateBlocSubCommand extends CommandBase {
       await command.run(['install', 'bloc_test@8.0.0-nullsafety.2', '--dev']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
+    var result = await Slidy.instance.template.createFile(
+        info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'bloc', args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
-        await utils.addedInjectionInPage(templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Bloc');
+        await utils.addedInjectionInPage(
+            templateFile: templateFile, pathCommand: argResults!.rest.single, noTest: !argResults!['notest'], type: 'Bloc');
       }
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+          argResults!['bind'], '${templateFile.fileNameWithUppeCase}Bloc()', templateFile.import, templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
       result = await Slidy.instance.template.createFile(
           info: TemplateInfo(
-              yaml: blocFile, destiny: templateFile.fileTest, key: 'bloc_test', args: [templateFile.fileNameWithUppeCase + 'Bloc', templateFile.import, templateFile.fileNameWithUppeCase + 'Event']));
+              yaml: blocFile,
+              destiny: templateFile.fileTest,
+              key: 'bloc_test',
+              args: [templateFile.fileNameWithUppeCase + 'Bloc', templateFile.import, templateFile.fileNameWithUppeCase + 'Event']));
       execute(result);
     }
   }
