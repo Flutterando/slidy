@@ -27,7 +27,8 @@ class PathError extends ArgumentError {
   /// The last element of [path] that could be traversed.
   YamlNode? parent;
 
-  PathError(this.path, this.subPath, this.parent, [String? message]) : super.value(subPath, 'path', message);
+  PathError(this.path, this.subPath, this.parent, [String? message])
+      : super.value(subPath, 'path', message);
 
   PathError.unexpected(this.path, String message)
       : subPath = path,
@@ -39,7 +40,8 @@ class PathError extends ArgumentError {
       var errorMessage = 'Failed to traverse to subpath $subPath!';
 
       if (subPath.isNotEmpty) {
-        errorMessage += ' Parent $parent does not contain key or index ${subPath.last}';
+        errorMessage +=
+            ' Parent $parent does not contain key or index ${subPath.last}';
       }
 
       return 'Invalid path: $path. $errorMessage.';

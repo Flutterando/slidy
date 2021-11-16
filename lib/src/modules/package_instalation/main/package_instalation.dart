@@ -7,11 +7,13 @@ import 'package:slidy/src/modules/package_instalation/domain/usecases/install.da
 import 'package:slidy/src/modules/package_instalation/domain/usecases/uninstall.dart';
 
 class PackageInstalation {
-  Future<Either<SlidyError, SlidyProccess>> install({required PackageName package}) {
+  Future<Either<SlidyError, SlidyProccess>> install(
+      {required PackageName package}) {
     return sl.get<Install>()(params: package);
   }
 
-  Future<Either<SlidyError, SlidyProccess>> uninstall({required PackageName package}) {
+  Future<Either<SlidyError, SlidyProccess>> uninstall(
+      {required PackageName package}) {
     return sl.get<Uninstall>()(params: package);
   }
 }

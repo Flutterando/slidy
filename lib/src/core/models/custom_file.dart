@@ -223,30 +223,39 @@ class CustomFile implements File {
   Uri get uri => throw UnimplementedError();
 
   @override
-  Stream<FileSystemEvent> watch({int events = FileSystemEvent.all, bool recursive = false}) {
+  Stream<FileSystemEvent> watch(
+      {int events = FileSystemEvent.all, bool recursive = false}) {
     // TODO: implement watch
     throw UnimplementedError();
   }
 
   @override
-  Future<File> writeAsBytes(List<int> bytes, {FileMode mode = FileMode.write, bool flush = false}) {
+  Future<File> writeAsBytes(List<int> bytes,
+      {FileMode mode = FileMode.write, bool flush = false}) {
     // TODO: implement writeAsBytes
     throw UnimplementedError();
   }
 
   @override
-  void writeAsBytesSync(List<int> bytes, {FileMode mode = FileMode.write, bool flush = false}) {
+  void writeAsBytesSync(List<int> bytes,
+      {FileMode mode = FileMode.write, bool flush = false}) {
     // TODO: implement writeAsBytesSync
   }
 
   @override
-  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
+  Future<File> writeAsString(String contents,
+      {FileMode mode = FileMode.write,
+      Encoding encoding = utf8,
+      bool flush = false}) {
     // TODO: implement writeAsString
     throw UnimplementedError();
   }
 
   @override
-  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
+  void writeAsStringSync(String contents,
+      {FileMode mode = FileMode.write,
+      Encoding encoding = utf8,
+      bool flush = false}) {
     // TODO: implement writeAsStringSync
   }
 }

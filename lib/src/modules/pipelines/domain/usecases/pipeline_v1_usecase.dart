@@ -12,12 +12,14 @@ import 'package:slidy/src/modules/pipelines/domain/entities/pipeline.dart';
 import 'package:slidy/src/modules/pipelines/domain/errors/errors.dart';
 
 abstract class PipelineV1Usecase {
-  Future<Either<PipelineError, SlidyProccess>> call(Pipeline pipeline, String command, List<String> args);
+  Future<Either<PipelineError, SlidyProccess>> call(
+      Pipeline pipeline, String command, List<String> args);
 }
 
 class PipelineV1UsecaseImpl implements PipelineV1Usecase {
   @override
-  Future<Either<PipelineError, SlidyProccess>> call(Pipeline pipeline, String command, List<String> args) async {
+  Future<Either<PipelineError, SlidyProccess>> call(
+      Pipeline pipeline, String command, List<String> args) async {
     final v1 = pipeline as PipelineV1;
     JobV1 job;
     try {
@@ -30,7 +32,10 @@ class PipelineV1UsecaseImpl implements PipelineV1Usecase {
       for (var step in job.steps) {
         stepName = step.id;
         print(output.green('STEP: $stepName'));
-        final fileName = step.generate?.path == null ? '' : ReCase(Uri.parse(step.generate!.path).pathSegments.last).camelCase;
+        final fileName = step.generate?.path == null
+            ? ''
+            : ReCase(Uri.parse(step.generate!.path).pathSegments.last)
+                .camelCase;
         if (step.generate != null) {
           await _executeGenerate();
         }
@@ -49,19 +54,23 @@ class PipelineV1UsecaseImpl implements PipelineV1Usecase {
 
   Future<void> _executeGenerate() async {}
 
-  Future<void> _executeCommand(List<String> commands, List<String> args, String fileName) async {
+  Future<void> _executeCommand(
+      List<String> commands, List<String> args, String fileName) async {
     final regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
 
     for (var command in commands) {
       command = _processLine(command, args, fileName);
       print(output.green('RUN: $command'));
-      await callProcess(regex.allMatches(command).map((v) => v.group(0)!).toList());
+      await callProcess(
+          regex.allMatches(command).map((v) => v.group(0)!).toList());
     }
   }
 
   String _processLine(String value, List<String> args, String fileName) {
-    value = value.replaceAll('\$fileName|camelcase', ReCase(fileName).camelCase);
-    value = value.replaceAll('\$fileName|pascalcase', ReCase(fileName).pascalCase);
+    value =
+        value.replaceAll('\$fileName|camelcase', ReCase(fileName).camelCase);
+    value =
+        value.replaceAll('\$fileName|pascalcase', ReCase(fileName).pascalCase);
     value = value.replaceAll('\$fileName', fileName);
 
     if (args.isEmpty) return value;
@@ -74,8 +83,12 @@ class PipelineV1UsecaseImpl implements PipelineV1Usecase {
 
   Future<int> callProcess(List<String> commands) async {
     try {
-      var process =
-          await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
+      var process = await Process.start(
+          commands.first,
+          commands.length <= 1
+              ? []
+              : commands.getRange(1, commands.length).toList(),
+          runInShell: true);
 
       final error = process.stderr.transform(utf8.decoder).map(output.red);
       final success = process.stdout.transform(utf8.decoder);

@@ -23,7 +23,8 @@ import 'wrap.dart';
 
 /// Performs the string operation on [yaml] to achieve the effect of setting
 /// the element at [key] to [newValue] when re-parsed.
-SourceEdit updateInMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
+SourceEdit updateInMap(
+    YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
 
@@ -65,17 +66,21 @@ SourceEdit? removeInMap(YamlEditor yamlEdit, YamlMap map, Object key) {
 /// Performs the string operation on [yaml] to achieve the effect of adding
 /// the [key]:[newValue] pair when reparsed, bearing in mind that this is a
 /// block map.
-SourceEdit _addToBlockMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
+SourceEdit _addToBlockMap(
+    YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
 
   final yaml = yamlEdit.toString();
-  final newIndentation = getMapIndentation(yaml, map) + getIndentation(yamlEdit);
+  final newIndentation =
+      getMapIndentation(yaml, map) + getIndentation(yamlEdit);
   final keyString = yamlEncodeFlowString(wrapAsYamlNode(key));
   final lineEnding = getLineEnding(yaml);
 
   var valueString = yamlEncodeBlockString(newValue, newIndentation, lineEnding);
-  if (isCollection(newValue) && !isFlowYamlCollectionNode(newValue) && !isEmpty(newValue)) {
+  if (isCollection(newValue) &&
+      !isFlowYamlCollectionNode(newValue) &&
+      !isEmpty(newValue)) {
     valueString = '$lineEnding$valueString';
   }
 
@@ -113,7 +118,8 @@ SourceEdit _addToBlockMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlNode
 /// Performs the string operation on [yaml] to achieve the effect of adding
 /// the [key]:[newValue] pair when reparsed, bearing in mind that this is a flow
 /// map.
-SourceEdit _addToFlowMap(YamlEditor yamlEdit, YamlMap map, YamlNode keyNode, YamlNode newValue) {
+SourceEdit _addToFlowMap(
+    YamlEditor yamlEdit, YamlMap map, YamlNode keyNode, YamlNode newValue) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
 
@@ -131,7 +137,8 @@ SourceEdit _addToFlowMap(YamlEditor yamlEdit, YamlMap map, YamlNode keyNode, Yam
     return SourceEdit(map.span.end.offset - 1, 0, ', $keyString: $valueString');
   }
 
-  final insertionOffset = (map.nodes.keys.toList()[insertionIndex] as YamlNode).span.start.offset;
+  final insertionOffset =
+      (map.nodes.keys.toList()[insertionIndex] as YamlNode).span.start.offset;
 
   return SourceEdit(insertionOffset, 0, '$keyString: $valueString, ');
 }
@@ -139,17 +146,22 @@ SourceEdit _addToFlowMap(YamlEditor yamlEdit, YamlMap map, YamlNode keyNode, Yam
 /// Performs the string operation on [yaml] to achieve the effect of replacing
 /// the value at [key] with [newValue] when reparsed, bearing in mind that this
 /// is a block map.
-SourceEdit _replaceInBlockMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
+SourceEdit _replaceInBlockMap(
+    YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
 
   final yaml = yamlEdit.toString();
   final lineEnding = getLineEnding(yaml);
-  final newIndentation = getMapIndentation(yaml, map) + getIndentation(yamlEdit);
+  final newIndentation =
+      getMapIndentation(yaml, map) + getIndentation(yamlEdit);
 
   final keyNode = getKeyNode(map, key);
-  var valueAsString = yamlEncodeBlockString(wrapAsYamlNode(newValue), newIndentation, lineEnding);
-  if (isCollection(newValue) && !isFlowYamlCollectionNode(newValue) && !isEmpty(newValue)) {
+  var valueAsString = yamlEncodeBlockString(
+      wrapAsYamlNode(newValue), newIndentation, lineEnding);
+  if (isCollection(newValue) &&
+      !isFlowYamlCollectionNode(newValue) &&
+      !isEmpty(newValue)) {
     valueAsString = lineEnding + valueAsString;
   }
 
@@ -168,7 +180,8 @@ SourceEdit _replaceInBlockMap(YamlEditor yamlEdit, YamlMap map, Object key, Yaml
 /// Performs the string operation on [yaml] to achieve the effect of replacing
 /// the value at [key] with [newValue] when reparsed, bearing in mind that this
 /// is a flow map.
-SourceEdit _replaceInFlowMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
+SourceEdit _replaceInFlowMap(
+    YamlEditor yamlEdit, YamlMap map, Object key, YamlNode newValue) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
 
@@ -180,7 +193,8 @@ SourceEdit _replaceInFlowMap(YamlEditor yamlEdit, YamlMap map, Object key, YamlN
 
 /// Performs the string operation on [yaml] to achieve the effect of removing
 /// the [key] from the map, bearing in mind that this is a block map.
-SourceEdit _removeFromBlockMap(YamlEditor? yamlEdit, YamlMap map, YamlNode keyNode, YamlNode valueNode) {
+SourceEdit _removeFromBlockMap(
+    YamlEditor? yamlEdit, YamlMap map, YamlNode keyNode, YamlNode valueNode) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
   ArgumentError.checkNotNull(keyNode, 'keyNode');
@@ -217,7 +231,8 @@ SourceEdit _removeFromBlockMap(YamlEditor? yamlEdit, YamlMap map, YamlNode keyNo
       /// If there is a `-` before the node, and the end is on the same line
       /// as the next node, we need to add the necessary offset to the end to
       /// make sure the next node has the correct indentation.
-      if (nextNode != null && nextNode.span.start.offset - end <= nextNode.span.start.column) {
+      if (nextNode != null &&
+          nextNode.span.start.offset - end <= nextNode.span.start.column) {
         end += nextNode.span.start.column;
       }
     } else if (lastNewLine > lastHyphen) {
@@ -230,7 +245,8 @@ SourceEdit _removeFromBlockMap(YamlEditor? yamlEdit, YamlMap map, YamlNode keyNo
 
 /// Performs the string operation on [yaml] to achieve the effect of removing
 /// the [key] from the map, bearing in mind that this is a flow map.
-SourceEdit _removeFromFlowMap(YamlEditor? yamlEdit, YamlMap map, YamlNode keyNode, YamlNode valueNode) {
+SourceEdit _removeFromFlowMap(
+    YamlEditor? yamlEdit, YamlMap map, YamlNode keyNode, YamlNode valueNode) {
   ArgumentError.checkNotNull(yamlEdit, 'yamlEdit');
   ArgumentError.checkNotNull(map, 'map');
   ArgumentError.checkNotNull(keyNode, 'keyNode');

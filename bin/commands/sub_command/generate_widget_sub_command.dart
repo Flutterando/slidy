@@ -15,14 +15,18 @@ class GenerateWidgetSubCommand extends CommandBase {
   final description = 'Creates a Widget file';
 
   GenerateWidgetSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
   }
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'widget');
+    final templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', 'widget');
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
+    var result = await Slidy.instance.template.createFile(
+        info: TemplateInfo(
+            yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
     execute(result);
 
     if (!argResults!['notest']) {
@@ -31,7 +35,10 @@ class GenerateWidgetSubCommand extends CommandBase {
               yaml: widgetsFile,
               destiny: templateFile.fileTest,
               key: 'page_test',
-              args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
+              args: [
+            templateFile.fileNameWithUppeCase + 'Widget',
+            templateFile.import
+          ]));
       execute(result);
     }
   }

@@ -13,7 +13,8 @@ class UninstallCommand extends CommandBase {
   final description = 'Remove a package';
 
   UninstallCommand() {
-    argParser.addFlag('dev', negatable: false, help: 'Remove a package in a dev dependency');
+    argParser.addFlag('dev',
+        negatable: false, help: 'Remove a package in a dev dependency');
   }
 
   @override
@@ -22,7 +23,8 @@ class UninstallCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       for (var pack in argResults!.rest) {
-        final result = await Slidy.instance.instalation.uninstall(package: PackageName(pack, isDev: argResults?['dev'] == true));
+        final result = await Slidy.instance.instalation.uninstall(
+            package: PackageName(pack, isDev: argResults?['dev'] == true));
         execute(result);
       }
     }

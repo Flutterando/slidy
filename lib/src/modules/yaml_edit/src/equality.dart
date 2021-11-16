@@ -19,7 +19,8 @@ import 'package:yaml/yaml.dart';
 
 /// Creates a map that uses our custom [deepEquals] and [deepHashCode] functions
 /// to determine equality.
-Map<K, V> deepEqualsMap<K, V>() => LinkedHashMap(equals: deepEquals, hashCode: (v) => deepHashCode(v));
+Map<K, V> deepEqualsMap<K, V>() =>
+    LinkedHashMap(equals: deepEquals, hashCode: (v) => deepHashCode(v));
 
 /// Compares two [Object]s for deep equality. This implementation differs from
 /// `package:yaml`'s deep equality notation by allowing for comparison of
@@ -84,7 +85,8 @@ bool mapDeepEquals(Map map1, Map map2) {
 int deepHashCode(dynamic value) {
   if (value is Map) {
     const equality = UnorderedIterableEquality();
-    return equality.hash(value.keys.map(deepHashCode)) ^ equality.hash(value.values.map(deepHashCode));
+    return equality.hash(value.keys.map(deepHashCode)) ^
+        equality.hash(value.values.map(deepHashCode));
   } else if (value is Iterable) {
     return const IterableEquality().hash(value.map(deepHashCode));
   } else if (value is YamlScalar) {

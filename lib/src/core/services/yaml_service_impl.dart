@@ -66,15 +66,18 @@ class YamlServiceImpl implements YamlService {
     final node = getValue(['include']);
     if (node is YamlScalar) {
       final file = getYamlFile(yaml, node.value);
-      final newYaml = yamlEditor.toString() + '\n' + (await file.readAsString());
-      return YamlServiceImpl(yaml: File(''), customyamlEditor: YamlEditor(newYaml));
+      final newYaml =
+          yamlEditor.toString() + '\n' + (await file.readAsString());
+      return YamlServiceImpl(
+          yaml: File(''), customyamlEditor: YamlEditor(newYaml));
     } else if (node is YamlList) {
       var newYaml = yamlEditor.toString();
       for (var path in node.value) {
         final file = getYamlFile(yaml, path);
         newYaml += '\n' + (await file.readAsString());
       }
-      return YamlServiceImpl(yaml: File(''), customyamlEditor: YamlEditor(newYaml));
+      return YamlServiceImpl(
+          yaml: File(''), customyamlEditor: YamlEditor(newYaml));
     }
 
     return this;

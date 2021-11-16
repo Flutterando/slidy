@@ -17,15 +17,21 @@ void main() async {
   final yamlToMapService = YamlToMapServiceMock();
   final pipelineV1Usecase = PipelineV1UsecaseMock();
   setUpAll(() {
-    registerFallbackValue<Pipeline>(
-        PipelineV1.fromMap(loadYaml(yamlText), (pipeline, command, args) => pipelineV1Usecase.call(pipeline, command, args)));
+    registerFallbackValue<Pipeline>(PipelineV1.fromMap(
+        loadYaml(yamlText),
+        (pipeline, command, args) =>
+            pipelineV1Usecase.call(pipeline, command, args)));
   });
-  final usecase = PipelineExecuteImpl(v1: pipelineV1Usecase, yamlToMapService: yamlToMapService);
+  final usecase = PipelineExecuteImpl(
+      v1: pipelineV1Usecase, yamlToMapService: yamlToMapService);
   test('should execute pipeline v1', () async {
-    when(() => yamlToMapService.convert(any())).thenAnswer((_) async => Right(loadYaml(yamlText)));
-    when(() => pipelineV1Usecase.call(any(), any(), any())).thenAnswer((_) async => Right(SlidyProccess(result: 'ok ok!')));
+    when(() => yamlToMapService.convert(any()))
+        .thenAnswer((_) async => Right(loadYaml(yamlText)));
+    when(() => pipelineV1Usecase.call(any(), any(), any()))
+        .thenAnswer((_) async => Right(SlidyProccess(result: 'ok ok!')));
 
-    final result = await usecase.call(params: PipelineParams(yamlPath: '/path/yaml', command: 'command'));
+    final result = await usecase.call(
+        params: PipelineParams(yamlPath: '/path/yaml', command: 'command'));
     expect(result.isRight(), true);
     final pipelineResult = result.fold(id, id);
     expect(pipelineResult, isA<SlidyProccess>());

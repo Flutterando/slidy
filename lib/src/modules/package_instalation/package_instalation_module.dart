@@ -13,7 +13,8 @@ void PackageInstalationModule() {
     ..register((i) => Install(i()))
     ..register((i) => Uninstall(i()))
     //infra
-    ..register<PackageInstalationRepository>((i) => PackageInstalationRepositoryImpl(pubspec: i(), client: i()))
+    ..register<PackageInstalationRepository>(
+        (i) => PackageInstalationRepositoryImpl(pubspec: i(), client: i()))
     //external
     ..register<GetPackageVersion>((i) => GetPackageVersionImpl(i()));
 }

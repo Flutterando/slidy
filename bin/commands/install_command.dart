@@ -15,7 +15,9 @@ class InstallCommand extends CommandBase {
   final description = 'Install (or update) a new package or packages:';
 
   InstallCommand() {
-    argParser.addFlag('dev', negatable: false, help: 'Install (or update) a package in a dev dependency');
+    argParser.addFlag('dev',
+        negatable: false,
+        help: 'Install (or update) a package in a dev dependency');
   }
 
   @override
@@ -24,7 +26,8 @@ class InstallCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     } else {
       for (var pack in argResults!.rest) {
-        final result = await Slidy.instance.instalation.install(package: PackageName(pack, isDev: argResults?['dev'] == true));
+        final result = await Slidy.instance.instalation.install(
+            package: PackageName(pack, isDev: argResults?['dev'] == true));
         execute(result);
       }
     }

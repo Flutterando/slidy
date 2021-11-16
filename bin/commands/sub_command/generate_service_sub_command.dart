@@ -16,8 +16,10 @@ class GenerateServiceSubCommand extends CommandBase {
   final description = 'Creates a Service';
 
   GenerateServiceSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addFlag('interface', abbr: 'i', negatable: false, help: 'Create Service Inteface');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'Create Service Inteface');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -28,7 +30,8 @@ class GenerateServiceSubCommand extends CommandBase {
         defaultsTo: 'lazy-singleton',
         allowedHelp: {
           'singleton': 'Object persist while module exists',
-          'lazy-singleton': 'Object persist while module exists, but only after being called first for the fist time',
+          'lazy-singleton':
+              'Object persist while module exists, but only after being called first for the fist time',
           'factory': 'A new object is created each time it is called.',
         },
         help: 'Define type injection in parent module');
@@ -36,7 +39,8 @@ class GenerateServiceSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'service');
+    final templateFile = await TemplateFile.getInstance(
+        argResults?.rest.single ?? '', 'service');
     var result = await Slidy.instance.template.createFile(
       info: TemplateInfo(
         yaml: serviceFile,
@@ -55,13 +59,18 @@ class GenerateServiceSubCommand extends CommandBase {
     }
 
     if (argResults!['interface']) {
-      print('${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
+      print(
+          '${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
       result = await Slidy.instance.template.createFile(
           info: TemplateInfo(
               yaml: serviceFile,
-              destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
+              destiny: File(
+                  '${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
               key: 'i_service',
-              args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
+              args: [
+            templateFile.fileNameWithUppeCase + 'Service',
+            templateFile.import
+          ]));
       execute(result);
     }
 
@@ -71,7 +80,10 @@ class GenerateServiceSubCommand extends CommandBase {
               yaml: serviceFile,
               destiny: templateFile.fileTest,
               key: 'test_service',
-              args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
+              args: [
+            templateFile.fileNameWithUppeCase + 'Service',
+            templateFile.import
+          ]));
       execute(result);
     }
   }

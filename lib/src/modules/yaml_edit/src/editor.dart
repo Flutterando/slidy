@@ -253,7 +253,8 @@ class YamlEditor {
       final start = _contents?.span.start.offset ?? 0;
       final end = getContentSensitiveEnd(_contents);
       final lineEnding = getLineEnding(_yaml ?? '');
-      final edit = SourceEdit(start, end - start, yamlEncodeBlockString(valueNode, 0, lineEnding));
+      final edit = SourceEdit(
+          start, end - start, yamlEncodeBlockString(valueNode, 0, lineEnding));
 
       return _performEdit(edit, path, valueNode);
     }
@@ -268,15 +269,19 @@ class YamlEditor {
         [...parentNode.nodes]..[keyOrIndex] = valueNode,
       );
 
-      return _performEdit(updateInList(this, parentNode, keyOrIndex, valueNode), collectionPath, expected);
+      return _performEdit(updateInList(this, parentNode, keyOrIndex, valueNode),
+          collectionPath, expected);
     }
 
     if (parentNode is YamlMap) {
-      final expectedMap = updatedYamlMap(parentNode, (nodes) => nodes[keyOrIndex] = valueNode);
-      return _performEdit(updateInMap(this, parentNode, keyOrIndex, valueNode), collectionPath, expectedMap);
+      final expectedMap =
+          updatedYamlMap(parentNode, (nodes) => nodes[keyOrIndex] = valueNode);
+      return _performEdit(updateInMap(this, parentNode, keyOrIndex, valueNode),
+          collectionPath, expectedMap);
     }
 
-    throw PathError.unexpected(path, 'Scalar $parentNode does not have key $keyOrIndex');
+    throw PathError.unexpected(
+        path, 'Scalar $parentNode does not have key $keyOrIndex');
   }
 
   /// Appends [value] to the list at [path].
@@ -355,7 +360,8 @@ class YamlEditor {
   /// doc.spliceList([], 1, 0, ['Feb']); // [Jan, Feb, March, April, June]
   /// doc.spliceList([], 4, 1, ['May']); // [Jan, Feb, March, April, May]
   /// ```
-  Iterable<YamlNode> spliceList(Iterable<Object> path, int index, int deleteCount, Iterable<Object> values) {
+  Iterable<YamlNode> spliceList(Iterable<Object> path, int index,
+      int deleteCount, Iterable<Object> values) {
     ArgumentError.checkNotNull(path, 'path');
     ArgumentError.checkNotNull(index, 'index');
     ArgumentError.checkNotNull(deleteCount, 'deleteCount');
@@ -439,7 +445,8 @@ class YamlEditor {
     } else if (parentNode is YamlMap) {
       edit = removeInMap(this, parentNode, keyOrIndex);
 
-      expectedNode = updatedYamlMap(parentNode, (nodes) => nodes.remove(keyOrIndex));
+      expectedNode =
+          updatedYamlMap(parentNode, (nodes) => nodes.remove(keyOrIndex));
     }
 
     _performEdit(edit, collectionPath, expectedNode);
@@ -456,7 +463,8 @@ class YamlEditor {
   ///
   /// If [checkAlias] is `true`, throw [AliasError] if an aliased node is
   /// encountered.
-  YamlNode? _traverse(Iterable<Object> path, {bool checkAlias = false, YamlNode? Function()? orElse}) {
+  YamlNode? _traverse(Iterable<Object> path,
+      {bool checkAlias = false, YamlNode? Function()? orElse}) {
     ArgumentError.checkNotNull(path, 'path');
     ArgumentError.checkNotNull(checkAlias, 'checkAlias');
 
@@ -504,7 +512,8 @@ class YamlEditor {
 
   /// Throws a [PathError] if [orElse] is not provided, returns the result
   /// of invoking the [orElse] function otherwise.
-  YamlNode? _pathErrorOrElse(Iterable<Object> path, Iterable<Object> subPath, YamlNode? parent, YamlNode? Function()? orElse) {
+  YamlNode? _pathErrorOrElse(Iterable<Object> path, Iterable<Object> subPath,
+      YamlNode? parent, YamlNode? Function()? orElse) {
     if (orElse == null) throw PathError(path, subPath, parent);
     return orElse();
   }
@@ -551,7 +560,8 @@ class YamlEditor {
     if (possibleList is YamlList) {
       return possibleList;
     } else {
-      throw PathError.unexpected(path, 'Path $path does not point to a YamlList!');
+      throw PathError.unexpected(
+          path, 'Path $path does not point to a YamlList!');
     }
   }
 
@@ -561,7 +571,8 @@ class YamlEditor {
   /// and reloaded and traversed down [path] to ensure that the reloaded YAML
   /// tree is equal to our expectations by deep equality of values. Throws an
   /// [AssertionError] if the two trees do not match.
-  void _performEdit(SourceEdit? edit, Iterable<Object> path, YamlNode? expectedNode) {
+  void _performEdit(
+      SourceEdit? edit, Iterable<Object> path, YamlNode? expectedNode) {
     ArgumentError.checkNotNull(edit, 'edit');
     ArgumentError.checkNotNull(path, 'path');
 
@@ -572,12 +583,18 @@ class YamlEditor {
     try {
       _initialize();
     } on YamlException {
-      throw createAssertionError('Failed to produce valid YAML after modification.', initialYaml, _yaml);
+      throw createAssertionError(
+          'Failed to produce valid YAML after modification.',
+          initialYaml,
+          _yaml);
     }
 
     final actualTree = loadYamlNode(_yaml ?? '');
     if (!deepEquals(actualTree, expectedTree)) {
-      throw createAssertionError('Modification did not result in expected result.', initialYaml, _yaml);
+      throw createAssertionError(
+          'Modification did not result in expected result.',
+          initialYaml,
+          _yaml);
     }
 
     _contents = actualTree;
@@ -596,7 +613,8 @@ class YamlEditor {
   /// the whole tree.
   ///
   /// [SourceSpan]s in this new tree are not guaranteed to be accurate.
-  YamlNode? _deepModify(YamlNode? tree, Iterable<Object> path, Iterable<Object> subPath, YamlNode? expectedNode) {
+  YamlNode? _deepModify(YamlNode? tree, Iterable<Object> path,
+      Iterable<Object> subPath, YamlNode? expectedNode) {
     ArgumentError.checkNotNull(path, 'path');
     ArgumentError.checkNotNull(tree, 'tree');
     RangeError.checkValueInInterval(subPath.length, 0, path.length);
@@ -610,7 +628,8 @@ class YamlEditor {
         throw PathError(path, subPath, tree);
       }
 
-      final result = _deepModify(tree.nodes[keyOrIndex], path, path.take(subPath.length + 1), expectedNode);
+      final result = _deepModify(tree.nodes[keyOrIndex], path,
+          path.take(subPath.length + 1), expectedNode);
       if (result != null) {
         return wrapAsYamlNode([...tree.nodes]..[keyOrIndex] = result);
       } else {
@@ -620,7 +639,9 @@ class YamlEditor {
 
     if (tree is YamlMap) {
       return updatedYamlMap(
-          tree, (nodes) => nodes[keyOrIndex] = _deepModify(nodes[keyOrIndex], path, path.take(subPath.length + 1), expectedNode));
+          tree,
+          (nodes) => nodes[keyOrIndex] = _deepModify(nodes[keyOrIndex], path,
+              path.take(subPath.length + 1), expectedNode));
     }
 
     /// Should not ever reach here.

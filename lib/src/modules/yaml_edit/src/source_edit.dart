@@ -39,7 +39,8 @@ class SourceEdit {
 
   /// Creates a new [SourceEdit] instance. [offset], [length] and [replacement]
   /// must be non-null, and [offset] and [length] must be non-negative.
-  factory SourceEdit(int offset, int length, String replacement) => SourceEdit._(offset, length, replacement);
+  factory SourceEdit(int offset, int length, String replacement) =>
+      SourceEdit._(offset, length, replacement);
 
   SourceEdit._(this.offset, this.length, this.replacement) {
     ArgumentError.checkNotNull(offset, 'offset');
@@ -52,7 +53,9 @@ class SourceEdit {
   @override
   bool operator ==(Object other) {
     if (other is SourceEdit) {
-      return offset == other.offset && length == other.length && replacement == other.replacement;
+      return offset == other.offset &&
+          length == other.length &&
+          replacement == other.replacement;
     }
 
     return false;
