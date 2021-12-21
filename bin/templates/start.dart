@@ -164,6 +164,7 @@ home_page_cubit: |
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(title: Text("Home")),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
