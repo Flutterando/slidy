@@ -136,7 +136,7 @@ cubit: |
     CounterCubit() : super(0);
   
     void increment() => emit(state + 1);
-    void decrement() => emit(state 1);
+    void decrement() => emit(state - 1);
   }
 
 home_page_cubit: |
@@ -164,6 +164,7 @@ home_page_cubit: |
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(title: Text("Home")),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
