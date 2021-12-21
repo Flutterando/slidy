@@ -11,7 +11,8 @@ class Install implements UseCase<SlidyError, SlidyProccess, PackageName> {
   Install(this.repository);
 
   @override
-  Future<Either<SlidyError, SlidyProccess>> call({required PackageName params}) async {
+  Future<Either<SlidyError, SlidyProccess>> call(
+      {required PackageName params}) async {
     return await repository.install(params);
   }
 }

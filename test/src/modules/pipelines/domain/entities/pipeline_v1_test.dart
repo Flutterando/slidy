@@ -7,12 +7,14 @@ import 'package:yaml/yaml.dart';
 void main() {
   test('fromJson', () {
     final yaml = loadYaml(yamlText);
-    final pipeline = PipelineV1.fromMap(yaml as Map, (pipeline, c, a) async => Right(SlidyProccess(result: 'result')));
+    final pipeline = PipelineV1.fromMap(yaml as Map,
+        (pipeline, c, a) async => Right(SlidyProccess(result: 'result')));
     expect(pipeline.name, 'Slidy Pipeline');
     expect(pipeline.version, 'v1');
     expect(pipeline.jobs.first.name, 'Named Command');
     expect(pipeline.jobs.first.steps.first.id, 'First File Creation');
-    expect(pipeline.jobs.first.steps.first.generate?.moduleInjection?.type, ModuleInjectionV1Type.bind);
+    expect(pipeline.jobs.first.steps.first.generate?.moduleInjection?.type,
+        ModuleInjectionV1Type.bind);
   });
 }
 

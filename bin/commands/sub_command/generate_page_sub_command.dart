@@ -15,20 +15,28 @@ class GeneratePageSubCommand extends CommandBase {
   final description = 'Creates a Page file';
 
   GeneratePageSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addOption('routing', abbr: 'r', help: 'Define routing path in parent module');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addOption('routing',
+        abbr: 'r', help: 'Define routing path in parent module');
   }
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'page');
+    final templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', 'page');
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'page'));
+    var result = await Slidy.instance.template.createFile(
+        info: TemplateInfo(
+            yaml: widgetsFile, destiny: templateFile.file, key: 'page'));
     execute(result);
 
     if (argResults!['routing'] != null) {
       await utils.injectParentModuleRouting(
-          argResults!['routing'], '${templateFile.fileNameWithUppeCase}Page()', templateFile.import, templateFile.file.parent);
+          argResults!['routing'],
+          '${templateFile.fileNameWithUppeCase}Page()',
+          templateFile.import,
+          templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
@@ -37,7 +45,10 @@ class GeneratePageSubCommand extends CommandBase {
               yaml: widgetsFile,
               destiny: templateFile.fileTest,
               key: 'page_test',
-              args: [templateFile.fileNameWithUppeCase + 'Page', templateFile.import]));
+              args: [
+            templateFile.fileNameWithUppeCase + 'Page',
+            templateFile.import
+          ]));
       execute(result);
     }
   }

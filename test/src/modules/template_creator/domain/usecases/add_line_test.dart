@@ -23,7 +23,10 @@ class FileDestinyMock extends Mock implements File {
   }
 
   @override
-  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
+  Future<File> writeAsString(String contents,
+      {FileMode mode = FileMode.write,
+      Encoding encoding = utf8,
+      bool flush = false}) async {
     savedFile = contents;
     return this;
   }
@@ -35,34 +38,42 @@ void main() {
   final usecase = AddLine();
 
   test('should add one line in template', () async {
-    when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
-    final result = await usecase(params: LineParams(destiny, inserts: ['jacob']));
+    when(() => destiny.readAsLines())
+        .thenAnswer((_) async => yamlText.split('\n'));
+    final result =
+        await usecase(params: LineParams(destiny, inserts: ['jacob']));
     expect(result.isRight(), true);
     expect(destiny.savedFile, savedText);
   });
 
   test('should add more then one line in template', () async {
-    when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
-    final result = await usecase(params: LineParams(destiny, inserts: ['jacob', 'joão', 'maria']));
+    when(() => destiny.readAsLines())
+        .thenAnswer((_) async => yamlText.split('\n'));
+    final result = await usecase(
+        params: LineParams(destiny, inserts: ['jacob', 'joão', 'maria']));
     expect(result.isRight(), true);
     expect(destiny.savedFile, savedMultipleTexts);
   });
 
   test('should add line inside main()', () async {
-    when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
-    final result = await usecase(params: LineParams(destiny, position: 1, inserts: ['inside();']));
+    when(() => destiny.readAsLines())
+        .thenAnswer((_) async => yamlText.split('\n'));
+    final result = await usecase(
+        params: LineParams(destiny, position: 1, inserts: ['inside();']));
     expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextInsertedInExpecificPosition);
   });
 
   test('should replace line', () async {
-    when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => destiny.readAsLines())
+        .thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(
         params: LineParams(
       destiny,
       replaceLine: (line) {
         if (line.contains('runApp(myApp());')) {
-          return line.replaceFirst('runApp(myApp());', 'runApp(myApp(), addedNew());');
+          return line.replaceFirst(
+              'runApp(myApp());', 'runApp(myApp(), addedNew());');
         }
         return line;
       },
@@ -71,7 +82,8 @@ void main() {
     expect(destiny.savedFile, savedTextAfterReplaced);
   });
   test('should added above line', () async {
-    when(() => destiny.readAsLines()).thenAnswer((_) async => yamlText.split('\n'));
+    when(() => destiny.readAsLines())
+        .thenAnswer((_) async => yamlText.split('\n'));
     final result = await usecase(
         params: LineParams(
       destiny,

@@ -13,7 +13,10 @@ class FileMock extends Mock implements File {
   FileMock(this.stringYaml);
 
   @override
-  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
+  Future<File> writeAsString(String contents,
+      {FileMode mode = FileMode.write,
+      Encoding encoding = utf8,
+      bool flush = false}) async {
     savedFile = contents;
     return this;
   }

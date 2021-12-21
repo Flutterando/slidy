@@ -6,5 +6,6 @@ class LineParams {
   final List<String> inserts;
   final String Function(String line)? replaceLine;
 
-  LineParams(this.file, {this.position = 0, this.replaceLine, this.inserts = const []});
+  LineParams(this.file,
+      {this.position = 0, this.replaceLine, this.inserts = const []});
 }

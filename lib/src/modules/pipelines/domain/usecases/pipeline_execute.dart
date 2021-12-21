@@ -9,17 +9,23 @@ import 'package:slidy/src/modules/pipelines/domain/errors/errors.dart';
 import 'package:slidy/src/modules/pipelines/domain/services/yaml_to_map_service.dart';
 import 'package:slidy/src/modules/pipelines/domain/usecases/pipeline_v1_usecase.dart';
 
-class PipelineExecuteImpl implements UseCase<SlidyError, SlidyProccess, PipelineParams> {
+class PipelineExecuteImpl
+    implements UseCase<SlidyError, SlidyProccess, PipelineParams> {
   final PipelineV1Usecase v1;
   final YamlToMapService yamlToMapService;
 
-  late final mapPipelineByVersion = <String, Pipeline Function(Map)>{'v1': (map) => PipelineV1.fromMap(map, v1)};
+  late final mapPipelineByVersion = <String, Pipeline Function(Map)>{
+    'v1': (map) => PipelineV1.fromMap(map, v1)
+  };
 
   PipelineExecuteImpl({required this.v1, required this.yamlToMapService});
   @override
-  Future<Either<PipelineError, SlidyProccess>> call({required PipelineParams params}) async {
+  Future<Either<PipelineError, SlidyProccess>> call(
+      {required PipelineParams params}) async {
     final yamlToMapResult = await yamlToMapService.convert(params.yamlPath);
-    return yamlToMapResult.bind<Pipeline>(_bindServiceResult).asyncBind<SlidyProccess>((pipeline) {
+    return yamlToMapResult
+        .bind<Pipeline>(_bindServiceResult)
+        .asyncBind<SlidyProccess>((pipeline) {
       return pipeline(params.command, params.args);
     });
   }
@@ -35,7 +41,8 @@ class PipelineExecuteImpl implements UseCase<SlidyError, SlidyProccess, Pipeline
 }
 
 extension EitherExtension<L, R> on Either<L, R> {
-  Future<Either<L, R2>> asyncBind<R2>(Future<Either<L, R2>> Function(R) asyncF) async {
+  Future<Either<L, R2>> asyncBind<R2>(
+      Future<Either<L, R2>> Function(R) asyncF) async {
     return fold((l) async => left(l), asyncF);
   }
 }
@@ -45,5 +52,6 @@ class PipelineParams {
   final String command;
   final List<String> args;
 
-  PipelineParams({required this.yamlPath, required this.command, this.args = const []});
+  PipelineParams(
+      {required this.yamlPath, required this.command, this.args = const []});
 }

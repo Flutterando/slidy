@@ -14,10 +14,12 @@ class UpgradeCommand extends CommandBase {
   void run() {
     try {
       output.title('Upgrading Slidy...');
-      Process.runSync('dart', ['pub', 'global', 'activate', 'slidy'], runInShell: true);
+      Process.runSync('dart', ['pub', 'global', 'activate', 'slidy'],
+          runInShell: true);
       output.success('upgraded!');
 
-      var process = Process.runSync('slidy', ['-v'], runInShell: true, stdoutEncoding: utf8);
+      var process = Process.runSync('slidy', ['-v'],
+          runInShell: true, stdoutEncoding: utf8);
       print(process.stdout);
     } catch (e) {
       output.error('Failure upgrade :(');

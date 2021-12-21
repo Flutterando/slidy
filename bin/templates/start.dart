@@ -310,7 +310,7 @@ home_page_triple: |
 
 home_module_triple: |
    import 'package:flutter_modular/flutter_modular.dart';
-   import '../home/home_store.dart'; 
+   import 'home_store.dart'; 
    
    import 'home_page.dart';
     
@@ -362,7 +362,7 @@ home_page_mobx: |
 
 home_module_mobx: |
    import 'package:flutter_modular/flutter_modular.dart';
-   import '../home/home_store.dart'; 
+   import 'home_store.dart'; 
    
    import 'home_page.dart';
     

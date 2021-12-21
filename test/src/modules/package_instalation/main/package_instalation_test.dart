@@ -32,7 +32,8 @@ void main() {
   sl.changeRegister<YamlService>((i) => pubspecService);
 
   test('install', () async {
-    when(() => client.get(any())).thenAnswer((_) async => Response(jsonPackageResult, 200));
+    when(() => client.get(any()))
+        .thenAnswer((_) async => Response(jsonPackageResult, 200));
     when(() => pubspecService.save()).thenAnswer((_) async => true);
     final result = await main.install(package: PackageName('package'));
     expect(result.isRight(), true);

@@ -59,13 +59,19 @@ bool isBlockNode(YamlNode node) {
   ArgumentError.checkNotNull(node, 'node');
 
   if (node is YamlScalar) {
-    if (node.style == ScalarStyle.LITERAL || node.style == ScalarStyle.FOLDED || node.style == ScalarStyle.ANY) {
+    if (node.style == ScalarStyle.LITERAL ||
+        node.style == ScalarStyle.FOLDED ||
+        node.style == ScalarStyle.ANY) {
       return true;
     }
   }
 
-  if (node is YamlList && (node.style == CollectionStyle.BLOCK || node.style == CollectionStyle.ANY)) return true;
-  if (node is YamlMap && (node.style == CollectionStyle.BLOCK || node.style == CollectionStyle.ANY)) return true;
+  if (node is YamlList &&
+      (node.style == CollectionStyle.BLOCK ||
+          node.style == CollectionStyle.ANY)) return true;
+  if (node is YamlMap &&
+      (node.style == CollectionStyle.BLOCK ||
+          node.style == CollectionStyle.ANY)) return true;
 
   return false;
 }

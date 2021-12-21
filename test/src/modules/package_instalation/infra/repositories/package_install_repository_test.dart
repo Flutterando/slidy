@@ -18,7 +18,8 @@ void main() {
   final pubspecService = YamlServiceMock();
   final client = GetPackageVersionMock();
 
-  final service = PackageInstalationRepositoryImpl(pubspec: pubspecService, client: client);
+  final service =
+      PackageInstalationRepositoryImpl(pubspec: pubspecService, client: client);
 
   test('should install package', () async {
     when(() => pubspecService.save()).thenAnswer((_) async => true);

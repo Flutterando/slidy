@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class InsurencePage extends StatefulWidget {
   final String title;
-  const InsurencePage({Key? key, this.title = "InsurencePage"}) : super(key: key);
+  const InsurencePage({Key? key, this.title = "InsurencePage"})
+      : super(key: key);
   @override
   InsurencePageState createState() => InsurencePageState();
 }

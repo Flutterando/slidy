@@ -24,7 +24,8 @@ import 'utils.dart';
 /// ' null').
 String _tryYamlEncodePlain(Object value) {
   if (value is YamlNode) {
-    AssertionError('YamlNodes should not be passed directly into getSafeString!');
+    AssertionError(
+        'YamlNodes should not be passed directly into getSafeString!');
   }
 
   assertValidScalar(value);
@@ -114,14 +115,17 @@ String _tryYamlEncodeFolded(String string, int indentation, String lineEnding) {
   /// Duplicating the newline for folded strings preserves it in YAML.
   /// Assumes the user did not try to account for windows documents by using
   /// `\r\n` already
-  return result + trimmedString.replaceAll('\n', lineEnding * 2 + ' ' * indentation) + removedPortion;
+  return result +
+      trimmedString.replaceAll('\n', lineEnding * 2 + ' ' * indentation) +
+      removedPortion;
 }
 
 /// Generates a YAML-safe literal string.
 ///
 /// It is important that we ensure that [string] is free of unprintable
 /// characters by calling [assertValidScalar] before invoking this function.
-String _tryYamlEncodeLiteral(String string, int indentation, String lineEnding) {
+String _tryYamlEncodeLiteral(
+    String string, int indentation, String lineEnding) {
   ArgumentError.checkNotNull(string, 'string');
   ArgumentError.checkNotNull(indentation, 'indentation');
   ArgumentError.checkNotNull(lineEnding, 'lineEnding');
@@ -145,7 +149,8 @@ String _yamlEncodeFlowScalar(YamlNode value) {
     assertValidScalar(value.value);
 
     if (value.value is String) {
-      if (_hasUnprintableCharacters(value.value) || value.style == ScalarStyle.DOUBLE_QUOTED) {
+      if (_hasUnprintableCharacters(value.value) ||
+          value.style == ScalarStyle.DOUBLE_QUOTED) {
         return _yamlEncodeDoubleQuoted(value.value);
       }
 
@@ -168,7 +173,8 @@ String _yamlEncodeFlowScalar(YamlNode value) {
 /// possible. Certain cases make this impossible (e.g. a folded string scalar
 /// 'null'), in which case we will produce [value] with default styling
 /// options.
-String yamlEncodeBlockScalar(YamlNode value, int indentation, String lineEnding) {
+String yamlEncodeBlockScalar(
+    YamlNode value, int indentation, String lineEnding) {
   ArgumentError.checkNotNull(indentation, 'indentation');
   ArgumentError.checkNotNull(lineEnding, 'lineEnding');
 
@@ -185,7 +191,8 @@ String yamlEncodeBlockScalar(YamlNode value, int indentation, String lineEnding)
       }
 
       // Strings with only white spaces will cause a misparsing
-      if (value.value.trim().length == value.value.length && value.value.length != 0) {
+      if (value.value.trim().length == value.value.length &&
+          value.value.length != 0) {
         if (value.style == ScalarStyle.FOLDED) {
           return _tryYamlEncodeFolded(value.value, indentation, lineEnding);
         }
@@ -234,7 +241,8 @@ String yamlEncodeFlowString(YamlNode value) {
 /// Returns [value] with the necessary formatting applied in a block context.
 ///
 /// If [value] is a [YamlNode], we respect its [style] parameter.
-String yamlEncodeBlockString(YamlNode value, int indentation, String lineEnding) {
+String yamlEncodeBlockString(
+    YamlNode value, int indentation, String lineEnding) {
   ArgumentError.checkNotNull(indentation, 'indentation');
   ArgumentError.checkNotNull(lineEnding, 'lineEnding');
 
@@ -252,7 +260,8 @@ String yamlEncodeBlockString(YamlNode value, int indentation, String lineEnding)
     final children = value.nodes;
 
     safeValues = children.map((child) {
-      var valueString = yamlEncodeBlockString(child, newIndentation, lineEnding);
+      var valueString =
+          yamlEncodeBlockString(child, newIndentation, lineEnding);
       if (isCollection(child) && !isFlowYamlCollectionNode(child)) {
         valueString = valueString.substring(newIndentation);
       }
@@ -267,7 +276,8 @@ String yamlEncodeBlockString(YamlNode value, int indentation, String lineEnding)
     return value.nodes.entries.map((entry) {
       final safeKey = yamlEncodeFlowString(entry.key);
       final formattedKey = ' ' * indentation + safeKey;
-      final formattedValue = yamlEncodeBlockString(entry.value, newIndentation, lineEnding);
+      final formattedValue =
+          yamlEncodeBlockString(entry.value, newIndentation, lineEnding);
 
       /// Empty collections are always encoded in flow-style, so new-line must
       /// be avoided

@@ -12,7 +12,8 @@ class Uninstall implements UseCase<SlidyError, SlidyProccess, PackageName> {
   Uninstall(this.repository);
 
   @override
-  Future<Either<SlidyError, SlidyProccess>> call({required PackageName params}) async {
+  Future<Either<SlidyError, SlidyProccess>> call(
+      {required PackageName params}) async {
     return await repository.uninstall(params);
   }
 }

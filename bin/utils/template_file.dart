@@ -23,10 +23,12 @@ class TemplateFile {
 
   static Future<TemplateFile> getInstance(String path, String? type) async {
     final pubspec = Slidy.instance.get<YamlService>();
-    return TemplateFile._(path, type == null ? '' : '_$type', (pubspec.getValue(['name']))?.value);
+    return TemplateFile._(path, type == null ? '' : '_$type',
+        (pubspec.getValue(['name']))?.value);
   }
 
-  Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {
+  Future<bool> checkDependencyIsExist(String dependency,
+      [bool isDev = false]) async {
     try {
       final dependenciesLine = isDev ? 'dev_dependencies' : 'dependencies';
       final pubspec = Slidy.instance.get<YamlService>();

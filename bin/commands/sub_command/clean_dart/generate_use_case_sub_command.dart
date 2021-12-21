@@ -17,7 +17,8 @@ class GenerateUseCaseSubCommand extends CommandBase {
   final description = 'Creates a Use Case file';
 
   GenerateUseCaseSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
     argParser.addOption('bind',
         abbr: 'u',
         allowed: [
@@ -28,7 +29,8 @@ class GenerateUseCaseSubCommand extends CommandBase {
         defaultsTo: 'lazy-singleton',
         allowedHelp: {
           'singleton': 'Object persist while module exists',
-          'lazy-singleton': 'Object persist while module exists, but only after being called first for the fist time',
+          'lazy-singleton':
+              'Object persist while module exists, but only after being called first for the fist time',
           'factory': 'A new object is created each time it is called.',
         },
         help: 'Define type injection in parent module');
@@ -36,7 +38,8 @@ class GenerateUseCaseSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
+    final templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
 
     if (!await templateFile.checkDependencyIsExist('dartz')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
@@ -44,12 +47,18 @@ class GenerateUseCaseSubCommand extends CommandBase {
     }
 
     var result = await Slidy.instance.template.createFile(
-        info:
-            TemplateInfo(yaml: use_case, destiny: templateFile.file, key: 'use_case', args: [templateFile.fileNameWithUppeCase + 'Event']));
+        info: TemplateInfo(
+            yaml: use_case,
+            destiny: templateFile.file,
+            key: 'use_case',
+            args: [templateFile.fileNameWithUppeCase + 'Event']));
     execute(result);
     if (result.isRight()) {
       await utils.injectParentModule(
-          argResults!['bind'], '${templateFile.fileNameWithUppeCase}()', templateFile.import, templateFile.file.parent);
+          argResults!['bind'],
+          '${templateFile.fileNameWithUppeCase}()',
+          templateFile.import,
+          templateFile.file.parent);
     }
 
     if (!argResults!['notest']) {
@@ -58,7 +67,11 @@ class GenerateUseCaseSubCommand extends CommandBase {
               yaml: use_case,
               destiny: templateFile.fileTest,
               key: 'use_case_test',
-              args: [templateFile.fileNameWithUppeCase, templateFile.import, templateFile.fileNameWithUppeCase]));
+              args: [
+            templateFile.fileNameWithUppeCase,
+            templateFile.import,
+            templateFile.fileNameWithUppeCase
+          ]));
       execute(result);
     }
   }

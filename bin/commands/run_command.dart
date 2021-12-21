@@ -84,10 +84,13 @@ class RunCommand extends CommandBase {
       // ignore: empty_catches
     } catch (e) {}
 
-    final commands = argResults?.rest.isNotEmpty == true ? List<String>.from(argResults!.rest) : <String>[];
+    final commands = argResults?.rest.isNotEmpty == true
+        ? List<String>.from(argResults!.rest)
+        : <String>[];
 
     if (commands.isEmpty) {
-      final command = stateCLIOptions('Select a command', scripts.value.keys.toList().cast());
+      final command = stateCLIOptions(
+          'Select a command', scripts.value.keys.toList().cast());
       if (command != null) {
         commands.add(command);
       }
@@ -99,7 +102,8 @@ class RunCommand extends CommandBase {
     await runCommand(commands, scripts, vars);
   }
 
-  Future<void> runCommand(List<String> commands, YamlMap scripts, Map vars) async {
+  Future<void> runCommand(
+      List<String> commands, YamlMap scripts, Map vars) async {
     for (var command in commands) {
       var regex = RegExp("[^\\s\'']+|\'[^\']*\'|'[^']*'");
       var regexVar = RegExp(r'\$([a-zA-Z0-9]+)');
@@ -117,7 +121,8 @@ class RunCommand extends CommandBase {
         if (match.groupCount != 0) {
           var variable = match.group(0)?.replaceFirst('\$', '');
           if (variable != null && vars.containsKey(variable)) {
-            commandExec = commandExec.replaceAll(match.group(0) ?? '', vars[variable] ?? '');
+            commandExec = commandExec.replaceAll(
+                match.group(0) ?? '', vars[variable] ?? '');
           }
         }
       }
@@ -127,7 +132,8 @@ class RunCommand extends CommandBase {
             .allMatches(item)
             .map((v) => v.group(0)!)
             .toList()
-            .map<String>((e) => (e.startsWith('\$') ? vars[e.replaceFirst('\$', '')] ?? e : e))
+            .map<String>((e) =>
+                (e.startsWith('\$') ? vars[e.replaceFirst('\$', '')] ?? e : e))
             .toList();
         await callProcess(matchList);
       }
@@ -136,8 +142,12 @@ class RunCommand extends CommandBase {
 
   Future callProcess(List<String> commands) async {
     try {
-      var process =
-          await Process.start(commands.first, commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(), runInShell: true);
+      var process = await Process.start(
+          commands.first,
+          commands.length <= 1
+              ? []
+              : commands.getRange(1, commands.length).toList(),
+          runInShell: true);
 
       final error = process.stderr.transform(utf8.decoder).map(output.red);
       final success = process.stdout.transform(utf8.decoder).map(output.green);

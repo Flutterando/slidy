@@ -13,12 +13,20 @@ class PipelineV1 extends Pipeline {
   final String version;
   final List<JobV1> jobs;
 
-  PipelineV1(Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase,
-      {required this.name, this.version = 'v1', this.jobs = const []})
+  PipelineV1(
+      Future<Either<PipelineError, SlidyProccess>> Function(
+              Pipeline pipeline, String command, List<String> args)
+          usecase,
+      {required this.name,
+      this.version = 'v1',
+      this.jobs = const []})
       : super(usecase);
 
   factory PipelineV1.fromMap(
-      Map map, Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase) {
+      Map map,
+      Future<Either<PipelineError, SlidyProccess>> Function(
+              Pipeline pipeline, String command, List<String> args)
+          usecase) {
     final jobs = <JobV1>[];
 
     for (var key in map.keys) {
@@ -26,7 +34,8 @@ class PipelineV1 extends Pipeline {
         continue;
       }
 
-      final job = JobV1.fromMap({'key': key, 'name': map[key]['name'], 'steps': map[key]['steps']});
+      final job = JobV1.fromMap(
+          {'key': key, 'name': map[key]['name'], 'steps': map[key]['steps']});
       jobs.add(job);
     }
 
@@ -40,7 +49,9 @@ class PipelineV1 extends Pipeline {
 
   factory PipelineV1.fromJson(
     String source,
-    Future<Either<PipelineError, SlidyProccess>> Function(Pipeline pipeline, String command, List<String> args) usecase,
+    Future<Either<PipelineError, SlidyProccess>> Function(
+            Pipeline pipeline, String command, List<String> args)
+        usecase,
   ) =>
       PipelineV1.fromMap(json.decode(source), usecase);
 }
@@ -56,7 +67,9 @@ class JobV1 {
     return JobV1(
       key: map['key'],
       name: map['name'],
-      steps: map['steps'] == null ? [] : List<StepV1>.from(map['steps']?.map((x) => StepV1.fromMap(x))),
+      steps: map['steps'] == null
+          ? []
+          : List<StepV1>.from(map['steps']?.map((x) => StepV1.fromMap(x))),
     );
   }
 
@@ -73,8 +86,11 @@ class StepV1 {
   factory StepV1.fromMap(Map map) {
     return StepV1(
       id: map['id'],
-      commands: map['commands'] == null ? [] : List<String>.from(map['commands']),
-      generate: map.containsKey('generate') ? GenerateV1.fromMap(map['generate']) : null,
+      commands:
+          map['commands'] == null ? [] : List<String>.from(map['commands']),
+      generate: map.containsKey('generate')
+          ? GenerateV1.fromMap(map['generate'])
+          : null,
     );
   }
 
@@ -87,7 +103,8 @@ class GenerateV1 {
   final ModuleInjectionV1? moduleInjection;
   final String? run;
 
-  const GenerateV1({this.run, required this.path, required this.file, this.moduleInjection});
+  const GenerateV1(
+      {this.run, required this.path, required this.file, this.moduleInjection});
 
   factory GenerateV1.fromMap(Map map) {
     return GenerateV1(
@@ -98,7 +115,8 @@ class GenerateV1 {
     );
   }
 
-  factory GenerateV1.fromJson(String source) => GenerateV1.fromMap(json.decode(source));
+  factory GenerateV1.fromJson(String source) =>
+      GenerateV1.fromMap(json.decode(source));
 }
 
 class ModuleInjectionV1 {
@@ -109,13 +127,15 @@ class ModuleInjectionV1 {
 
   factory ModuleInjectionV1.fromMap(Map map) {
     return ModuleInjectionV1(
-      type: ModuleInjectionV1Type.values
-          .firstWhere((element) => map['type'] == element.toString().replaceFirst('ModuleInjectionV1Type.', '')),
+      type: ModuleInjectionV1Type.values.firstWhere((element) =>
+          map['type'] ==
+          element.toString().replaceFirst('ModuleInjectionV1Type.', '')),
       value: map['value'],
     );
   }
 
-  factory ModuleInjectionV1.fromJson(String source) => ModuleInjectionV1.fromMap(json.decode(source));
+  factory ModuleInjectionV1.fromJson(String source) =>
+      ModuleInjectionV1.fromMap(json.decode(source));
 }
 
 enum ModuleInjectionV1Type { bind, route }
