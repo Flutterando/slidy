@@ -56,7 +56,7 @@ class GenerateModuleSubCommand extends CommandBase {
     final selected = node?.value.keys.firstWhere((element) => smList.contains(element)) as String;
 
     await command.run(['generate', selected.replaceFirst('flutter_', ''), '${argResults!.rest.first}/${templateFile.fileName}', '--page']);
-    templateFile = await TemplateFile.getInstance('${argResults!.rest.first}/${templateFile.fileName}', 'Page');
+    templateFile = await TemplateFile.getInstance('${argResults!.rest.first}/${templateFile.fileName}', 'page');
 
     await utils.injectParentModuleRouting('/', '${templateFile.fileNameWithUppeCase}Page()', templateFile.import, templateFile.file.parent);
   }
