@@ -10,7 +10,6 @@ import 'package:yaml/yaml.dart';
 
 import 'package:slidy/src/core/prints/prints.dart' as output;
 import 'command_base.dart';
-import 'package:rxdart/rxdart.dart';
 
 class RunCommand extends CommandBase {
   String? stateCLIOptions(String title, List<String> options) {
@@ -143,20 +142,22 @@ class RunCommand extends CommandBase {
   Future callProcess(List<String> commands) async {
     try {
       var process = await Process.start(
-          commands.first,
-          commands.length <= 1
-              ? []
-              : commands.getRange(1, commands.length).toList(),
-          runInShell: true);
+        commands.first,
+        commands.length <= 1
+            ? []
+            : commands.getRange(1, commands.length).toList(),
+        runInShell: true,
+      );
 
-      final error = process.stderr.transform(utf8.decoder).map(output.red);
-      final success = process.stdout.transform(utf8.decoder).map(output.green);
+      process.stdout.listen((List<int> event) {
+        stdout.add(output.green(utf8.decode(event)).codeUnits);
+      });
+      process.stderr.listen((List<int> event) {
+        stderr.add(output.red(utf8.decode(event)).codeUnits);
+      });
 
-      await for (var line in Rx.merge([success, error])) {
-        print(line);
-      }
       if (await process.exitCode == 0) {
-        output.success(commands.join(' '));
+        output.success('${commands.join(' ')}\n');
       } else {
         output.error(commands.join(' '));
       }
