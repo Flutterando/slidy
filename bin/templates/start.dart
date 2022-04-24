@@ -33,10 +33,12 @@ app_widget: |
   class AppWidget extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
-      return MaterialApp(
+      return MaterialApp.router(
         title: 'Flutter Slidy',
         theme: ThemeData(primarySwatch: Colors.blue),
-      ).modular();
+        routerDelegate: Modular.routerDelegate,
+        routeInformationParser: Modular.routeInformationParser,
+      );
     }
   }
 
@@ -163,7 +165,7 @@ home_page_cubit: |
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(title: Text("Home")),
+        appBar: AppBar(title: Text('Home')),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -222,7 +224,7 @@ rx_dart: |
   import 'package:rxdart/rxdart.dart';
   
   class HomeController extends Disposable {
-    var _controller = BehaviorSubject.seeded(0);
+    final _controller = BehaviorSubject.seeded(0);
   
     HomeController() {
       counterStream = _controller.stream;
@@ -231,7 +233,7 @@ rx_dart: |
     late Stream<int> counterStream;
   
     void increment() {
-      _controller.add(_controller.value! + 1);
+      _controller.add(_controller.value + 1);
     }
   
     @override
@@ -270,13 +272,27 @@ home_page_triple: |
   
   class HomePage extends StatefulWidget {
     final String title;
-    const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+    const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
     _HomePageState createState() => _HomePageState();
   }
   
-  class _HomePageState extends ModularState<HomePage, HomeStore> {
+  class _HomePageState extends State<HomePage> {
+
+    late final HomeStore store;
+
+    @override
+    void initState() {
+      super.initState();
+      store = Modular.get<HomeStore>();
+    }
+
+    @override
+    void dispose() {
+      Modular.dispose<HomeStore>();
+      super.dispose();
+    }    
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -334,13 +350,22 @@ home_page_mobx: |
   
   class HomePage extends StatefulWidget {
     final String title;
-    const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+    const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
     _HomePageState createState() => _HomePageState();
   }
   
-  class _HomePageState extends ModularState<HomePage, HomeStore> {
+  class _HomePageState extends State<HomePage> {
+
+    late final HomeStore store;
+
+    @override
+    void initState() {
+      super.initState();
+      store = Modular.get<HomeStore>();
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -385,13 +410,22 @@ home_page_rx_dart: |
   
   class HomePage extends StatefulWidget {
     final String title;
-    const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+    const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
     _HomePageState createState() => _HomePageState();
   }
   
-  class _HomePageState extends ModularState<HomePage, HomeController> {
+  class _HomePageState extends State<HomePage> {
+
+    late final HomeController store;
+
+    @override
+    void initState() {
+      super.initState();
+      store = Modular.get<HomeController>();
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(

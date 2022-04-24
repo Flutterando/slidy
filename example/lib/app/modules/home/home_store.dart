@@ -1,20 +1,14 @@
-import 'package:flutter_triple/flutter_triple.dart';
+import 'package:mobx/mobx.dart';
 
-class HomeStore extends NotifierStore<Exception, int> {
-  HomeStore() : super(0);
+part 'home_store.g.dart';
+
+class HomeStore = HomeStoreBase with _$HomeStore;
+
+abstract class HomeStoreBase with Store {
+  @observable
+  int counter = 0;
 
   Future<void> increment() async {
-    setLoading(true);
-
-    await Future.delayed(Duration(seconds: 1));
-
-    int value = state + 1;
-    if (value < 5) {
-      update(value);
-    } else {
-      setError(Exception('Error: state not can be > 4'));
-    }
-
-    setLoading(false);
+    counter = counter + 1;
   }
 }

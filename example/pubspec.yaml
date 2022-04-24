@@ -5,18 +5,24 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
-  flutter_modular: ^4.3.0
-  flutter_triple: ^1.2.5
+  flutter_modular: ^4.5.1+1
+  flutter_triple: ^1.2.7+2
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
   rx_notifier: ^1.1.0
+  mobx: ^2.0.7
+  flutter_mobx: ^2.0.5
+  flutter_bloc: 8.0.1
+  rxdart: ^0.27.3
 
 dev_dependencies:
-  modular_test: ^1.0.1
+  modular_test: ^1.0.1+2
   flutter_test:
     sdk: flutter
-  triple_test: ^0.0.5
+  triple_test: ^1.0.0
+  mobx_codegen: ^2.0.6
+  bloc_test: 9.0.3
 flutter:
   uses-material-design: true
 scripts:
