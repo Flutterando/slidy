@@ -68,12 +68,18 @@
             "args": ["g", "triple","home/home"]
         
         },{
-            "name": "slidy run test",
+            "name": "slidy run reload",
             "request": "launch",
-            "program": "/Users/jacobmoura/Projects/slidy/bin/slidy.dart",
-            "cwd": "/Users/jacobmoura/Projects/triple_pattern/examples/search",
+            "program": "bin/main.dart",
             "type": "dart",
-            "args": ["uninstall", "abcdd"]
+            "args": ["run", "reload"]
+        
+        },{
+            "name": "slidy run complete",
+            "request": "launch",
+            "program": "bin/main.dart",
+            "type": "dart",
+            "args": ["run", "complete"]
         }
     ]
 }

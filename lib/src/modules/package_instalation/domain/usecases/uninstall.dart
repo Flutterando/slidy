@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:slidy/src/modules/package_instalation/domain/repositories/package_instalation_repository.dart';
 
 import '../../../../core/entities/slidy_process.dart';
@@ -12,8 +12,7 @@ class Uninstall implements UseCase<SlidyError, SlidyProccess, PackageName> {
   Uninstall(this.repository);
 
   @override
-  Future<Either<SlidyError, SlidyProccess>> call(
-      {required PackageName params}) async {
+  Future<Either<SlidyError, SlidyProccess>> call({required PackageName params}) async {
     return await repository.uninstall(params);
   }
 }

@@ -2,7 +2,7 @@ import 'package:slidy/src/core/models/custom_file.dart';
 
 final _useCaseTemplate = r''' 
 use_case: |
-  import 'package:dartz/dartz.dart';
+  import 'package:fpdart/fpdart.dart';
   
   abstract class I$fileName|pascalcase {
     Future<Either<Exception, List<$fileName|pascalcase>>> call();
