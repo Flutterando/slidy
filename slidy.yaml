@@ -1,11 +1,10 @@
 slidy: '1'
 
 variables:
-  var1: myVariable   # Gets  ${Local.var1}
-  var2: ${System.env.USER}  # Gets system env variables ${Local.var2}
+  var1: myVariable   # Gets  ${Local.var.var1}
+  var2: ${System.env.USER}  # Gets system env variables ${Local.var.var2}
 
 scripts:
-
   # Simple command (slidy run doctor)
   doctor: flutter doctor
 
@@ -19,11 +18,15 @@ scripts:
     name: "Complete command"
     description: "my great desc."
     shell: bash # default: command. options (command|bash|sh|zsh|pwsh)
-    run: |-
+    environment:
+      TEST: "Test Variable" 
+    run: |
       echo "Bash command"
-      echo "${Local.var1}"
-      echo "${Local.var2}"
+      echo "${Local.var.var1}"
+      echo "${Local.var.var2}"
       echo "${System.operatingSystem}"
+      echo "${System.env.TEST}"
+      echo "$TEST"
 
   # Steped command (slidy run reload)   
   reload:

@@ -33,6 +33,7 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
       if (yamlMap['slidy'] is! String) {
         return Left(SlidyError('Field [slidy] must be String.'));
       }
+
       if (yamlMap['slidy'] != '1') {
         return Left(SlidyError('Slidy Version ${yamlMap['slidy']} not supported'));
       }
@@ -54,8 +55,12 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
             return Left(SlidyError('Use [run] or [steps] propertie in Script.'));
           }
 
-          if (script['type'] != null && TypeEnum.values.where((e) => e.name == script['type']).isEmpty) {
-            return Left(SlidyError('Invalid [type] propertie. Avaliable values (${TypeEnum.values.map((e) => e.name).join('|')})'));
+          if (script['shell'] != null && ShellEnum.values.where((e) => e.name == script['shell']).isEmpty) {
+            return Left(SlidyError('Invalid [shell] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
+          }
+
+          if (script['environment'] != null && script['environment'] is! Map) {
+            return Left(SlidyError('Field [environment] must be Object.'));
           }
 
           final steps = script['steps'];
@@ -65,22 +70,28 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
               return Left(SlidyError('Field [steps] not be a List.'));
             }
             for (var step in steps) {
-              if (step['type'] != null && TypeEnum.values.where((e) => e.name == step['type']).isEmpty) {
-                return Left(SlidyError('Invalid [type] propertie. Avaliable values (${TypeEnum.values.map((e) => e.name).join('|')})'));
+              if (step['shell'] != null && ShellEnum.values.where((e) => e.name == step['shell']).isEmpty) {
+                return Left(SlidyError('Invalid [type] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
               }
               if (step['run'] == null) {
                 return Left(SlidyError('Field [run] is required in [step] propertie.'));
+              }
+
+              if (script['environment'] != null && step['environment'] is! Map<String, String>) {
+                return Left(SlidyError('Field [environment] must be Object[String,String].'));
               }
             }
           }
         }
       }
 
+      final script = mapToScriptEntry(scripts);
+
       final pipe = SlidyPipelineV1(
         version: yamlMap['slidy'],
         systemVariables: Platform.environment,
         localVariables: yamlMap['variables'] != null ? fixMapVariables(yamlMap['variables']) : {},
-        scripts: mapToScriptEntry(scripts),
+        scripts: script,
       );
 
       return Right(pipe);
@@ -97,7 +108,7 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
     }
     return json.map((key, value) {
       if (value is String) {
-        final script = Script(name: key, run: value, type: TypeEnum.command);
+        final script = Script(name: key, run: value, shell: ShellEnum.command);
         return MapEntry(key, script);
       }
 
@@ -105,7 +116,8 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
         name: value['name'] ?? key,
         run: value['run'],
         description: value['description'] ?? '',
-        type: TypeEnum.values.firstWhere((e) => e.name == value['type'], orElse: () => TypeEnum.command),
+        environment: value['environment'] == null ? null : value['environment'].cast<String, String>(),
+        shell: ShellEnum.values.firstWhere((e) => e.name == value['shell'], orElse: () => ShellEnum.command),
         workingDirectory: value['working-directory'] ?? '.',
         steps: value['steps'] != null ? value['steps'].map<Step>(mapToStep).toList() : null,
       );
@@ -117,7 +129,8 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
     return Step(
       name: map['name'],
       description: map['description'] ?? '',
-      type: TypeEnum.values.firstWhere((e) => e.name == map['type'], orElse: () => TypeEnum.command),
+      environment: map['environment'] == null ? null : map['environment'].cast<String, String>(),
+      shell: ShellEnum.values.firstWhere((e) => e.name == map['shell'], orElse: () => ShellEnum.command),
       workingDirectory: map['working-directory'] ?? '.',
       run: map['run'],
     );

@@ -1,60 +1,25 @@
 import 'dart:io';
 
-import 'package:fpdart/fpdart.dart';
-import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/prints/prints.dart' as output;
-
 import '../entities/script.dart';
 
-abstract class ExecuteScript {
-  TaskEither<SlidyError, Unit> call(Script script);
+abstract class ExecuteStep {
+  Future<bool> call(Step step);
 }
 
-class ExecuteScriptImpl implements ExecuteScript {
-  ExecuteScriptImpl();
-
+class ExecuteStepImpl implements ExecuteStep {
   @override
-  TaskEither<SlidyError, Unit> call(Script script) {
-    return TaskEither(
-      () async {
-        print('Script:  ${output.green(script.name)}');
-        if (script.description.isNotEmpty) {
-          print('Description:  ${output.green(script.description)}');
-        }
-        print('\n---------------- STEPS --------------\n');
-
-        for (var step in script.steps) {
-          if (step.name != null) {
-            print('Step:  ${output.green(step.name!)}');
-          }
-          if (step.description.isNotEmpty) {
-            print('Description:  ${output.green(step.description)}');
-          }
-          if (step.name != null || step.description.isNotEmpty) {
-            print('\n');
-          }
-          final result = await processStep(step);
-          if (!result) {
-            return Left(SlidyError('Step \'${step.name}\' failure.'));
-          }
-          print('\n----------- END STEP ----------\n');
-        }
-        return Right(unit);
-      },
-    );
-  }
-
-  Future<bool> processStep(Step step) async {
+  Future<bool> call(Step step) async {
     late List<String> commands;
     final run = step.run.trim();
-    if (step.type == TypeEnum.command) {
+    if (step.shell == ShellEnum.command) {
       commands = splitCommand(run);
     } else {
-      commands = [...step.type.commands, run];
+      commands = [...step.shell.commands, run];
     }
 
     var process = await Process.start(
       commands.first,
+      environment: step.environment,
       workingDirectory: step.workingDirectory,
       commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(),
       runInShell: true,
