@@ -11,10 +11,11 @@
             "cwd": "example",
             "type": "dart",
             "args": ["--version"]
-        }, {
+        },
+        {
             "name": "slidy install",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/main.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["install", "triple"]
@@ -22,7 +23,7 @@
         {
             "name": "slidy install error",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/main.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["install", "tripple"]

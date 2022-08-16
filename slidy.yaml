@@ -17,16 +17,17 @@ scripts:
   complete:
     name: "Complete command"
     description: "my great desc."
-    shell: bash # default: command. options (command|bash|sh|zsh|pwsh)
+    shell: pwsh # default: command. options (command|bash|sh|zsh|pwsh)
     environment:
       TEST: "Test Variable" 
-    run: |
-      echo "Bash command"
-      echo "${Local.var.var1}"
-      echo "${Local.var.var2}"
-      echo "${System.operatingSystem}"
-      echo "${System.env.TEST}"
-      echo "$TEST"
+    run: >- 
+        echo 'Bash command';
+        echo '${Local.var.var1}';
+        echo '${Local.var.var2}';
+        echo '${System.operatingSystem}';
+        echo '${System.env.TEST}';
+        echo '$TEST';
+      
 
   # Steped command (slidy run reload)   
   reload:
@@ -40,7 +41,7 @@ scripts:
 
       - name: "Commands"
         description: "exec bash commands"
-        shell: bash
+        shell: pwsh
         run: |-
           echo "Bash command"
           echo "${Local.var1}"

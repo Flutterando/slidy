@@ -3,15 +3,14 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
+import 'package:slidy/src/modules/package_manager/presentation/install_command.dart';
+import 'package:slidy/src/modules/package_manager/presentation/uninstall_command.dart';
+import 'package:slidy/src/modules/pipeline/presentation/run_command.dart';
+import 'package:slidy/src/modules/template_generator/presentation/generate_command.dart';
+import 'package:slidy/src/modules/template_generator/presentation/start_command.dart';
 import 'package:slidy/src/version.dart';
 
-import 'commands/generate_command.dart';
-import 'commands/install_command.dart';
-import 'commands/run_command.dart';
-import 'commands/start_command.dart';
-import 'commands/uninstall_command.dart';
-
-Future main(List<String> arguments) async {
+Future<void> main(List<String> arguments) async {
   final runner = configureCommand(arguments);
 
   var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
@@ -43,7 +42,7 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   }
 }
 
-Future executeCommand(CommandRunner runner, List<String> arguments) {
+Future<void> executeCommand(CommandRunner runner, List<String> arguments) {
   return runner.run(arguments);
 }
 

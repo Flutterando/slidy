@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:mocktail/mocktail.dart';
-import 'package:slidy/src/core/entities/slidy_process.dart';
-import 'package:slidy/src/modules/template_creator/domain/models/template_info.dart';
-import 'package:slidy/src/modules/template_creator/domain/usecases/create.dart';
+import 'package:slidy/src/modules/template_generator/domain/models/template_info.dart';
+import 'package:slidy/src/modules/template_generator/domain/usecases/create.dart';
 import 'package:test/test.dart';
 
 class FileYamlMock extends Mock implements File {
@@ -15,19 +15,13 @@ class FileYamlMock extends Mock implements File {
   }
 
   @override
-  Future<File> writeAsString(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) async {
+  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
     savedFile = contents;
     return this;
   }
 
   @override
-  void writeAsStringSync(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) {
+  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
     savedFile = contents;
   }
 }
@@ -49,19 +43,13 @@ class FileDestinyMock extends Mock implements File {
   }
 
   @override
-  Future<File> writeAsString(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) async {
+  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
     savedFile = contents;
     return this;
   }
 
   @override
-  void writeAsStringSync(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) {
+  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
     savedFile = contents;
   }
 }
@@ -74,16 +62,13 @@ void main() {
 
   test('should create template', () async {
     when(() => yaml.readAsStringSync()).thenReturn(yamlText);
-    final result = await usecase(
-        params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
+    final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main'));
     expect(result.isRight(), true);
     expect(destiny.savedFile, savedText);
   });
   test('should create template with args', () async {
     when(() => yaml.readAsStringSync()).thenReturn(yamlText);
-    final result = await usecase(
-        params: TemplateInfo(
-            yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
+    final result = await usecase(params: TemplateInfo(yaml: yaml, destiny: destiny, key: 'main', args: ['Modular()']));
     expect(result.isRight(), true);
     expect(destiny.savedFile, savedTextWithArgs);
   });

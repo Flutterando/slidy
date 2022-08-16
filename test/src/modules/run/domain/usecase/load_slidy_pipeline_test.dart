@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:slidy/src/modules/run/domain/services/yaml_reader_service.dart';
-import 'package:slidy/src/modules/run/domain/usecase/load_slidy_pipeline.dart';
+import 'package:slidy/src/modules/pipeline/domain/services/yaml_reader_service.dart';
+import 'package:slidy/src/modules/pipeline/domain/usecase/load_slidy_pipeline.dart';
 import 'package:test/test.dart';
 
 class YamlReaderServiceMock extends Mock implements YamlReaderService {}

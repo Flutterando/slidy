@@ -1,4 +1,4 @@
-import 'package:slidy/src/modules/run/infra/services/yaml_reader_service.dart';
+import 'package:slidy/src/modules/pipeline/infra/services/yaml_reader_service.dart';
 import 'package:test/test.dart';
 
 void main() {

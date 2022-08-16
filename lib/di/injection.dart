@@ -22,7 +22,7 @@ class _Injection {
     if (_dependencies.containsKey(T)) {
       return _dependencies[T]!(this);
     } else {
-      throw Exception('injection not found');
+      throw Exception('injection not found. [$T]');
     }
   }
 }

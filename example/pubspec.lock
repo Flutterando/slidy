@@ -514,7 +514,7 @@ packages:
     source: hosted
     version: "0.4.11"
   triple:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: triple
       url: "https://pub.dartlang.org"
