@@ -1,12 +1,15 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/interfaces/usecase.dart';
 
 import '../models/line_params.dart';
 
-class AddLine extends UseCase<SlidyError, SlidyProccess, LineParams> {
+abstract class AddLine {
+  Future<Either<SlidyError, SlidyProccess>> call(LineParams params);
+}
+
+class AddLineImpl extends AddLine {
   @override
-  Future<Either<SlidyError, SlidyProccess>> call({required LineParams params}) async {
+  Future<Either<SlidyError, SlidyProccess>> call(LineParams params) async {
     var lines = await params.file.readAsLines();
     lines = params.replaceLine == null ? lines : lines.map<String>(params.replaceLine!).toList();
     lines.insertAll(params.position, params.inserts);

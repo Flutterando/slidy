@@ -4,8 +4,8 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
-import '../../../package_manager/presentation/install_command.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/mobx.dart';
 import '../utils/template_file.dart';
 import '../utils/utils.dart' as utils;
@@ -45,7 +45,7 @@ class GenerateMobxSubCommand extends CommandBase {
       await command.run(['install', 'mobx_codegen', 'build_runner', '--dev']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.file, key: 'mobx'));
+    var result = await Modular.get<Create>().call(TemplateInfo(yaml: mobxFile, destiny: templateFile.file, key: 'mobx'));
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
@@ -55,8 +55,8 @@ class GenerateMobxSubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: mobxFile, destiny: templateFile.fileTest, key: 'mobx_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
+      result =
+          await Modular.get<Create>().call(TemplateInfo(yaml: mobxFile, destiny: templateFile.fileTest, key: 'mobx_test', args: [templateFile.fileNameWithUppeCase + 'Store', templateFile.import]));
       execute(result);
     }
   }

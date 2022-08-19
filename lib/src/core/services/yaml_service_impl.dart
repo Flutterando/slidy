@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import 'package:slidy/src/core/services/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
-import 'package:slidy/src/core/interfaces/yaml_service.dart';
-import 'package:slidy/src/modules/yaml_edit/yaml_edit.dart';
+import 'yaml_edit/src/editor.dart';
+import 'yaml_service.dart';
 
 class YamlServiceImpl implements YamlService {
   final File yaml;
@@ -66,18 +67,15 @@ class YamlServiceImpl implements YamlService {
     final node = getValue(['include']);
     if (node is YamlScalar) {
       final file = getYamlFile(yaml, node.value);
-      final newYaml =
-          yamlEditor.toString() + '\n' + (await file.readAsString());
-      return YamlServiceImpl(
-          yaml: File(''), customyamlEditor: YamlEditor(newYaml));
+      final newYaml = yamlEditor.toString() + '\n' + (await file.readAsString());
+      return YamlServiceImpl(yaml: File(''), customyamlEditor: YamlEditor(newYaml));
     } else if (node is YamlList) {
       var newYaml = yamlEditor.toString();
       for (var path in node.value) {
         final file = getYamlFile(yaml, path);
         newYaml += '\n' + (await file.readAsString());
       }
-      return YamlServiceImpl(
-          yaml: File(''), customyamlEditor: YamlEditor(newYaml));
+      return YamlServiceImpl(yaml: File(''), customyamlEditor: YamlEditor(newYaml));
     }
 
     return this;

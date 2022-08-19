@@ -4,8 +4,8 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
-import '../../../package_manager/presentation/install_command.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/rx_notifier.dart';
 import '../utils/template_file.dart';
 import '../utils/utils.dart' as utils;
@@ -44,7 +44,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
       await command.run(['install', 'rx_notifier']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.file, key: 'rx_notifier'));
+    var result = await Modular.get<Create>().call(TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.file, key: 'rx_notifier'));
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
@@ -54,8 +54,8 @@ class GenerateRxNotifierSubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.fileTest, key: 'rx_notifier_test', args: [templateFile.fileNameWithUppeCase + 'Controller', templateFile.import]));
+      result = await Modular.get<Create>()
+          .call(TemplateInfo(yaml: rxnotifierFile, destiny: templateFile.fileTest, key: 'rx_notifier_test', args: [templateFile.fileNameWithUppeCase + 'Controller', templateFile.import]));
       execute(result);
     }
   }

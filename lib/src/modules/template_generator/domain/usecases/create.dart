@@ -6,12 +6,15 @@ import 'package:yaml/yaml.dart';
 
 import '../../../../core/entities/slidy_process.dart';
 import '../../../../core/errors/errors.dart';
-import '../../../../core/interfaces/usecase.dart';
 import '../models/template_info.dart';
 
-class Create implements UseCase<SlidyError, SlidyProccess, TemplateInfo> {
+abstract class Create {
+  Future<Either<SlidyError, SlidyProccess>> call(TemplateInfo params);
+}
+
+class CreateImpl implements Create {
   @override
-  Future<Either<SlidyError, SlidyProccess>> call({required TemplateInfo params}) async {
+  Future<Either<SlidyError, SlidyProccess>> call(TemplateInfo params) async {
     final fileName = params.destiny.uri.pathSegments.last.replaceFirst('.dart', '');
     if (await params.destiny.exists()) {
       return Left(TemplateCreatorError('File $fileName exists'));

@@ -5,8 +5,8 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../../../../core/command/command_base.dart';
-import '../../../../package_manager/presentation/install_command.dart';
 import '../../../domain/models/template_info.dart';
+import '../../../domain/usecases/create.dart';
 import '../../templates/data_source.dart';
 import '../../utils/template_file.dart';
 import '../../utils/utils.dart' as utils;
@@ -49,8 +49,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
     var last = splited.removeLast().replaceAll('.dart', '_data_source.dart');
     var body = splited.join('/');
 
-    var result = await Slidy.instance.template.createFile(
-      info: TemplateInfo(
+    var result = await Modular.get<Create>().call(
+      TemplateInfo(
         yaml: data_source,
         destiny: File(body + '/../infra/datasource/' + last),
         key: 'interface_data_source',
@@ -63,8 +63,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
     var importDataSourceInterface = 'import \'../../infra/datasource/' + last + '\';';
     var importDataSource = 'import \'external/datasource/' + last + '\';';
 
-    result = await Slidy.instance.template.createFile(
-      info: TemplateInfo(
+    result = await Modular.get<Create>().call(
+      TemplateInfo(
         yaml: data_source,
         destiny: File(body + '/../external/datasource/' + last),
         key: 'data_source',
@@ -84,8 +84,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
         await command.run(['install', 'mockito@5.0.0']);
       }
 
-      result = await Slidy.instance.template.createFile(
-        info: TemplateInfo(
+      result = await Modular.get<Create>().call(
+        TemplateInfo(
           yaml: data_source,
           destiny: templateFile.fileTest,
           key: 'data_source_test',

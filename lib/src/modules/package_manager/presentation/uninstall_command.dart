@@ -4,10 +4,11 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../../core/command/command_base.dart';
+import '../domain/params/package_name.dart';
 import '../domain/usecases/uninstall.dart';
 
 class UninstallCommand extends CommandBase {
-  final install = Slidy.instance.get<Uninstall>();
+  final install = Modular.get<Uninstall>();
 
   @override
   final name = 'uninstall';

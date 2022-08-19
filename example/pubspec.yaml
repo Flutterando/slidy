@@ -15,7 +15,7 @@ dependencies:
   flutter_mobx: ^2.0.5
   flutter_bloc: 8.0.1
   rxdart: ^0.27.3
-  triple: 1.5.0+1
+  triple: ^1.5.0+1
 
 dev_dependencies:
   modular_test: ^1.0.1+2

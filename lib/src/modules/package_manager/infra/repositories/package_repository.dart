@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/interfaces/yaml_service.dart';
+import 'package:slidy/src/core/services/yaml_service.dart';
 import 'package:slidy/src/modules/package_manager/domain/errors/errors.dart';
 import 'package:slidy/src/modules/package_manager/domain/params/package_name.dart';
 import 'package:slidy/src/modules/package_manager/domain/repositories/package_repository.dart';

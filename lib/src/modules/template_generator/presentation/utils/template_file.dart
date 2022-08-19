@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:recase/recase.dart';
 import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/interfaces/yaml_service.dart';
+import 'package:slidy/src/core/services/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
 class TemplateFile {
@@ -22,16 +22,14 @@ class TemplateFile {
   }
 
   static Future<TemplateFile> getInstance(String path, String? type) async {
-    final pubspec = Slidy.instance.get<YamlService>();
-    return TemplateFile._(path, type == null ? '' : '_$type',
-        (pubspec.getValue(['name']))?.value);
+    final pubspec = Modular.get<YamlService>();
+    return TemplateFile._(path, type == null ? '' : '_$type', (pubspec.getValue(['name']))?.value);
   }
 
-  Future<bool> checkDependencyIsExist(String dependency,
-      [bool isDev = false]) async {
+  Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {
     try {
       final dependenciesLine = isDev ? 'dev_dependencies' : 'dependencies';
-      final pubspec = Slidy.instance.get<YamlService>();
+      final pubspec = Modular.get<YamlService>();
       final map = (pubspec.getValue([dependenciesLine]))?.value as YamlMap;
       return map.containsKey(dependency);
     } catch (e) {

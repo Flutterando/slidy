@@ -1,17 +1,20 @@
-import 'package:slidy/di/injection.dart';
+import 'package:slidy/src/core/modular/module.dart';
 import 'package:slidy/src/modules/pipeline/domain/usecase/execute_script.dart';
 import 'package:slidy/src/modules/pipeline/domain/usecase/load_slidy_pipeline.dart';
 import 'package:slidy/src/modules/pipeline/domain/usecase/resolve_variables.dart';
 
+import '../../core/modular/bind.dart';
 import 'domain/services/yaml_reader_service.dart';
 import 'infra/services/yaml_reader_service.dart';
 
-void RunModule() {
-  sl
-    //domain
-    ..register<LoadSlidyPipeline>((i) => LoadSlidyPipelineImpl(i()))
-    ..register<ResolveVariables>((i) => ResolveVariablesImpl())
-    ..register<ExecuteStep>((i) => ExecuteStepImpl())
-    //infra
-    ..register<YamlReaderService>((i) => YamlReaderServiceImpl());
+class RunModule extends Module {
+  @override
+  List<Bind> get binds => [
+        //domain
+        Bind.singleton<LoadSlidyPipeline>((i) => LoadSlidyPipelineImpl(i()), export: true),
+        Bind.singleton<ResolveVariables>((i) => ResolveVariablesImpl(), export: true),
+        Bind.singleton<ExecuteStep>((i) => ExecuteStepImpl(), export: true),
+        //infra
+        Bind.singleton<YamlReaderService>((i) => YamlReaderServiceImpl(), export: true),
+      ];
 }

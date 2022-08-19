@@ -5,9 +5,10 @@ import 'package:slidy/slidy.dart';
 import 'package:slidy/src/modules/package_manager/domain/usecases/install.dart';
 
 import '../../../core/command/command_base.dart';
+import '../domain/params/package_name.dart';
 
 class InstallCommand extends CommandBase {
-  final install = Slidy.instance.get<Install>();
+  final install = Modular.get<Install>();
 
   @override
   final name = 'install';

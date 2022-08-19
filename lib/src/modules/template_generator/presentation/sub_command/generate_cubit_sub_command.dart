@@ -4,8 +4,8 @@ import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
-import '../../../package_manager/presentation/install_command.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/bloc.dart';
 import '../utils/template_file.dart';
 import '../utils/utils.dart' as utils;
@@ -45,7 +45,7 @@ class GenerateCubitSubCommand extends CommandBase {
       await command.run(['install', 'bloc_test@9.0.3', '--dev']);
     }
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'cubit'));
+    var result = await Modular.get<Create>().call(TemplateInfo(yaml: blocFile, destiny: templateFile.file, key: 'cubit'));
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
@@ -55,8 +55,8 @@ class GenerateCubitSubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: blocFile, destiny: templateFile.fileTest, key: 'cubit_test', args: [templateFile.fileNameWithUppeCase + 'Cubit', templateFile.import]));
+      result =
+          await Modular.get<Create>().call(TemplateInfo(yaml: blocFile, destiny: templateFile.fileTest, key: 'cubit_test', args: [templateFile.fileNameWithUppeCase + 'Cubit', templateFile.import]));
       execute(result);
     }
   }

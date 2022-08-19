@@ -13,9 +13,9 @@ import 'package:slidy/src/modules/pipeline/domain/usecase/resolve_variables.dart
 import '../../../core/command/command_base.dart';
 
 class RunCommand extends CommandBase {
-  final loader = Slidy.instance.get<LoadSlidyPipeline>();
-  final resolveVariables = Slidy.instance.get<ResolveVariables>();
-  final executor = Slidy.instance.get<ExecuteStep>();
+  final loader = Modular.get<LoadSlidyPipeline>();
+  final resolveVariables = Modular.get<ResolveVariables>();
+  final executor = Modular.get<ExecuteStep>();
 
   RunCommand() {
     argParser.addOption(

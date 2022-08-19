@@ -8,10 +8,10 @@ import '../domain/models/template_info.dart';
 
 class TemplateCreator {
   Future<Either<SlidyError, SlidyProccess>> createFile({required TemplateInfo info}) {
-    return Create()(params: info);
+    return CreateImpl()(info);
   }
 
   Future<Either<SlidyError, SlidyProccess>> addLine({required LineParams params}) {
-    return AddLine()(params: params);
+    return AddLineImpl()(params);
   }
 }

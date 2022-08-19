@@ -1,38 +1,15 @@
-import 'dart:io';
+library slidy;
 
-import 'package:slidy/src/modules/template_generator/main/template_creator.dart';
-
-import 'di/injection.dart';
-import 'src/main_module.dart';
-
+//core
 export 'src/core/entities/slidy_process.dart';
 export 'src/core/errors/errors.dart';
+export 'src/core/modular/modular.dart';
 export 'src/core/prints/prints.dart';
-export 'src/modules/package_manager/domain/params/package_name.dart';
-
-class Slidy {
-  static final Slidy instance = Slidy._internal();
-
-  Slidy._();
-
-  factory Slidy._internal() {
-    StartAllModules();
-    return Slidy._();
-  }
-
-  T get<T>() {
-    return sl.get<T>();
-  }
-
-  final template = TemplateCreator();
-
-  Future<File> getParentModule(Directory dir) async {
-    await for (var file in dir.list()) {
-      if (file.path.contains('_module.dart')) {
-        return file as File;
-      }
-    }
-
-    return await getParentModule(dir.parent);
-  }
-}
+// package_manager
+export 'src/modules/package_manager/presentation/install_command.dart';
+export 'src/modules/package_manager/presentation/uninstall_command.dart';
+// run
+export 'src/modules/pipeline/presentation/run_command.dart';
+// generate
+export 'src/modules/template_generator/presentation/generate_command.dart';
+export 'src/modules/template_generator/presentation/start_command.dart';

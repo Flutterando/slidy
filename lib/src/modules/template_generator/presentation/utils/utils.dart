@@ -2,18 +2,18 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:slidy/slidy.dart';
+import 'package:slidy/src/core/prints/prints.dart';
 import 'package:slidy/src/modules/template_generator/domain/models/line_params.dart';
+import 'package:slidy/src/modules/template_generator/domain/usecases/add_line.dart';
 
-import '../generate_command.dart';
 import 'template_file.dart';
 
 Future injectParentModule(String injectionType, String fileNameWithUppeCase, String import, Directory directory) async {
   final injection = _injectionTemplate(injectionType, fileNameWithUppeCase);
 
-  final parentModule = await Slidy.instance.getParentModule(directory);
+  final parentModule = await getParentModule(directory);
 
-  var result = await Slidy.instance.template.addLine(
-      params: LineParams(parentModule, replaceLine: (line) {
+  var result = await Modular.get<AddLine>().call(LineParams(parentModule, replaceLine: (line) {
     if (line.contains('final List<Bind> binds = [')) {
       return line.replaceFirst('final List<Bind> binds = [', 'final List<Bind> binds = [$injection,');
     } else if (line.contains('List<Bind> get binds => [')) {
@@ -25,7 +25,7 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
   execute(result);
 
   if (result.isRight()) {
-    result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
+    result = await Modular.get<AddLine>().call(LineParams(parentModule, inserts: [import]));
     execute(result);
     if (result.isRight()) {
       await formatFile(parentModule);
@@ -36,10 +36,9 @@ Future injectParentModule(String injectionType, String fileNameWithUppeCase, Str
 Future injectParentModuleRouting(String path, String fileNameWithUppeCase, String import, Directory directory) async {
   final injection = 'ChildRoute(\'$path\', child: (_, args) => $fileNameWithUppeCase)';
 
-  final parentModule = await Slidy.instance.getParentModule(directory);
+  final parentModule = await getParentModule(directory);
 
-  var result = await Slidy.instance.template.addLine(
-      params: LineParams(parentModule, replaceLine: (line) {
+  var result = await Modular.get<AddLine>().call(LineParams(parentModule, replaceLine: (line) {
     if (line.contains('final List<ModularRoute> routes = [')) {
       return line.replaceFirst('final List<ModularRoute> routes = [', 'final List<ModularRoute> routes = [$injection,');
     } else if (line.contains('List<ModularRoute> get routes => [')) {
@@ -51,7 +50,7 @@ Future injectParentModuleRouting(String path, String fileNameWithUppeCase, Strin
   execute(result);
 
   if (result.isRight()) {
-    result = await Slidy.instance.template.addLine(params: LineParams(parentModule, inserts: [import]));
+    result = await Modular.get<AddLine>().call(LineParams(parentModule, inserts: [import]));
     execute(result);
     if (result.isRight()) {
       await formatFile(parentModule);
@@ -64,9 +63,9 @@ Future<void> addedInjectionInPage({required TemplateFile templateFile, required 
   await command.run(['generate', 'page', pathCommand, if (noTest) '--notest']);
   final insertLine = '  final ${templateFile.fileNameWithUppeCase}$type ${type.toLowerCase()} = Modular.get();';
   final pageFile = File(templateFile.file.parent.path + '/${templateFile.fileName}_page.dart');
-  var result = await Slidy.instance.template.addLine(params: LineParams(pageFile, position: 9, inserts: [insertLine, '']));
+  var result = await Modular.get<AddLine>().call(LineParams(pageFile, position: 9, inserts: [insertLine, '']));
   execute(result);
-  result = await Slidy.instance.template.addLine(params: LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
+  result = await Modular.get<AddLine>().call(LineParams(pageFile, inserts: ['import \'package:flutter_modular/flutter_modular.dart\';', templateFile.import]));
   execute(result);
 }
 
@@ -82,4 +81,14 @@ String _injectionTemplate(String injectionType, String classInstance) {
   } else {
     return 'Bind.factory((i) => $classInstance)';
   }
+}
+
+Future<File> getParentModule(Directory dir) async {
+  await for (var file in dir.list()) {
+    if (file.path.contains('_module.dart')) {
+      return file as File;
+    }
+  }
+
+  return await getParentModule(dir.parent);
 }

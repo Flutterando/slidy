@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
-import 'package:slidy/src/modules/package_manager/presentation/install_command.dart';
-import 'package:slidy/src/modules/package_manager/presentation/uninstall_command.dart';
-import 'package:slidy/src/modules/pipeline/presentation/run_command.dart';
-import 'package:slidy/src/modules/template_generator/presentation/generate_command.dart';
-import 'package:slidy/src/modules/template_generator/presentation/start_command.dart';
+import 'package:slidy/slidy.dart';
+import 'package:slidy/src/main_module.dart';
 import 'package:slidy/src/version.dart';
 
 Future<void> main(List<String> arguments) async {
+  Modular.init(MainModule());
+
   final runner = configureCommand(arguments);
 
   var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
@@ -22,12 +21,15 @@ Future<void> main(List<String> arguments) async {
     } on UsageException catch (error) {
       print(error);
       exit(ExitCode.ioError.code);
+    } finally {
+      Modular.dispose();
     }
   } else {
     var parser = ArgParser();
     parser = runner.argParser;
     var results = parser.parse(arguments);
     executeOptions(results, arguments, runner);
+    Modular.dispose();
   }
 }
 

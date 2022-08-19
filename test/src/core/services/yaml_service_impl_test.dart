@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:slidy/src/core/interfaces/yaml_service.dart';
 import 'package:slidy/src/core/services/yaml_service_impl.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -11,10 +10,7 @@ class FileMock extends Mock implements File {
   String savedFile = '';
 
   @override
-  Future<File> writeAsString(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) async {
+  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
     savedFile = contents;
     return this;
   }
@@ -43,10 +39,7 @@ void main() {
     final service = YamlServiceImpl(yaml: file);
     service.remove(['dependencies', 'dart_console']);
     await service.save();
-    expect(
-        (loadYaml(file.savedFile)['dependencies'] as Map)
-            .containsKey('dart_console'),
-        false);
+    expect((loadYaml(file.savedFile)['dependencies'] as Map).containsKey('dart_console'), false);
   });
   test('getValue', () async {
     final file = FileMock();

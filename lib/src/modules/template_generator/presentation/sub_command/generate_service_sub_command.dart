@@ -5,6 +5,7 @@ import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/service.dart';
 import '../utils/template_file.dart';
 import '../utils/utils.dart' as utils;
@@ -37,8 +38,8 @@ class GenerateServiceSubCommand extends CommandBase {
   @override
   FutureOr run() async {
     final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'service');
-    var result = await Slidy.instance.template.createFile(
-      info: TemplateInfo(
+    var result = await Modular.get<Create>().call(
+      TemplateInfo(
         yaml: serviceFile,
         destiny: templateFile.file,
         key: argResults!['interface'] ? 'impl_service' : 'service',
@@ -56,18 +57,17 @@ class GenerateServiceSubCommand extends CommandBase {
 
     if (argResults!['interface']) {
       print('${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
-      result = await Slidy.instance.template.createFile(
-          info: TemplateInfo(
-              yaml: serviceFile,
-              destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
-              key: 'i_service',
-              args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
+      result = await Modular.get<Create>().call(TemplateInfo(
+          yaml: serviceFile,
+          destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
+          key: 'i_service',
+          args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
       execute(result);
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: serviceFile, destiny: templateFile.fileTest, key: 'test_service', args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
+      result = await Modular.get<Create>()
+          .call(TemplateInfo(yaml: serviceFile, destiny: templateFile.fileTest, key: 'test_service', args: [templateFile.fileNameWithUppeCase + 'Service', templateFile.import]));
       execute(result);
     }
   }

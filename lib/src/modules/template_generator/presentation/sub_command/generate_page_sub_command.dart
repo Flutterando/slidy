@@ -4,6 +4,7 @@ import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/widgets.dart';
 import '../utils/template_file.dart';
 import '../utils/utils.dart' as utils;
@@ -23,7 +24,7 @@ class GeneratePageSubCommand extends CommandBase {
   FutureOr run() async {
     final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'page');
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'page'));
+    var result = await Modular.get<Create>().call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'page'));
     execute(result);
 
     if (argResults!['routing'] != null) {
@@ -31,8 +32,8 @@ class GeneratePageSubCommand extends CommandBase {
     }
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Page', templateFile.import]));
+      result =
+          await Modular.get<Create>().call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Page', templateFile.import]));
       execute(result);
     }
   }

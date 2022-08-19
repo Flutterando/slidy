@@ -4,6 +4,7 @@ import 'package:slidy/slidy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
+import '../../domain/usecases/create.dart';
 import '../templates/widgets.dart';
 import '../utils/template_file.dart';
 
@@ -22,12 +23,12 @@ class GenerateWidgetSubCommand extends CommandBase {
   FutureOr run() async {
     final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'widget');
 
-    var result = await Slidy.instance.template.createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
+    var result = await Modular.get<Create>().call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
     execute(result);
 
     if (!argResults!['notest']) {
-      result = await Slidy.instance.template
-          .createFile(info: TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
+      result = await Modular.get<Create>()
+          .call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
       execute(result);
     }
   }
