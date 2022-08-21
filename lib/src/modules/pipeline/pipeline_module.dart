@@ -8,7 +8,7 @@ import 'domain/services/yaml_reader_service.dart';
 import 'domain/usecase/condition_eval.dart';
 import 'infra/services/yaml_reader_service.dart';
 
-class RunModule extends Module {
+class PipelineModule extends Module {
   @override
   List<Bind> get binds => [
         //domain

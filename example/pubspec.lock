@@ -180,7 +180,7 @@ packages:
       name: flutter_modular
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.1+1"
+    version: "5.0.3"
   flutter_modular_annotations:
     dependency: transitive
     description:
@@ -199,7 +199,7 @@ packages:
       name: flutter_triple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.7+2"
+    version: "1.2.7+4"
   frontend_server_client:
     dependency: transitive
     description:
@@ -311,21 +311,21 @@ packages:
       name: modular_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.2"
+    version: "2.0.3+1"
   modular_interfaces:
     dependency: transitive
     description:
       name: modular_interfaces
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.2"
   modular_test:
     dependency: "direct dev"
     description:
       name: modular_test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1+2"
+    version: "2.0.0"
   nested:
     dependency: transitive
     description:
@@ -526,7 +526,7 @@ packages:
       name: triple_test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.0+1"
   typed_data:
     dependency: transitive
     description:

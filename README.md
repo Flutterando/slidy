@@ -2,8 +2,6 @@
 
 CLI script pipeline, package manager and template generator for Flutter. Generate Modules, Pages, Widgets, BLoCs, Controllers, tests and more.
 
-Slidy generator supports mobx, bloc, cubit, rx_notifier and triple.
-
 # Installation
 
 You can get Slidy of many ways.
@@ -22,21 +20,31 @@ brew install slidy
 ```
 
 
-## **Flutter/Dart directly**
+## Flutter/Dart directly
 
 ```bash
  dart pub global activate slidy
 ```
 
-# Why should I use it?
+## Hello world!
 
-**Slidy pipeline**: 
-- organize scripts to be executed by automating processes. All steps can be
+After install, exec the slidy version command.
+If the command was completed, the slidy was installed.
+
+```bash
+ slidy --version
+```
+
+# Slidy pipeline
+
+
+Organize scripts to be executed by automating processes. All steps can be
 configured in a file called `slidy.yaml`.
 ```
-slidy run ci
+slidy run cleanup
 ```
 
+**slidy.yaml**:
 ```yaml 
 slidy: '1'
 variables:
@@ -77,33 +85,121 @@ scripts:
       - run: echo ${Local.var.customMessage} 
 ```
 
+## Propeties
 
-**Slidy package manager**:
-- Install, Uninstall and find package by command line.
+| Propetie    |      Type        |  Doc |
+|:----------  |:-----------------|:------|
+| slidy       | string         | Slidy pipeline version |
+| variables   | object         | Local variables. ex:<br>${Local.var.[VariableName]} |
+| scripts     | object         | Add runnable scripts by name |
+
+## Script Propetie
+
+Add custom scripts. <br>
+The property name can be invoked using the `slidy run` command.
+
+**Simple example:**
+
+```yaml
+...
+scripts:
+  runner: flutter pub run build_runner build --delete-conflicting-outputs
+...
 ```
-// install package
+Execute this script using ``slidy run runner`
+
+**Complete example:**
+
+```yaml
+...
+scripts:
+  runner: 
+    name: "Runner"
+    description: "Execute build_runner"
+    run: flutter pub run build_runner build --delete-conflicting-outputs
+...
+```
+
+| Propetie                 |      Type        |  Doc |
+|:----------               |:-----------------|:------|
+| run                      | string           | script to run |
+| name                     | string           | Script name |
+| description              | string           | Script description |
+| shell                    | string           | options: <br>- command(default)<br>- bash<br>- sh<br>- zsh<br>- pwsh) |
+| working-directory        | string           | Run folder  |
+| environment              | object           | Add environment variable.|
+| steps                    | array(Step)      | Run multiple scripts in sequence..|
+
+**NOTE**: The STEPS or RUN property must be used. It is not allowed to use both at the same time.
+
+
+**Stepped example:**
+
+```yaml
+scripts:
+  cleanup:
+    description: "cleanup project"
+    steps:
+      - name: "Clean"
+        run: flutter clean
+        
+      - name: "GetPackages"
+        description: "Get packages"
+        run: flutter pub get
+
+      - name: "PodClean"
+        description: "Execute pod clean"
+        shell: bash 
+        condition: "${System.operatingSystem} == macos"
+        working-directory: ios
+        run: |-
+          rm Podfile.lock
+          pod deintegrate
+          pod update
+          pod install
+
+      - run: echo ${Local.var.customMessage} 
+```
+
+| Step Propetie                 |      Type        |  Doc |
+|:----------               |:-----------------|:------|
+| run                      | string           | script to run |
+| name                     | string           | Script name |
+| description              | string           | Script description |
+| shell                    | string           | options: <br>- command(default)<br>- bash<br>- sh<br>- zsh<br>- pwsh) |
+| working-directory        | string           | Run folder  |
+| environment              | object           | Add environment variable.|
+| condition                | boolean      |If true, execute this script. |
+
+**NOTE**: The main file is called `slidy.yaml`, but if you want to call other files, use the **--schema** flag of the run command. <br>`slidy run command --schema other.yaml`
+
+
+# Package manager
+Install, Uninstall and find package by command line.
+```bash
+# install package
 slidy install bloc
 
-// install package with version
+# install package with version
 slidy install flutter_modular@4.0.1
 
-// install package in dev_dependencies
+# install package in dev_dependencies
 slidy install mocktail --dev
 
-// find package by query
+# find package by query
 slidy find "Shared preferences"
 
-// show package versions
+# show package versions
 slidy versions dio
 ```
 
-**Slidy template generator**:
-- Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
+# Template generator
+Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
 
 We realized that the project pattern absence is affecting the productivity of most developers, so we're proposing a development pattern along with a tool that imitates NPM (NodeJS) functionality as well as template generation capabilities (similar to Scaffold).
 
 
-# About the Proposed Pattern
+## About the Proposed Pattern
 
 The structure that slidy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**.
 
@@ -116,17 +212,7 @@ We also use the **Repository Pattern**, so the folder structure it's organized i
 Sample folder structure generated by **slidy**:
 
 
-
-### Hello world!
-
-After install, exec the slidy version command.
-If the command was completed, the slidy was installed.
-
-```bash
- slidy --version
-```
-
-## Commands:
+## Commands
 
 **start:**
 Create a basic structure for your project (confirm that you have no data in the "lib" folder).
@@ -135,9 +221,10 @@ Create a basic structure for your project (confirm that you have no data in the 
 slidy start
 ```
 
-## Generate:
+## Generate
 
-Create a module, page, widget or repository according to the option.
+Create a module, page, widget or repository according to the option.<br>
+Slidy generator supports mobx, bloc, cubit, rx_notifier and triple.
 
 **Options:**
 

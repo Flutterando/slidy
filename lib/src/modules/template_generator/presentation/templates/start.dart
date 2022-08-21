@@ -21,7 +21,7 @@ app_module: |
   
     @override
     final List<ModularRoute> routes = [
-      ModuleRoute(Modular.initialRoute, module: HomeModule()),
+      ModuleRoute('/', module: HomeModule()),
     ];
   
   }

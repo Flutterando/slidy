@@ -7,12 +7,14 @@ import 'package:slidy/src/core/services/yaml_service_impl.dart';
 
 import 'core/modular/bind.dart';
 import 'modules/package_manager/package_manager_module.dart';
-import 'modules/pipeline/run_module.dart';
+import 'modules/pipeline/pipeline_module.dart';
+import 'modules/template_generator/template_generator_module.dart';
 
 class MainModule extends Module {
   @override
   List<Module> get imports => [
-        RunModule(),
+        PipelineModule(),
+        TemplateGeneratorModule(),
         PackageManagerModule(),
       ];
 
