@@ -1,3 +1,7 @@
+## 4.0.0
+- Added Pipeline.
+- Fix generator
+
 ## 3.2.2
 - Instalation in choco, homebrew and github release
 ## 3.2.1+1

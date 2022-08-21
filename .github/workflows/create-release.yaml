@@ -1,0 +1,133 @@
+name: Dart Release Creator
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  upload-release:
+
+    runs-on: ubuntu-18.04
+    needs: [build-macos-x86, build-linux, build-windows]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: create release
+      id: create_release
+      uses: actions/create-release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false   
+    - name: download artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: uploads    
+    - name: upload macos-x86
+      id: upload-macos-x86
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./uploads/macos-x86.zip
+        asset_name: macos.zip
+        asset_content_type: application/zip  
+    - name: upload linux
+      id: upload-linux
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./uploads/linux.zip
+        asset_name: linux.zip
+        asset_content_type: application/zip   
+    - name: upload windows
+      id: upload-windows
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./uploads/windows.zip
+        asset_name: windows.zip
+        asset_content_type: application/zip                        
+
+  build-macos-x86:
+    runs-on: macos-11
+    strategy:
+      matrix:
+        sdk: [2.17.5]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Dart ${{ matrix.sdk }}
+      uses: dart-lang/setup-dart@v1.3
+      with:
+        sdk: ${{ matrix.sdk }}
+    - name: Package get
+      run: dart pub get
+    - name: Build
+      run: dart compile exe bin/main.dart -o slidy
+    - name: zip macos-x86 artifact
+      run: zip -r slidy out macos-x86
+    - name: upload macos-x86 artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: uploads
+        path: macos-x86.zip                    
+
+  build-linux:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        sdk: [2.17.5]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Dart ${{ matrix.sdk }}
+      uses: dart-lang/setup-dart@v1.3
+      with:
+        sdk: ${{ matrix.sdk }}
+    - name: Package get
+      run: dart pub get
+    - name: Build
+      run: dart compile exe bin/main.dart -o slidy
+    - name: zip linux artifact
+      run: zip -r slidy out linux
+    - name: upload linux artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: uploads
+        path: linux.zip       
+
+  build-windows:
+
+    runs-on: windows-2019
+
+    strategy:
+      matrix:
+        sdk: [2.17.5]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Dart ${{ matrix.sdk }}
+      uses: dart-lang/setup-dart@v1.3
+      with:
+        sdk: ${{ matrix.sdk }}
+    - name: Package get
+      run: dart pub get
+    - name: Build
+      run: dart compile exe bin/main.dart -o slidy
+    - name: zip windows artifact
+      run: zip -r slidy out windows
+    - name: upload windows artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: uploads
+        path: windows.zip
