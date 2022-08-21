@@ -74,7 +74,7 @@ jobs:
     - name: Build
       run: dart compile exe bin/main.dart -o slidy
     - name: zip macos-x86 artifact
-      run: zip -r macos-x86 slidy out
+      run: zip -r macos-x86 slidy
     - name: upload macos-x86 artifact
       uses: actions/upload-artifact@v1
       with:
@@ -99,7 +99,7 @@ jobs:
     - name: Build
       run: dart compile exe bin/main.dart -o slidy
     - name: zip linux artifact
-      run: zip -r linux slidy out
+      run: zip -r linux slidy
     - name: upload linux artifact
       uses: actions/upload-artifact@v1
       with:
@@ -125,7 +125,7 @@ jobs:
     - name: Build
       run: dart compile exe bin/main.dart -o slidy
     - name: zip windows artifact
-      run: zip -r windows slidy out
+      run: powershell Compress-Archive slidy windows.zip
     - name: upload windows artifact
       uses: actions/upload-artifact@v1
       with:
