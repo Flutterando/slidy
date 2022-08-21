@@ -17,7 +17,7 @@ jobs:
       id: create_release
       uses: actions/create-release@master
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_PUBLISH }}
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
@@ -31,7 +31,7 @@ jobs:
       id: upload-macos-x86
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_PUBLISH }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./uploads/macos-x86.zip
@@ -41,7 +41,7 @@ jobs:
       id: upload-linux
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_PUBLISH }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./uploads/linux.zip
@@ -51,7 +51,7 @@ jobs:
       id: upload-windows
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_PUBLISH }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./uploads/windows.zip
