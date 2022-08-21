@@ -3,7 +3,7 @@ name: Dart Release Creator
 on:
   push:
     branches:
-      - 'production'
+      - 'stable'
 
 jobs:
   upload-release:
