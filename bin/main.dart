@@ -9,7 +9,6 @@ import 'package:slidy/src/version.dart';
 
 Future<void> main(List<String> arguments) async {
   Modular.init(MainModule());
-
   final runner = configureCommand(arguments);
 
   var hasCommand = runner.commands.keys.any((x) => arguments.contains(x));
@@ -53,6 +52,8 @@ CommandRunner configureCommand(List<String> arguments) {
     ..addCommand(InstallCommand())
     ..addCommand(InstallCommandAbbr())
     ..addCommand(UninstallCommand())
+    ..addCommand(VersionsCommand())
+    ..addCommand(FindCommand())
     ..addCommand(StartCommand())
     ..addCommand(GenerateCommand())
     ..addCommand(GenerateCommandAbbr())

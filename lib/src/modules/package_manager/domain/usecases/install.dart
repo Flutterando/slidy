@@ -16,8 +16,7 @@ class InstallImpl implements Install {
 
   @override
   TaskEither<SlidyError, SlidyProccess> call(PackageName package) {
-    return TaskEither<SlidyError, PackageName>.of(package) //
-        .flatMap(_resolveVersion)
+    return _resolveVersion(package) //
         .flatMap(repository.putPackage)
         .map(_finishProcess);
   }

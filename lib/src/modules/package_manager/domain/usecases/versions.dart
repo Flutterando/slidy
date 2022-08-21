@@ -24,7 +24,7 @@ class VersionsImpl implements Versions {
   }
 
   SlidyProccess finishProcess(List<String> versions) {
-    final maxItem = min(versions.length, 5);
+    final maxItem = min(versions.length, 10);
     final newList = versions.reversed.take(maxItem);
 
     for (var element in newList) {

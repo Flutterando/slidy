@@ -77,6 +77,12 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
                 return Left(SlidyError('Field [run] is required in [step] propertie.'));
               }
 
+              if (step['condition'] != null && //
+                  _validateCondicion(step['condition']) &&
+                  step['condition'] is! String) {
+                return Left(SlidyError('Field [condition] must be String.'));
+              }
+
               if (script['environment'] != null && step['environment'] is! Map<String, String>) {
                 return Left(SlidyError('Field [environment] must be Object[String,String].'));
               }
@@ -128,11 +134,23 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
   Step mapToStep(dynamic map) {
     return Step(
       name: map['name'],
+      condition: map['condition'],
       description: map['description'] ?? '',
       environment: map['environment'] == null ? null : map['environment'].cast<String, String>(),
       shell: ShellEnum.values.firstWhere((e) => e.name == map['shell'], orElse: () => ShellEnum.command),
       workingDirectory: map['working-directory'] ?? '.',
       run: map['run'],
     );
+  }
+
+  bool _validateCondicion(String condition) {
+    final splitter = condition.split(RegExp('(&&|\|\|)'));
+    for (var element in splitter) {
+      if (!element.trim().contains(r'^\w+ *(==|!=) *\w+')) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

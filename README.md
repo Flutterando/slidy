@@ -4,6 +4,30 @@ CLI script pipeline, package manager and template generator for Flutter. Generat
 
 Slidy generator supports mobx, bloc, cubit, rx_notifier and triple.
 
+# Installation
+
+You can get Slidy of many ways.
+
+## choco (only windows)
+
+```bash
+choco install slidy
+```
+
+## Homebrew (macos and linux)
+
+```bash
+brew tap Flutterando/slidy
+brew install slidy
+```
+
+
+## **Flutter/Dart directly**
+
+```bash
+ dart pub global activate slidy
+```
+
 # Why should I use it?
 
 **Slidy pipeline**: 
@@ -12,6 +36,47 @@ configured in a file called `slidy.yaml`.
 ```
 slidy run ci
 ```
+
+```yaml 
+slidy: '1'
+variables:
+  customMessage: "Complete"    # Gets  ${Local.var.customMessage}
+
+scripts:
+  # Simple command (slidy run doctor)
+  doctor: flutter doctor
+
+  # Descritive command (slidy run clean)
+  clean:
+    name: "Clean"
+    description: 'minha descricao'
+    run: flutter clean
+
+  # Steped command (slidy run cleanup)   
+  cleanup:
+    description: "cleanup project"
+    steps:
+      - name: "Clean"
+        run: flutter clean
+        
+      - name: "GetPackages"
+        description: "Get packages"
+        run: flutter pub get
+
+      - name: "PodClean"
+        description: "Execute pod clean"
+        shell: bash   # default: command. options (command|bash|sh|zsh|pwsh)
+        condition: "${System.operatingSystem} == macos"
+        working-directory: ios
+        run: |-
+          rm Podfile.lock
+          pod deintegrate
+          pod update
+          pod install
+
+      - run: echo ${Local.var.customMessage} 
+```
+
 
 **Slidy package manager**:
 - Install, Uninstall and find package by command line.
@@ -37,30 +102,6 @@ slidy versions dio
 
 We realized that the project pattern absence is affecting the productivity of most developers, so we're proposing a development pattern along with a tool that imitates NPM (NodeJS) functionality as well as template generation capabilities (similar to Scaffold).
 
-
-# Installation
-
-You can get Slidy of many ways.
-
-## choco (only windows)
-
-```bash
-choco install slidy
-```
-
-## Homebrew (macos and linux)
-
-```bash
-brew tap Flutterando/slidy
-brew install slidy
-```
-
-
-## **Flutter/Dart directly**
-
-```bash
- dart pub global activate slidy
-```
 
 # About the Proposed Pattern
 
@@ -92,26 +133,6 @@ Create a basic structure for your project (confirm that you have no data in the 
 
 ```
 slidy start
-```
-
-**run:**
-Run scripts placed in the "scripts" parameter in pubspec.yaml
-
-```
-slidy run open_folder
-```
-
-**Install:**
-Install (or update) a new package or packages:
-
-```
-slidy install mockito dio modular
-```
-
-You can also install a package as dev_dependency using the flag --dev
-
-```
-slidy i flutter_launcher_icons --dev
 ```
 
 ## Generate:

@@ -7,4 +7,5 @@ abstract class PackageRepository {
   TaskEither<SlidyError, List<String>> getVersions(String packageName);
   TaskEither<SlidyError, PackageName> putPackage(PackageName package);
   TaskEither<SlidyError, PackageName> removePackage(PackageName package);
+  TaskEither<SlidyError, List<String>> findPackage(String packageName);
 }

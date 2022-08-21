@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:pub_api_client/pub_api_client.dart';
 import 'package:slidy/src/modules/package_manager/domain/errors/errors.dart';
 import 'package:slidy/src/modules/package_manager/infra/datasources/pub_service.dart';
@@ -16,11 +14,12 @@ class PubServiceImpl implements PubService {
       return package.versions.map((e) => e.version).toList();
     } on NotFoundException {
       throw PackageManagerError('Package \'$packageName\' not found');
-    } on SocketException catch (e) {
-      if (e.osError?.errorCode == 11001) {
-        throw PackageManagerError('Internet error');
-      }
-      rethrow;
     }
+  }
+
+  @override
+  Future<List<String>> searchPackage(String packageName) async {
+    final packages = await client.search(packageName);
+    return packages.packages.map((e) => '${e.package}').toList();
   }
 }

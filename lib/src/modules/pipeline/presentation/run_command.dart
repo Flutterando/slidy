@@ -11,11 +11,13 @@ import 'package:slidy/src/modules/pipeline/domain/usecase/load_slidy_pipeline.da
 import 'package:slidy/src/modules/pipeline/domain/usecase/resolve_variables.dart';
 
 import '../../../core/command/command_base.dart';
+import '../domain/usecase/condition_eval.dart';
 
 class RunCommand extends CommandBase {
   final loader = Modular.get<LoadSlidyPipeline>();
   final resolveVariables = Modular.get<ResolveVariables>();
   final executor = Modular.get<ExecuteStep>();
+  final conditionEval = Modular.get<ConditionEval>();
 
   RunCommand() {
     argParser.addOption(
@@ -102,7 +104,14 @@ class RunCommand extends CommandBase {
           name: step.name == null ? null : resolveVariables(step.name!, pipelineVarUpdate).getOrElse((l) => step.name!),
           description: resolveVariables(step.description, pipelineVarUpdate).getOrElse((l) => step.description),
           run: resolveVariables(step.run, pipelineVarUpdate).getOrElse((l) => step.run),
+          condition: step.condition == null ? null : resolveVariables(step.condition!, pipelineVarUpdate).getOrElse((l) => step.condition!),
         );
+
+        if (!conditionEval.call(step.condition)) {
+          output.msg('Step: ${step.name} condition false');
+          print('\n----------- END STEP ----------\n');
+          continue;
+        }
 
         if (step.name != null) {
           print('Step:  ${output.green(step.name!)}');

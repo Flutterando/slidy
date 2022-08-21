@@ -1,8 +1,6 @@
 slidy: '1'
-
 variables:
-  var1: myVariable   # Gets  ${Local.var.var1}
-  var2: ${System.env.USER}  # Gets system env variables ${Local.var.var2}
+  customMessage: "Complete"    # Gets  ${Local.var.customMessage}
 
 scripts:
   # Simple command (slidy run doctor)
@@ -11,39 +9,43 @@ scripts:
   # Descritive command (slidy run clean)
   clean:
     name: "Clean"
+    description: 'minha descricao'
     run: flutter clean
 
-  # Complete command (slidy run complete)
-  complete:
-    name: "Complete command"
-    description: "my great desc."
-    shell: pwsh # default: command. options (command|bash|sh|zsh|pwsh)
-    environment:
-      TEST: "Test Variable" 
-    run: >- 
-        echo 'Bash command';
-        echo '${Local.var.var1}';
-        echo '${Local.var.var2}';
-        echo '${System.operatingSystem}';
-        echo '${System.env.TEST}';
-        echo '$TEST';
-      
-
   # Steped command (slidy run reload)   
-  reload:
-    description: "clenup project"
+  cleanup:
+    description: "cleanup project"
     steps:
       - name: "Clean"
         run: flutter clean
         
-      - name: "Get packages"
+      - name: "GetPackages"
+        description: "Get packages"
         run: flutter pub get
 
-      - name: "Commands"
-        description: "exec bash commands"
-        shell: pwsh
+      - name: "PodClean"
+        description: "Execute pod clean"
+        shell: bash   # default: command. options (command|bash|sh|zsh|pwsh)
+        condition: "${System.operatingSystem} == macos"
+        working-directory: ios
         run: |-
-          echo "Bash command"
-          echo "${Local.var1}"
-          echo "${Local.var2}"
-          echo "${System.operatingSystem}"
+          rm Podfile.lock
+          pod deintegrate
+          pod update
+          pod install
+
+  condition:
+    description: "test conditions"
+    steps:
+      - name: "Windows"
+        run: echo "I am in Windows"
+        condition: "'${System.operatingSystem}' == 'windows'"
+      - name: "Mac"
+        run: echo "I am in Mac"
+        condition: "${System.operatingSystem} == macos"
+      - name: "Linux"
+        run: echo "I am in Mac"
+        condition: "'${System.operatingSystem}' == 'linux'"
+        
+     
+

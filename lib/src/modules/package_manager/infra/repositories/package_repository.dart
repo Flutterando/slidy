@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:slidy/src/core/errors/errors.dart';
 import 'package:slidy/src/core/services/yaml_service.dart';
@@ -8,18 +10,23 @@ import 'package:slidy/src/modules/package_manager/infra/datasources/pub_service.
 
 class PackageRepositoryImpl implements PackageRepository {
   final YamlService pubspec;
-  final PubService client;
+  final PubService datasource;
 
-  PackageRepositoryImpl({required this.pubspec, required this.client});
+  PackageRepositoryImpl({required this.pubspec, required this.datasource});
 
   @override
   TaskEither<SlidyError, List<String>> getVersions(String packageName) {
     return TaskEither(() async {
       try {
-        final versions = await client.fetchVersions(packageName);
+        final versions = await datasource.fetchVersions(packageName);
         return Right(versions);
       } on SlidyError catch (e) {
         return Left(e);
+      } on SocketException catch (e) {
+        if (e.osError?.errorCode == 11001) {
+          throw PackageManagerError('Internet error');
+        }
+        rethrow;
       }
     });
   }
@@ -55,6 +62,23 @@ class PackageRepositoryImpl implements PackageRepository {
         }
       } on SlidyError catch (e) {
         return Left(e);
+      }
+    });
+  }
+
+  @override
+  TaskEither<SlidyError, List<String>> findPackage(String packageName) {
+    return TaskEither(() async {
+      try {
+        final packages = await datasource.searchPackage(packageName);
+        return Right(packages);
+      } on SlidyError catch (e) {
+        return Left(e);
+      } on SocketException catch (e) {
+        if (e.osError?.errorCode == 11001) {
+          throw PackageManagerError('Internet error');
+        }
+        rethrow;
       }
     });
   }

@@ -5,6 +5,7 @@ import 'package:slidy/src/modules/pipeline/domain/usecase/resolve_variables.dart
 
 import '../../core/modular/bind.dart';
 import 'domain/services/yaml_reader_service.dart';
+import 'domain/usecase/condition_eval.dart';
 import 'infra/services/yaml_reader_service.dart';
 
 class RunModule extends Module {
@@ -14,6 +15,7 @@ class RunModule extends Module {
         Bind.singleton<LoadSlidyPipeline>((i) => LoadSlidyPipelineImpl(i()), export: true),
         Bind.singleton<ResolveVariables>((i) => ResolveVariablesImpl(), export: true),
         Bind.singleton<ExecuteStep>((i) => ExecuteStepImpl(), export: true),
+        Bind.singleton<ConditionEval>((i) => ConditionEvalImpl(), export: true),
         //infra
         Bind.singleton<YamlReaderService>((i) => YamlReaderServiceImpl(), export: true),
       ];

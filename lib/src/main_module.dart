@@ -9,10 +9,6 @@ import 'core/modular/bind.dart';
 import 'modules/package_manager/package_manager_module.dart';
 import 'modules/pipeline/run_module.dart';
 
-void StartAllModules() {
-  PackageManagerModule();
-}
-
 class MainModule extends Module {
   @override
   List<Module> get imports => [

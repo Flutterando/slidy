@@ -19,9 +19,9 @@ import 'dart:io';
 
 enum ShellEnum {
   command([], []),
-  bash(['bash', '-c'], ['bash', '-c']),
-  sh(['sh', '-c'], ['bash', '-c']),
-  zsh(['zsh', '-c'], ['bash', '-c']),
+  bash(['bash', '-c'], ['wsl']),
+  sh(['sh', '-c'], ['wsl']),
+  zsh(['zsh', '-c'], ['wsl']),
   pwsh(['pwsh', '-c'], ['powershell', '-c']);
 
   final List<String> _commands;
@@ -77,6 +77,7 @@ class Step {
   final String? name;
   final String run;
   final String description;
+  final String? condition;
   final String workingDirectory;
   final ShellEnum shell;
   final Map<String, String>? environment;
@@ -85,6 +86,7 @@ class Step {
     required this.run,
     required this.shell,
     this.name,
+    this.condition,
     this.description = '',
     this.workingDirectory = '.',
     this.environment,
@@ -95,6 +97,7 @@ class Step {
     String? run,
     String? description,
     String? workingDirectory,
+    String? condition,
     Map<String, String>? environment,
     ShellEnum? shell,
   }) {
@@ -102,6 +105,7 @@ class Step {
       name: name ?? this.name,
       shell: shell ?? this.shell,
       run: run ?? this.run,
+      condition: condition ?? this.condition,
       environment: environment ?? this.environment,
       description: description ?? this.description,
       workingDirectory: workingDirectory ?? this.workingDirectory,
