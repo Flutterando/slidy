@@ -2,8 +2,8 @@ name: Dart Release Creator
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - 'production'
 
 jobs:
   upload-release:
