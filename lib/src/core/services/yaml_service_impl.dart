@@ -17,7 +17,7 @@ class YamlServiceImpl implements YamlService {
     File Function(File yaml, String path)? getYamlFileParam,
   }) {
     if (customyamlEditor == null) {
-      yamlEditor = YamlEditor(yaml.readAsStringSync());
+      yamlEditor = YamlEditor(yaml.existsSync() ? yaml.readAsStringSync() : '');
     } else {
       yamlEditor = customyamlEditor;
     }
