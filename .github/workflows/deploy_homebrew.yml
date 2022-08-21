@@ -18,8 +18,6 @@ jobs:
     env:
       PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
       GITHUB_TOKEN: ${{ secrets.TOKEN_PUBLISH }}
-    container:
-      image: google/dart:latest
     steps:
       - uses: actions/checkout@v1
       - uses: dart-lang/setup-dart@v1.3
