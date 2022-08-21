@@ -32,9 +32,8 @@ dev_dependencies:
   test: ^1.16.0-nullsafety.17
   mocktail: ^0.1.1
   build_test: ^2.1.0
-  cli_pkg:
-    git: https://github.com/leoafarias/dart_cli_pkg
-  grinder: ^0.9.0
+  cli_pkg: ^2.1.4
+  grinder: ^0.9.2
 
 # dependency_overrides:
 #   args: '2.0.0-nullsafety.0'
