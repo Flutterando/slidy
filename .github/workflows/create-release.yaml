@@ -7,7 +7,7 @@ on:
 jobs:
   upload-release:
     runs-on: ubuntu-18.04
-    needs: [build-macos-arm, build-macos-x86, build-linux, build-windows]
+    needs: [build-macos-x86, build-linux, build-windows]
 
     steps:
     - uses: actions/checkout@v1
@@ -40,16 +40,16 @@ jobs:
         asset_path: ./uploads/macos-x86.zip
         asset_name: macos-x86.zip
         asset_content_type: application/zip  
-    - name: upload macos-arm
-      id: upload-macos-arm
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./uploads/macos-arm.zip
-        asset_name: macos-arm.zip
-        asset_content_type: application/zip  
+    # - name: upload macos-arm
+    #   id: upload-macos-arm
+    #   uses: actions/upload-release-asset@v1.0.1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./uploads/macos-arm.zip
+    #     asset_name: macos-arm.zip
+    #     asset_content_type: application/zip  
     - name: upload linux
       id: upload-linux
       uses: actions/upload-release-asset@v1.0.1
@@ -94,28 +94,28 @@ jobs:
         name: uploads
         path: macos-x86.zip
 
-  build-macos-arm:
-    runs-on: [self-hosted, macos, ARM64]
-    strategy:
-      matrix:
-        sdk: [2.17.5]
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Dart ${{ matrix.sdk }}
-      uses: dart-lang/setup-dart@v1.3
-      with:
-        sdk: ${{ matrix.sdk }}
-    - name: Package get
-      run: dart pub get
-    - name: Build
-      run: dart compile exe bin/main.dart -o slidy
-    - name: zip macos-arm artifact
-      run: zip -r macos-arm slidy
-    - name: upload macos-arm artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: uploads
-        path: macos-arm.zip                    
+  # build-macos-arm:
+  #   runs-on: [self-hosted, macos, ARM64]
+  #   strategy:
+  #     matrix:
+  #       sdk: [2.17.5]
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - name: Use Dart ${{ matrix.sdk }}
+  #     uses: dart-lang/setup-dart@v1.3
+  #     with:
+  #       sdk: ${{ matrix.sdk }}
+  #   - name: Package get
+  #     run: dart pub get
+  #   - name: Build
+  #     run: dart compile exe bin/main.dart -o slidy
+  #   - name: zip macos-arm artifact
+  #     run: zip -r macos-arm slidy
+  #   - name: upload macos-arm artifact
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: uploads
+  #       path: macos-arm.zip                    
 
   build-linux:
     runs-on: ubuntu-18.04
