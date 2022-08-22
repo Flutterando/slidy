@@ -13,37 +13,14 @@ jobs:
     - name: Get pubspec version
       run: |
         echo "PUBSPEC_VERSION=$(cat pubspec.yaml | grep ^version: | tr -d 'version: ')" >> $GITHUB_ENV
-    - name: create release
-      id: create_release
-      uses: actions/create-release@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
+    - name: Create tag
+      uses: rickstaa/action-create-tag@v1
       with:
-        tag_name: v${{ env.PUBSPEC_VERSION }}
-        release_name: Release v${{ env.PUBSPEC_VERSION }}
-        body: |-
+        github_token: ${{ secrets.REPOSITORY_KEY }} 
+        tag: v${{ env.PUBSPEC_VERSION }}
+        message: | 
           See the [full changelog](https://github.com/Flutterando/slidy/blob/master/CHANGELOG.md#322) for changes in earlier releases.
-        draft: false
-        prerelease: false
 
-    - name: Updload files
-      uses: xresloader/upload-to-github-release@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
-      with:
-        file: "build/*.tar.gz;build/*.zip"
-        release_id: ${{ steps.create_release.outputs.id }}
-        overwrite: true
-        verbose: true
-    
-  create-all-binaries: 
-    name: Create Binaries
-    runs-on: ubuntu-20.04
-    env:
-      PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
-      GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
-    steps:
-    - uses: actions/checkout@v1
     - uses: dart-lang/setup-dart@v1.3
       with:
         sdk: 2.17.5
