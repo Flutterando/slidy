@@ -14,7 +14,7 @@
     <docsUrl>https://github.com/Flutterando/slidy</docsUrl>
     <tags>Slidy flutter dart</tags>
     <summary>Slidy. Templates for Flutter Modular apps</summary>
-    <description>CLI package manager and template for Flutter. Generate Modules, Pages, Widgets, BLoCs, MobX, Triple and more.</description>
+    <description>CLI package manager, template for Flutter and Pipeline (scripts). Generate Modules, Pages, Widgets, BLoCs, MobX, Triple and more</description>
     <releaseNotes>https://github.com/Flutterando/slidy/blob/master/CHANGELOG.md</releaseNotes>
 
   </metadata>
