@@ -19,6 +19,9 @@ brew tap Flutterando/slidy
 brew install slidy
 ```
 
+## Other OS
+
+All binary releases, [click here](https://github.com/Flutterando/slidy/releases).
 
 ## Flutter/Dart directly
 
