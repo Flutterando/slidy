@@ -1,4 +1,4 @@
-## 4.0.0+25
+## 4.0.0+26
 - Added Pipeline.
 - Fix generator.
 
