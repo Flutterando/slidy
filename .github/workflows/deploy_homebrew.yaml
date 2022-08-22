@@ -30,10 +30,7 @@ jobs:
         run: dart pub get
 
       - name: Build Version Number
-        run: dart pub run build_runner build --delete-conflicting-outputs
-
-      - name: Test
-        run: dart pub run test
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Deploy to Homebrew
-        run: dart pub run grinder pkg-homebrew-update
+        run: dart run grinder pkg-homebrew-update
