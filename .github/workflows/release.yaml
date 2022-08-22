@@ -38,7 +38,4 @@ jobs:
     - name: Deploy to Pub
       run: dart run grinder pkg-pub-deploy
 
-    - name: Deploy to Homebrew
-      run: dart run grinder pkg-homebrew-update
-
     
