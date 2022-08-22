@@ -6,7 +6,7 @@ on:
 
 jobs:
   upload-release:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     needs: [create-all-binaries]
     steps:
     - uses: actions/checkout@v1
@@ -38,7 +38,7 @@ jobs:
     
   create-all-binaries: 
     name: Create Binaries
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
       GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
