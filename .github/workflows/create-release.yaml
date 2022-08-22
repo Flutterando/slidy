@@ -7,6 +7,9 @@ on:
 jobs:
   create-tag:
     runs-on: ubuntu-20.04
+    env:
+      PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+      GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
     steps:
     - uses: actions/checkout@v1
     - name: Get pubspec version
