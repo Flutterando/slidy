@@ -6,6 +6,7 @@ on:
 
 jobs:
   upload-release:
+    needs: [create-all-binaries]
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
@@ -23,5 +24,39 @@ jobs:
         body: |-
           See the [full changelog](https://github.com/Flutterando/slidy/blob/master/CHANGELOG.md#322) for changes in earlier releases.
         draft: false
-        prerelease: false   
+        prerelease: false
+
+    - name: Updload files
+      uses: xresloader/upload-to-github-release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
+      with:
+        file: "*.tar.gz;*.zip"
+        release_id: ${{ steps.create_release.outputs.id }}
+        overwrite: true
+        verbose: true
+    
+  create-all-binaries: 
+    name: Create Binaries
+    runs-on: ubuntu-latest
+    env:
+      PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+      GITHUB_TOKEN: ${{ secrets.REPOSITORY_KEY }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: dart-lang/setup-dart@v1.3
+      with:
+        sdk: 2.17.5
+    - name: Install dependencies
+      run: dart pub get
+
+    - name: Build Version Number
+      run: dart run build_runner build --delete-conflicting-outputs
+    
+    - name: Deploy Github
+      run: dart run grinder pkg-github-all
+
+    - name: Deploy to Pub
+      run: dart run grinder pkg-pub-deploy
+
     
