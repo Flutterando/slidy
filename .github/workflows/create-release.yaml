@@ -5,9 +5,8 @@ on:
       - 'stable'
 
 jobs:
-  upload-release:
+  create-tag:
     runs-on: ubuntu-20.04
-    needs: [create-all-binaries]
     steps:
     - uses: actions/checkout@v1
     - name: Get pubspec version
