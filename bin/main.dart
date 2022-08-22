@@ -36,7 +36,7 @@ void executeOptions(ArgResults results, List<String> arguments, CommandRunner ru
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   } else if (results.wasParsed('version')) {
-    version(packageVersion);
+    version();
   } else {
     print('Command not found!\n');
     print(runner.usage);
@@ -64,7 +64,7 @@ CommandRunner configureCommand(List<String> arguments) {
   return runner;
 }
 
-void version(String version) async {
+void version() async {
   //String version = await getVersion();
   //String version = '0.0.13';
   print('''
@@ -77,5 +77,5 @@ void version(String version) async {
 ''');
   print('CLI package manager and template for Flutter');
   print('');
-  print('Slidy version: $version');
+  print('Slidy version: $packageVersion');
 }
