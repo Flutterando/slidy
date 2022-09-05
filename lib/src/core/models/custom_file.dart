@@ -1,48 +1,43 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'dart:typed_data';
 
 class CustomFile implements File {
   final String yaml;
+  final File _file;
 
-  CustomFile({required this.yaml});
+  CustomFile({required this.yaml}) : _file = File(yaml);
   @override
-  // TODO: implement absolute
-  File get absolute => throw UnimplementedError();
+  File get absolute => _file.absolute;
 
   @override
   Future<File> copy(String newPath) {
-    // TODO: implement copy
-    throw UnimplementedError();
+    return _file.copy(newPath);
   }
 
   @override
   File copySync(String newPath) {
-    // TODO: implement copySync
-    throw UnimplementedError();
+    return _file.copySync(newPath);
   }
 
   @override
   Future<File> create({bool recursive = false}) {
-    // TODO: implement create
-    throw UnimplementedError();
+    return _file.create(recursive: recursive);
   }
 
   @override
   void createSync({bool recursive = false}) {
-    // TODO: implement createSync
+    _file.createSync(recursive: recursive);
   }
 
   @override
   Future<FileSystemEntity> delete({bool recursive = false}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+    return _file.delete(recursive: recursive);
   }
 
   @override
   void deleteSync({bool recursive = false}) {
-    // TODO: implement deleteSync
+    _file.deleteSync(recursive: recursive);
   }
 
   @override
@@ -52,102 +47,86 @@ class CustomFile implements File {
 
   @override
   bool existsSync() {
-    // TODO: implement existsSync
-    throw UnimplementedError();
+    return true;
   }
 
   @override
-  // TODO: implement isAbsolute
-  bool get isAbsolute => throw UnimplementedError();
+  bool get isAbsolute => _file.isAbsolute;
 
   @override
   Future<DateTime> lastAccessed() {
-    // TODO: implement lastAccessed
-    throw UnimplementedError();
+    return _file.lastAccessed();
   }
 
   @override
   DateTime lastAccessedSync() {
-    // TODO: implement lastAccessedSync
-    throw UnimplementedError();
+    return _file.lastAccessedSync();
   }
 
   @override
   Future<DateTime> lastModified() {
-    // TODO: implement lastModified
-    throw UnimplementedError();
+    return _file.lastModified();
   }
 
   @override
   DateTime lastModifiedSync() {
-    // TODO: implement lastModifiedSync
-    throw UnimplementedError();
+    return _file.lastModifiedSync();
   }
 
   @override
   Future<int> length() {
-    // TODO: implement length
-    throw UnimplementedError();
+    return _file.length();
   }
 
   @override
   int lengthSync() {
-    // TODO: implement lengthSync
-    throw UnimplementedError();
+    return _file.lengthSync();
   }
 
   @override
   Future<RandomAccessFile> open({FileMode mode = FileMode.read}) {
-    // TODO: implement open
-    throw UnimplementedError();
+    return _file.open(mode: mode);
   }
 
   @override
   Stream<List<int>> openRead([int? start, int? end]) {
-    // TODO: implement openRead
-    throw UnimplementedError();
+    return _file.openRead(start, end);
   }
 
   @override
   RandomAccessFile openSync({FileMode mode = FileMode.read}) {
-    // TODO: implement openSync
-    throw UnimplementedError();
+    return _file.openSync(mode: mode);
   }
 
   @override
   IOSink openWrite({FileMode mode = FileMode.write, Encoding encoding = utf8}) {
-    // TODO: implement openWrite
-    throw UnimplementedError();
+    return _file.openWrite(encoding: encoding, mode: mode);
   }
 
   @override
-  // TODO: implement parent
-  Directory get parent => throw UnimplementedError();
+  Directory get parent => _file.parent;
 
   @override
-  // TODO: implement path
-  String get path => throw UnimplementedError();
+  String get path => _file.path;
 
   @override
   Future<Uint8List> readAsBytes() {
-    // TODO: implement readAsBytes
-    throw UnimplementedError();
+    return _file.readAsBytes();
   }
 
   @override
   Uint8List readAsBytesSync() {
-    // TODO: implement readAsBytesSync
-    throw UnimplementedError();
+    return _file.readAsBytesSync();
   }
 
   @override
   Future<List<String>> readAsLines({Encoding encoding = utf8}) {
-    throw UnimplementedError();
+    return _file.readAsLines(encoding: encoding);
   }
 
   @override
   List<String> readAsLinesSync({Encoding encoding = utf8}) {
-    throw UnimplementedError();
+    return _file.readAsLinesSync(encoding: encoding);
   }
 
   @override
@@ -223,39 +202,30 @@ class CustomFile implements File {
   Uri get uri => throw UnimplementedError();
 
   @override
-  Stream<FileSystemEvent> watch(
-      {int events = FileSystemEvent.all, bool recursive = false}) {
+  Stream<FileSystemEvent> watch({int events = FileSystemEvent.all, bool recursive = false}) {
     // TODO: implement watch
     throw UnimplementedError();
   }
 
   @override
-  Future<File> writeAsBytes(List<int> bytes,
-      {FileMode mode = FileMode.write, bool flush = false}) {
+  Future<File> writeAsBytes(List<int> bytes, {FileMode mode = FileMode.write, bool flush = false}) {
     // TODO: implement writeAsBytes
     throw UnimplementedError();
   }
 
   @override
-  void writeAsBytesSync(List<int> bytes,
-      {FileMode mode = FileMode.write, bool flush = false}) {
+  void writeAsBytesSync(List<int> bytes, {FileMode mode = FileMode.write, bool flush = false}) {
     // TODO: implement writeAsBytesSync
   }
 
   @override
-  Future<File> writeAsString(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) {
+  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
     // TODO: implement writeAsString
     throw UnimplementedError();
   }
 
   @override
-  void writeAsStringSync(String contents,
-      {FileMode mode = FileMode.write,
-      Encoding encoding = utf8,
-      bool flush = false}) {
+  void writeAsStringSync(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) {
     // TODO: implement writeAsStringSync
   }
 }

@@ -4,7 +4,6 @@ import 'package:slidy/src/core/services/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
 import 'yaml_edit/src/editor.dart';
-import 'yaml_service.dart';
 
 class YamlServiceImpl implements YamlService {
   final File yaml;
