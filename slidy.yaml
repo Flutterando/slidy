@@ -6,6 +6,8 @@ scripts:
   # Simple command (slidy run doctor)
   doctor: flutter doctor
 
+  build: dart run build_runner build
+
   # Descritive command (slidy run clean)
   clean:
     name: "Clean"
