@@ -1,3 +1,6 @@
+## 4.0.2
+- Fix slidy start
+
 ## 4.0.1
 - Added Pipeline.
 - Fix generator.
