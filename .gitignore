@@ -11,5 +11,3 @@ doc/api/
 
 # MacOS
 .DS_Store
-
-lib/src/version.dart
