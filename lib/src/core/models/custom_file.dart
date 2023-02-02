@@ -21,13 +21,13 @@ class CustomFile implements File {
   }
 
   @override
-  Future<File> create({bool recursive = false}) {
-    return _file.create(recursive: recursive);
+  Future<File> create({bool recursive = false, bool exclusive = false}) {
+    return _file.create(recursive: recursive, exclusive: exclusive);
   }
 
   @override
-  void createSync({bool recursive = false}) {
-    _file.createSync(recursive: recursive);
+  void createSync({bool recursive = false, bool exclusive = false}) {
+    _file.createSync(recursive: recursive, exclusive: exclusive);
   }
 
   @override
