@@ -8,11 +8,10 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   late final HomeStore store;
 
   @override
@@ -25,14 +24,15 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     Modular.dispose<HomeStore>();
     super.dispose();
-  }    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Counter'),
       ),
-      body: ScopedBuilder<HomeStore, Exception, int>(
+      body: ScopedBuilder<HomeStore, int>(
         store: store,
         onState: (_, counter) {
           return Padding(

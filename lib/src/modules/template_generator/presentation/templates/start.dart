@@ -8,7 +8,7 @@ main: |
   import 'app/app_module.dart';
   import 'app/app_widget.dart';
   
-  void main() => runApp(ModularApp(module: AppModule(), child: AppWidget()));
+  void main() => runApp(ModularApp(module: AppModule(), child: const AppWidget()));
   
 app_module: |
   import 'package:flutter_modular/flutter_modular.dart';
@@ -31,7 +31,9 @@ app_widget: |
   import 'package:flutter_modular/flutter_modular.dart';
   
   class AppWidget extends StatelessWidget {
-    @override
+  const AppWidget({Key? key}) : super(key: key);
+
+  @override
     Widget build(BuildContext context) {
       return MaterialApp.router(
         title: 'Flutter Slidy',
@@ -50,7 +52,7 @@ home_page: |
     const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
    
     @override
-    _HomePageState createState() => _HomePageState();
+    State<HomePage> createState() => _HomePageState();
   }
    
   class _HomePageState extends State<HomePage> {
@@ -78,7 +80,7 @@ home_module: |
    
     @override
     final List<ModularRoute> routes = [
-      ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
+      ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ];
   }
 
@@ -150,10 +152,11 @@ home_page_cubit: |
   
   class HomePage extends StatefulWidget {
     @override
-    _HomePageState createState() => _HomePageState();
+    State<HomePage> createState() => _HomePageState();
   }
   
   class _HomePageState extends State<HomePage> {
+
     final CounterCubit _counterCubit = Modular.get();
   
     @override
@@ -245,13 +248,13 @@ rx_dart: |
 triple: |
   import 'package:flutter_triple/flutter_triple.dart';
   
-  class HomeStore extends NotifierStore<Exception, int> {
+  class HomeStore extends Store<int> {
     HomeStore() : super(0);
   
     Future<void> increment() async {
       setLoading(true);
   
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
   
       int value = state + 1;
       if (value < 5) {
@@ -275,7 +278,7 @@ home_page_triple: |
     const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
-    _HomePageState createState() => _HomePageState();
+    State<HomePage> createState() => _HomePageState();
   }
   
   class _HomePageState extends State<HomePage> {
@@ -297,17 +300,17 @@ home_page_triple: |
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Counter'),
+          title: const Text('Counter'),
         ),
-        body: ScopedBuilder<HomeStore, Exception, int>(
+        body: ScopedBuilder<HomeStore, int>(
           store: store,
           onState: (_, counter) {
             return Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Text('\$counter'),
             );
           },
-          onError: (context, error) => Center(
+          onError: (context, error) => const Center(
             child: Text(
               'Too many clicks',
               style: TextStyle(color: Colors.red),
@@ -318,7 +321,7 @@ home_page_triple: |
           onPressed: () {
             store.increment();
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       );
     }
@@ -338,7 +341,7 @@ home_module_triple: |
    
     @override
     final List<ModularRoute> routes = [
-      ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
+      ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ];
    }
 
@@ -353,7 +356,7 @@ home_page_mobx: |
     const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
-    _HomePageState createState() => _HomePageState();
+    State<HomePage> createState() => _HomePageState();
   }
   
   class _HomePageState extends State<HomePage> {
@@ -399,7 +402,7 @@ home_module_mobx: |
    
     @override
     final List<ModularRoute> routes = [
-      ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
+      ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ];
    }
 
@@ -413,7 +416,7 @@ home_page_rx_dart: |
     const HomePage({Key? key, this.title = 'Home'}) : super(key: key);
   
     @override
-    _HomePageState createState() => _HomePageState();
+    State<HomePage> createState() => _HomePageState();
   }
   
   class _HomePageState extends State<HomePage> {
@@ -460,7 +463,7 @@ home_module_rx_dart: |
   
     @override
     final List<ModularRoute> routes = [
-      ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
+      ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ];
   }
 ''';

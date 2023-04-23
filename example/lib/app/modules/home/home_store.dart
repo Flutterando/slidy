@@ -1,6 +1,6 @@
 import 'package:flutter_triple/flutter_triple.dart';
 
-class HomeStore extends NotifierStore<Exception, int> {
+class HomeStore extends Store<int> {
   HomeStore() : super(0);
 
   Future<void> increment() async {
