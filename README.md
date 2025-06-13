@@ -1,3 +1,10 @@
+# IMPORTANT
+Slidy is being discontinued
+We would like to inform the community that Slidy will be discontinued.
+As Flutter and its ecosystem have evolved, new tools and practices have made Slidy less relevant.
+The project will no longer receive updates or bug fixes, and the repository will remain read-only for historical reference.
+Thank you to everyone who supported and used Slidy over the years!
+
 # Slidy
 
 CLI script pipeline, package manager and template generator for Flutter. Generate Modules, Pages, Widgets, BLoCs, Controllers, tests and more.
